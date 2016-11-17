@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Caliburn.Micro;
 using FaPA.Core;
+using FaPA.Data;
 using FaPA.Infrastructure.Helpers;
 using NHibernate;
 using NHibernate.Criterion;
@@ -38,8 +39,7 @@ namespace FaPA.Infrastructure
 			get
 			{
 			    if ( _session != null ) return _session;
-                //new AddPropertyChangedInterceptor()
-                return _session = SessionFactory.OpenSession( );
+                return _session = SessionFactory.OpenSession( new AddPropertyChangedInterceptor() );
 
             }
 		}

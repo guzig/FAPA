@@ -52,7 +52,7 @@ namespace FaPaTets.PersistanceTests
         {
             var fattura = DataTestFactory.GetFattura();
 
-            using (var session = _sessionFactory.OpenSession(new AddPropertyChangedInterceptor() ) )
+            using (var session = _sessionFactory.OpenSession( new AddPropertyChangedInterceptor() ) )
             using (var transaction = session.BeginTransaction())
             {
                 session.SaveOrUpdate(typeof(Fornitore).FullName, fattura.AnagraficaCedenteDB);
@@ -64,7 +64,7 @@ namespace FaPaTets.PersistanceTests
 
 
             Fattura fatturaInDb;
-            using (var session = _sessionFactory.OpenSession(new AddPropertyChangedInterceptor()))
+            using (var session = _sessionFactory.OpenSession( new AddPropertyChangedInterceptor()))
             using (var transaction = session.BeginTransaction())
             {
                 fatturaInDb = session.Get<Fattura>( fattura.Id );

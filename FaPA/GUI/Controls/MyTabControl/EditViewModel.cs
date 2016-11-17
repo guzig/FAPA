@@ -591,8 +591,7 @@ namespace FaPA.GUI.Controls.MyTabControl
 
             ObjectExplorer.TryProxiedAllInstances<DatiTrasmissioneType>(ref current, "FaPA.Core");
 
-            var poco = (current as Fattura).FatturaPa.FatturaElettronicaHeader.DatiTrasmissione;
-            var notifyPropertyChanged = poco as INotifyPropertyChanged;
+            var notifyPropertyChanged = current as INotifyPropertyChanged;
             if (notifyPropertyChanged == null) return;
             notifyPropertyChanged.PropertyChanged -= OnPropChanged;
             notifyPropertyChanged.PropertyChanged += OnPropChanged;
