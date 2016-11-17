@@ -1,0 +1,28 @@
+﻿<Application x:Class="FaPA.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <Application.Resources>
+        
+    <ResourceDictionary>
+        
+        <ResourceDictionary.MergedDictionaries>
+            <!--<ResourceDictionary Source="Design/Styles/Brushes.xaml" />-->
+            <ResourceDictionary Source="GUI/Design/Styles/Shared.xaml" />
+            <ResourceDictionary Source="GUI/Design/Styles/DataTemplates.xaml" />
+            <!--<ResourceDictionary Source="Design/Converters/Shared.xaml" />
+            <ResourceDictionary Source="Design/Templates/Shared.xaml" />
+            <ResourceDictionary Source="Design/Templates/EmptyGrid.xaml" />-->
+            <!--<ResourceDictionary Source = "SettingsRes.xaml"/>-->
+            
+            <ResourceDictionary Source="GUI/Design/Styles/DataGrid4.Generic.xaml"/>            
+            
+        </ResourceDictionary.MergedDictionaries>
+        
+    </ResourceDictionary>
+
+    </Application.Resources>
+    
+    <Application.ShutdownMode>OnMainWindowClose</Application.ShutdownMode>
+
+</Application>

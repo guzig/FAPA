@@ -1,0 +1,180 @@
+<UserControl x:Class="FaPA.GUI.Design.Templates.SearchTypeTemplates.TypeAssociationByComboBoxCriterion"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:finder1="clr-namespace:FaPA.Infrastructure.Finder"
+             xmlns:utils="clr-namespace:FaPA.GUI.Utils">
+    <UserControl.Resources>
+
+        <DataTemplate x:Key="EmptyTemplate"/>
+
+        <!-- DataTemplate for list of type member -->
+        <DataTemplate x:Key="ListValuesDataTemplate">
+
+            <DockPanel HorizontalAlignment="Stretch" Dock="Left">
+                <DataGrid   ItemsSource="{Binding OperatorValues, 
+                                                    Mode=TwoWay,
+                                                    ValidatesOnDataErrors=False, 
+                                                    ValidatesOnExceptions=False,
+                                                    UpdateSourceTrigger=PropertyChanged}"
+                            IsSynchronizedWithCurrentItem="True"
+                            SelectionMode="Single"
+                            CanUserAddRows="True" 
+                            CanUserDeleteRows="True"
+                            IsReadOnly="False"
+                            CanUserResizeRows="False" 
+                            CanUserSortColumns="True"
+                            AutoGenerateColumns="False"
+                            RowHeaderWidth="17" 
+                            RowHeight="22"
+                            HorizontalAlignment="Stretch"
+                            SelectionChanged="ListValuesSearchControlSelectionChanged"
+                            Loaded="DataGridLoaded"
+                            Width="Auto"
+                            HorizontalContentAlignment="Stretch"
+                            MaxHeight="100">
+                    <DataGrid.Resources>
+                        <finder1:BindingProxy x:Key="proxy" Data="{Binding}" />
+                    </DataGrid.Resources>
+                    <DataGrid.Columns >
+                        <DataGridComboBoxColumn 
+                                Header="Elenco valori" 
+                                Width="281" 
+                                ItemsSource="{Binding Path=Data.SourceCollection, Source={StaticResource proxy}, UpdateSourceTrigger=PropertyChanged}"  
+                                DisplayMemberPath="{Binding Path=Data.DisplayMemberPath, Source={StaticResource proxy}}"
+                                SelectedValueBinding="{Binding Path=Item, 
+                                                                ValidatesOnDataErrors=False, 
+                                                                ValidatesOnExceptions=False,
+                                                                UpdateSourceTrigger=PropertyChanged}">
+                        </DataGridComboBoxColumn>
+                    </DataGrid.Columns>
+
+                </DataGrid>
+            </DockPanel>
+
+        </DataTemplate>
+
+        <DataTemplate x:Key="SingleValueDataTemplate">
+            <ComboBox MinWidth="290" x:Name="cmb1"
+                      IsReadOnly="False"
+                      IsEditable="True"
+                      IsTextSearchEnabled="True"
+                      TextSearch.TextPath="{Binding DisplayMemberPath}"
+                      ItemsSource="{Binding SourceCollection, UpdateSourceTrigger=PropertyChanged}"  
+                      SelectedValue="{Binding Path=OperatorValue, 
+                                             Mode=TwoWay, 
+                                             UpdateSourceTrigger=PropertyChanged,
+                                             ValidatesOnDataErrors=True,
+                                             ValidatesOnExceptions=True}"
+                      DisplayMemberPath="{Binding DisplayMemberPath}"
+                      SelectionChanged="ListValuesSearchControlSelectionChanged">
+            </ComboBox>
+        </DataTemplate>
+
+        <DataTemplate x:Key="OperatorTypeDataTemplateFactory">
+
+            <ContentControl Name="cc" 
+                            Content="{Binding}"
+                            ContentTemplate="{DynamicResource SingleValueDataTemplate}" />
+
+            <DataTemplate.Triggers>
+
+                <DataTrigger Binding="{Binding Path=OperatorType, Mode=TwoWay}" Value="Equal">
+                    <Setter TargetName="cc"  Property="ContentTemplate"
+                                Value="{StaticResource SingleValueDataTemplate}" />
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding Path=OperatorType, Mode=TwoWay}" Value="NotEqual">
+                    <Setter TargetName="cc"  Property="ContentTemplate"
+                                Value="{StaticResource SingleValueDataTemplate}" />
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding Path=OperatorType, Mode=TwoWay}" Value="OneOf">
+                    <Setter TargetName="cc"  Property="ContentTemplate"
+                                Value="{StaticResource ListValuesDataTemplate}" />
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding Path=OperatorType, Mode=TwoWay}" Value="NoneOf">
+                    <Setter TargetName="cc"  Property="ContentTemplate"
+                                Value="{StaticResource ListValuesDataTemplate}" />
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding Path=OperatorType, Mode=TwoWay}" Value="NotSelected">
+                    <Setter TargetName="cc" Property="ContentTemplate" Value="{StaticResource EmptyTemplate}" />
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding Path=OperatorType, Mode=TwoWay}" Value="Null">
+                    <Setter TargetName="cc" Property="ContentTemplate" Value="{StaticResource EmptyTemplate}" />
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding Path=OperatorType, Mode=TwoWay}" Value="Notnull">
+                    <Setter TargetName="cc" Property="ContentTemplate" Value="{StaticResource EmptyTemplate}" />
+                </DataTrigger>
+
+            </DataTemplate.Triggers>
+
+        </DataTemplate>
+
+    </UserControl.Resources>
+
+    <Grid Name="CrossCoupledProps"  Margin="5,5,5,5" HorizontalAlignment="Stretch">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.BindingGroup >
+
+            <BindingGroup>
+
+                <BindingGroup.ValidationRules>
+
+                    <finder1:AssociationPropCriterionValidationRule ValidatesOnTargetUpdated="False"
+                                                                    ValidationStep="CommittedValue" />
+
+                </BindingGroup.ValidationRules>
+
+            </BindingGroup>
+
+        </Grid.BindingGroup>
+
+        <DockPanel Grid.Row="0" Grid.Column="0" Dock="Right">
+            <TextBlock Text="{Binding DisplayPropName}"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right"
+                    Margin="5,0,0,0" />
+        </DockPanel>
+
+        <DockPanel DockPanel.Dock="Left" Grid.Column="1">
+            <ComboBox Width="Auto"
+                        HorizontalAlignment="Stretch"
+                        VerticalContentAlignment="Center" 
+                        ItemsSource="{Binding Source={utils:Enumeration {x:Type finder1:AssociationPropertyOperatorEnums}}}"
+                        DisplayMemberPath="Description"  
+                        SelectedValuePath="Value"
+                        SelectedValue="{Binding OperatorType,  
+                                                ValidatesOnDataErrors=True,
+                                                NotifyOnValidationError=True,
+                                                UpdateSourceTrigger=PropertyChanged, 
+                                                Mode=TwoWay}" 
+                        Margin="5,0"
+                        HorizontalContentAlignment="Stretch"
+                        SelectionChanged="ComboBoxSelectionChanged"/>
+        </DockPanel>
+
+        <DockPanel Width="Auto" DockPanel.Dock="Left" Grid.Column="2" HorizontalAlignment="Stretch" >
+
+            <Border Width="Auto" HorizontalAlignment="Stretch" >
+
+                <ContentControl Content="{Binding}"
+                                ContentTemplate="{StaticResource OperatorTypeDataTemplateFactory}"
+                                Margin="0,0,0,0">
+                </ContentControl>
+
+            </Border>
+
+        </DockPanel>
+
+    </Grid>
+</UserControl>

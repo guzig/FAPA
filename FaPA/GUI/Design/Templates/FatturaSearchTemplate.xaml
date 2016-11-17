@@ -1,0 +1,160 @@
+﻿<UserControl x:Class="FaPA.GUI.Design.Templates.FatturaSearchTemplate"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             x:Name="Root">
+
+    <Border Style="{StaticResource MainBorderStyle}" Margin="5 5 5 5" Height="Auto" HorizontalAlignment="Stretch">
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+        <DockPanel  Width="Auto" HorizontalAlignment="Stretch"  Grid.Row="0">
+            <ContentControl Content="{Binding FatturaFinder.FatturaId, ElementName=Root, Mode=TwoWay}"
+                                    Width="Auto"
+                                    IsEnabled="{Binding AllowEditing.Value}">
+            </ContentControl>
+        </DockPanel>
+
+        <DockPanel  Width="Auto" HorizontalAlignment="Stretch"  Grid.Row="1" >
+            <ContentControl Content="{Binding Path=FatturaFinder.NumFattura, ElementName=Root, Mode=TwoWay}"
+                                            Width="Auto"
+                                            MinWidth="350"
+                                            IsEnabled="{Binding AllowEditing.Value}">
+            </ContentControl>
+        </DockPanel>
+
+        <DockPanel  Width="Auto" HorizontalAlignment="Stretch"  Grid.Row="2" >
+            <ContentControl Content="{Binding Path=FatturaFinder.DataFattura,  ElementName=Root, Mode=TwoWay}"
+                                            Width="Auto"
+                                            IsEnabled="{Binding AllowEditing.Value}">
+            </ContentControl>
+        </DockPanel>         
+
+        <DockPanel  Width="Auto" HorizontalAlignment="Stretch"  Grid.Row="3" >
+            <ContentControl Content="{Binding Path=FatturaFinder.TotaleFattura, ElementName=Root,  Mode=TwoWay}"
+                            Width="Auto"                                         
+                            IsEnabled="{Binding AllowEditing.Value}">
+            </ContentControl>
+        </DockPanel>
+
+        <DockPanel  Width="Auto" HorizontalAlignment="Stretch"  Grid.Row="4" >
+            <ContentControl Content="{Binding Path=FatturaFinder.TotaleDaPagare, ElementName=Root,  Mode=TwoWay}"
+                            Width="Auto"
+                            IsEnabled="{Binding AllowEditing.Value}">
+            </ContentControl>
+        </DockPanel>
+
+        <DockPanel Width="Auto" Grid.Row="5" HorizontalAlignment="Left" >
+            <ContentControl Content="{Binding Path=FatturaFinder.Fornitore,  ElementName=Root, Mode=TwoWay}"
+                                                    IsEnabled="{Binding AllowEditing.Value}">
+            </ContentControl>
+        </DockPanel>
+
+        <DockPanel Width="Auto" Grid.Row="6" HorizontalAlignment="Left" >
+            <ContentControl Content="{Binding Path=FatturaFinder.Committente,  ElementName=Root, Mode=TwoWay}"
+                                                IsEnabled="{Binding AllowEditing.Value}">
+            </ContentControl>
+        </DockPanel>
+
+            <!--<Expander   Header="Altri criteri..." 
+                    Margin="5,0,0,0"
+                    Width="Auto" HorizontalAlignment="Stretch"  Grid.Row="7"
+                    x:Name="ExpOthersMain">
+            <StackPanel>
+
+                <Expander Header="Liquidazione" 
+                          Margin="5,0,0,0"
+                          x:Name="ExpLiquidazione">
+                    <templates:LiquidazioneSearchTemplate LiquidazioneFinder="{Binding FatturaFinder.LiquidazioneFinder, ElementName=Root}"/>
+                </Expander>
+
+                <Expander Header="Dettagli Fatture" Margin="5,0,0,0">
+                    <templates:DettaglioFatturaSearchTemplate DettaglioFatturaFinder="{Binding FatturaFinder.DettaglioFatturaFinder, ElementName=Root}"/>
+                </Expander>
+
+
+                --><!--<Expander Header="CodicePoD" 
+                          Margin="5,0,0,0"
+                          x:Name="ExpPoD">
+                    <templates:PoDSearchTemplate PoDFinder="{Binding FatturaFinder.PoDFinder,  
+                                                                     ElementName=Root}"/>
+                </Expander>--><!--      
+        
+                <Expander   Header="Altri criteri..." 
+                            Margin="5,0,0,0"
+                            HorizontalAlignment="Left" 
+                            Width="Auto"
+                            x:Name="ExpOthers">
+
+                    <StackPanel Orientation="Vertical">
+                        <DockPanel  Width="Auto" 
+                                    HorizontalAlignment="Left" >
+                            <ContentControl Content="{Binding Path=FatturaFinder.DataInizioPeriodo, ElementName=Root, Mode=TwoWay}"
+                                            IsEnabled="{Binding AllowEditing.Value}">
+                            </ContentControl>
+                        </DockPanel>
+
+                        <DockPanel  Width="Auto" 
+                                    HorizontalAlignment="Left" >
+                            <ContentControl Content="{Binding Path=FatturaFinder.DataFinePeriodo, ElementName=Root,  Mode=TwoWay}"
+                                            Width="Auto"
+                                            MinWidth="350"                                            
+                                            IsEnabled="{Binding AllowEditing.Value}">
+                            </ContentControl>
+                        </DockPanel>
+
+                        <DockPanel  Width="Auto" 
+                            HorizontalAlignment="Left" >
+                            <ContentControl Content="{Binding   Path=FatturaFinder.CodiceCliente,  ElementName=Root, Mode=TwoWay}"
+                                                        Width="Auto"
+                                                        MinWidth="350"
+                                                        IsEnabled="{Binding AllowEditing.Value}">
+                            </ContentControl>
+                        </DockPanel>
+
+
+
+                        <DockPanel  Width="Auto"
+                                    HorizontalAlignment="Left" >
+                            <ContentControl Content="{Binding Path=FatturaFinder.StatoFattura, ElementName=Root,  Mode=TwoWay}"
+                                            Width="Auto"
+                                            MinWidth="300"                                            
+                                            IsEnabled="{Binding AllowEditing.Value}">
+                            </ContentControl>
+                        </DockPanel>
+
+                        <DockPanel  Width="Auto"
+                                    HorizontalAlignment="Left" >
+                            <ContentControl Content="{Binding Path=FatturaFinder.NomeFile, ElementName=Root,  Mode=TwoWay}"
+                                            Width="Auto"
+                                            MinWidth="300"                                            
+                                            IsEnabled="{Binding AllowEditing.Value}">
+                            </ContentControl>
+                        </DockPanel>
+                    </StackPanel>
+
+                </Expander>
+            
+            </StackPanel>
+    </Expander>-->
+        
+    </Grid>
+        
+   </Border>
+
+</UserControl>

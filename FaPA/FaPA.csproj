@@ -1,0 +1,722 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7B7E350A-022F-4E78-808D-52BBAFE752B4}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FaPA</RootNamespace>
+    <AssemblyName>FaPA</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=4.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.4.1.1\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Caliburn.Micro, Version=3.0.1.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Caliburn.Micro.Core.3.0.1\lib\net45\Caliburn.Micro.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Caliburn.Micro.Platform, Version=3.0.1.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Caliburn.Micro.3.0.1\lib\net45\Caliburn.Micro.Platform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Caliburn.Micro.Platform.Core, Version=3.0.1.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Caliburn.Micro.3.0.1\lib\net45\Caliburn.Micro.Platform.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Iesi.Collections.4.0.1.4000\lib\net40\Iesi.Collections.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NHibernate, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHibernate.4.0.4.4000\lib\net40\NHibernate.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NHibernate.Validator">
+      <HintPath>..\packages\NHV\NHibernate.Validator.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate.Validator.Specific">
+      <HintPath>..\packages\NHV\NHibernate.Validator.Specific.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Reactive.Core, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-Core.2.2.5\lib\net45\System.Reactive.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-Interfaces.2.2.5\lib\net45\System.Reactive.Interfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.Linq, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-Linq.2.2.5\lib\net45\System.Reactive.Linq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.PlatformServices, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-PlatformServices.2.2.5\lib\net45\System.Reactive.PlatformServices.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Windows.Controls.Ribbon" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Caliburn.Micro.3.0.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.6\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.6\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.6\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.6\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.6\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.6\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="GUI\Controls\MyRecordNavigator\MyRecordNavigator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GUI\Controls\MyTabControl\MyTabControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GUI\Design\Styles\DataGrid4.Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GUI\Design\Styles\DataTemplates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Design\Styles\Shared.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GUI\Design\Templates\AltriDatiGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Design\Templates\Anagrafica.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Design\Templates\AnagraficaGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Design\Templates\AnagraficaSearchTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GUI\Controls\CRUDVM.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GUI\Design\Templates\DatiOrdine.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GUI\Design\Templates\DettagliFattura.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GUI\Design\Templates\Fattura.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Design\Templates\FatturaGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GUI\Design\Templates\FatturaSearchTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GUI\Design\Templates\DatiTrasmittente.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GUI\Design\Templates\Ritenuta.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GUI\Design\Templates\SearchTypeTemplates\TypeAssociationByComboBoxCriterion.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GUI\Design\Templates\SearchTypeTemplates\TypeClassificazioneCriterion.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GUI\Design\Templates\SearchTypeTemplates\TypeDateTimeCriterion.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GUI\Design\Templates\SearchTypeTemplates\TypeEnumCriterion.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GUI\Design\Templates\SearchTypeTemplates\TypeNullDoubleCriterion.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GUI\Design\Templates\SearchTypeTemplates\TypeNullInt64Criterion.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GUI\Design\Templates\SearchTypeTemplates\TypeStringCriterion.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GUI\Design\Templates\SearchTypeTemplates\TypeTagsAssociationByCheckBoxCriterion.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GUI\Feautures\Anagrafica\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AppServices\CoreValidation\AltriDatiGestionaliValidator.cs" />
+    <Compile Include="AppServices\CoreValidation\NhvAnagraficaValidator.cs" />
+    <Compile Include="AppServices\CoreValidation\BaseCoreValidator.cs" />
+    <Compile Include="AppServices\CoreValidation\NhFatturaValidator.cs" />
+    <Compile Include="AppServices\CoreValidation\ObjectExplorer.cs" />
+    <Compile Include="AppServices\CoreValidation\CoreValidatorService.cs" />
+    <Compile Include="AppServices\CoreValidation\DatiRitenutaValidator.cs" />
+    <Compile Include="AppServices\CoreValidation\DettaglioLineeValidator.cs" />
+    <Compile Include="AppServices\CoreValidation\DettaglioPagamentoValidator.cs" />
+    <Compile Include="AppServices\CoreValidation\ICoreValidator.cs" />
+    <Compile Include="AppServices\CoreValidation\DatiCorrelatiValidator.cs" />
+    <Compile Include="AppServices\CoreValidation\NhValidator.cs" />
+    <Compile Include="AppServices\StoreAccess.cs" />
+    <Compile Include="Core\Anagrafica.cs" />
+    <Compile Include="Core\BaseEntity.cs" />
+    <Compile Include="Core\BaseEntityFpa.cs" />
+    <Compile Include="Core\Committente.cs" />
+    <Compile Include="Core\Comune.cs" />
+    <Compile Include="Core\DomainResult.cs" />
+    <Compile Include="Core\FaPa\AllegatiType.cs" />
+    <Compile Include="Core\FaPa\AltriDatiGestionaliType.cs" />
+    <Compile Include="Core\FaPa\AnagraficaType.cs" />
+    <Compile Include="Core\FaPa\Art73Type.cs" />
+    <Compile Include="Core\FaPa\BolloVirtualeType.cs" />
+    <Compile Include="Core\FaPa\CausalePagamentoType.cs" />
+    <Compile Include="Core\FaPa\CedentePrestatoreType.cs" />
+    <Compile Include="Core\FaPa\CessionarioCommittenteType.cs" />
+    <Compile Include="Core\FaPa\CodiceArticoloType.cs" />
+    <Compile Include="Core\FaPa\CondizioniPagamentoType.cs" />
+    <Compile Include="Core\FaPa\ContattiTrasmittenteType.cs" />
+    <Compile Include="Core\FaPa\ContattiType.cs" />
+    <Compile Include="Core\FaPa\DatiAnagraficiCedenteType.cs" />
+    <Compile Include="Core\FaPa\DatiAnagraficiCessionarioType.cs" />
+    <Compile Include="Core\FaPa\DatiAnagraficiRappresentanteType.cs" />
+    <Compile Include="Core\FaPa\DatiAnagraficiTerzoIntermediarioType.cs" />
+    <Compile Include="Core\FaPa\DatiAnagraficiVettoreType.cs" />
+    <Compile Include="Core\FaPa\DatiBeniServiziType.cs" />
+    <Compile Include="Core\FaPa\DatiBolloType.cs" />
+    <Compile Include="Core\FaPa\DatiCassaPrevidenzialeType.cs" />
+    <Compile Include="Core\FaPa\DatiDdtType.cs" />
+    <Compile Include="Core\FaPa\DatiDocumentiCorrelatiType.cs" />
+    <Compile Include="Core\FaPa\DatiGeneraliDocumentoType.cs" />
+    <Compile Include="Core\FaPa\DatiGeneraliType.cs" />
+    <Compile Include="Core\FaPa\DatiPagamentoType.cs" />
+    <Compile Include="Core\FaPa\DatiRiepilogoType.cs" />
+    <Compile Include="Core\FaPa\DatiRitenutaType.cs" />
+    <Compile Include="Core\FaPa\DatiSALType.cs" />
+    <Compile Include="Core\FaPa\DatiTrasmissioneType.cs" />
+    <Compile Include="Core\FaPa\DatiTrasportoType.cs" />
+    <Compile Include="Core\FaPa\DatiVeicoliType.cs" />
+    <Compile Include="Core\FaPa\DettaglioLineeType.cs" />
+    <Compile Include="Core\FaPa\DettaglioPagamentoType.cs" />
+    <Compile Include="Core\FaPa\EsigibilitaIVAType.cs" />
+    <Compile Include="Core\FaPa\FatturaElettronicaBodyType.cs" />
+    <Compile Include="Core\FaPa\FatturaElettronicaHeaderType.cs" />
+    <Compile Include="Core\FaPa\FatturaElettronicaType.cs" />
+    <Compile Include="Core\FaPa\FatturaPrincipaleType.cs" />
+    <Compile Include="Core\FaPa\FormatoTrasmissioneType.cs" />
+    <Compile Include="Core\FaPa\IdFiscaleType.cs" />
+    <Compile Include="Core\FaPa\IndirizzoType.cs" />
+    <Compile Include="Core\FaPa\IscrizioneREAType.cs" />
+    <Compile Include="Core\FaPa\ModalitaPagamentoType.cs" />
+    <Compile Include="Core\FaPa\NaturaType.cs" />
+    <Compile Include="Core\FaPa\RappresentanteFiscaleType.cs" />
+    <Compile Include="Core\FaPa\RegimeFiscaleType.cs" />
+    <Compile Include="Core\FaPa\RitenutaType.cs" />
+    <Compile Include="Core\FaPa\ScontoMaggiorazioneType.cs" />
+    <Compile Include="Core\FaPa\SocioUnicoType.cs" />
+    <Compile Include="Core\FaPa\SoggettoEmittenteType.cs" />
+    <Compile Include="Core\FaPa\StatoLiquidazioneType.cs" />
+    <Compile Include="Core\FaPa\TerzoIntermediarioSoggettoEmittenteType.cs" />
+    <Compile Include="Core\FaPa\TipoCassaType.cs" />
+    <Compile Include="Core\FaPa\TipoCessionePrestazioneType.cs" />
+    <Compile Include="Core\FaPa\TipoDocumentoType.cs" />
+    <Compile Include="Core\FaPa\TipoRitenutaType.cs" />
+    <Compile Include="Core\FaPa\TipoScontoMaggiorazioneType.cs" />
+    <Compile Include="Core\FaPa\VersioneSchemaType.cs" />
+    <Compile Include="Core\FatturaPaType.cs" />
+    <Compile Include="Core\FaPa\SignatureFPA\CanonicalizationMethodType.cs" />
+    <Compile Include="Core\FaPa\SignatureFPA\DigestMethodType.cs" />
+    <Compile Include="Core\FaPa\SignatureFPA\DSAKeyValueType.cs" />
+    <Compile Include="Core\FaPa\SignatureFPA\ItemsChoiceType1.cs" />
+    <Compile Include="Core\FaPa\SignatureFPA\ItemsChoiceType2.cs" />
+    <Compile Include="Core\FaPa\SignatureFPA\ItemsChoiceType3.cs" />
+    <Compile Include="Core\FaPa\SignatureFPA\KeyInfoType.cs" />
+    <Compile Include="Core\FaPa\SignatureFPA\KeyValueType.cs" />
+    <Compile Include="Core\FaPa\SignatureFPA\ObjectType.cs" />
+    <Compile Include="Core\FaPa\SignatureFPA\PGPDataType.cs" />
+    <Compile Include="Core\FaPa\SignatureFPA\ReferenceType.cs" />
+    <Compile Include="Core\FaPa\SignatureFPA\RetrievalMethodType.cs" />
+    <Compile Include="Core\FaPa\SignatureFPA\RSAKeyValueType.cs" />
+    <Compile Include="Core\FaPa\SignatureFPA\SignatureMethodType.cs" />
+    <Compile Include="Core\FaPa\SignatureFPA\SignatureType.cs" />
+    <Compile Include="Core\FaPa\SignatureFPA\SignatureValueType.cs" />
+    <Compile Include="Core\FaPa\SignatureFPA\SignedInfoType.cs" />
+    <Compile Include="Core\FaPa\SignatureFPA\SPKIDataType.cs" />
+    <Compile Include="Core\FaPa\SignatureFPA\TransformType.cs" />
+    <Compile Include="Core\FaPa\SignatureFPA\X509DataType.cs" />
+    <Compile Include="Core\FaPa\SignatureFPA\X509IssuerSerialType.cs" />
+    <Compile Include="Core\Fattura.cs" />
+    <Compile Include="Core\Fornitore.cs" />
+    <Compile Include="Core\IEntity.cs" />
+    <Compile Include="Core\IFlyFetch.cs" />
+    <Compile Include="Core\IValidatable.cs" />
+    <Compile Include="Core\SerializerHelpers.cs" />
+    <Compile Include="Core\ValidatableExtensions.cs" />
+    <Compile Include="Data\AnagraficaMap.cs" />
+    <Compile Include="Data\AddPropChangedAndDataErrorInterceptorProxyFactory.cs" />
+    <Compile Include="Data\AddPropertyChangedInterceptor.cs" />
+    <Compile Include="Data\PropChangedAndDataErrorDynProxyInterceptor.cs" />
+    <Compile Include="Data\NotifyPropChangedAndDataErrorInfoInterceptor.cs" />
+    <Compile Include="Data\ComuneMap.cs" />
+    <Compile Include="Data\PropertyChangedDynProxyTypeValidator.cs" />
+    <Compile Include="Data\PropertyChangedLazyInitializer.cs" />
+    <Compile Include="Data\PropertyChangedProxyFactory.cs" />
+    <Compile Include="Data\PropertyChangedProxyFactoryFactory.cs" />
+    <Compile Include="Data\ValidationMaps\FatturaSofValidation.cs" />
+    <Compile Include="Data\CommittenteMap.cs" />
+    <Compile Include="Data\FornitoreMap.cs" />
+    <Compile Include="Data\PropertyPathExtensions.cs" />
+    <Compile Include="Data\FatturaMap.cs" />
+    <Compile Include="Data\ModelMapperWithNamingConventions.cs" />
+    <Compile Include="Data\_NotifyPropertyChangedInterceptor.cs" />
+    <Compile Include="DomainServices\NHibernateStaticContainer.cs" />
+    <Compile Include="DomainServices\Utils\Utf8StringWriter.cs" />
+    <Compile Include="DomainServices\Utils\NhHelper.cs" />
+    <Compile Include="DomainServices\Utils\UnitOfWork.cs" />
+    <Compile Include="DomainServices\Utils\ReferenceDataFactory.cs" />
+    <Compile Include="DomainServices\Utils\LinqUtil.cs" />
+    <Compile Include="GUI\Controls\BaseCustomControl.cs" />
+    <Compile Include="GUI\Controls\BaseListViewControl.cs" />
+    <Compile Include="GUI\Design\Converters\NullToBooleanConverter.cs" />
+    <Compile Include="GUI\Design\Converters\NullToInverseVisibiltyConverter.cs" />
+    <Compile Include="GUI\Design\Converters\NullToVisibiltyConverter.cs" />
+    <Compile Include="GUI\Feautures\Anagrafica\AnagraficaListViewModel.cs" />
+    <Compile Include="GUI\Feautures\Fattura\UniqueFatturaValidationRule.cs" />
+    <Compile Include="GUI\Feautures\Fattura\FatturaListViewModel.cs" />
+    <Compile Include="GUI\Feautures\Fattura\ReflectionHelpers.cs" />
+    <Compile Include="Infrastructure\Helpers\NhProxyInspector.cs" />
+    <Compile Include="Infrastructure\IRepository.cs" />
+    <Compile Include="GUI\Controls\MyRecordNavigator\MyRecordNavigator.xaml.cs" />
+    <Compile Include="GUI\Controls\MyTabControl\BaseCrudModel.cs" />
+    <Compile Include="GUI\Controls\MyTabControl\CommandViewModel.cs" />
+    <Compile Include="GUI\Controls\MyTabControl\EditViewModel.cs" />
+    <Compile Include="GUI\Controls\MyTabControl\IBasePresenter.cs" />
+    <Compile Include="GUI\Controls\MyTabControl\IEditViewModel.cs" />
+    <Compile Include="GUI\Controls\MyTabControl\ListViewViewModel.cs" />
+    <Compile Include="GUI\Controls\MyTabControl\MyTabControl.xaml.cs" />
+    <Compile Include="GUI\Controls\MyTabControl\TabControlEx.cs" />
+    <Compile Include="GUI\Controls\MyTabControl\ViewModelBase.cs" />
+    <Compile Include="GUI\Controls\MyTabControl\ViewModelEmpty.cs" />
+    <Compile Include="GUI\Controls\MyTabControl\WorkspaceViewModel.cs" />
+    <Compile Include="GUI\Design\Commands\DelegatingCommand.cs" />
+    <Compile Include="GUI\Design\Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="GUI\Design\Converters\VisibilityConverter.cs" />
+    <Compile Include="GUI\Design\Converters\EnumValuesConverter.cs" />
+    <Compile Include="GUI\Design\Converters\ImageConverter.cs" />
+    <Compile Include="GUI\Design\Converters\InverseBooleanConverter.cs" />
+    <Compile Include="GUI\Design\Converters\ProgBarVisibilityConverter.cs" />
+    <Compile Include="GUI\Design\Converters\StringMemberNameToVisibilityConverter.cs" />
+    <Compile Include="GUI\Design\Converters\StringToBrushConverter.cs" />
+    <Compile Include="GUI\Design\Converters\StringToDataTemplateConverter.cs" />
+    <Compile Include="GUI\Design\Converters\StringToVisibilityConverter.cs" />
+    <Compile Include="GUI\Design\Converters\ZeroToOneBasedIndexConverter.cs" />
+    <Compile Include="GUI\Design\Events\RemoveTabView.cs" />
+    <Compile Include="GUI\Design\Templates\AltriDatiGrid.xaml.cs">
+      <DependentUpon>AltriDatiGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Design\Templates\Anagrafica.xaml.cs">
+      <DependentUpon>Anagrafica.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Design\Templates\AnagraficaGrid.xaml.cs">
+      <DependentUpon>AnagraficaGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Design\Templates\AnagraficaSearchTemplate.xaml.cs" />
+    <Compile Include="GUI\Controls\CRUDVM.xaml.cs" />
+    <Compile Include="GUI\Design\Templates\DatiOrdine.xaml.cs">
+      <DependentUpon>DatiOrdine.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Design\Templates\DettagliFattura.xaml.cs" />
+    <Compile Include="GUI\Design\Templates\Fattura.xaml.cs">
+      <DependentUpon>Fattura.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Design\Templates\FatturaGrid.xaml.cs" />
+    <Compile Include="GUI\Design\Templates\FatturaSearchTemplate.xaml.cs" />
+    <Compile Include="GUI\Design\Templates\DatiTrasmittente.xaml.cs">
+      <DependentUpon>DatiTrasmittente.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Design\Templates\Ritenuta.xaml.cs" />
+    <Compile Include="GUI\Design\Templates\SearchTypeTemplates\TypeAssociationByComboBoxCriterion.xaml.cs" />
+    <Compile Include="GUI\Design\Templates\SearchTypeTemplates\TypeClassificazioneCriterion.xaml.cs" />
+    <Compile Include="GUI\Design\Templates\SearchTypeTemplates\TypeDateTimeCriterion.xaml.cs" />
+    <Compile Include="GUI\Design\Templates\SearchTypeTemplates\TypeEnumCriterion.xaml.cs" />
+    <Compile Include="GUI\Design\Templates\SearchTypeTemplates\TypeNullDoubleCriterion.xaml.cs" />
+    <Compile Include="GUI\Design\Templates\SearchTypeTemplates\TypeNullInt64Criterion.xaml.cs" />
+    <Compile Include="GUI\Design\Templates\SearchTypeTemplates\TypeStringCriterion.xaml.cs" />
+    <Compile Include="GUI\Design\Templates\SearchTypeTemplates\TypeSystem.cs" />
+    <Compile Include="GUI\Design\Templates\SearchTypeTemplates\TypeTagsAssociationByCheckBoxCriterion.xaml.cs" />
+    <Compile Include="GUI\Feautures\Anagrafica\AnagraficaViewModel.cs" />
+    <Compile Include="GUI\Feautures\Anagrafica\Model.cs" />
+    <Compile Include="GUI\Feautures\Anagrafica\Presenter.cs" />
+    <Compile Include="GUI\Feautures\Fattura\AltriDatiViewModel.cs" />
+    <Compile Include="GUI\Feautures\Fattura\DatiOrdineTabViewModel.cs" />
+    <Compile Include="GUI\Feautures\Fattura\DatiPagamentoTabViewModel.cs" />
+    <Compile Include="GUI\Controls\BaseTabsViewModel.cs" />
+    <Compile Include="GUI\Feautures\Fattura\DettagliFatturaViewModel.cs" />
+    <Compile Include="GUI\Feautures\Fattura\TrasmittenteTabViewModel.cs" />
+    <Compile Include="GUI\Controls\EditWorkSpaceViewModel.cs" />
+    <Compile Include="GUI\Feautures\Anagrafica\AnagraficaEntityTypeConverter.cs" />
+    <Compile Include="GUI\Feautures\Fattura\RitenutaTabViewModel.cs" />
+    <Compile Include="GUI\Feautures\Anagrafica\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Feautures\Fattura\EditFatturaViewModel.cs" />
+    <Compile Include="GUI\Feautures\Fattura\Model.cs" />
+    <Compile Include="GUI\Feautures\Fattura\Presenter.cs" />
+    <Compile Include="GUI\Feautures\Fattura\SearchFatturaQueryObject.cs" />
+    <Compile Include="GUI\Feautures\Fattura\View.xaml.cs" />
+    <Compile Include="GUI\Feautures\Fattura\WindowsUtil.cs" />
+    <Compile Include="GUI\Feautures\Main\ItemSources.cs" />
+    <Compile Include="GUI\Feautures\Main\Model.cs" />
+    <Compile Include="GUI\Feautures\Main\Presenter.cs" />
+    <Compile Include="GUI\Feautures\Main\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Feautures\SearchAnagrafica\AnagraficaFinder.cs" />
+    <Compile Include="GUI\Feautures\SearchAnagrafica\Model.cs" />
+    <Compile Include="GUI\Feautures\SearchAnagrafica\Presenter.cs" />
+    <Compile Include="GUI\Feautures\SearchAnagrafica\View.xaml.cs" />
+    <Compile Include="GUI\Feautures\SearchFattura\CommittenteSearchProperty.cs" />
+    <Compile Include="GUI\Feautures\SearchFattura\DettaglioFatturaFinder.cs" />
+    <Compile Include="GUI\Feautures\SearchFattura\FattureFinder.cs" />
+    <Compile Include="GUI\Feautures\SearchFattura\FornitoreSearchProperty.cs" />
+    <Compile Include="GUI\Feautures\SearchFattura\Model.cs" />
+    <Compile Include="GUI\Feautures\SearchFattura\Presenter.cs" />
+    <Compile Include="GUI\Feautures\SearchFattura\SearchFatturaQueryObject.cs" />
+    <Compile Include="GUI\Feautures\SearchFattura\View.xaml.cs" />
+    <Compile Include="GUI\Feautures\ShowXmlToTreeView\Model.cs" />
+    <Compile Include="GUI\Feautures\ShowXmlToTreeView\Presenter.cs" />
+    <Compile Include="GUI\Feautures\ShowXmlToTreeView\View.xaml.cs" />
+    <Compile Include="GUI\Utils\WindowBase.cs" />
+    <Compile Include="GUI\Utils\EnumerationExtension.cs" />
+    <Compile Include="GUI\Utils\FocusAdvancement.cs" />
+    <Compile Include="GUI\Utils\WpfHelpers.cs" />
+    <Compile Include="GUI\Utils\ReflHelpers.cs" />
+    <Compile Include="GUI\Utils\RelayCommand.cs" />
+    <Compile Include="GUI\Utils\PropertyChangeEventArgs.cs" />
+    <Compile Include="GUI\Utils\ShowCursor.cs" />
+    <Compile Include="Infrastructure\AbstractPresenter.cs" />
+    <Compile Include="Infrastructure\Dto\AltriDatiDto.cs" />
+    <Compile Include="Infrastructure\Dto\AltriDatiGestionaliTypeConverter.cs" />
+    <Compile Include="Infrastructure\Dto\DatiDocumentiCorrelatiDto.cs" />
+    <Compile Include="Infrastructure\Dto\DatiOrdineAcquistoDto.cs" />
+    <Compile Include="Infrastructure\Dto\DatiPagamentoDto.cs" />
+    <Compile Include="Infrastructure\Dto\DatiRitenutaTypeDto.cs" />
+    <Compile Include="Infrastructure\Dto\DatiTrasmissioneDto.cs" />
+    <Compile Include="Infrastructure\Dto\NotDaoBaseEntityDto.cs" />
+    <Compile Include="Infrastructure\Dto\RitenutaTypeConverter.cs" />
+    <Compile Include="Infrastructure\Finder\AssociationPropCriterionValidationRule.cs" />
+    <Compile Include="Infrastructure\Finder\AssociationSearchProperty.cs" />
+    <Compile Include="Infrastructure\Finder\BindingProxy.cs" />
+    <Compile Include="Infrastructure\Finder\BooleanSearchproperty.cs" />
+    <Compile Include="Infrastructure\Finder\PropertyChangeEventArgs.cs" />
+    <Compile Include="Infrastructure\Finder\CollectionFinder.cs" />
+    <Compile Include="Infrastructure\Finder\DateTimePropCriterionValidationRule.cs" />
+    <Compile Include="Infrastructure\Finder\DateTimeSearchProperty.cs" />
+    <Compile Include="Infrastructure\Finder\DoublePropCriterionValidationRule.cs" />
+    <Compile Include="Infrastructure\Finder\DoubleSearchProperty.cs" />
+    <Compile Include="Infrastructure\Finder\EnumPropCriterionValidationRule.cs" />
+    <Compile Include="Infrastructure\Finder\EnumSearchProperty.cs" />
+    <Compile Include="Infrastructure\Finder\FinderConfirmSearchEventArgs.cs" />
+    <Compile Include="Infrastructure\Finder\FloatSearchProperty.cs" />
+    <Compile Include="Infrastructure\Finder\Int64PropCriterionValidationRule.cs" />
+    <Compile Include="Infrastructure\Finder\Int64SearchProperty.cs" />
+    <Compile Include="Infrastructure\Finder\INumsSearchProperty.cs" />
+    <Compile Include="Infrastructure\Finder\IQueryCriteria.cs" />
+    <Compile Include="Infrastructure\Finder\ISearchProperty.cs" />
+    <Compile Include="Infrastructure\Finder\ItemValue.cs" />
+    <Compile Include="Infrastructure\Finder\NumericSearchproperty.cs" />
+    <Compile Include="Infrastructure\Finder\ObjectFinder.cs" />
+    <Compile Include="Infrastructure\Finder\OperatorEnums.cs" />
+    <Compile Include="Infrastructure\Finder\ProxyHelpers.cs" />
+    <Compile Include="Infrastructure\Finder\SearchProperty.cs" />
+    <Compile Include="Infrastructure\Finder\StringPropCriterionValidationRule.cs" />
+    <Compile Include="Infrastructure\Finder\StringSearchProperty.cs" />
+    <Compile Include="Infrastructure\Helpers\BaseObservable.cs" />
+    <Compile Include="Infrastructure\BootStrapper.cs" />
+    <Compile Include="Infrastructure\Helpers\BasicSharedEngineProvider.cs" />
+    <Compile Include="GUI\Controls\MyTabControl\BaseCrudPresenter.cs" />
+    <Compile Include="Infrastructure\Helpers\FinderConfirmSearchEventArgs.cs" />
+    <Compile Include="Infrastructure\Dto\DettaglioFatturaDto.cs" />
+    <Compile Include="Infrastructure\Dto\ValidationEventArgs.cs" />
+    <Compile Include="Infrastructure\FlyFetch\BaseQueryPaginatorObject.cs" />
+    <Compile Include="Infrastructure\FlyFetch\CollectionFactory.cs" />
+    <Compile Include="Infrastructure\FlyFetch\CountEventArgs.cs" />
+    <Compile Include="Infrastructure\FlyFetch\GetbyIdsCountProvider.cs" />
+    <Compile Include="Infrastructure\FlyFetch\GetByIdsQueryObject.cs" />
+    <Compile Include="Infrastructure\FlyFetch\IBaseQueryPaginatorObject.cs" />
+    <Compile Include="Infrastructure\FlyFetch\ICountProvider.cs" />
+    <Compile Include="Infrastructure\FlyFetch\IGetByIdsQueryObject.cs" />
+    <Compile Include="Infrastructure\FlyFetch\INotifyDataSourceHit.cs" />
+    <Compile Include="Infrastructure\FlyFetch\INotifyDataSourceLoadCompleted.cs" />
+    <Compile Include="Infrastructure\FlyFetch\IPageableElement.cs" />
+    <Compile Include="Infrastructure\FlyFetch\IPageHit.cs" />
+    <Compile Include="Infrastructure\FlyFetch\IPageProvider.cs" />
+    <Compile Include="Infrastructure\FlyFetch\PageInterceptor.cs" />
+    <Compile Include="Infrastructure\FlyFetch\ProxyFactory.cs" />
+    <Compile Include="Infrastructure\Helpers\HibHelpers.cs" />
+    <Compile Include="Infrastructure\Helpers\NHibernateConfigurationExtensions.cs" />
+    <Compile Include="Infrastructure\Helpers\Observable.cs" />
+    <Compile Include="Infrastructure\Helpers\ProxyHelpers.cs" />
+    <Compile Include="Infrastructure\Helpers\DependencyObjExtensions.cs" />
+    <Compile Include="Infrastructure\Dto\BaseEntityDTO.cs" />
+    <Compile Include="Infrastructure\Helpers\EventPublisher.cs" />
+    <Compile Include="Infrastructure\Helpers\Fact.cs" />
+    <Compile Include="Infrastructure\IPresenter.cs" />
+    <Compile Include="Infrastructure\ModelBase.cs" />
+    <Compile Include="Infrastructure\Helpers\NHibernateHelper.cs" />
+    <Compile Include="Infrastructure\Helpers\GenericsObservable.cs" />
+    <Compile Include="Infrastructure\Presenters.cs" />
+    <Compile Include="Infrastructure\Helpers\SmartVisualTreeHelper.cs" />
+    <Page Include="GUI\Feautures\Fattura\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GUI\Feautures\Main\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Feautures\SearchAnagrafica\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GUI\Feautures\SearchFattura\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GUI\Feautures\ShowXmlToTreeView\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="GUI\Design\Styles\Images\1343547225_file_add.png" />
+    <Resource Include="GUI\Design\Styles\Images\1351794424_file_search.png" />
+    <Resource Include="GUI\Design\Styles\Images\1366144159_error.png" />
+    <Resource Include="GUI\Design\Styles\Images\14-tag.png" />
+    <Resource Include="GUI\Design\Styles\Images\Actions-go-first-view-icon.png" />
+    <Resource Include="GUI\Design\Styles\Images\Actions-go-last-view-icon.png" />
+    <Resource Include="GUI\Design\Styles\Images\Actions-go-next-view-icon.png" />
+    <Resource Include="GUI\Design\Styles\Images\Actions-go-previous-view-icon.png" />
+    <Resource Include="GUI\Design\Styles\Images\Actions-system-run-icon.png" />
+    <Resource Include="GUI\Design\Styles\Images\Add-icon.png" />
+    <Resource Include="GUI\Design\Styles\Images\Add-icon2.png" />
+    <Resource Include="GUI\Design\Styles\Images\Add_24.png" />
+    <Resource Include="GUI\Design\Styles\Images\agent.gif" />
+    <Resource Include="GUI\Design\Styles\Images\Alert-Icon.png" />
+    <Resource Include="GUI\Design\Styles\Images\AlertsSmall.png" />
+    <Resource Include="GUI\Design\Styles\Images\alet-cricle.png" />
+    <Resource Include="GUI\Design\Styles\Images\ArrowFirst.png" />
+    <Resource Include="GUI\Design\Styles\Images\ArrowLast.png" />
+    <Resource Include="GUI\Design\Styles\Images\ArrowNext.png" />
+    <Resource Include="GUI\Design\Styles\Images\ArrowPrev.png" />
+    <Resource Include="GUI\Design\Styles\Images\Bar-Chart-icon.png" />
+    <Resource Include="GUI\Design\Styles\Images\bigMarkerGreen.png" />
+    <Resource Include="GUI\Design\Styles\Images\bigMarkerRed.png" />
+    <Resource Include="GUI\Design\Styles\Images\Business-graph-icon.png" />
+    <Resource Include="GUI\Design\Styles\Images\Calendar_64.png" />
+    <Resource Include="GUI\Design\Styles\Images\cancel.png" />
+    <Resource Include="GUI\Design\Styles\Images\Chart-column-icon.png" />
+    <Resource Include="GUI\Design\Styles\Images\Chart-pie-icon.png" />
+    <Resource Include="GUI\Design\Styles\Images\CheckAll_24.png" />
+    <Resource Include="GUI\Design\Styles\Images\Circled Chevron Down-26.png" />
+    <Resource Include="GUI\Design\Styles\Images\currency_blue_euro.png" />
+    <Resource Include="GUI\Design\Styles\Images\delete%281%29.png" />
+    <Resource Include="GUI\Design\Styles\Images\Edit_24.png" />
+    <Resource Include="GUI\Design\Styles\Images\Files-New-File-icon.png" />
+    <Resource Include="GUI\Design\Styles\Images\Filter_24.png" />
+    <Resource Include="GUI\Design\Styles\Images\find%282%29.png" />
+    <Resource Include="GUI\Design\Styles\Images\find.png" />
+    <Resource Include="GUI\Design\Styles\Images\gnome_dev_floppy.png" />
+    <Resource Include="GUI\Design\Styles\Images\icona.ico" />
+    <Resource Include="GUI\Design\Styles\Images\info_box_blue.png" />
+    <Resource Include="GUI\Design\Styles\Images\lightbulb-icon-39x39.png" />
+    <Resource Include="GUI\Design\Styles\Images\Line-chart-icon.png" />
+    <Resource Include="GUI\Design\Styles\Images\List_bullets.png" />
+    <Resource Include="GUI\Design\Styles\Images\MenuG.gif" />
+    <Resource Include="GUI\Design\Styles\Images\PasswordEyeBlack.png" />
+    <Resource Include="GUI\Design\Styles\Images\PasswordEyeWhite.png" />
+    <Resource Include="GUI\Design\Styles\Images\payment-icon.png" />
+    <Resource Include="GUI\Design\Styles\Images\Player Previous.png" />
+    <Resource Include="GUI\Design\Styles\Images\print.png" />
+    <Resource Include="GUI\Design\Styles\Images\print1.png" />
+    <Resource Include="GUI\Design\Styles\Images\Refresh_24.png" />
+    <Resource Include="GUI\Design\Styles\Images\Run_24.png" />
+    <Resource Include="GUI\Design\Styles\Images\save%281%29.png" />
+    <Resource Include="GUI\Design\Styles\Images\save_accept.png" />
+    <Resource Include="GUI\Design\Styles\Images\Select_18.png" />
+    <Resource Include="GUI\Design\Styles\Images\Select_24.png" />
+    <Resource Include="GUI\Design\Styles\Images\Setting_24.png" />
+    <Resource Include="GUI\Design\Styles\Images\UnCheckAll_24.png" />
+    <Resource Include="GUI\Design\Styles\Images\UserSilhouette.png" />
+    <Resource Include="GUI\Design\Styles\Images\ValidationError.png" />
+    <Resource Include="GUI\Design\Styles\Images\wizard.png" />
+    <Resource Include="GUI\Design\Styles\Images\Flow Chart-48.png" />
+    <Resource Include="GUI\Design\Styles\Images\Settings.ico" />
+    <Resource Include="GUI\Design\Styles\Images\fpa.jpg" />
+    <Resource Include="GUI\Design\Styles\Images\gnome_panel_force_quit.png" />
+    <Resource Include="GUI\Design\Styles\Images\Send File-48.png" />
+    <Content Include="nhibernate.cfg.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,30 @@
+﻿<Window x:Class="FaPA.GUI.Feautures.Fattura.View"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:cc="clr-namespace:FaPA.GUI.Controls.MyTabControl"
+        Title="Emissione fatture PA" SizeToContent="WidthAndHeight"
+        HorizontalAlignment="Stretch" VerticalAlignment ="Stretch" Height="500" >
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*">
+            </ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+
+        </Grid.RowDefinitions>
+
+		<TextBlock Text="Fatture" Style="{StaticResource Title}" Grid.Row="0" TextAlignment="Center"
+				   VerticalAlignment="Top"/>
+
+        <Border Height="Auto" Grid.Row="1" Width="Auto" Style="{StaticResource MainBorderStyle}" >
+            
+            <cc:MyTabControl />
+
+        </Border>
+
+
+    </Grid>
+</Window>

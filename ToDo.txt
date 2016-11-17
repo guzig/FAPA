@@ -1,0 +1,61 @@
+
+DataGridHelpers.DataGridKeyUpEventHandler( e, FattureGridSearch );
+
+serialization
+--riepilogo per ogni dettaglio iva
+--ritenuta
+
+archivio comuni e provincie
+verificare standard iso ..nazione etc
+
+validazione persona fisica giuridica
+ricerca immediata
+accenti lista comuni
+dati fattura pa: id trasmittente et all
+
+
+
+			<DatiOrdineAcquisto>
+				<RiferimentoNumeroLinea>1</RiferimentoNumeroLinea>
+				<IdDocumento>123</IdDocumento>
+				<CodiceCUP>123abc</CodiceCUP>
+				<CodiceCIG>456def</CodiceCIG>
+			</DatiOrdineAcquisto>
+
+			<DatiContratto>
+				<RiferimentoNumeroLinea>1</RiferimentoNumeroLinea>
+				<IdDocumento>123</IdDocumento>
+				<Data>2012-09-01</Data>
+				<NumItem>5</NumItem>
+				<CodiceCUP>123abc</CodiceCUP>
+				<CodiceCIG>456def</CodiceCIG>
+			</DatiContratto>
+
+			<DatiConvenzione>
+				<RiferimentoNumeroLinea>1</RiferimentoNumeroLinea>
+				<IdDocumento>123</IdDocumento>
+				<Data>2012-09-01</Data>
+				<NumItem>5</NumItem>
+				<CodiceCUP>123abc</CodiceCUP>
+				<CodiceCIG>456def</CodiceCIG>
+			</DatiConvenzione>
+
+      <CondizioniPagamento>TP01</CondizioniPagamento>
+
+      <DettaglioPagamento>
+        <ModalitaPagamento>MP01</ModalitaPagamento>
+        <DataScadenzaPagamento>2012-12-31</DataScadenzaPagamento>
+        <ImportoPagamento>36.60</ImportoPagamento>
+      </DettaglioPagamento>
+
+pec, email, tel, fax
+
+cig 6 char
+
+ultima fattura
+
+bug
+ricerca immeditata
+trigger pulsanti
+
+

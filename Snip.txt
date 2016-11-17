@@ -1,0 +1,70 @@
+        var overrides = new XmlAttributeOverrides();
+        var attribute = new XmlAttributes();
+        attribute.XmlIgnore = true;
+        overrides.Add(typeof(A), "Property1", attribute);
+
+        var container = new Container
+        {
+            B = new B { Property1 = "B property 1", Property2 = "B property 2" },
+            C = new C { Property1 = "C property 1", Property2 = "C property 2" }
+        };
+
+        var xmlSerializer = new XmlSerializer(typeof(Container), overrides);
+        xmlSerializer.Serialize(xmlWriter, container);
+
+
+XmlSerializer s = new XmlSerializer(typeof(myObj));
+    using (XmlWriter w = XmlWriter.Create(@"c:\test.xml"))
+    {
+        w.WriteProcessingInstruction("xml-stylesheet", "type=\"text/xsl\" href=\"USED-FILE.xsl\"");
+        s.Serialize(w, myObj);
+    }
+
+        //#region UI events
+
+        //private bool _isExpanderExpanded;
+        //public bool IsExpanderExpanded
+        //{
+        //    get { return _isExpanderExpanded; }
+        //    set
+        //    {
+        //        if (value.Equals(_isExpanderExpanded)) return;
+        //        _isExpanderExpanded = value;
+        //        NotifyOfPropertyChange(() => IsExpanderExpanded);
+        //    }
+        //}
+
+        //private ICommand _onExpanderExpanded;
+        //public ICommand OnExpanderExpanded
+        //{
+        //    get
+        //    {
+        //        if (_onExpanderExpanded != null)
+        //            return _onExpanderExpanded;
+        //        _onExpanderExpanded = new RelayCommand(OnExpanderIsExpanded);
+        //        return _onExpanderExpanded;
+        //    }
+        //}
+
+        //private void OnExpanderIsExpanded( object o )
+        //{
+
+        //    if ( CurrentEntity == null || CurrentEntity.Id == 0 )
+        //    {
+        //        _currentFatturaItem = null;
+        //        return;
+        //    }
+
+        //    if ( _currentFatturaItem != null && _currentFatturaItem.Id == CurrentEntity.Id )
+        //        return;
+
+        //    CaricaDettagliFatture( CurrentEntity.Id );
+
+        //    BindDettagliFattura(CurrentEntity);
+
+        //    _currentFatturaItem = CurrentEntity;
+        //}
+
+        //#endregion
+
+serializer.Serialize(Console.Out,new PaymentSummaryRequest{Summary = new xPaymentSummary{}});

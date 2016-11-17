@@ -1,0 +1,46 @@
+https://lostechies.com/jimmybogard/2014/03/11/efficient-querying-with-linq-automapper-and-future-queries/
+
+http://www.codeproject.com/Articles/586132/WPF-DataGrid-Custommization-using-Style-and-Templa?fid=1831995&df=90&mpp=25&prof=False&sort=Position&view=Normal&spc=Relaxed&fr=26#xx0xx
+
+
+
+serialization
+http://stackoverflow.com/questions/2145736/how-to-add-xml-stylesheet-tags-to-an-xml-file-using-c
+http://stackoverflow.com/questions/1461029/possible-to-add-a-xslt-stylesheet-to-a-serialized-xml-document
+
+http://www.codeproject.com/Articles/13908/Serializing-XML-with-stylesheet
+
+wcf web service
+http://www.codeproject.com/Articles/576820/Basic-Step-by-Step-WCF-WebService
+
+
+Weak events in .NET using Reactive Extensions (Rx)
+http://www.codeproject.com/Tips/1078183/Weak-events-in-NET-using-Reactive-Extensions-Rx
+https://github.com/sachabarber/SachaBarber.Rx/blob/master/SachaBarber.Reactice.Test/ReactiveExtensions.Tests.cs
+
+datagrid validation
+http://www.codeproject.com/Articles/30905/WPF-DataGrid-Practical-Examples#valid_dataset
+https://msdn.microsoft.com/en-us/library/ee622975.aspx
+http://wpf.codeplex.com/discussions/60355
+
+validation
+https://blog.magnusmontin.net/2013/08/26/data-validation-in-wpf/
+http://rlacovara.blogspot.it/2009/03/what-is-difference-between-dto-and-poco.html
+http://learnwitherik.com/post/poco-validation
+http://codebetter.com/petervanooijen/2015/04/13/using-nhibernate-eventlisteners-to-validate-and-audit-data/
+
+https://chainding.wordpress.com/2011/08/11/enforcing-complex-business-data-rules-with-wpf/
+
+https://blogs.msdn.microsoft.com/vinsibal/2008/08/12/wpf-3-5-sp1-feature-bindinggroups-with-item-level-validation/
+https://chainding.wordpress.com/2011/08/11/enforcing-complex-business-data-rules-with-wpf/
+
+mailmerge
+http://www.codeproject.com/Articles/19546/MailMergeLib-A-NET-Mail-Client-Library
+
+http://rehansaeed.com/model-view-viewmodel-mvvm-part4-inotifydataerrorinfo/
+http://social.technet.microsoft.com/wiki/contents/articles/19490.wpf-4-5-validating-data-in-using-the-inotifydataerrorinfo-interface.aspx
+
+http://seesharpsoftware.com.au/mvvm-validation-with-nhibernate-validator/
+http://www.seesharpsoftware.com.au/idataerrorinfo-behavior-using-dynamicproxy/
+http://stackoverflow.com/questions/7223058/multiple-interceptors-in-nhibernate
+

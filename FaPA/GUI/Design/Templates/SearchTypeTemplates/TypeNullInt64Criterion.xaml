@@ -1,0 +1,198 @@
+﻿<UserControl x:Class="FaPA.GUI.Design.Templates.SearchTypeTemplates.TypeNullInt64Criterion"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:finder="clr-namespace:FaPA.Infrastructure.Finder"
+             xmlns:utils="clr-namespace:FaPA.GUI.Utils">
+    
+    <UserControl.Resources>
+
+        <DataTemplate x:Key="EmptyTemplate"/>
+
+        <DataTemplate x:Key="SingleNumValueDataTemplate">
+            <TextBox TextChanged="OnCommitBindingGroup"
+                     VerticalAlignment="Stretch"
+                     HorizontalAlignment="Left"
+                     Width="100"
+                     Text="{Binding Path=OperatorValue, 
+                                    Mode=TwoWay,
+                                    NotifyOnValidationError=True,
+                                    ValidatesOnExceptions=True, 
+                                    ValidatesOnDataErrors=True, 
+                                    UpdateSourceTrigger=PropertyChanged, 
+                                    TargetNullValue={x:Static system:String.Empty}}"/>
+        </DataTemplate>
+
+        <DataTemplate x:Key="NumericRangeDataTemplate">
+            <Grid Height="Auto">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="15" />
+                    <RowDefinition Height="25" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="0" Text="Minimo" HorizontalAlignment="Center"/>
+                <TextBox Grid.Row="1"  
+                         Grid.Column="0" 
+                         Width="Auto"
+                         TextChanged="OnCommitBindingGroup"
+                         Text="{Binding Path=OperatorMinValue, 
+                                        Mode=TwoWay, 
+                                        NotifyOnValidationError=False,
+                                        ValidatesOnExceptions=False, 
+                                        ValidatesOnDataErrors=False,
+                                        UpdateSourceTrigger=PropertyChanged,
+                                        TargetNullValue={x:Static system:String.Empty}}"/>
+
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="Massimo" HorizontalAlignment="Center"/>
+                <TextBox Grid.Row="1"  
+                         Grid.Column="1" 
+                         Width="Auto"
+                         TextChanged="OnCommitBindingGroup"
+                         Text="{Binding Path=OperatorMaxValue,
+                                        NotifyOnValidationError=False,
+                                        ValidatesOnExceptions=False,
+                                        ValidatesOnDataErrors=False,
+                                        Mode=TwoWay, 
+                                        UpdateSourceTrigger=PropertyChanged,
+                                        TargetNullValue={x:Static system:String.Empty}}" />
+            </Grid>
+
+        </DataTemplate>
+
+        <DataTemplate x:Key="ListValuesDataTemplate">
+                <DataGrid   ItemsSource="{Binding Path=OperatorValues, 
+                                                  ValidatesOnDataErrors=False, 
+                                                  ValidatesOnExceptions=False, 
+                                                  UpdateSourceTrigger=LostFocus}"
+                            IsSynchronizedWithCurrentItem="True"
+                            HorizontalScrollBarVisibility="Hidden" 
+                            SelectionMode="Extended"
+                            CanUserAddRows="True" 
+                            CanUserDeleteRows="True" 
+                            IsReadOnly="False"
+                            CanUserResizeRows="False" 
+                            CanUserSortColumns="True"
+                            AutoGenerateColumns="False"
+                            RowHeaderWidth="12"
+                            RowHeight="20" 
+                            ColumnHeaderHeight="21"
+                            HorizontalAlignment="Stretch" 
+                            Height="Auto"
+                            Loaded="DataGridLoaded"
+                            Validation.Error="TextError"
+                            SelectionChanged="ListValuesSearchControlSelectionChanged">
+
+                    <DataGrid.Columns >
+                        <DataGridTextColumn Header="Elenco valori" 
+                                            MinWidth="300" 
+                                            Binding="{Binding Path=Item,
+                                                              UpdateSourceTrigger=PropertyChanged,
+                                                              ValidatesOnExceptions=True, 
+                                                              ValidatesOnDataErrors=True,
+                                                              NotifyOnValidationError=True,
+                                                              TargetNullValue={x:Static system:String.Empty}}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+        </DataTemplate>
+
+        <!-- DataTemplate for numeric type member -->
+        <DataTemplate x:Key="OperatorTypeDataTemplateFactory">
+
+            <ContentControl Name="cc" Content="{Binding}"
+                            ContentTemplate="{DynamicResource SingleNumValueDataTemplate}" />
+
+            <DataTemplate.Triggers>
+
+                <DataTrigger Binding="{Binding Path=OperatorType, Mode=TwoWay}" Value="OneOf">
+                    <Setter TargetName="cc"  Property="ContentTemplate"
+                                Value="{StaticResource ListValuesDataTemplate}" />
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding Path=OperatorType, Mode=TwoWay}" Value="NoneOf">
+                    <Setter TargetName="cc"  Property="ContentTemplate"
+                                Value="{StaticResource ListValuesDataTemplate}" />
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding Path=OperatorType, Mode=TwoWay}" Value="Between">
+                    <Setter TargetName="cc"  Property="ContentTemplate"
+                                Value="{StaticResource NumericRangeDataTemplate}" />
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding Path=OperatorType, Mode=TwoWay}" Value="NotBetween">
+                    <Setter TargetName="cc"  Property="ContentTemplate"
+                                Value="{StaticResource NumericRangeDataTemplate}" />
+                </DataTrigger>
+
+
+                <DataTrigger Binding="{Binding Path=OperatorType, Mode=TwoWay}" Value="NotSelected">
+                    <Setter TargetName="cc" Property="ContentTemplate" Value="{StaticResource EmptyTemplate}" />
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding Path=OperatorType, Mode=TwoWay}" Value="Null">
+                    <Setter TargetName="cc" Property="ContentTemplate" Value="{StaticResource EmptyTemplate}" />
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding Path=OperatorType, Mode=TwoWay}" Value="Notnull">
+                    <Setter TargetName="cc" Property="ContentTemplate" Value="{StaticResource EmptyTemplate}" />
+                </DataTrigger>
+
+            </DataTemplate.Triggers>
+
+        </DataTemplate>
+
+    </UserControl.Resources>
+
+    <Grid Name="CrossCoupledProps"  Margin="5,5,5,5" Width="Auto" HorizontalAlignment="Stretch">
+
+        <Grid.BindingGroup >
+            <BindingGroup>
+                <BindingGroup.ValidationRules>
+                    <finder:Int64PropCriterionValidationRule ValidatesOnTargetUpdated="True"  ValidationStep="CommittedValue" />
+                </BindingGroup.ValidationRules>
+            </BindingGroup>
+        </Grid.BindingGroup>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <DockPanel Grid.Row="0" Grid.Column="0" Dock="Right">
+            <TextBlock Text="{Binding DisplayPropName}"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Right"
+                       Margin="0,0,0,0" />
+        </DockPanel>
+
+        <DockPanel Grid.Row="0" Grid.Column="1" Dock="Left">
+            <ComboBox Width="Auto"
+                      HorizontalAlignment="Stretch"
+                      VerticalContentAlignment="Center" 
+                      ItemsSource="{Binding Source={utils:Enumeration {x:Type finder:NumOperatorEnums}}}"
+                      DisplayMemberPath="Description"  
+                      SelectedValuePath="Value"
+                      SelectedValue="{Binding OperatorType, ValidatesOnDataErrors=True, NotifyOnValidationError=True,
+                                              UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                      Margin="5,0"
+                      HorizontalContentAlignment="Stretch"
+                      SelectionChanged="ComboBoxSelectionChanged"/>
+        </DockPanel>
+        
+        <Border HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="2" >
+
+            <ContentControl Content="{Binding}" Margin="0,0,0,0"
+                            Width="Auto"
+                            HorizontalAlignment="Stretch"
+                            ContentTemplate="{StaticResource OperatorTypeDataTemplateFactory}" >
+            </ContentControl>
+
+        </Border>
+
+    </Grid>
+
+</UserControl>

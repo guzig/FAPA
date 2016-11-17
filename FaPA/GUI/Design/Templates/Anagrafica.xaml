@@ -1,0 +1,86 @@
+﻿<controls:BaseCustomControl  
+    x:Class="FaPA.GUI.Design.Templates.Anagrafica"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:FaPA.GUI.Controls">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45" />
+            <RowDefinition Height="45" />
+            <RowDefinition Height="45" />
+            <RowDefinition Height="45" />
+            <RowDefinition Height="45" />
+            <RowDefinition Height="45" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <DockPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+            <StackPanel Margin="2,0,2,0">
+                <TextBlock Text="Id" />
+
+                <TextBox  Text="{Binding CurrentEntity.Id, Mode=TwoWay, NotifyOnSourceUpdated=True, ValidatesOnDataErrors=True,  
+                                         NotifyOnValidationError=True, UpdateSourceTrigger=LostFocus}"
+                           HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
+            </StackPanel>
+            <StackPanel  Margin="2,0,2,0">
+                <TextBlock Text="Codice fiscale" />
+                <TextBox   Text="{Binding CurrentEntity.CodiceFiscale, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch"/>
+            </StackPanel>
+            <StackPanel  Margin="2,0,2,0">
+                <TextBlock Text="P.Iva" />
+                <TextBox   Text="{Binding CurrentEntity.PIva, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch"/>
+            </StackPanel>
+
+        </DockPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="2,0,2,0">
+            <TextBlock Text="Denominazione" />
+            <TextBox   Text="{Binding CurrentEntity.Denominazione, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
+        </StackPanel>
+        
+        <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="2,0,2,0">
+            <TextBlock Text="Cognome" />
+            <TextBox   Text="{Binding CurrentEntity.Cognome, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
+        </StackPanel>
+        
+        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="2,0,2,0">
+            <TextBlock Text="Nome" />
+            <TextBox   Text="{Binding CurrentEntity.Nome, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
+        </StackPanel>
+
+        <DockPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
+            <StackPanel  Margin="2,0,2,0">
+                <TextBlock Text="Numero civico" />
+                <TextBox   Text="{Binding CurrentEntity.Civico, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
+            </StackPanel>
+
+            <StackPanel  Margin="2,0,2,0">
+                <TextBlock Text="Indirizzo" />
+                <TextBox   Text="{Binding CurrentEntity.Indirizzo, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch"/>
+            </StackPanel>
+        </DockPanel>
+
+        <StackPanel Grid.Row="5" Grid.Column="0" Margin="2,0,2,0">
+            <TextBlock Text="CAP" />
+            <TextBox   Text="{Binding CurrentEntity.Cap, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
+        </StackPanel>
+            
+        <StackPanel Grid.Row="5" Grid.Column="1" Margin="2,0,2,0">
+            <TextBlock Text="Comune" />
+            <ComboBox IsReadOnly="False" IsEditable="True" IsTextSearchEnabled="True"
+                      TextSearch.TextPath="Denominazione" DisplayMemberPath="Denominazione"
+                      ItemsSource="{Binding  Path=Presenter.Comuni, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                      SelectedValue="{Binding Path=CurrentEntity.Comune, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
+                                              ValidatesOnDataErrors=True, ValidatesOnExceptions=True}">
+            </ComboBox>            
+        </StackPanel>
+
+    </Grid>
+    
+</controls:BaseCustomControl>

@@ -1,0 +1,132 @@
+﻿<UserControl x:Class="FaPA.GUI.Design.Templates.AnagraficaSearchTemplate"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Name="Root">
+    
+    <Border Style="{StaticResource MainBorderStyle}" Margin="5 5 5 5" Height="Auto">
+        
+        <Grid Height="Auto"  HorizontalAlignment="Stretch">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <ContentControl Grid.Row="0" 
+                            Content="{Binding AnagraficaFinder.AnagraficaId, ElementName=Root, Mode=TwoWay}"
+                            Width="Auto"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch" 
+                            Margin="0,10,0,5"
+                            MinWidth="350"
+                            IsEnabled="{Binding AllowEditing.Value}">
+            </ContentControl>
+
+            <DockPanel  Grid.Row="1"  Width="Auto" HorizontalAlignment="Stretch" >
+                <ContentControl Content="{Binding AnagraficaFinder.Denominazione, ElementName=Root, Mode=TwoWay}"
+                                Width="Auto" IsEnabled="{Binding AllowEditing.Value}">
+                </ContentControl>
+            </DockPanel>
+
+            <DockPanel  Grid.Row="2"  Width="Auto" HorizontalAlignment="Stretch" >
+                    <ContentControl Content="{Binding AnagraficaFinder.Cognome, ElementName=Root, Mode=TwoWay}"
+                                    Width="Auto" IsEnabled="{Binding AllowEditing.Value}">
+                </ContentControl>
+            </DockPanel>
+
+            <DockPanel  Grid.Row="3"  Width="Auto" HorizontalAlignment="Stretch" >
+                <ContentControl Content="{Binding AnagraficaFinder.Nome, ElementName=Root, Mode=TwoWay}"
+                                Width="Auto" IsEnabled="{Binding AllowEditing.Value}">
+                </ContentControl>
+            </DockPanel>
+
+            <DockPanel  Grid.Row="4"  Width="Auto" HorizontalAlignment="Stretch" >
+                <ContentControl Content="{Binding AnagraficaFinder.CodiceFiscale, ElementName=Root, Mode=TwoWay}"
+                                Width="Auto" IsEnabled="{Binding AllowEditing.Value}">
+                </ContentControl>
+            </DockPanel>
+
+            <!--<Expander Header="Altri criteri" Grid.Row="3">
+                
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <DockPanel  Grid.Row="0"  Width="Auto" HorizontalAlignment="Stretch" >
+                        <ContentControl Content="{Binding AnagraficaFinder.Protocollo, ElementName=Root, Mode=TwoWay}"
+                                    Width="Auto"
+                                    IsEnabled="{Binding AllowEditing.Value}">
+                        </ContentControl>
+                    </DockPanel>
+
+                    <DockPanel Grid.Row="1"  Width="Auto" HorizontalAlignment="Stretch" >
+                        <ContentControl Content="{Binding AnagraficaFinder.DataProtocollo, ElementName=Root, Mode=TwoWay}"
+                                    Width="Auto"
+                                    IsEnabled="{Binding AllowEditing.Value}">
+                        </ContentControl>
+                    </DockPanel>
+
+                    <DockPanel  Grid.Row="2"  Width="Auto" HorizontalAlignment="Stretch" >
+                        <ContentControl Content="{Binding AnagraficaFinder.NumDeterminazione, ElementName=Root, Mode=TwoWay}"
+                                    Width="Auto"
+                                    IsEnabled="{Binding AllowEditing.Value}">
+                        </ContentControl>
+                    </DockPanel>
+
+                    <DockPanel  Grid.Row="3"  Width="Auto" HorizontalAlignment="Stretch" >
+                        <ContentControl Content="{Binding AnagraficaFinder.DataDeterminazione, ElementName=Root, Mode=TwoWay}"
+                                    Width="Auto"
+                                    IsEnabled="{Binding AllowEditing.Value}">
+                        </ContentControl>
+                    </DockPanel>
+
+                    <DockPanel  Grid.Row="4"  Width="Auto" HorizontalAlignment="Stretch" >
+                        <ContentControl Content="{Binding AnagraficaFinder.NumMandato, ElementName=Root, Mode=TwoWay}"
+                                    Width="Auto"
+                                    IsEnabled="{Binding AllowEditing.Value}">
+                        </ContentControl>
+                    </DockPanel>
+
+                    <DockPanel  Grid.Row="5"  Width="Auto" HorizontalAlignment="Stretch" >
+                        <ContentControl Content="{Binding AnagraficaFinder.DataMandato, ElementName=Root, Mode=TwoWay}"
+                                    Width="Auto"
+                                    IsEnabled="{Binding AllowEditing.Value}">
+                        </ContentControl>
+                    </DockPanel>
+
+                    <DockPanel  Grid.Row="6"  Width="Auto" HorizontalAlignment="Stretch" >
+                        <ContentControl Content="{Binding AnagraficaFinder.NoteLiquidazione, ElementName=Root, Mode=TwoWay}"
+                                    Width="Auto"
+                                    IsEnabled="{Binding AllowEditing.Value}">
+                        </ContentControl>
+                    </DockPanel>
+                </Grid>
+        
+            </Expander>-->
+            
+            <!--<Expander Grid.Row="4" Header="Impegni finanziari" Margin="5,0,0,0" x:Name="ImpegnoExpander">
+                <templates:ImpegnoFinanziarioSearchTemplate ImpegniFinanziariFinder="{Binding AnagraficaFinder.ImpegniFinanziariFinder, ElementName=Root}"/>
+            </Expander>-->
+
+            </Grid>
+
+    </Border>
+</UserControl>

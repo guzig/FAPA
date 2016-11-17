@@ -1,0 +1,30 @@
+﻿<Window x:Class="FaPA.GUI.Feautures.Anagrafica.View"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:myTabControl="clr-namespace:FaPA.GUI.Controls.MyTabControl"
+        SizeToContent="WidthAndHeight" TextOptions.TextFormattingMode="Display" Title="Anagrafiche" >
+   
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*">
+            </ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Utenti" Style="{StaticResource Title}" Grid.Row="0" TextAlignment="Center" VerticalAlignment="Top"/>
+
+        <DockPanel Height="Auto" Grid.Row="1" Width="Auto">
+
+            <Border Style="{StaticResource MainBorderStyle}" >
+                <myTabControl:MyTabControl />
+            </Border>
+
+        </DockPanel>
+
+
+    </Grid>    
+</Window>
