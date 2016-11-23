@@ -18,8 +18,8 @@ namespace FaPA.GUI.Controls
         protected EditWorkSpaceViewModel(IRepository repository, T instance,
             Expression<Func<T, TProperty>> getter, string dispName, bool isClosable) 
         {
-            _setterProp = ReflectionHelpers.GetSetter(getter);
-            _getter = getter.Compile();
+            SetterProp = ReflectionHelpers.GetSetter(getter);
+            GetterProp = getter.Compile();
             Repository = repository;
             Instance = instance;
             DisplayName = dispName;
@@ -28,8 +28,8 @@ namespace FaPA.GUI.Controls
 
         #region data members
 
-        protected readonly Action<T, TProperty> _setterProp;
-        protected readonly Func<T, TProperty> _getter;
+        protected readonly Action<T, TProperty> SetterProp;
+        protected readonly Func<T, TProperty> GetterProp;
         protected readonly IRepository Repository;
 
         protected T Instance { get; set; }
@@ -38,12 +38,12 @@ namespace FaPA.GUI.Controls
         {
             get
             {
-                return _getter(Instance);
+                return GetterProp(Instance);
             }
 
             set
             {
-                _setterProp(Instance, (TProperty)value);
+                SetterProp(Instance, (TProperty)value);
             }
         }
 
@@ -187,7 +187,7 @@ namespace FaPA.GUI.Controls
         
         protected virtual void Validate()
         {
-            var poco = GetCurrentPoco();
+            var poco = CurrentPoco;
             if (poco == null)
             {
                 IsValid = true;
@@ -196,10 +196,10 @@ namespace FaPA.GUI.Controls
             ( ( IValidatable ) poco ).Validate();
             IsValid = ( ( BaseEntity ) poco ).DomainResult.Success;
         }
-        
-        protected virtual object GetCurrentPoco()
+
+        public virtual object CurrentPoco
         {
-            return UserProperty;
+            get { return UserProperty; }
         }
 
         protected virtual void MakeTransient()
@@ -237,8 +237,12 @@ namespace FaPA.GUI.Controls
             AllowInsertNew = true;
         }
 
-        private void OnPropChanged(object sender, PropertyChangedEventArgs eventArg)
+        protected void OnPropChanged(object sender, PropertyChangedEventArgs eventArg)
         {
+            if ( !( sender is BaseEntity ) ) return;
+
+            var g1 = Instance;
+
             LockMessage = EditViewModel<BaseEntity>.OnEditingLockMessage;
             IsInEditing = true;
             //OnCurrentChanged(sender, eventArg);
@@ -246,7 +250,7 @@ namespace FaPA.GUI.Controls
             AllowSave = validatable == null || validatable.DomainResult.Success;
         }
 
-        protected void HookOnChanged( object poco )
+        protected virtual void HookOnChanged( object poco )
         {
             var notifyPropertyChanged = poco as INotifyPropertyChanged;
             if ( notifyPropertyChanged == null ) return;
@@ -295,14 +299,14 @@ namespace FaPA.GUI.Controls
 
             var instance = ( T ) Repository.Read();
 
-            UserProperty =  _getter( instance ) ;
+            UserProperty =  GetterProp( instance ) ;
         }
 
         #endregion
 
         public virtual object Read()
         {
-            return _getter((T) Repository.Read());
+            return GetterProp((T) Repository.Read());
         }
 
         public virtual bool Persist(object entity)

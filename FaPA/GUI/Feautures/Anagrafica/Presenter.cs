@@ -118,8 +118,9 @@ namespace FaPA.GUI.Feautures.Anagrafica
             }
             Model.UserEntities = entitiesdto;
             Model.UserCollectionView = CollectionViewSource.GetDefaultView(Model.UserEntities);
-            var viewModel = Model.EditViewModel as IEditViewModel;
-            viewModel.SetUpCollectionView(Model.UserEntities, Model.UserCollectionView);
+            
+            //var viewModel = Model.EditViewModel as IEditViewModel;
+            //viewModel.SetUpCollectionView(Model.UserEntities, Model.UserCollectionView);
         }
 
         public override void CreateNewModel(int activeTab)

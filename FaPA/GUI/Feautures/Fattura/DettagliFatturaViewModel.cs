@@ -84,7 +84,7 @@ namespace FaPA.GUI.Feautures.Fattura
 
         public override bool Delete()
         {
-            _setterProp( Instance, null);
+            SetterProp( Instance, null);
             return base.Persist(Instance);
         }
 

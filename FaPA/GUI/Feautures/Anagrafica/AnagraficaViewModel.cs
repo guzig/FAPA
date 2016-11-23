@@ -10,9 +10,9 @@ namespace FaPA.GUI.Feautures.Anagrafica
     {
         //ctor
         public EditAnagraficaViewModel(IBasePresenter baseCrudPresenter, IList userEntities,
-            ICollectionView userCollectionView, ISession session) : base(baseCrudPresenter)
+            ICollectionView userCollectionView, ISession session) : base(baseCrudPresenter, userEntities, userCollectionView)
         {
-            SetUpCollectionView(userEntities, userCollectionView);
+            //SetUpCollectionView(userEntities, userCollectionView);
             SetUpSession(session, null);
         }
 

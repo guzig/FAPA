@@ -155,9 +155,14 @@ namespace FaPA.GUI.Controls.MyTabControl
 
             if ( tabViewModel == null ) return;
 
-            if ( tabViewModel is EditViewModel<T> )
+            var vm = tabViewModel as EditViewModel<T>;
+            if ( vm != null)
                 //default behavoir on page changed
-                ( ( EditViewModel<T> ) Model.EditViewModel ).LoadAndShowCurrentEntity();
+            {
+                vm.OnPageGotFocus();
+                //var entity = vm.CurrentEntity;
+                //vm.TryGetUnproxiedEntity();
+            }
             else
             {
                 if ( !tabViewModel.NeedRefresh ) return;
@@ -252,8 +257,10 @@ namespace FaPA.GUI.Controls.MyTabControl
                 Model.UserEntities = created;
                 Model.UserCollectionView = CollectionViewSource.GetDefaultView( Model.UserEntities );
                 var viewModel = Model.EditViewModel as EditViewModel<T>;
-                if ( viewModel != null )
-                    viewModel.SetUpCollectionView( Model.UserEntities, Model.UserCollectionView );
+
+                //if ( viewModel != null )
+                //    viewModel.SetUpCollectionView( Model.UserEntities, Model.UserCollectionView );
+
                 Model.UserCollectionView.MoveCurrentToFirst();
                 Model.UserCollectionView.Refresh();
                 IsBusy = false;
@@ -335,8 +342,10 @@ namespace FaPA.GUI.Controls.MyTabControl
             Model.UserEntities = new ObservableCollection<TDto>( entitiesdto );
             Model.UserCollectionView = CollectionViewSource.GetDefaultView( Model.UserEntities );
             var viewModel = Model.EditViewModel as EditViewModel<T>;
-            if ( viewModel == null ) return;
-            viewModel.SetUpCollectionView( Model.UserEntities, Model.UserCollectionView );
+
+            //if ( viewModel == null ) return;
+            //viewModel.SetUpCollectionView( Model.UserEntities, Model.UserCollectionView );
+
             Model.UserCollectionView.MoveCurrentToFirst();
         }
 

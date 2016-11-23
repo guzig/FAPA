@@ -87,12 +87,12 @@
 
                             <StackPanel Grid.Row="0" Grid.Column="0" Margin="2,0,0,0">
                                 <TextBlock Text="Condizioni" />
-                                <TextBox   Height="25" Text="{Binding Dto.CondizioniPagamento, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True, ValidatesOnNotifyDataErrors=True}" HorizontalAlignment="Stretch"/>
+                                <TextBox   Height="25" Text="{Binding CurrentPoco.CondizioniPagamento, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True, ValidatesOnNotifyDataErrors=True}" HorizontalAlignment="Stretch"/>
                             </StackPanel>
 
                             <StackPanel Grid.Row="0" Grid.Column="1" Margin="2,0,2,0">
                                 <TextBlock Text="Importo" />
-                                <TextBox   Text="{Binding Dto.ImportoPagamento, UpdateSourceTrigger=LostFocus, 
+                                <TextBox   Text="{Binding CurrentPoco.DettaglioPagamento[0].ImportoPagamento, UpdateSourceTrigger=LostFocus, 
                                                                     NotifyOnValidationError=True, 
                                                                     ValidatesOnDataErrors=True, 
                                                                     NotifyOnTargetUpdated=True, 
@@ -103,97 +103,97 @@
 
                             <StackPanel Grid.Row="0" Grid.Column="2" Margin="2,0,2,0">
                                 <TextBlock Text="Modalità" />
-                                <TextBox   Text="{Binding Dto.ModalitaPagamento, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
+                                <TextBox   Text="{Binding CurrentPoco.DettaglioPagamento[0].ModalitaPagamento, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
                             </StackPanel>
 
                             <StackPanel Grid.Row="0" Grid.Column="3" Margin="2,0,2,0">
                                 <TextBlock Text="Beneficiario (se diverso)" />
-                                <TextBox   Text="{Binding Dto.Beneficiario, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
+                                <TextBox   Text="{Binding CurrentPoco.DettaglioPagamento[0].Beneficiario, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
                             </StackPanel>
 
                             <StackPanel Grid.Row="1" Grid.Column="0" Margin="2,0,2,0">
                                 <TextBlock Text="Decorrenza termini pagamento" />
-                                <DatePicker SelectedDate="{Binding Dto.DataRiferimentoTerminiPagamento}"/>
+                                <DatePicker SelectedDate="{Binding CurrentPoco.DettaglioPagamento[0].DataRiferimentoTerminiPagamento}"/>
                             </StackPanel>
 
                             <StackPanel Grid.Row="1" Grid.Column="1" Margin="2,0,2,0">
                                 <TextBlock Text="Giorni termini pagamento" />
-                                <TextBox Text="{Binding Dto.GiorniTerminiPagamento}"/>
+                                <TextBox Text="{Binding CurrentPoco.DettaglioPagamento[0].GiorniTerminiPagamento}"/>
                             </StackPanel>
 
                             <StackPanel Grid.Row="1" Grid.Column="2" Margin="2,0,2,0">
                                 <TextBlock Text="Scadenza termini pagamento" />
-                                <DatePicker SelectedDate="{Binding Dto.DataScadenzaPagamento}" />
+                                <DatePicker SelectedDate="{Binding CurrentPoco.DettaglioPagamento[0].DataScadenzaPagamento}" />
                             </StackPanel>
 
                             <StackPanel Grid.Row="2" Grid.Column="0" Margin="2,0,2,0">
                                 <TextBlock Text="Sconto pagamento anticipato" />
-                                <TextBox Text="{Binding Dto.ScontoPagamentoAnticipato}"/>
+                                <TextBox Text="{Binding CurrentPoco.DettaglioPagamento[0].ScontoPagamentoAnticipato}"/>
                             </StackPanel>
 
                             <StackPanel Grid.Row="2" Grid.Column="1" Margin="2,0,2,0">
                                 <TextBlock Text="Limite pagamento anticipato" />
-                                <DatePicker SelectedDate="{Binding Dto.DataLimitePagamentoAnticipato}"/>
+                                <DatePicker SelectedDate="{Binding CurrentPoco.DettaglioPagamento[0].DataLimitePagamentoAnticipato}"/>
                             </StackPanel>
 
                             <StackPanel Grid.Row="2" Grid.Column="2" Margin="2,0,2,0">
                                 <TextBlock Text="Penalità pagamenti ritardati" />
-                                <TextBox Text="{Binding Dto.PenalitaPagamentiRitardati}" />
+                                <TextBox Text="{Binding CurrentPoco.DettaglioPagamento[0].PenalitaPagamentiRitardati}" />
                             </StackPanel>
 
                             <StackPanel Grid.Row="2" Grid.Column="3" Margin="2,0,2,0">
                                 <TextBlock Text="Decorrenza penale" />
-                                <DatePicker SelectedDate="{Binding Dto.DataDecorrenzaPenale}"/>
+                                <DatePicker SelectedDate="{Binding CurrentPoco.DettaglioPagamento[0].DataDecorrenzaPenale}"/>
                             </StackPanel>
 
                             <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Margin="2,0,2,0">
                                 <TextBlock Text="Istituto finanziario" />
-                                <TextBox   Text="{Binding Dto.IstitutoFinanziario, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
+                                <TextBox   Text="{Binding CurrentPoco.DettaglioPagamento[0].IstitutoFinanziario, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
                             </StackPanel>
 
                             <StackPanel Grid.Row="3" Grid.Column="4" Margin="2,0,2,0">
                                 <TextBlock Text="Cod. Uff. Postale" />
-                                <TextBox   Text="{Binding Dto.CodUfficioPostale, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
+                                <TextBox   Text="{Binding CurrentPoco.DettaglioPagamento[0].CodUfficioPostale, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
                             </StackPanel>
 
                             <StackPanel Grid.Row="4" Grid.Column="0" Margin="2,0,2,0">
                                 <TextBlock Text="Iban" />
-                                <TextBox   Text="{Binding Dto.Iban, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
+                                <TextBox   Text="{Binding CurrentPoco.DettaglioPagamento[0].Iban, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
                             </StackPanel>
 
                             <StackPanel Grid.Row="4" Grid.Column="1" Margin="2,0,2,0">
                                 <TextBlock Text="Abi" />
-                                <TextBox   Text="{Binding Dto.Abi, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
+                                <TextBox   Text="{Binding CurrentPoco.DettaglioPagamento[0].Abi, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
                             </StackPanel>
 
                             <StackPanel Grid.Row="4" Grid.Column="2" Margin="2,0,2,0">
                                 <TextBlock Text="Cab" />
-                                <TextBox   Text="{Binding Dto.Cab, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
+                                <TextBox   Text="{Binding CurrentPoco.DettaglioPagamento[0].Cab, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
                             </StackPanel>
 
                             <StackPanel Grid.Row="4" Grid.Column="3" Margin="2,0,2,0">
                                 <TextBlock Text="Bic" />
-                                <TextBox   Text="{Binding Dto.Bic, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
+                                <TextBox   Text="{Binding CurrentPoco.DettaglioPagamento[0].Bic, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
                             </StackPanel>
 
                             <StackPanel Grid.Row="5" Grid.Column="0" Margin="2,0,2,0">
                                 <TextBlock Text="Cognome quietanzante" />
-                                <TextBox   Text="{Binding Dto.CognomeQuietanzante, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
+                                <TextBox   Text="{Binding CurrentPoco.DettaglioPagamento[0].CognomeQuietanzante, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
                             </StackPanel>
 
                             <StackPanel Grid.Row="5" Grid.Column="1" Margin="2,0,2,0">
                                 <TextBlock Text="Nome quietanzante" />
-                                <TextBox   Text="{Binding Dto.NomeQuietanzante, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
+                                <TextBox   Text="{Binding CurrentPoco.DettaglioPagamento[0].NomeQuietanzante, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
                             </StackPanel>
 
                             <StackPanel Grid.Row="5" Grid.Column="2" Margin="2,0,2,0">
                                 <TextBlock Text="CfQuietanzante" />
-                                <TextBox   Text="{Binding Dto.CfQuietanzante, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
+                                <TextBox   Text="{Binding CurrentPoco.DettaglioPagamento[0].CfQuietanzante, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
                             </StackPanel>
 
                             <StackPanel Grid.Row="5" Grid.Column="3" Margin="2,0,2,0">
                                 <TextBlock Text="Titolo quietanzante" />
-                                <TextBox   Text="{Binding Dto.TitoloQuietanzante, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
+                                <TextBox   Text="{Binding CurrentPoco.DettaglioPagamento[0].TitoloQuietanzante, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
                             </StackPanel>
 
                         </Grid>

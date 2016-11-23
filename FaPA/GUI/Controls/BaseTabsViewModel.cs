@@ -4,10 +4,12 @@ using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Windows.Data;
+using FaPA.AppServices.CoreValidation;
 using FaPA.GUI.Controls.MyTabControl;
 using FaPA.Infrastructure;
 using Remotion.Linq.Collections;
 using FaPA.Core;
+using FaPA.Core.FaPa;
 using NHibernate.Util;
 
 namespace FaPA.GUI.Controls
@@ -43,15 +45,17 @@ namespace FaPA.GUI.Controls
         protected abstract void AddItemToUserCollection();      
           
         //overrides
-        
         public override void Init<TP, TD>(  )
         {
             Init();
         }
-      
-        protected override object GetCurrentPoco()
+
+        public override object CurrentPoco
         {
-            return UserCollectionView?.CurrentItem;
+            get
+            {
+                return UserCollectionView?.CurrentItem;
+            }
         }
 
         protected override void Persist()
@@ -151,6 +155,11 @@ namespace FaPA.GUI.Controls
             if (UserProperty != null )
             {
                 InitCollectionView();
+
+                foreach (var item in UserCollectionView)
+                {
+                    HookOnChanged(item);
+                }
             }
             Validate();
             BeginEdit();
@@ -172,7 +181,8 @@ namespace FaPA.GUI.Controls
 
         private void InitCollectionView()
         {
-            UserCollectionView = CollectionViewSource.GetDefaultView( UserProperty );
+            UserCollectionView = CollectionViewSource.GetDefaultView(UserProperty);
+
             UserCollectionView.CurrentChanged -= OnCurrentChanged;
             UserCollectionView.CurrentChanged += OnCurrentChanged;
             IsEmpty = UserCollectionView == null || UserCollectionView.IsEmpty;
@@ -180,6 +190,8 @@ namespace FaPA.GUI.Controls
 
         protected virtual void OnCurrentChanged( object sender, EventArgs e)
         {
+            if ( !( sender is T ) ) return;
+
             var poco = UserCollectionView.CurrentItem;
             if (poco == null) return;
             Validate();
@@ -247,7 +259,7 @@ namespace FaPA.GUI.Controls
             if ( Repository != null )
             {
                 var instance = Repository.Read();
-                UserProperty = instance != null ? _getter( (T) instance ) : default ( TProperty );
+                UserProperty = instance != null ? GetterProp( (T) instance ) : default ( TProperty );
             }
 
             if ( UserProperty != null )

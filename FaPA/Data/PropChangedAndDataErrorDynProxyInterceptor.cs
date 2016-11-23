@@ -12,6 +12,8 @@ namespace FaPA.Data
         private PropertyChangedEventHandler _changed = delegate { };
         private event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
 
+        public bool IsNotifying { get; set; }
+        
         public PropChangedAndDataErrorDynProxyInterceptor(){}
 
         public PropChangedAndDataErrorDynProxyInterceptor(object proxy, PropertyChangedEventHandler onChangedHanler)
@@ -61,9 +63,9 @@ namespace FaPA.Data
                     return null;
             }
 
-            var returnValue = info.TargetMethod.Invoke( Proxy, info.Arguments);
+            var returnValue = info.TargetMethod.Invoke( Proxy, info.Arguments );
 
-            if (!info.TargetMethod.Name.StartsWith("set_")) return returnValue;
+            if (!info.TargetMethod.Name.StartsWith("set_") ) return returnValue;
             
             var propertyName = info.TargetMethod.Name.Substring("set_".Length);
 

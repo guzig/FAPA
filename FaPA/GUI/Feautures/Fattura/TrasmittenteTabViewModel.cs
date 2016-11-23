@@ -12,10 +12,6 @@ namespace FaPA.GUI.Feautures.Fattura
             base( repository, instance, (Core.Fattura f) => f.DatiTrasmissione, "Trasmittente", false )
         {
             IsCloseable = false;
-            if ( UserProperty != null && UserProperty.IdTrasmittente == null )
-            {
-                Instance.SetTrasmittente();
-            }
         }
 
         //protected override void MapToDto()

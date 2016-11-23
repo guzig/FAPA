@@ -226,7 +226,7 @@ namespace FaPA.GUI.Controls.MyTabControl
         #endregion 
 
         #region Constructor
-        protected EditViewModel(IBasePresenter baseCrudPresenter )
+        protected EditViewModel(IBasePresenter baseCrudPresenter, IList userEntities, ICollectionView userCollectionView)
         {
             BasePresenter = baseCrudPresenter;
 
@@ -237,10 +237,12 @@ namespace FaPA.GUI.Controls.MyTabControl
             _searchBackgroundWorker.RunWorkerCompleted += SearchOnSiteCompleted;
 
             IsCloseable = false;
-        }
-        #endregion 
 
-        public void SetUpCollectionView(IList usercollection, ICollectionView listView)
+            SetUpCollectionView(userEntities, userCollectionView);
+        }
+        #endregion
+
+        private void SetUpCollectionView(IList usercollection, ICollectionView listView)
         {
             if (UserEntitiesView != null)
             {
@@ -250,6 +252,7 @@ namespace FaPA.GUI.Controls.MyTabControl
 
             UserCollection = usercollection;
             UserEntitiesView = listView;
+            UserEntitiesView.MoveCurrentToFirst();
             UserEntitiesView.CurrentChanged += OnCurrentSelectionChanged;
             RequestClose += OnClose;
 
@@ -432,8 +435,8 @@ namespace FaPA.GUI.Controls.MyTabControl
             {
                 try
                 {
-                    var typeName = ProxyInspector.GuessType(_currentEntity).FullName;
-                    Session.SaveOrUpdate(typeName, _currentEntity);
+                    var typeName = ProxyInspector.GuessType( CurrentEntity ).FullName;
+                    Session.SaveOrUpdate(typeName, CurrentEntity);
                     Session.Flush();
                     tx.Commit();
                     return true;
@@ -549,11 +552,17 @@ namespace FaPA.GUI.Controls.MyTabControl
 
         public abstract void PublishDeletedEntityEvent( BaseEntity dto );
 
+        public virtual void OnPageGotFocus()
+        {
+            BindCurrent();
+            SetContextAfterBindEntity();
+        }
+
         public void LoadAndShowCurrentEntity()
         {
             BindCurrent();
-            //OnCurrentChanged(CurrentEntity);
-            SetContextAfterBindEntity();            
+            SetContextAfterBindEntity();
+            OnCurrentChanged(CurrentEntity);
         }
 
         private void BindCurrent()
@@ -566,12 +575,12 @@ namespace FaPA.GUI.Controls.MyTabControl
 
             _isOnBind = false;
 
-            OnCurrentChanged( CurrentEntity );
+            //OnCurrentChanged( CurrentEntity );
 
             _onCancelDelegate = DefaultCancelOnEditAction;
         }
 
-        public void Load()
+        public virtual void Load()
         {
             if (UserEntitiesView.CurrentItem == null) return;
 
@@ -588,9 +597,7 @@ namespace FaPA.GUI.Controls.MyTabControl
             }
 
             object current = LoadEntity(currentItem.Id);
-
-            ObjectExplorer.TryProxiedAllInstances<DatiTrasmissioneType>(ref current, "FaPA.Core");
-
+            
             var notifyPropertyChanged = current as INotifyPropertyChanged;
             if (notifyPropertyChanged == null) return;
             notifyPropertyChanged.PropertyChanged -= OnPropChanged;
@@ -635,7 +642,7 @@ namespace FaPA.GUI.Controls.MyTabControl
 
         private static bool IsNewEntity(T entity)
         {
-            return entity.Id == 0L;
+            return entity != null && entity.Id == 0L;
         }
 
         #region Cancel stuff
@@ -811,7 +818,7 @@ namespace FaPA.GUI.Controls.MyTabControl
         //    return true;
         //}
 
-        private bool TryGetUnproxiedEntity(long maxWait=3000)
+        public bool TryGetUnproxiedEntity(long maxWait=3000)
         {
             ShowCursor.Show();
             int pos = UserEntitiesView.CurrentPosition;

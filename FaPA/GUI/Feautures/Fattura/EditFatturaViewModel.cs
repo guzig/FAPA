@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
@@ -11,6 +12,7 @@ using FaPA.Infrastructure.Dto;
 using NHibernate;
 using System.Linq;
 using System.Threading.Tasks;
+using FaPA.AppServices.CoreValidation;
 using FaPA.Core;
 using FaPA.Infrastructure;
 
@@ -32,9 +34,8 @@ namespace FaPA.GUI.Feautures.Fattura
 
         //ctor
         public EditFatturaViewModel(IBasePresenter baseCrudPresenter, IList userEntities, 
-            ICollectionView userCollectionView, ISession session): base(baseCrudPresenter)
+            ICollectionView userCollectionView, ISession session): base(baseCrudPresenter, userEntities, userCollectionView)
         {           
-            SetUpCollectionView( userEntities, userCollectionView);
             SetUpSession(session, null);
             CurrentEntityChanged += OnCurrentFatturaChanged;
         }
@@ -42,34 +43,6 @@ namespace FaPA.GUI.Feautures.Fattura
         #region Overrides
 
         public override string EditTemplateName => "FatturaTemplate";
-
-        //private void OnPropsChanged(object sender, PropertyChangedEventArgs argts)
-        //{
-        //    var fatturaDto = sender as Core.Fattura;
-
-        //    if (fatturaDto?.AnagraficaCedenteDB != null && (fatturaDto.AnagraficaCedenteDB == null || 
-        //        fatturaDto.AnagraficaCedenteDB.Id != fatturaDto.AnagraficaCedenteDB.Id ) )
-        //    {
-        //        fatturaDto.AnagraficaCedenteDB = (Fornitore) LoadAnagrafica(fatturaDto.AnagraficaCedenteDB.Id);
-        //    }
-
-        //    if (fatturaDto?.AnagraficaCommittenteDB != null && (fatturaDto.AnagraficaCommittenteDB == null || 
-        //        fatturaDto.AnagraficaCommittenteDB.Id != fatturaDto.AnagraficaCommittenteDB.Id ) )
-        //    {
-        //        fatturaDto.AnagraficaCommittenteDB = (Committente) LoadAnagrafica( fatturaDto.AnagraficaCommittenteDB.Id );
-        //    }
-        //}
-
-        //private Core.Anagrafica LoadAnagrafica(long id)
-        //{
-        //    Core.Anagrafica anagrafica;
-        //    using (var tx = Session.BeginTransaction())
-        //    {
-        //        anagrafica = Session.Get<Core.Anagrafica>(id);
-        //        tx.Commit();
-        //    }
-        //    return anagrafica;
-        //}
 
         protected override Core.Fattura CreateInstance()
         {
@@ -96,11 +69,19 @@ namespace FaPA.GUI.Feautures.Fattura
            base.DefaultCancelOnEditAction();
            InitFatturaTabs();
         }
-        
+
         #endregion
+
+        public override void OnPageGotFocus()
+        {
+            base.OnPageGotFocus();
+            InitFatturaTabs();
+        }
 
         private void OnCurrentFatturaChanged(Core.Fattura currententity)
         {
+            InitFatturaTabs();
+
             if (currententity == null || currententity.Id == 0)
             {
                 DettagliFatturaVisibility = Visibility.Collapsed;
@@ -111,37 +92,60 @@ namespace FaPA.GUI.Feautures.Fattura
                 DettagliFatturaVisibility = Visibility.Visible;
                 EmptyMsgVisibility = Visibility.Collapsed;          
             }
+        }
 
-            //object current = CurrentEntity;
-            //ObjectExplorer.TryProxiedAllInstances < BaseEntityFpa >( ref current, "FaPA.Core");
+        protected override Core.Fattura LoadEntity(long id)
+        {
+            var fattura = base.LoadEntity(id);
 
-            InitFatturaTabs();
+            if (fattura == null) return null;
 
+            fattura.Init();
+
+            fattura.SetTrasmittente();
+
+            if ( fattura.DatiPagamento == null )
+            {
+                fattura.DatiPagamento = new[] { new DatiPagamentoType() };
+                fattura.DatiPagamento[0].DettaglioPagamento = new[] { new DettaglioPagamentoType() };
+            }
+
+            object currentHeader = fattura.FatturaElettronicaHeader;
+            ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntityFpa>(ref currentHeader, "FaPA.Core");
+            fattura.FatturaElettronicaHeader = (FaPA.Core.FaPa.FatturaElettronicaHeaderType)currentHeader;
+
+            object currentBody = fattura.FatturaElettronicaBody;
+            ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntityFpa>(ref currentBody, "FaPA.Core");
+            fattura.FatturaElettronicaBody = (FaPA.Core.FaPa.FatturaElettronicaBodyType)currentBody;
+            
+            return fattura;
         }
 
         private void InitFatturaTabs()
         {
             var fattura = CurrentEntity;
+
             if (fattura?.Ritenuta != null )
             {
                 AddTabRitenuta();
             }
 
-            DettagliFatturaViewModel = new DettagliFatturaViewModel( this, fattura);
-            DettagliFatturaViewModel.Init<DettaglioLineeType, DettaglioLineeType>();
-            DettagliFatturaViewModel.CurrentEntityChanged += OnDettaglioFatturaPropertyChanged;
+            //DettagliFatturaViewModel = new DettagliFatturaViewModel(this, fattura);
+            //DettagliFatturaViewModel.Init<DettaglioLineeType, DettaglioLineeType>();
+            //DettagliFatturaViewModel.CurrentEntityChanged += OnDettaglioFatturaPropertyChanged;
 
-            var datiPagamento = new DatiPagamentoTabViewModel( this, fattura);
+            var datiPagamento = new DatiPagamentoTabViewModel(this, fattura);
             datiPagamento.Init<DatiPagamentoType, DatiPagamentoDto>();
-            AddTabViewModel<DatiPagamentoTabViewModel>( datiPagamento );
+            AddTabViewModel<DatiPagamentoTabViewModel>(datiPagamento);
 
-            var trasmittente = new TrasmittenteTabViewModel( this, fattura);
-            trasmittente.Init<DatiTrasmissioneType, DatiTrasmissioneDto>();
-            AddTabViewModel<TrasmittenteTabViewModel>( trasmittente );
+            //var trasmittente = new TrasmittenteTabViewModel( this, fattura);
+            //trasmittente.Init<DatiTrasmissioneType, DatiTrasmissioneDto>();
+            //AddTabViewModel<TrasmittenteTabViewModel>( trasmittente );
+
         }
 
         //protected virtual void OnCurrentChanged(object sender, EventArgs e)
-        
+
         private void OnDettaglioFatturaPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             LockMessage = EditViewModel<BaseEntity>.OnEditingLockMessage;
@@ -249,8 +253,6 @@ namespace FaPA.GUI.Feautures.Fattura
             var vm = BasePresenter.Workspaces.FirstOrDefault( a => a is TV );
             if ( vm == null )
                 BasePresenter.Workspaces.Add( tabViewModel );
-            else
-                vm = tabViewModel;
         }
 
         private bool CanAddRitenuta(object param)
@@ -274,7 +276,7 @@ namespace FaPA.GUI.Feautures.Fattura
         {
             //if ( fattura.FatturaElettronicaHeader.DatiTrasmissione == null )
             //{
-                fattura.SetTrasmittente();
+                //fattura.SetTrasmittente();
             //}
             FlushXml( fattura );
         }

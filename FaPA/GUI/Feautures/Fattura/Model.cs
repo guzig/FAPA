@@ -19,7 +19,7 @@ namespace FaPA.GUI.Feautures.Fattura
         {
             _editViewModel = new EditFatturaViewModel(baseCrudPresenter, UserEntities, UserCollectionView, session);
 
-            _editViewModel.SetUpCollectionView(UserEntities, UserCollectionView);
+            //_editViewModel.SetUpCollectionView(UserEntities, UserCollectionView);
             _editViewModel.DisplayName = "Fattura";
             //_editViewModel.AddCrossCoupledPropValidation((FatturaDto f) => f.DataFatturaDB)
             //                .AddCrossCoupledPropValidation((FatturaDto f) => f.Liquidazione.DataLiquidazione);

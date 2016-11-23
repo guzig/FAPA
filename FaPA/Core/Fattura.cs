@@ -49,7 +49,23 @@ namespace FaPA.Core
                 }
 
                 return FatturaPa.FatturaElettronicaHeader;
-            } 
+            }
+            set { FatturaPa.FatturaElettronicaHeader = value; }
+        }
+
+        public virtual FatturaElettronicaBodyType FatturaElettronicaBody
+        {
+            get
+            {
+                if ( FatturaPa.FatturaElettronicaBody == null )
+                {
+                    FatturaPa.FatturaElettronicaBody = new FatturaElettronicaBodyType();
+                }
+
+                return FatturaPa.FatturaElettronicaBody;
+            }
+
+            set { FatturaPa.FatturaElettronicaBody = value; }
         }
 
         public virtual DatiTrasmissioneType DatiTrasmissione
@@ -144,27 +160,14 @@ namespace FaPA.Core
             }
         }
 
-        public virtual FatturaElettronicaBodyType FatturaElettronicaBody
-        {
-            get
-            {
-                if ( FatturaPa.FatturaElettronicaBody == null )
-                {
-                    FatturaPa.FatturaElettronicaBody = new FatturaElettronicaBodyType();
-                }
-
-                return FatturaPa.FatturaElettronicaBody;
-            } 
-        }
-
         public virtual DatiPagamentoType[] DatiPagamento
         {
             get
             {
-                if ( FatturaElettronicaBody.DatiPagamento  == null )
-                {
-                    FatturaElettronicaBody.DatiPagamento = new[]{new DatiPagamentoType()};
-                }
+                //if ( FatturaElettronicaBody.DatiPagamento  == null )
+                //{
+                //    FatturaElettronicaBody.DatiPagamento = new[]{new DatiPagamentoType()};
+                //}
                 return FatturaElettronicaBody.DatiPagamento;
             }
             set { FatturaElettronicaBody.DatiPagamento = value; }

@@ -22,11 +22,15 @@ namespace FaPA.Data
             PropertyChangedEventHandler changedEventHandler = null;
 
             if ( entity is BaseEntity )
+            {
                 changedEventHandler = entity.TryGetPropChangedEventHandler();
+            }
             
             if ( entity is IProxy )
-                throw new Exception("E' gia' un proxy");
-                //return entity;
+            {
+                //throw new Exception("E' gia' un proxy");
+                return entity;
+            }
 
             var proxy = _factory.CreateProxy(entityType, new PropChangedAndDataErrorDynProxyInterceptor(entity, 
                 changedEventHandler ), typeof(INotifyPropertyChanged), typeof(INotifyDataErrorInfo) );
