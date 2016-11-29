@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Data;
+using FaPA.AppServices.CoreValidation;
 using FaPA.Core.FaPa;
 using NHibernate;
+using NHibernate.Proxy.DynamicProxy;
 using NHibernate.SqlTypes;
 using NHibernate.UserTypes;
 
@@ -20,6 +22,13 @@ namespace FaPA.Core
             if (string.IsNullOrWhiteSpace( xmlContent ) )
                 throw new Exception("Expected data to be fatturapa.");
 
+            if (owner is IProxy)
+            {
+                object proxied = SerializerHelpers.XmlToObject(xmlContent);
+                ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntityFpa>(ref proxied, "FaPA.Core");
+                return proxied;
+            }
+
             return SerializerHelpers.XmlToObject( xmlContent );
         }
         
@@ -32,7 +41,8 @@ namespace FaPA.Core
             else
             {
                 var fatturaElettronicaTypeV11 = (FatturaElettronicaType)value;
-                var xmlStream = SerializerHelpers.ObjectToXml( fatturaElettronicaTypeV11 ); 
+                var unproxy = (FatturaElettronicaType) ObjectExplorer.UnProxiedAllInstances(fatturaElettronicaTypeV11);
+                var xmlStream = SerializerHelpers.ObjectToXml(unproxy); 
                 ((IDataParameter)cmd.Parameters[index]).Value = xmlStream;
             }
         }

@@ -39,7 +39,7 @@ namespace FaPA.Infrastructure
 			get
 			{
 			    if ( _session != null ) return _session;
-                return _session = SessionFactory.OpenSession( new AddPropertyChangedInterceptor() );
+                return _session = SessionFactory.OpenSession( new AddPropertyChangedInterceptor()  );
 
             }
 		}

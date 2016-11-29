@@ -43,10 +43,10 @@ namespace FaPA.Core
         {
             get
             {
-                if ( FatturaPa.FatturaElettronicaHeader == null )
-                {
-                    FatturaPa.FatturaElettronicaHeader = new FatturaElettronicaHeaderType();
-                }
+                //if ( FatturaPa.FatturaElettronicaHeader == null )
+                //{
+                //    FatturaPa.FatturaElettronicaHeader = new FatturaElettronicaHeaderType();
+                //}
 
                 return FatturaPa.FatturaElettronicaHeader;
             }
@@ -57,10 +57,10 @@ namespace FaPA.Core
         {
             get
             {
-                if ( FatturaPa.FatturaElettronicaBody == null )
-                {
-                    FatturaPa.FatturaElettronicaBody = new FatturaElettronicaBodyType();
-                }
+                //if ( FatturaPa.FatturaElettronicaBody == null )
+                //{
+                //    FatturaPa.FatturaElettronicaBody = new FatturaElettronicaBodyType();
+                //}
 
                 return FatturaPa.FatturaElettronicaBody;
             }
@@ -72,7 +72,7 @@ namespace FaPA.Core
         {
             get
             {
-                if ( FatturaPa.FatturaElettronicaHeader.DatiTrasmissione == null)
+                if (FatturaPa.FatturaElettronicaHeader.DatiTrasmissione == null)
                 {
                     FatturaPa.FatturaElettronicaHeader.DatiTrasmissione = new DatiTrasmissioneType();
                 }
@@ -89,11 +89,12 @@ namespace FaPA.Core
         {
             get
             {
-                if ( FatturaPa.FatturaElettronicaBody == null )
+                if (FatturaPa.FatturaElettronicaBody == null)
                 {
                     FatturaPa.FatturaElettronicaBody = new FatturaElettronicaBodyType();
                 }
-                if ( FatturaPa.FatturaElettronicaBody.DatiGenerali == null )
+
+                if (FatturaPa.FatturaElettronicaBody.DatiGenerali == null)
                 {
                     FatturaPa.FatturaElettronicaBody.DatiGenerali = new DatiGeneraliType();
                 }
@@ -119,10 +120,10 @@ namespace FaPA.Core
         {
             get
             {
-                //if ( DatiGenerali.DatiOrdineAcquisto == null )
-                //{
-                //    DatiGenerali.DatiOrdineAcquisto = new[] {new DatiDocumentiCorrelatiType()};
-                //}
+                if (DatiGenerali.DatiOrdineAcquisto == null)
+                {
+                    DatiGenerali.DatiOrdineAcquisto = new[] { new DatiDocumentiCorrelatiType() };
+                }
                 return DatiGenerali.DatiOrdineAcquisto;
             }
             set { DatiGenerali.DatiOrdineAcquisto = value; }
@@ -363,14 +364,14 @@ namespace FaPA.Core
         //}
 
         public virtual void SetTrasmittente()
-        {
+        {          
             FatturaElettronicaHeader.DatiTrasmissione = new DatiTrasmissioneType
             {
                 CodiceDestinatario = CodUfficioDB,
                 FormatoTrasmissione = new FormatoTrasmissioneType(),
                 ProgressivoInvio = ProgFile.ToString("00000")
             };
-
+            
             if ( AnagraficaCedenteDB != null )
                 FatturaElettronicaHeader.DatiTrasmissione.IdTrasmittente = new IdFiscaleType
                 {

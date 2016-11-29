@@ -160,8 +160,6 @@ namespace FaPA.GUI.Controls.MyTabControl
                 //default behavoir on page changed
             {
                 vm.OnPageGotFocus();
-                //var entity = vm.CurrentEntity;
-                //vm.TryGetUnproxiedEntity();
             }
             else
             {

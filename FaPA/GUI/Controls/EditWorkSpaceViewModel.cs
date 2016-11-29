@@ -241,8 +241,6 @@ namespace FaPA.GUI.Controls
         {
             if ( !( sender is BaseEntity ) ) return;
 
-            var g1 = Instance;
-
             LockMessage = EditViewModel<BaseEntity>.OnEditingLockMessage;
             IsInEditing = true;
             //OnCurrentChanged(sender, eventArg);

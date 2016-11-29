@@ -13,7 +13,7 @@
             base.SetSession(session);
         }
 
-        public override Object Instantiate(String clazz, EntityMode entityMode, Object id)
+        public override object Instantiate(string clazz, EntityMode entityMode, object id)
         {
             if (entityMode != EntityMode.Poco)
                 return base.Instantiate(clazz, entityMode, id);

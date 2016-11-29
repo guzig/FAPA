@@ -39,7 +39,8 @@
 
                 <StackPanel Grid.Row="1" Grid.Column="1" Margin="2,0,2,0">
                     <TextBlock Text="Uff. PA" />
-                    <TextBox   Text="{Binding UserProperty.CodiceDestinatario, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
+                    <TextBox   Text="{Binding UserProperty.CodiceDestinatario, Mode=OneWay, UpdateSourceTrigger=LostFocus, 
+                        ValidatesOnDataErrors=False}" HorizontalAlignment="Stretch" />
                 </StackPanel>
 
             </Grid>
@@ -72,10 +73,10 @@
         <StackPanel Orientation="Vertical" Grid.Row="2" Height="Auto"  Margin="2,2,2,2" 
                     utils:FocusAdvancement.AdvancesByEnterKey="True">
 
-            <!--<StackPanel.InputBindings>
+            <StackPanel.InputBindings>
                 <KeyBinding Key="Enter" Modifiers="Ctrl" Command="{Binding EnterKey}" />
                 <KeyBinding Key="F9"  Command="{Binding SearchOnSite}" />
-            </StackPanel.InputBindings>-->
+            </StackPanel.InputBindings>
 
             <DockPanel Height="25" Margin="2,2,2,2" Background="{StaticResource Brush_ToolBar}">
 

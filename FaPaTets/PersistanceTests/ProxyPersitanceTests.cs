@@ -2,7 +2,9 @@ using System;
 using FaPaTets.DbSetUp;
 using FaPA.AppServices.CoreValidation;
 using FaPA.Core;
+using FaPA.Core.FaPa;
 using FaPA.Data;
+using NHibernate.Proxy.DynamicProxy;
 using NUnit.Framework;
 
 namespace FaPaTets.PersistanceTests
@@ -13,7 +15,7 @@ namespace FaPaTets.PersistanceTests
         [Test]
         public void Created_proxy_entity_should_be_persistable()
         {
-            var session = _sessionFactory.OpenSession(); //new AddPropertyChangedInterceptor()
+            var session = _sessionFactory.OpenSession(new AddPropertyChangedInterceptor()); //new AddPropertyChangedInterceptor()
 
             var fattura = DataTestFactory.GetFattura();
 
@@ -23,11 +25,11 @@ namespace FaPaTets.PersistanceTests
             AddPropChangedAndDataErrorInterceptorProxyFactory.Create(typeof(Fornitore),
                 fattura.AnagraficaCedenteDB);
 
-            //AddPropChangedAndDataErrorInterceptorProxyFactory.Create(typeof(Fattura), fattura);
+            fattura.SetTrasmittente();
 
-            object current = fattura.FatturaPa.FatturaElettronicaHeader;
-            ObjectExplorer.TryProxiedAllInstances<FaPA.Core.FaPa.FatturaElettronicaHeaderType>( ref current, "FaPA.Core" );
-            
+            object current = fattura.FatturaPa;
+            ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntityFpa>( ref current, "FaPA.Core" );
+            //fattura.FatturaPa = (FatturaElettronicaType) ObjectExplorer.UnProxiedAllInstances(current);
             using ( var transaction = session.BeginTransaction())
             {
                 session.SaveOrUpdate(typeof(Fornitore).FullName, fattura.AnagraficaCedenteDB);
@@ -45,6 +47,19 @@ namespace FaPaTets.PersistanceTests
                 session.Flush();
                 transaction.Commit();
             }
+
+            Fattura read;
+            using (var tx = session.BeginTransaction())
+            {
+                session.Evict(session.Get<Fattura>(fattura.Id));
+                read = session.Get<Fattura>(fattura.Id);
+                tx.Commit();
+            }
+
+            Assert.IsInstanceOf<IProxy>(read);
+
+            Assert.AreEqual(fattura.FatturaPa.FatturaElettronicaHeader.DatiTrasmissione.IdTrasmittente.IdCodice,
+                            read.FatturaPa.FatturaElettronicaHeader.DatiTrasmissione.IdTrasmittente.IdCodice);
         }
 
         [Test]

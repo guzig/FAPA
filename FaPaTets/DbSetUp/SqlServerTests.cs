@@ -150,9 +150,9 @@ namespace FaPaTets.DbSetUp
         {
             //BootStrapper.Initialize();
             //var session = BootStrapper.SessionFactory.OpenStatelessSession();
-            var nomeFileCap = @"C:\Users\tonio\Desktop\listacomuniConCAP.txt";
-            //@"C:\Devs\Source\FaPA\TestData\listacomuniConCAP.txt";
-             
+            var nomeFileCap = @"C:\Users\Devs\Desktop\listacomuniConCAP.txt";
+                              //@"C:\Users\tonio\Desktop\listacomuniConCAP.txt";
+
             var dictCap = new Dictionary<string,string>(); 
 
             using (TextReader readerCap = new StreamReader(nomeFileCap))
@@ -170,7 +170,8 @@ namespace FaPaTets.DbSetUp
 
             using (var tx = session.BeginTransaction())
             {
-                var nomeFile = @"C:\Users\tonio\Desktop\elenco-comuni-italiani.csv";
+                var nomeFile = @"C:\Users\Devs\Desktop\elenco-comuni-italiani.csv";
+                    //@"C:\Users\tonio\Desktop\elenco-comuni-italiani.csv";
                 using (TextReader readerComuni = new StreamReader(nomeFile))
                 {
                     string line;

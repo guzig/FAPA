@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Xml.Serialization;
 using FaPA.Data;
+using NHibernate.Proxy.DynamicProxy;
 
 namespace FaPA.AppServices.CoreValidation
 {
@@ -134,6 +135,87 @@ namespace FaPA.AppServices.CoreValidation
 
             return isValueSet;
         }
+
+        public static object UnProxiedAllInstances(object value ) 
+        {
+            var exploredObjects = new HashSet<object>();
+
+            return UnProxiedAllInstances( value, exploredObjects);
+
+        }
+
+        private static object UnProxiedAllInstances( object value, HashSet<object> exploredObjects)
+        {
+            if (value == null || exploredObjects.Contains(value) || value.GetType().IsEnum) return false;
+
+            exploredObjects.Add(value);
+
+            if (value is string) return false;
+            var enumerable = value as IEnumerable;
+            if (enumerable != null)
+            {
+                #region IEnumerable loop
+
+                var array = enumerable as Array;
+                if (array != null)
+                {
+                    for (var i = 0; i < array.Length; i++)
+                    {
+                        var app = array.GetValue(i);
+                        if (app.GetType().IsEnum) continue;
+                        var res = UnProxiedAllInstances(app, exploredObjects);
+                        if ( res != null  )
+                        {
+                            array.SetValue(res, i);
+                        }
+                    }
+                }
+                else if (IsList(enumerable))
+                {
+                    throw new NotImplementedException();
+                }
+
+                #endregion
+            }
+            else
+            {
+                var possibleMatch = value as IProxy;
+
+                var type = value.GetType();
+                var properties = type.GetProperties(_bindingFlags).ToArray();
+
+                foreach (var property in properties )
+                {
+                    var propertyValue = property.GetValue(value);
+
+                    if ( !(propertyValue is IProxy ) )
+                    {
+                        continue;
+                    }
+
+                    var unproxied = UnProxiedAllInstances( propertyValue, exploredObjects);
+
+                    if ( unproxied != null )
+                        property.SetValue( value, unproxied );
+                }
+
+                if (possibleMatch != null)
+                {
+                    var inst = possibleMatch.Interceptor as PropChangedAndDataErrorDynProxyInterceptor;
+                    var proxy = inst.Proxy;
+
+                    if (proxy != null)
+                        return proxy;
+                }
+                else
+                    return value;
+
+            }
+
+            return value;
+
+        }
+
 
         public static void OverridesAllInstances( Type classType, XmlAttributeOverrides overrides ) 
         {

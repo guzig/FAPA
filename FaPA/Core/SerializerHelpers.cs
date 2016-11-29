@@ -5,7 +5,9 @@ using System.Xml.Schema;
 using System.Xml.Serialization;
 using FaPA.AppServices.CoreValidation;
 using FaPA.Core.FaPa;
+using FaPA.Data;
 using FaPA.DomainServices.Utils;
+using NHibernate.Proxy.DynamicProxy;
 
 namespace FaPA.Core
 {
@@ -63,7 +65,8 @@ namespace FaPA.Core
             string utf8;
             using ( StringWriter writer = new Utf8StringWriter() )
             {
-                Serializer.Serialize(writer, objectInstance, NameSpaceFatturaPa);
+                var unproxy = ObjectExplorer.UnProxiedAllInstances(objectInstance);
+                Serializer.Serialize(writer, unproxy, NameSpaceFatturaPa);                   
                 utf8 = writer.ToString();
             }
             return utf8;

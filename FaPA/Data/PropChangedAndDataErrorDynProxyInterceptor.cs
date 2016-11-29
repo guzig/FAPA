@@ -11,8 +11,6 @@ namespace FaPA.Data
         public object Proxy { get; set; }
         private PropertyChangedEventHandler _changed = delegate { };
         private event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
-
-        public bool IsNotifying { get; set; }
         
         public PropChangedAndDataErrorDynProxyInterceptor(){}
 
