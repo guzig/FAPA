@@ -22,12 +22,12 @@ namespace FaPA.Core
             if (string.IsNullOrWhiteSpace( xmlContent ) )
                 throw new Exception("Expected data to be fatturapa.");
 
-            if (owner is IProxy)
-            {
-                object proxied = SerializerHelpers.XmlToObject(xmlContent);
-                ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntityFpa>(ref proxied, "FaPA.Core");
-                return proxied;
-            }
+            //if (owner is IProxy)
+            //{
+            //    object proxied = SerializerHelpers.XmlToObject(xmlContent);
+            //    ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntityFpa>(ref proxied, "FaPA.Core");
+            //    return proxied;
+            //}
 
             return SerializerHelpers.XmlToObject( xmlContent );
         }
@@ -41,8 +41,8 @@ namespace FaPA.Core
             else
             {
                 var fatturaElettronicaTypeV11 = (FatturaElettronicaType)value;
-                var unproxy = (FatturaElettronicaType) ObjectExplorer.UnProxiedAllInstances(fatturaElettronicaTypeV11);
-                var xmlStream = SerializerHelpers.ObjectToXml(unproxy); 
+               //var unproxy = (FatturaElettronicaType) ObjectExplorer.UnProxiedAllInstances(fatturaElettronicaTypeV11);
+                var xmlStream = SerializerHelpers.ObjectToXml( fatturaElettronicaTypeV11 ); 
                 ((IDataParameter)cmd.Parameters[index]).Value = xmlStream;
             }
         }

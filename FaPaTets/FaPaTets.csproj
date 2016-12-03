@@ -191,6 +191,7 @@
     <Compile Include="FatturaPa\FatturaPa_11\ValidationSchemaTests.cs" />
     <Compile Include="MappingTests.cs" />
     <Compile Include="Misc\ReflectionTest.cs" />
+    <Compile Include="PersistanceTests\ValidationTests.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="TestsPaths.cs" />
     <Compile Include="FatturaPa\FatturaPa_11\FatturaElettronicaType_V11_Test.cs" />

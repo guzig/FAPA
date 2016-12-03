@@ -3,11 +3,14 @@ using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Windows;
 using System.Windows.Input;
+using FaPA.AppServices.CoreValidation;
 using FaPA.Core;
+using FaPA.Core.FaPa;
 using FaPA.GUI.Controls.MyTabControl;
 using FaPA.GUI.Feautures.Fattura;
 using FaPA.GUI.Utils;
 using FaPA.Infrastructure;
+using NHibernate.Proxy.DynamicProxy;
 using Action = System.Action;
 
 namespace FaPA.GUI.Controls
@@ -22,6 +25,8 @@ namespace FaPA.GUI.Controls
             GetterProp = getter.Compile();
             Repository = repository;
             Instance = instance;
+            if ( !( UserProperty is IProxy ) )
+                throw  new Exception( "L'istanza non implementa IProxy" );
             DisplayName = dispName;
             IsCloseable = isClosable;
         }
@@ -213,6 +218,14 @@ namespace FaPA.GUI.Controls
 
         protected virtual void Persist()
         {
+            var fatt = Instance as Fattura;
+
+            var header = ObjectExplorer.UnProxiedAllInstances( fatt.FatturaPa.FatturaElettronicaHeader );
+            fatt.FatturaElettronicaHeader = ( FatturaElettronicaHeaderType ) header;
+
+            var body = ObjectExplorer.UnProxiedAllInstances( fatt.FatturaPa.FatturaElettronicaBody );
+            fatt.FatturaElettronicaBody = ( FatturaElettronicaBodyType ) body;
+
             PersitEntity();
         }
         
@@ -309,6 +322,13 @@ namespace FaPA.GUI.Controls
 
         public virtual bool Persist(object entity)
         {
+            var fatt = Instance as Fattura;
+            var header = ObjectExplorer.UnProxiedAllInstances( fatt.FatturaPa.FatturaElettronicaHeader );
+            fatt.FatturaElettronicaHeader = ( FatturaElettronicaHeaderType ) header;
+
+            var body = ObjectExplorer.UnProxiedAllInstances( fatt.FatturaPa.FatturaElettronicaBody );
+            fatt.FatturaElettronicaBody = ( FatturaElettronicaBodyType ) body;
+
             return Repository.Persist(Instance);
         }
 

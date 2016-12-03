@@ -968,7 +968,8 @@ namespace FaPA.GUI.Controls.MyTabControl
 
         public object Read()
         {
-            return LoadEntity( CurrentEntity.Id ); 
+            return 
+                LoadEntity( CurrentEntity.Id ); 
         }
 
         public bool Persist(object entity)

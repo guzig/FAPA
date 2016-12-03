@@ -39,8 +39,9 @@
 
                 <StackPanel Grid.Row="1" Grid.Column="1" Margin="2,0,2,0">
                     <TextBlock Text="Uff. PA" />
-                    <TextBox   Text="{Binding UserProperty.CodiceDestinatario, Mode=OneWay, UpdateSourceTrigger=LostFocus, 
-                        ValidatesOnDataErrors=False}" HorizontalAlignment="Stretch" />
+                    <TextBox   Text="{Binding UserProperty.CodiceDestinatario,  UpdateSourceTrigger=LostFocus, 
+                                              ValidatesOnDataErrors=False}" 
+                               HorizontalAlignment="Stretch" />
                 </StackPanel>
 
             </Grid>

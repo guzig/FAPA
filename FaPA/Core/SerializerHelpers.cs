@@ -65,8 +65,7 @@ namespace FaPA.Core
             string utf8;
             using ( StringWriter writer = new Utf8StringWriter() )
             {
-                var unproxy = ObjectExplorer.UnProxiedAllInstances(objectInstance);
-                Serializer.Serialize(writer, unproxy, NameSpaceFatturaPa);                   
+                Serializer.Serialize(writer, objectInstance, NameSpaceFatturaPa);                   
                 utf8 = writer.ToString();
             }
             return utf8;

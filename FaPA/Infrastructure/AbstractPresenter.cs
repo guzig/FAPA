@@ -39,9 +39,11 @@ namespace FaPA.Infrastructure
 			get
 			{
 			    if ( _session != null ) return _session;
-                return _session = SessionFactory.OpenSession( new AddPropertyChangedInterceptor()  );
+                _session = SessionFactory.OpenSession( new AddPropertyChangedInterceptor()  );
+                _session.FlushMode = FlushMode.Never;
+			    return _session;
 
-            }
+			}
 		}
 
 		protected IStatelessSession StatelessSession

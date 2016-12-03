@@ -62,6 +62,12 @@ namespace FaPA.GUI.Feautures.Fattura
 
         public override void Persist()
         {
+            var header = ObjectExplorer.UnProxiedAllInstances( CurrentEntity.FatturaPa.FatturaElettronicaHeader );
+            CurrentEntity.FatturaElettronicaHeader = ( FatturaElettronicaHeaderType ) header;
+
+            var body = ObjectExplorer.UnProxiedAllInstances( CurrentEntity.FatturaPa.FatturaElettronicaBody );
+            CurrentEntity.FatturaElettronicaBody = ( FatturaElettronicaBodyType ) body;
+
             CurrentEntity.SetTrasmittente();
             base.Persist();
             LockMessage = null;

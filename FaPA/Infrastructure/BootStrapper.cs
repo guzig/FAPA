@@ -33,9 +33,9 @@ namespace FaPA.Infrastructure
                 c.BatchSize = 50;
                 c.Dialect<MsSql2008Dialect>();
                 c.ConnectionString = StoreAccess.ConnString;
-                //c.LogFormattedSql = true;
-                //c.LogSqlInConsole = true;
-                //c.AutoCommentSql = true;
+                c.LogFormattedSql = true;
+                c.LogSqlInConsole = true;
+                c.AutoCommentSql = true;
             });
 
             var validatorEngine = new ValidatorEngine();

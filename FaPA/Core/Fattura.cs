@@ -4,6 +4,9 @@ using System.ComponentModel;
 using FaPA.Core.FaPa;
 using System.Linq;
 using System.Xml;
+using FaPA.AppServices.CoreValidation;
+using FaPA.Data;
+using NHibernate.Proxy.DynamicProxy;
 
 namespace FaPA.Core
 {
@@ -289,7 +292,24 @@ namespace FaPA.Core
             if ( FatturaPa == null )
                 return;
 
-            if (e.PropertyName == nameof(NumeroFatturaDB))
+            if ( e.PropertyName == "FatturaPa" )
+            {
+                if ( sender is IProxy )
+                {
+                    var entity = sender as Fattura;
+                    if ( entity == null ) return;
+
+                    object header = entity.FatturaPa.FatturaElettronicaHeader;
+                    ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntityFpa>( ref header, "FaPA.Core" );
+                    entity.FatturaElettronicaHeader = ( FatturaElettronicaHeaderType ) header;
+
+                    object body = entity.FatturaPa.FatturaElettronicaBody;
+                    ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntityFpa>( ref body, "FaPA.Core" );
+                    entity.FatturaElettronicaBody =  ( FatturaElettronicaBodyType ) body;
+                }
+            }          
+
+            if ( e.PropertyName == nameof(NumeroFatturaDB))
             {
                 DatiGeneraliDocumento.Numero = NumeroFatturaDB;
             }
