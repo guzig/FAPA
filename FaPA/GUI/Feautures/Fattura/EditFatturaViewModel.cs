@@ -109,17 +109,6 @@ namespace FaPA.GUI.Feautures.Fattura
             }
         }
 
-        protected override Core.Fattura LoadEntity(long id)
-        {
-            var fattura = base.LoadEntity(id);
-
-            if (fattura == null) return null;
-
-            //fattura.Init();
-
-            return fattura;
-        }
-
         private void InitFatturaTabs()
         {
             var fattura = CurrentEntity;

@@ -52,12 +52,19 @@ namespace FaPA.GUI.Controls
 
         protected override void PersitEntity()
         {
+            var index = UserCollectionView.CurrentPosition;
+
             base.PersitEntity();
+
             if ( _userAddedNewPocos.Contains( UserProperty ) )
+            {
                 _userAddedNewPocos.Remove( UserProperty );
+            }
 
             Init();
-            UserCollectionView.MoveCurrentTo( UserProperty );
+
+            if ( index > 0 )
+                UserCollectionView.MoveCurrentToPosition( index );
         }
 
         protected override void MakeTransient()

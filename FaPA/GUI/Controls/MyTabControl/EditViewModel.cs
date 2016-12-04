@@ -436,6 +436,7 @@ namespace FaPA.GUI.Controls.MyTabControl
             {
                 try
                 {
+                    Session.Clear();
                     var typeName = ProxyInspector.GuessType( CurrentEntity ).FullName;
                     Session.SaveOrUpdate(typeName, CurrentEntity);
                     Session.Flush();
