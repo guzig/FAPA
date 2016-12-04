@@ -30,7 +30,7 @@ namespace FaPA.Core
             Overrides.Add(typeof(BaseEntity), "Version", XmlAttributes);
             Overrides.Add(typeof(BaseEntity), "IsValidating", XmlAttributes);
             Overrides.Add(typeof(BaseEntityFpa), "IsValidating", XmlAttributes);
-            ObjectExplorer.OverridesAllInstances( typeof( FatturaElettronicaType ), Overrides );
+            //ObjectExplorer.OverridesAllInstances( typeof( FatturaElettronicaType ), Overrides );
             Serializer = new XmlSerializer(typeof (FatturaElettronicaType), Overrides);
         }
 
@@ -65,7 +65,7 @@ namespace FaPA.Core
             string utf8;
             using ( StringWriter writer = new Utf8StringWriter() )
             {
-                Serializer.Serialize(writer, objectInstance, NameSpaceFatturaPa);                   
+                Serializer.Serialize(writer, ( FatturaElettronicaType ) objectInstance, NameSpaceFatturaPa);                   
                 utf8 = writer.ToString();
             }
             return utf8;

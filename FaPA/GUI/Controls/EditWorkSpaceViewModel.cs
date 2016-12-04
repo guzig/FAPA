@@ -25,8 +25,6 @@ namespace FaPA.GUI.Controls
             GetterProp = getter.Compile();
             Repository = repository;
             Instance = instance;
-            if ( !( UserProperty is IProxy ) )
-                throw  new Exception( "L'istanza non implementa IProxy" );
             DisplayName = dispName;
             IsCloseable = isClosable;
         }
@@ -142,7 +140,7 @@ namespace FaPA.GUI.Controls
                 {
                     ShowCursor.Show();
 
-                    Persist();
+                    PersitEntity();
                 },
                 param => CanSaveExecuted());
 
@@ -186,25 +184,34 @@ namespace FaPA.GUI.Controls
             AllowInsertNew = true;
 
             if ( UserProperty == null ) return;
+            CurrentPoco = UserProperty;
             HookOnChanged( UserProperty );
             BeginEdit();
         }
         
         protected virtual void Validate()
         {
-            var poco = CurrentPoco;
-            if (poco == null)
+            if (CurrentPoco == null)
             {
                 IsValid = true;
                 return;
             }
-            ( ( IValidatable ) poco ).Validate();
-            IsValid = ( ( BaseEntity ) poco ).DomainResult.Success;
+            ( ( IValidatable ) CurrentPoco ).Validate();
+            IsValid = ( ( BaseEntity ) CurrentPoco ).DomainResult.Success;
         }
 
+        private object _currentPoco;
         public virtual object CurrentPoco
         {
-            get { return UserProperty; }
+            get
+            {
+                return _currentPoco;
+            }
+            set
+            {
+                _currentPoco = value;
+                NotifyOfPropertyChange( () => CurrentPoco );
+            }
         }
 
         protected virtual void MakeTransient()
@@ -214,19 +221,6 @@ namespace FaPA.GUI.Controls
             IsInEditing = false;
             PersitEntity();
             AllowInsertNew = true;
-        }
-
-        protected virtual void Persist()
-        {
-            var fatt = Instance as Fattura;
-
-            var header = ObjectExplorer.UnProxiedAllInstances( fatt.FatturaPa.FatturaElettronicaHeader );
-            fatt.FatturaElettronicaHeader = ( FatturaElettronicaHeaderType ) header;
-
-            var body = ObjectExplorer.UnProxiedAllInstances( fatt.FatturaPa.FatturaElettronicaBody );
-            fatt.FatturaElettronicaBody = ( FatturaElettronicaBodyType ) body;
-
-            PersitEntity();
         }
         
         protected virtual bool CanSaveExecuted()
@@ -279,11 +273,15 @@ namespace FaPA.GUI.Controls
         public delegate void OnCurrentChangedhandler(object sender, PropertyChangedEventArgs eventArg);
         public event OnCurrentChangedhandler CurrentEntityChanged;
 
-        private void PersitEntity()
+        protected virtual void PersitEntity()
         {
             ShowCursor.Show();
 
             if ( !Repository.Persist(Instance) ) return;
+
+            Instance = ( T ) Repository.Read();
+
+            UserProperty = GetterProp( Instance );
 
             LockMessage = null;
             AllowSave = false;
@@ -322,13 +320,6 @@ namespace FaPA.GUI.Controls
 
         public virtual bool Persist(object entity)
         {
-            var fatt = Instance as Fattura;
-            var header = ObjectExplorer.UnProxiedAllInstances( fatt.FatturaPa.FatturaElettronicaHeader );
-            fatt.FatturaElettronicaHeader = ( FatturaElettronicaHeaderType ) header;
-
-            var body = ObjectExplorer.UnProxiedAllInstances( fatt.FatturaPa.FatturaElettronicaBody );
-            fatt.FatturaElettronicaBody = ( FatturaElettronicaBodyType ) body;
-
             return Repository.Persist(Instance);
         }
 

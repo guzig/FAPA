@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
@@ -72,40 +71,52 @@ namespace FaPA.GUI.Controls.MyTabControl
 
         public abstract void CreateNewModel( QueryOver queryOver );
 
-        protected virtual void CreateNewModel( string displayName, int activePage, ICollectionView tabsView )
+        protected abstract BaseCrudModel CreateNewModel();
+
+        public abstract void CreateNewModel( int activePage );
+        
+
+        //public abstract void CreateNewModel( int activeWorkSpace );
+
+        protected virtual void CreateNewModel<TDto>(int pageSize, ICountProvider pagesProvider, 
+            IPageProvider<TDto, ObservableCollection<TDto>> pageProvider, 
+            Action<ObservableCollection<TDto>> created) where TDto : new()
         {
-            Model.SetEditViewModel(Session, this);
-            SetActiveWorkSpace( activePage );
-            Model.SelectedPageChanged += OnPageChanged;
+            CollectionFactory.Create( pageSize, pageProvider, 
+                pagesProvider, created  );
         }
 
-        protected void CreateNewModel<TE, TDto>( int activeTab, string displayName )
-        {
-            var criteria = QueryCriteria;
-            var entities = GetExeCriteria<TE>( criteria );
-            var entitiesdto = Mapper.Map<IEnumerable<TE>, IEnumerable<TDto>>( entities );
-            Model.UserEntities = new ObservableCollection<TDto>( entitiesdto );
-            Model.UserCollectionView = CollectionViewSource.GetDefaultView( Model.UserEntities );
-            CreateNewModel( displayName, activeTab, Model.UserCollectionView );
-        }
+        public abstract void CreateNewModel( DetachedCriteria queryByExample );
 
-        protected void CreateNewModel<TE, TDto>( int activeTab, PropertyGroupDescription groupDescription, string displayName )
-        {
-            var criteria = QueryCriteria;
-            var entities = GetExeCriteria<TE>( criteria );
-            var entitiesdto = Mapper.Map<IEnumerable<TE>, IEnumerable<TDto>>( entities );
 
-            Model.UserEntities = new ObservableCollection<TDto>( entitiesdto );
 
-            var userCollectionView = CollectionViewSource.GetDefaultView( Model.UserEntities );
+        //protected void CreateNewModel<TE, TDto>( int activeTab, string displayName )
+        //{
+        //    var criteria = QueryCriteria;
+        //    var entities = GetExeCriteria<TE>( criteria );
+        //    var entitiesdto = Mapper.Map<IEnumerable<TE>, IEnumerable<TDto>>( entities );
+        //    Model.UserEntities = new ObservableCollection<TDto>( entitiesdto );
+        //    Model.UserCollectionView = CollectionViewSource.GetDefaultView( Model.UserEntities );
+        //    CreateNewModel( displayName, activeTab, Model.UserCollectionView );
+        //}
 
-            userCollectionView.GroupDescriptions.Add( groupDescription );
+        //protected void CreateNewModel<TE, TDto>( int activeTab, PropertyGroupDescription groupDescription, string displayName )
+        //{
+        //    var criteria = QueryCriteria;
+        //    var entities = GetExeCriteria<TE>( criteria );
+        //    var entitiesdto = Mapper.Map<IEnumerable<TE>, IEnumerable<TDto>>( entities );
 
-            Model.UserCollectionView = userCollectionView;
-            Model.UserCollectionView.MoveCurrentToFirst();
+        //    Model.UserEntities = new ObservableCollection<TDto>( entitiesdto );
 
-            CreateNewModel( displayName, activeTab, Model.UserCollectionView );
-        }
+        //    var userCollectionView = CollectionViewSource.GetDefaultView( Model.UserEntities );
+
+        //    userCollectionView.GroupDescriptions.Add( groupDescription );
+
+        //    Model.UserCollectionView = userCollectionView;
+        //    Model.UserCollectionView.MoveCurrentToFirst();
+
+        //    CreateNewModel( displayName, activeTab, Model.UserCollectionView );
+        //}
 
         public virtual void RefreshSharedViewsAfterDelete( BaseEntity deletedEntity )
         {
@@ -221,9 +232,7 @@ namespace FaPA.GUI.Controls.MyTabControl
         {
             return Model.UserCollectionView != null && Model.UserCollectionView.CurrentItem != null;
         }
-
-        protected abstract BaseCrudModel CreateNewModel();
-
+        
         protected bool IsIncrementalSearch()
         {
             if ( Model == null || Model.Workspaces == null ) return false;
@@ -247,7 +256,9 @@ namespace FaPA.GUI.Controls.MyTabControl
                 Model = CreateNewModel();
                 Model.UserEntities = created;
                 Model.UserCollectionView = CollectionViewSource.GetDefaultView( Model.UserEntities );
-                CreateNewModel( Model.DisplayName, activeTab, Model.UserCollectionView );
+                Model.SetEditViewModel( Session, this );
+                SetActiveWorkSpace( activeTab );
+                Model.SelectedPageChanged += OnPageChanged;
                 IsBusy = false;
             }
             else
@@ -314,17 +325,7 @@ namespace FaPA.GUI.Controls.MyTabControl
 
         public abstract void QueryInProgress( bool inProgress );
 
-        protected virtual void CreateNewModel<TDto>(int pageSize, ICountProvider pagesProvider, 
-            IPageProvider<TDto, ObservableCollection<TDto>> pageProvider, 
-            Action<ObservableCollection<TDto>> created) where TDto : new()
-        {
-            CollectionFactory.Create( pageSize, pageProvider, 
-                pagesProvider, created  );
-        }
 
-        public abstract void CreateNewModel( DetachedCriteria queryByExample );
-
-        public abstract void CreateNewModel( int activeWorkSpace );
 
         protected void InitViewModel<TDto>( QueryOver queryByExample )
         {

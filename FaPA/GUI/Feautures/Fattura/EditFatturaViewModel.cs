@@ -60,17 +60,17 @@ namespace FaPA.GUI.Feautures.Fattura
             return instance;
         }
 
-        public override void Persist()
+        protected override bool TrySaveCurrentEntity()
         {
-            var header = ObjectExplorer.UnProxiedAllInstances( CurrentEntity.FatturaPa.FatturaElettronicaHeader );
-            CurrentEntity.FatturaElettronicaHeader = ( FatturaElettronicaHeaderType ) header;
+            //var header = ObjectExplorer.UnProxiedDeep( CurrentEntity.FatturaPa.FatturaElettronicaHeader );
+            //CurrentEntity.FatturaElettronicaHeader = ( FatturaElettronicaHeaderType ) header;
 
-            var body = ObjectExplorer.UnProxiedAllInstances( CurrentEntity.FatturaPa.FatturaElettronicaBody );
-            CurrentEntity.FatturaElettronicaBody = ( FatturaElettronicaBodyType ) body;
+            //var body = ObjectExplorer.UnProxiedDeep( CurrentEntity.FatturaPa.FatturaElettronicaBody );
+            //CurrentEntity.FatturaElettronicaBody = ( FatturaElettronicaBodyType ) body;
 
             CurrentEntity.SetTrasmittente();
-            base.Persist();
-            LockMessage = null;
+
+            return base.TrySaveCurrentEntity();
         }
 
         protected override void Dispose()
@@ -133,9 +133,9 @@ namespace FaPA.GUI.Feautures.Fattura
             //DettagliFatturaViewModel.Init<DettaglioLineeType, DettaglioLineeType>();
             //DettagliFatturaViewModel.CurrentEntityChanged += OnDettaglioFatturaPropertyChanged;
 
-            //var datiPagamento = new DatiPagamentoTabViewModel(this, fattura);
-            //datiPagamento.Init<DatiPagamentoType, DatiPagamentoDto>();
-            //AddTabViewModel<DatiPagamentoTabViewModel>(datiPagamento);
+            var datiPagamento = new DatiPagamentoTabViewModel( this, fattura );
+            datiPagamento.Init<DatiPagamentoType, DatiPagamentoDto>();
+            AddTabViewModel<DatiPagamentoTabViewModel>( datiPagamento );
 
             var trasmittente = new TrasmittenteTabViewModel(this, fattura);
             trasmittente.Init<DatiTrasmissioneType, DatiTrasmissioneDto>();

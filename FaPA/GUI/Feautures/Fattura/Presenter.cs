@@ -81,6 +81,7 @@ namespace FaPA.GUI.Feautures.Fattura
 
         private void CreateModel(int activeTab, ObservableCollection<Core.Fattura> c)
         {
+
             SetUpNewModel(activeTab, c);
 
             //_currentDtoEntity.NotifyOfDataErrorInfo += OnDataErrorInfo;

@@ -35,8 +35,7 @@
                 <KeyBinding Key="Enter" Modifiers="Ctrl" Command="{Binding EnterKey}" />
                 <KeyBinding Key="F9"  Command="{Binding SearchOnSite}" />
             </StackPanel.InputBindings>-->
-
-            
+          
             <Border Margin="2,2,2,2" Padding="2,5,4,4" Height="32"
                                      Visibility="{Binding Path=UserCollectionView.IsEmpty, Mode=OneWay, 
                                      Converter={StaticResource BoolToOppositeVisibilityConverter}}">
@@ -58,7 +57,6 @@
 
                     <Image Source="/GUI/Design/Styles/Images/delete(1).png" Width="25"/>
                 </Button>
-
 
                 <Button Name="Save" Command="{Binding SaveEntity}" Width="Auto"
                         ToolTip="Salva le modifiche apportate all'oggetto">

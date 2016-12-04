@@ -168,9 +168,9 @@ namespace FaPA.Core
         {
             get
             {
-                //if ( FatturaElettronicaBody.DatiPagamento  == null )
+                //if ( FatturaElettronicaBody.DatiPagamento == null )
                 //{
-                //    FatturaElettronicaBody.DatiPagamento = new[]{new DatiPagamentoType()};
+                //    FatturaElettronicaBody.DatiPagamento = new[] { new DatiPagamentoType() };
                 //}
                 return FatturaElettronicaBody.DatiPagamento;
             }
@@ -292,22 +292,22 @@ namespace FaPA.Core
             if ( FatturaPa == null )
                 return;
 
-            if ( e.PropertyName == "FatturaPa" )
-            {
-                if ( sender is IProxy )
-                {
-                    var entity = sender as Fattura;
-                    if ( entity == null ) return;
+            //if ( e.PropertyName == "FatturaPa" )
+            //{
+            //    if ( sender is IProxy )
+            //    {
+            //        var entity = sender as Fattura;
+            //        if ( entity == null ) return;
 
-                    object header = entity.FatturaPa.FatturaElettronicaHeader;
-                    ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntityFpa>( ref header, "FaPA.Core" );
-                    entity.FatturaElettronicaHeader = ( FatturaElettronicaHeaderType ) header;
+            //        object header = entity.FatturaPa.FatturaElettronicaHeader;
+            //        ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntityFpa>( ref header, "FaPA.Core" );
+            //        entity.FatturaElettronicaHeader = ( FatturaElettronicaHeaderType ) header;
 
-                    object body = entity.FatturaPa.FatturaElettronicaBody;
-                    ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntityFpa>( ref body, "FaPA.Core" );
-                    entity.FatturaElettronicaBody =  ( FatturaElettronicaBodyType ) body;
-                }
-            }          
+            //        object body = entity.FatturaPa.FatturaElettronicaBody;
+            //        ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntityFpa>( ref body, "FaPA.Core" );
+            //        entity.FatturaElettronicaBody =  ( FatturaElettronicaBodyType ) body;
+            //    }
+            //}          
 
             if ( e.PropertyName == nameof(NumeroFatturaDB))
             {
@@ -520,5 +520,7 @@ namespace FaPA.Core
                 return Id != 0;
             } 
         }
+
+
     }
 }

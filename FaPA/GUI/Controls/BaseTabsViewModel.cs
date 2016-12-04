@@ -50,19 +50,14 @@ namespace FaPA.GUI.Controls
             Init();
         }
 
-        public override object CurrentPoco
+        protected override void PersitEntity()
         {
-            get
-            {
-                return UserCollectionView?.CurrentItem;
-            }
-        }
-
-        protected override void Persist()
-        {
-            base.Persist();
+            base.PersitEntity();
             if ( _userAddedNewPocos.Contains( UserProperty ) )
                 _userAddedNewPocos.Remove( UserProperty );
+
+            Init();
+            UserCollectionView.MoveCurrentTo( UserProperty );
         }
 
         protected override void MakeTransient()
@@ -71,7 +66,7 @@ namespace FaPA.GUI.Controls
 
             RemoveItem();
 
-            Persist();
+            Persist( Instance );
 
             AllowDelete = !UserCollectionView.IsEmpty;
         }
@@ -105,10 +100,7 @@ namespace FaPA.GUI.Controls
             }
 
             AddItemToUserCollection( );
-
-            var objects = UserProperty as object[];
-            _userAddedNewPocos.Add(objects.Last());
-            
+           
             if ( UserCollectionView != null )
             {
                 UserCollectionView.CurrentChanged -= (sender, e) => OnCurrentChanged(sender, e);
@@ -182,7 +174,7 @@ namespace FaPA.GUI.Controls
         private void InitCollectionView()
         {
             UserCollectionView = CollectionViewSource.GetDefaultView(UserProperty);
-
+            CurrentPoco = UserCollectionView.CurrentItem;
             UserCollectionView.CurrentChanged -= OnCurrentChanged;
             UserCollectionView.CurrentChanged += OnCurrentChanged;
             IsEmpty = UserCollectionView == null || UserCollectionView.IsEmpty;
@@ -192,11 +184,11 @@ namespace FaPA.GUI.Controls
         {
             if ( !( sender is T ) ) return;
 
-            var poco = UserCollectionView.CurrentItem;
-            if (poco == null) return;
+            CurrentPoco = UserCollectionView.CurrentItem;
+            if ( CurrentPoco == null) return;
             Validate();
             AllowDelete = IsValid;
-            HookOnChanged( poco );
+            HookOnChanged( CurrentPoco );
         }
 
         private void RemoveItem()
@@ -229,23 +221,38 @@ namespace FaPA.GUI.Controls
 
         protected  void AddToArray()
         {
+            Array array = null;
             var elementType = typeof(TProperty).GetElementType();
-            var instance = Activator.CreateInstance(elementType);
             if (UserProperty == null)
             {
                 UserProperty = (TProperty)(object)Array.CreateInstance(elementType, 1);
             }
-            else
+            else //copy and resize
             {
-                var array = UserProperty as Array;
-                if (array == null) return;
+                array = UserProperty as Array;
+                if ( array == null ) return;
                 var len = array.Length + 1;
                 UserProperty = (TProperty)(object)Array.CreateInstance(elementType, len);
             }
 
             var aray = UserProperty as object[];
             if (aray == null) return;
-            aray[aray.Length - 1] = instance;
+
+            if ( aray.Length > 1 && array != null )
+            {
+                //copy old array items
+                int index = 0;
+                foreach ( var item in array )
+                    aray[index++] = item;
+            }
+
+            //append new instance
+            var newInstance = Activator.CreateInstance( elementType );
+            ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntity>( ref newInstance, "FaPA.Core" );
+            aray[aray.Length - 1] = newInstance;
+
+            _userAddedNewPocos.Add( newInstance );
+            HookOnChanged( newInstance );
         }
 
         protected override void CancelEdit()

@@ -8,7 +8,7 @@ namespace FaPA.Core.FaPa
     //[XmlType( Namespace = "http://www.fatturapa.gov.it/sdi/fatturapa/v1.1" )]
     [XmlRoot( "FatturaElettronica", Namespace = "http://www.fatturapa.gov.it/sdi/fatturapa/v1.1", IsNullable = false )]
     //[XmlTypeAttribute(AnonymousType = true, Namespace = "")]
-    public class FatturaElettronicaType : BaseEntityFpa
+    public class FatturaElettronicaType : BaseEntityFpa, ICloneable
     {
         private FatturaElettronicaHeaderType fatturaElettronicaHeaderField;
         public virtual  FatturaElettronicaHeaderType FatturaElettronicaHeader
@@ -65,6 +65,11 @@ namespace FaPA.Core.FaPa
                 versioneField = value;
             }
         }
+
+        public virtual object Clone()
+        {
+            return this.MemberwiseClone();
         }
+    }
 }
 

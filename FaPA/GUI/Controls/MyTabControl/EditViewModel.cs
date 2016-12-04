@@ -373,6 +373,7 @@ namespace FaPA.GUI.Controls.MyTabControl
             }
             catch ( Exception e )
             {
+                Debug.WriteLine( e.Message );
                 throw new Exception();
             }
         }
@@ -692,7 +693,7 @@ namespace FaPA.GUI.Controls.MyTabControl
 
         private DetachedCriteria _queryByExample;
 
-        private void SearchOnSiteModalityEnable()
+        private void SwitchToSearchOnSiteMode()
         {
             _onCancelDelegate = CancelOnFastSearchAction;
             CurrentEntity = CreateInstance();
@@ -947,16 +948,12 @@ namespace FaPA.GUI.Controls.MyTabControl
         }
 
         private ICommand _searchOnSite;
-
         public ICommand SearchOnSite
         {
             get
             {
                 if ( _searchOnSite != null ) return _searchOnSite;
-                _searchOnSite = new RelayCommand(
-                    param => SearchOnSiteModalityEnable(),
-                    param => true
-                    );
+                _searchOnSite = new RelayCommand( param => SwitchToSearchOnSiteMode(), param => true );
                 return _searchOnSite;
             }
 
@@ -968,8 +965,7 @@ namespace FaPA.GUI.Controls.MyTabControl
 
         public object Read()
         {
-            return 
-                LoadEntity( CurrentEntity.Id ); 
+            return  LoadEntity( CurrentEntity.Id ); 
         }
 
         public bool Persist(object entity)

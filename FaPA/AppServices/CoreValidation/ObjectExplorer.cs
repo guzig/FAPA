@@ -91,8 +91,10 @@ namespace FaPA.AppServices.CoreValidation
                         if ( TryProxiedAllInstances<T>( ref app, exploredObjects, nameSpace ) )
                         {
                             array.SetValue( app, i );
+                            isValueSet = true;
                         }
                     }
+                    value = array;
                 }
                 else if ( IsList( enumerable ) )
                 {
@@ -136,21 +138,21 @@ namespace FaPA.AppServices.CoreValidation
             return isValueSet;
         }
 
-        public static object UnProxiedAllInstances(object value ) 
+        public static object UnProxiedDeep(object value ) 
         {
             var exploredObjects = new HashSet<object>();
 
-            return UnProxiedAllInstances( value, exploredObjects);
+            return UnProxiedDeep( value, exploredObjects);
 
         }
 
-        private static object UnProxiedAllInstances( object value, HashSet<object> exploredObjects)
+        private static object UnProxiedDeep( object value, HashSet<object> exploredObjects)
         {
-            if (value == null || exploredObjects.Contains(value) || value.GetType().IsEnum) return false;
+            if (value == null || exploredObjects.Contains(value) || value.GetType().IsEnum) return null;
 
             exploredObjects.Add(value);
 
-            if (value is string) return false;
+            if (value is string) return null;
             var enumerable = value as IEnumerable;
             if (enumerable != null)
             {
@@ -163,12 +165,13 @@ namespace FaPA.AppServices.CoreValidation
                     {
                         var app = array.GetValue(i);
                         if (app.GetType().IsEnum) continue;
-                        var res = UnProxiedAllInstances(app, exploredObjects);
+                        var res = UnProxiedDeep(app, exploredObjects);
                         if ( res != null  )
                         {
                             array.SetValue(res, i);
                         }
                     }
+                    return array;
                 }
                 else if (IsList(enumerable))
                 {
@@ -188,12 +191,13 @@ namespace FaPA.AppServices.CoreValidation
                 {
                     var propertyValue = property.GetValue(value);
 
-                    if ( !(propertyValue is IProxy ) )
+                    if ( propertyValue == null || ( property.PropertyType.Namespace != null && 
+                        !property.PropertyType.Namespace.StartsWith( "FaPA.Core" ) ) )
                     {
                         continue;
                     }
 
-                    var unproxied = UnProxiedAllInstances( propertyValue, exploredObjects);
+                    var unproxied = UnProxiedDeep( propertyValue, exploredObjects);
 
                     if ( unproxied != null )
                         property.SetValue( value, unproxied );
@@ -202,17 +206,15 @@ namespace FaPA.AppServices.CoreValidation
                 if (possibleMatch != null)
                 {
                     var inst = possibleMatch.Interceptor as PropChangedAndDataErrorDynProxyInterceptor;
+                    if ( inst == null ) return value;
                     var proxy = inst.Proxy;
-
-                    if (proxy != null)
-                        return proxy;
+                    return proxy ?? value;
                 }
-                else
-                    return value;
+                return value;
 
             }
 
-            return value;
+            return null;
 
         }
 

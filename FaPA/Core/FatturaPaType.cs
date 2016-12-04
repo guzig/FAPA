@@ -2,7 +2,9 @@
 using System.Data;
 using FaPA.AppServices.CoreValidation;
 using FaPA.Core.FaPa;
+using FaPA.Data;
 using NHibernate;
+using NHibernate.Proxy;
 using NHibernate.Proxy.DynamicProxy;
 using NHibernate.SqlTypes;
 using NHibernate.UserTypes;
@@ -22,12 +24,12 @@ namespace FaPA.Core
             if (string.IsNullOrWhiteSpace( xmlContent ) )
                 throw new Exception("Expected data to be fatturapa.");
 
-            //if (owner is IProxy)
-            //{
-            //    object proxied = SerializerHelpers.XmlToObject(xmlContent);
-            //    ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntityFpa>(ref proxied, "FaPA.Core");
-            //    return proxied;
-            //}
+            if ( owner is IProxy )
+            {
+                object proxied = SerializerHelpers.XmlToObject( xmlContent );
+                ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntityFpa>( ref proxied, "FaPA.Core" );
+                return proxied;
+            }
 
             return SerializerHelpers.XmlToObject( xmlContent );
         }
@@ -41,19 +43,30 @@ namespace FaPA.Core
             else
             {
                 var fatturaElettronicaTypeV11 = (FatturaElettronicaType)value;
-               //var unproxy = (FatturaElettronicaType) ObjectExplorer.UnProxiedAllInstances(fatturaElettronicaTypeV11);
-                var xmlStream = SerializerHelpers.ObjectToXml( fatturaElettronicaTypeV11 ); 
+                var unproxy = (FatturaElettronicaType) ObjectExplorer.UnProxiedDeep(fatturaElettronicaTypeV11);
+                var xmlStream = SerializerHelpers.ObjectToXml( unproxy ); 
                 ((IDataParameter)cmd.Parameters[index]).Value = xmlStream;
             }
         }
 
         public object DeepCopy(object value)
         {
-            var toCopy = value as FatturaElettronicaType;
-            if (toCopy == null)
-                return null;
-            string xmlStream = SerializerHelpers.ObjectToXml(toCopy);
-            return SerializerHelpers.XmlToObject(xmlStream);
+            return Unproxy( value ).Clone();
+
+            //return value;
+            //var toCopy = value as FatturaElettronicaType;
+            //if ( toCopy == null )
+            //    return null;
+            //string xmlStream = SerializerHelpers.ObjectToXml( toCopy );
+            //return SerializerHelpers.XmlToObject( xmlStream );
+        }
+
+        private static FatturaElettronicaType Unproxy( object value  )
+        {
+            var interceptor = ( value as IProxy )?.Interceptor as PropChangedAndDataErrorDynProxyInterceptor;
+            if ( interceptor == null ) return ( FatturaElettronicaType ) value;
+            var proxy = interceptor.Proxy as FatturaElettronicaType;
+            return proxy;
         }
 
         public object Replace(object original, object target, object owner)

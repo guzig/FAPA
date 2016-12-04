@@ -32,21 +32,12 @@ namespace FaPaTets.PersistanceTests
 
             object current = fattura.FatturaPa;
             //ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntityFpa>( ref current, "FaPA.Core" );
-            fattura.FatturaPa = (FatturaElettronicaType) ObjectExplorer.UnProxiedAllInstances(current);
+            fattura.FatturaPa = (FatturaElettronicaType) ObjectExplorer.UnProxiedDeep(current);
             using ( var transaction = session.BeginTransaction())
             {
                 session.SaveOrUpdate(typeof(Fornitore).FullName, fattura.AnagraficaCedenteDB);
                 session.SaveOrUpdate(typeof(Committente).FullName, fattura.AnagraficaCommittenteDB);
                 session.SaveOrUpdate( typeof( Fattura ).FullName, fattura );
-                session.Flush();
-                transaction.Commit();
-            }
-
-            using (var transaction = session.BeginTransaction())
-            {
-                fattura.DatiGeneraliDocumento.Data = DateTime.Now.AddDays(1);
-                fattura.TotaleFatturaDB = 101;
-                session.Update(fattura);
                 session.Flush();
                 transaction.Commit();
             }
@@ -60,6 +51,15 @@ namespace FaPaTets.PersistanceTests
             }
 
             Assert.IsInstanceOf<IProxy>(read);
+
+            using ( var transaction = session.BeginTransaction() )
+            {
+                read.DatiGeneraliDocumento.Data = DateTime.Now.AddDays( 10 );
+                //read.TotaleFatturaDB = 101;
+                session.Update( read );
+                session.Flush();
+                transaction.Commit();
+            }
 
             Assert.AreEqual(fattura.FatturaPa.FatturaElettronicaHeader.DatiTrasmissione.IdTrasmittente.IdCodice,
                             read.FatturaPa.FatturaElettronicaHeader.DatiTrasmissione.IdTrasmittente.IdCodice);

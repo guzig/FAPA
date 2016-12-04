@@ -132,7 +132,7 @@ namespace FaPA.GUI.Feautures.Anagrafica
                 : new ObservableCollection<Core.Anagrafica>(entities);
             Model.UserEntities = entitiesdto;
             Model.UserCollectionView = CollectionViewSource.GetDefaultView(Model.UserEntities);
-            CreateNewModel("Anagrafiche", activeTab, Model.UserCollectionView);
+            CreateNewModel( activeTab);
             IsBusy = false;
         }
 
