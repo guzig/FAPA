@@ -3,11 +3,8 @@ using System.Text;
 using System.Xml.Linq;
 using System.Xml.Schema;
 using System.Xml.Serialization;
-using FaPA.AppServices.CoreValidation;
 using FaPA.Core.FaPa;
-using FaPA.Data;
 using FaPA.DomainServices.Utils;
-using NHibernate.Proxy.DynamicProxy;
 
 namespace FaPA.Core
 {

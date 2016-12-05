@@ -1,6 +1,5 @@
 ﻿namespace FaPA.Data
 {
-    using System;
     using NHibernate;
 
     public class AddPropertyChangedInterceptor : EmptyInterceptor

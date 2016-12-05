@@ -4,9 +4,6 @@ using System.ComponentModel;
 using FaPA.Core.FaPa;
 using System.Linq;
 using System.Xml;
-using FaPA.AppServices.CoreValidation;
-using FaPA.Data;
-using NHibernate.Proxy.DynamicProxy;
 
 namespace FaPA.Core
 {

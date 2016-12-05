@@ -1,12 +1,10 @@
 using System;
-using System.ComponentModel;
 using FaPaTets.DbSetUp;
 using FaPA.AppServices.CoreValidation;
 using FaPA.Core;
 using FaPA.Core.FaPa;
 using FaPA.Data;
 using NHibernate;
-using NHibernate.Linq.Functions;
 using NHibernate.Proxy.DynamicProxy;
 using NUnit.Framework;
 

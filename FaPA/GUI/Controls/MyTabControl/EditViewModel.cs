@@ -10,9 +10,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
-using FaPA.AppServices.CoreValidation;
 using FaPA.Core;
-using FaPA.Core.FaPa;
 using FaPA.Data;
 using FaPA.GUI.Utils;
 using FaPA.Infrastructure;
@@ -966,7 +964,8 @@ namespace FaPA.GUI.Controls.MyTabControl
 
         public object Read()
         {
-            return  LoadEntity( CurrentEntity.Id ); 
+            CurrentEntity =  LoadEntity( CurrentEntity.Id );
+            return CurrentEntity;
         }
 
         public bool Persist(object entity)

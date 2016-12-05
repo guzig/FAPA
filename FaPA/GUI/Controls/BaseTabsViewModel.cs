@@ -56,15 +56,23 @@ namespace FaPA.GUI.Controls
 
             base.PersitEntity();
 
-            if ( _userAddedNewPocos.Contains( UserProperty ) )
+            if (_userAddedNewPocos.Contains(UserProperty))
             {
-                _userAddedNewPocos.Remove( UserProperty );
+                _userAddedNewPocos.Remove(UserProperty);
             }
 
-            Init();
+            if (Instance != null)
+            {
+                UserProperty = GetterProp((T)Instance);
 
-            if ( index > 0 )
-                UserCollectionView.MoveCurrentToPosition( index );
+                Init();
+
+                if (index >= 0)
+                {
+                    UserCollectionView.MoveCurrentToPosition(index);
+                    CurrentPoco = UserCollectionView.CurrentItem;
+                }
+            }
         }
 
         protected override void MakeTransient()
@@ -107,18 +115,10 @@ namespace FaPA.GUI.Controls
             }
 
             AddItemToUserCollection( );
-           
-            if ( UserCollectionView != null )
-            {
-                UserCollectionView.CurrentChanged -= (sender, e) => OnCurrentChanged(sender, e);
-                UserCollectionView.Refresh();
-                UserCollectionView.CurrentChanged += (sender, e) => OnCurrentChanged(sender, e);
-                UserCollectionView.MoveCurrentToLast();
-            }
-            else
-            {
-                InitCollectionView();
-            }
+
+            InitCollectionView();
+            UserCollectionView.MoveCurrentToLast();
+            CurrentPoco = UserCollectionView.CurrentItem;
 
             IsInEditing = true;
             AllowDelete = false;

@@ -4,7 +4,6 @@ using FaPA.AppServices.CoreValidation;
 using FaPA.Core.FaPa;
 using FaPA.Data;
 using NHibernate;
-using NHibernate.Proxy;
 using NHibernate.Proxy.DynamicProxy;
 using NHibernate.SqlTypes;
 using NHibernate.UserTypes;

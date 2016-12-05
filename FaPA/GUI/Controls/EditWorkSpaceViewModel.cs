@@ -3,14 +3,11 @@ using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Windows;
 using System.Windows.Input;
-using FaPA.AppServices.CoreValidation;
 using FaPA.Core;
-using FaPA.Core.FaPa;
 using FaPA.GUI.Controls.MyTabControl;
 using FaPA.GUI.Feautures.Fattura;
 using FaPA.GUI.Utils;
 using FaPA.Infrastructure;
-using NHibernate.Proxy.DynamicProxy;
 using Action = System.Action;
 
 namespace FaPA.GUI.Controls
@@ -47,6 +44,7 @@ namespace FaPA.GUI.Controls
             set
             {
                 SetterProp(Instance, (TProperty)value);
+                NotifyOfPropertyChange(() => UserProperty);
             }
         }
 

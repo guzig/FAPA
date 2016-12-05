@@ -1,5 +1,4 @@
 using System.ComponentModel;
-using FaPA.AppServices.CoreValidation;
 using FaPA.Core.FaPa;
 using FaPA.GUI.Controls;
 using FaPA.Infrastructure;
