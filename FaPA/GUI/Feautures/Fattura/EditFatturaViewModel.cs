@@ -4,10 +4,8 @@ using System.ComponentModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
-using FaPA.Core.FaPa;
 using FaPA.GUI.Controls.MyTabControl;
 using FaPA.GUI.Utils;
-using FaPA.Infrastructure.Dto;
 using NHibernate;
 using System.Linq;
 using System.Threading.Tasks;
@@ -61,11 +59,6 @@ namespace FaPA.GUI.Feautures.Fattura
 
         protected override bool TrySaveCurrentEntity()
         {
-            //var header = ObjectExplorer.UnProxiedDeep( CurrentEntity.FatturaPa.FatturaElettronicaHeader );
-            //CurrentEntity.FatturaElettronicaHeader = ( FatturaElettronicaHeaderType ) header;
-
-            //var body = ObjectExplorer.UnProxiedDeep( CurrentEntity.FatturaPa.FatturaElettronicaBody );
-            //CurrentEntity.FatturaElettronicaBody = ( FatturaElettronicaBodyType ) body;
 
             CurrentEntity.SetTrasmittente();
 
@@ -117,16 +110,16 @@ namespace FaPA.GUI.Feautures.Fattura
                 AddTabRitenuta();
             }
 
-            //DettagliFatturaViewModel = new DettagliFatturaViewModel(this, fattura);
-            //DettagliFatturaViewModel.Init<DettaglioLineeType, DettaglioLineeType>();
-            //DettagliFatturaViewModel.CurrentEntityChanged += OnDettaglioFatturaPropertyChanged;
+            DettagliFatturaViewModel = new DettagliFatturaViewModel(this, fattura);
+            DettagliFatturaViewModel.Init();
+            DettagliFatturaViewModel.CurrentEntityChanged += OnDettaglioFatturaPropertyChanged;
 
             var datiPagamento = new DatiPagamentoTabViewModel( this, fattura );
-            datiPagamento.Init<DatiPagamentoType, DatiPagamentoDto>();
+            datiPagamento.Init();
             AddTabViewModel<DatiPagamentoTabViewModel>( datiPagamento );
 
             var trasmittente = new TrasmittenteTabViewModel(this, fattura);
-            trasmittente.Init<DatiTrasmissioneType, DatiTrasmissioneDto>();
+            trasmittente.Init();
             AddTabViewModel<TrasmittenteTabViewModel>(trasmittente);
 
         }
@@ -142,6 +135,7 @@ namespace FaPA.GUI.Feautures.Fattura
         
         private bool IsValidate()
         {
+            //Validate();
             var dettagliFattura = DettagliFatturaViewModel == null || DettagliFatturaViewModel.IsValid;
             return IsValid && dettagliFattura;
         }
@@ -181,7 +175,7 @@ namespace FaPA.GUI.Feautures.Fattura
         private DatiOrdineTabViewModel AddTabOrdine()
         {
             var datiOrdine = new DatiOrdineTabViewModel( this, CurrentEntity );
-            datiOrdine.Init<DatiDocumentiCorrelatiType, DatiOrdineAcquistoDto>();
+            datiOrdine.Init();
             AddTabViewModel<DatiOrdineTabViewModel>( datiOrdine );
             return datiOrdine;
         }
@@ -226,7 +220,7 @@ namespace FaPA.GUI.Feautures.Fattura
         private RitenutaTabViewModel AddTabRitenuta()
         {
             var ritenutaTabViewModel = new RitenutaTabViewModel( this, CurrentEntity);
-            ritenutaTabViewModel.Init<DatiRitenutaType, DatiRitenutaTypeDto>();
+            ritenutaTabViewModel.Init();
             AddTabViewModel<RitenutaTabViewModel>(ritenutaTabViewModel);
             return ritenutaTabViewModel;
         }
@@ -242,7 +236,7 @@ namespace FaPA.GUI.Feautures.Fattura
                 BasePresenter.Workspaces.Add( tabViewModel );
         }
 
-        private bool CanAddRitenuta(object param)
+        private static bool CanAddRitenuta(object param)
         {
             return true;
             //return CurrentEntity?.Ritenuta == null;
@@ -260,7 +254,7 @@ namespace FaPA.GUI.Feautures.Fattura
             }
         }
 
-        private void ValidateAndFlushXml(Core.Fattura fattura)
+        private void ValidateAndFlushXml(IValidatable fattura)
         {
             //if ( fattura.FatturaElettronicaHeader.DatiTrasmissione == null )
             //{
@@ -353,6 +347,7 @@ namespace FaPA.GUI.Feautures.Fattura
                 NotifyOfPropertyChange(() => DettagliFatturaVisibility);
             }
         }
+
         #endregion
     }
 }

@@ -7,7 +7,6 @@ using FaPA.Core.FaPa;
 using FaPA.GUI.Controls;
 using FaPA.GUI.Controls.MyTabControl;
 using FaPA.Infrastructure;
-using FaPA.Infrastructure.Dto;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
@@ -30,9 +29,7 @@ namespace FaPA.GUI.Feautures.Fattura
 
         public DettagliFatturaViewModel( IRepository repository, Core.Fattura instance ) :
             base( repository, instance, ( Core.Fattura f ) => f.DettaglioLinee, "", false )
-        {
-            
-        }
+        {}
 
         protected override void AddItemToUserCollection()
         {
@@ -66,7 +63,7 @@ namespace FaPA.GUI.Feautures.Fattura
             else
             {
                 _altridatiViewModel = new AltriDatiViewModel( this, dettaglio );
-                _altridatiViewModel.Init<AltriDatiGestionaliType, AltriDatiDto>();
+                _altridatiViewModel.Init();
                 _altridatiViewModel.CurrentEntityChanged += OnAltriDatiPropertyChanged;
                 _viemModelChilds.Add( dettaglio, _altridatiViewModel );
             }
@@ -93,20 +90,6 @@ namespace FaPA.GUI.Feautures.Fattura
             var isValidAltriDati = AltridatiViewModel == null || AltridatiViewModel.IsValid;
             return isValidAltriDati ;
         }
-
-        //public override object Read()
-        //{
-        //    var ffff = this;
-        //    var indx = UserCollectionView?.CurrentPosition;
-            
-        //    //var dettaglioLinee = Repository.Read() as DettaglioLineeType[];
-        //    var dettaglioLinee = Repository.Read() as DettaglioLineeType[];
-
-        //    if ( dettaglioLinee != null && indx != null && indx >= 0 && indx < dettaglioLinee.Length)
-        //        return dettaglioLinee[(int) indx];
-
-        //    return null;
-        //}
 
     }
 

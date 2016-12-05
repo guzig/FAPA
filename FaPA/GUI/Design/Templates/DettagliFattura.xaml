@@ -268,7 +268,7 @@
                             <AdornerDecorator>
                                 <xctk:DropDownButton Width="Auto" Height="Auto" x:Name="DropCa" 
                                                      IsOpen="{Binding Data.DettagliFatturaViewModel.AltridatiViewModel.IsDropDownOpen, 
-                                                     Source={StaticResource proxyFVM}, Mode=OneWayToSource}" >
+                                                                      Source={StaticResource proxyFVM}, Mode=OneWayToSource}" >
 
                                     <Image Source="/GUI/Design/Styles/Images/Calendar_64.png"></Image>
 

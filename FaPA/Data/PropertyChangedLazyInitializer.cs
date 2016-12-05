@@ -25,7 +25,7 @@ namespace FaPA.Data
             IAbstractComponentType componentIdType,
             ISessionImplementor session,
             bool entityHandlesPropertyChanged)
-            : base(entityName, persistentClass, id, getIdentifierMethod, setIdentifierMethod, componentIdType, session)
+            : base(entityName, persistentClass, id, getIdentifierMethod, setIdentifierMethod, componentIdType, session, false)
         {
             _entityHandlesPropertyChanged = entityHandlesPropertyChanged;
         }

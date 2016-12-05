@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using FaPA.Core.FaPa;
 
 namespace FaPA.AppServices.CoreValidation
@@ -18,7 +19,10 @@ namespace FaPA.AppServices.CoreValidation
             else if ( instnce.TipoDato.Length > 20 )
                 propErrors.Add( "TipoDato deve essere lungo max 20 caratteri" );
 
-            errors.Add( nameof( instnce.TipoDato ), propErrors );
+            if ( propErrors.Any() )
+            {
+                errors.Add( nameof( instnce.TipoDato ), propErrors );
+            }
 
             return errors;
         }

@@ -175,7 +175,7 @@ namespace FaPA.GUI.Controls
         }       
         #endregion
 
-        public virtual void Init<TP,TD>()
+        public virtual void Init()
         {
             //PocoType = typeof(TP);
             AllowDelete = UserProperty != null;
@@ -248,9 +248,9 @@ namespace FaPA.GUI.Controls
 
             LockMessage = EditViewModel<BaseEntity>.OnEditingLockMessage;
             IsInEditing = true;
-            //OnCurrentChanged(sender, eventArg);
-            var validatable = sender as IValidatable;
-            AllowSave = validatable == null || validatable.DomainResult.Success;
+            var validatable = (IValidatable) sender;
+            AllowSave = validatable.DomainResult.Success;
+            OnCurrentChanged(sender, eventArg);
         }
 
         protected virtual void HookOnChanged( object poco )
@@ -270,6 +270,12 @@ namespace FaPA.GUI.Controls
         public event Action Disposed = delegate { };
         public delegate void OnCurrentChangedhandler(object sender, PropertyChangedEventArgs eventArg);
         public event OnCurrentChangedhandler CurrentEntityChanged;
+
+        private void OnCurrentChanged(object sender, PropertyChangedEventArgs eventArg)
+        {
+            var handler = CurrentEntityChanged;
+            handler?.Invoke(sender, eventArg);
+        }
 
         protected virtual void PersitEntity()
         {
@@ -311,6 +317,8 @@ namespace FaPA.GUI.Controls
 
         #endregion
 
+        #region IRepository
+
         public virtual object Read()
         {
             return GetterProp((T) Repository.Read());
@@ -325,6 +333,9 @@ namespace FaPA.GUI.Controls
         {
             return Repository.Persist(Instance);
         }
+
+        #endregion
+
 
     }
 }

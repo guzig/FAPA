@@ -50,7 +50,7 @@ namespace FaPA.Data
         private void BeforeMappingCollectionConvention( IModelInspector inspector, PropertyPath member, 
             ICollectionPropertiesMapper customizer )
         {
-            if ( inspector.IsManyToMany( member.LocalMember ) )
+            if ( inspector.IsManyToManyKey( member.LocalMember ) )
                 customizer.Table( member.ManyToManyIntermediateTableName() );
 
             customizer.Key( k => k.Column( DetermineKeyColumnName( inspector, member ) ) );

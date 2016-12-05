@@ -84,8 +84,8 @@
       <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NHibernate, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <HintPath>..\packages\NHibernate.4.0.4.4000\lib\net40\NHibernate.dll</HintPath>
+    <Reference Include="NHibernate, Version=4.1.0.3001, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHibernate.4.1.0-CR1\lib\net40\NHibernate.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="NHibernate.Validator">
@@ -517,15 +517,6 @@
     <Compile Include="GUI\Utils\PropertyChangeEventArgs.cs" />
     <Compile Include="GUI\Utils\ShowCursor.cs" />
     <Compile Include="Infrastructure\AbstractPresenter.cs" />
-    <Compile Include="Infrastructure\Dto\AltriDatiDto.cs" />
-    <Compile Include="Infrastructure\Dto\AltriDatiGestionaliTypeConverter.cs" />
-    <Compile Include="Infrastructure\Dto\DatiDocumentiCorrelatiDto.cs" />
-    <Compile Include="Infrastructure\Dto\DatiOrdineAcquistoDto.cs" />
-    <Compile Include="Infrastructure\Dto\DatiPagamentoDto.cs" />
-    <Compile Include="Infrastructure\Dto\DatiRitenutaTypeDto.cs" />
-    <Compile Include="Infrastructure\Dto\DatiTrasmissioneDto.cs" />
-    <Compile Include="Infrastructure\Dto\NotDaoBaseEntityDto.cs" />
-    <Compile Include="Infrastructure\Dto\RitenutaTypeConverter.cs" />
     <Compile Include="Infrastructure\Finder\AssociationPropCriterionValidationRule.cs" />
     <Compile Include="Infrastructure\Finder\AssociationSearchProperty.cs" />
     <Compile Include="Infrastructure\Finder\BindingProxy.cs" />
@@ -558,8 +549,6 @@
     <Compile Include="Infrastructure\Helpers\BasicSharedEngineProvider.cs" />
     <Compile Include="GUI\Controls\MyTabControl\BaseCrudPresenter.cs" />
     <Compile Include="Infrastructure\Helpers\FinderConfirmSearchEventArgs.cs" />
-    <Compile Include="Infrastructure\Dto\DettaglioFatturaDto.cs" />
-    <Compile Include="Infrastructure\Dto\ValidationEventArgs.cs" />
     <Compile Include="Infrastructure\FlyFetch\BaseQueryPaginatorObject.cs" />
     <Compile Include="Infrastructure\FlyFetch\CollectionFactory.cs" />
     <Compile Include="Infrastructure\FlyFetch\CountEventArgs.cs" />
@@ -580,7 +569,6 @@
     <Compile Include="Infrastructure\Helpers\Observable.cs" />
     <Compile Include="Infrastructure\Helpers\ProxyHelpers.cs" />
     <Compile Include="Infrastructure\Helpers\DependencyObjExtensions.cs" />
-    <Compile Include="Infrastructure\Dto\BaseEntityDTO.cs" />
     <Compile Include="Infrastructure\Helpers\EventPublisher.cs" />
     <Compile Include="Infrastructure\Helpers\Fact.cs" />
     <Compile Include="Infrastructure\IPresenter.cs" />

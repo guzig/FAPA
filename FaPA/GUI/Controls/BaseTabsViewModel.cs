@@ -9,7 +9,6 @@ using FaPA.GUI.Controls.MyTabControl;
 using FaPA.Infrastructure;
 using Remotion.Linq.Collections;
 using FaPA.Core;
-using FaPA.Core.FaPa;
 using NHibernate.Util;
 
 namespace FaPA.GUI.Controls
@@ -45,9 +44,19 @@ namespace FaPA.GUI.Controls
         protected abstract void AddItemToUserCollection();      
           
         //overrides
-        public override void Init<TP, TD>(  )
+        public override void Init()
         {
-            Init();
+            if (UserProperty != null)
+            {
+                InitCollectionView();
+
+                foreach (var item in UserCollectionView)
+                {
+                    HookOnChanged(item);
+                }
+            }
+            Validate();
+            BeginEdit();
         }
 
         protected override void PersitEntity()
@@ -61,18 +70,14 @@ namespace FaPA.GUI.Controls
                 _userAddedNewPocos.Remove(UserProperty);
             }
 
-            if (Instance != null)
-            {
-                UserProperty = GetterProp((T)Instance);
+            if (Instance == null) return;
+            UserProperty = GetterProp((T)Instance);
 
-                Init();
+            Init();
 
-                if (index >= 0)
-                {
-                    UserCollectionView.MoveCurrentToPosition(index);
-                    CurrentPoco = UserCollectionView.CurrentItem;
-                }
-            }
+            if (index < 0) return;
+            UserCollectionView.MoveCurrentToPosition(index);
+            CurrentPoco = UserCollectionView.CurrentItem;
         }
 
         protected override void MakeTransient()
@@ -149,21 +154,6 @@ namespace FaPA.GUI.Controls
 
         }
 
-        private void Init()
-        {
-            if (UserProperty != null )
-            {
-                InitCollectionView();
-
-                foreach (var item in UserCollectionView)
-                {
-                    HookOnChanged(item);
-                }
-            }
-            Validate();
-            BeginEdit();
-        }
-
         private bool _isEmpty = true;
         public bool IsEmpty
         {
@@ -189,8 +179,6 @@ namespace FaPA.GUI.Controls
 
         protected virtual void OnCurrentChanged( object sender, EventArgs e)
         {
-            if ( !( sender is T ) ) return;
-
             CurrentPoco = UserCollectionView.CurrentItem;
             if ( CurrentPoco == null) return;
             Validate();

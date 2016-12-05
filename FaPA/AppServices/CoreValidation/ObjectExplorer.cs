@@ -164,7 +164,7 @@ namespace FaPA.AppServices.CoreValidation
                     for (var i = 0; i < array.Length; i++)
                     {
                         var app = array.GetValue(i);
-                        if (app.GetType().IsEnum) continue;
+                        if (app == null || app.GetType().IsEnum) continue;
                         var res = UnProxiedDeep(app, exploredObjects);
                         if ( res != null  )
                         {

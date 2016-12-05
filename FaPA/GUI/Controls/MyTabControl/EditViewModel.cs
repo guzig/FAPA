@@ -55,7 +55,7 @@ namespace FaPA.GUI.Controls.MyTabControl
         private static readonly NhProxyInspector ProxyInspector = new NhProxyInspector();
 
         #region props
-        private bool _isValid;
+        private bool _isValid=true;
         public bool IsValid
         {
             get { return _isValid; }
