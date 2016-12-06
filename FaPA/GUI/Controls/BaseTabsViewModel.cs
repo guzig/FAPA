@@ -54,29 +54,38 @@ namespace FaPA.GUI.Controls
                 {
                     HookOnChanged(item);
                 }
+
+                Validate();
             }
-            Validate();
-            BeginEdit();
+            else
+            {
+                UserCollectionView = null;
+            }
+
         }
 
         protected override void PersitEntity()
         {
-            var index = UserCollectionView.CurrentPosition;
-
             base.PersitEntity();
 
             if (_userAddedNewPocos.Contains(UserProperty))
             {
                 _userAddedNewPocos.Remove(UserProperty);
             }
+        }
 
-            if (Instance == null) return;
+        public override void RefreshView()
+        {
+            var index = UserCollectionView.CurrentPosition;
+
             UserProperty = GetterProp((T)Instance);
 
             Init();
 
-            if (index < 0) return;
+            if (index < 0 || UserCollectionView == null ) return;
+
             UserCollectionView.MoveCurrentToPosition(index);
+
             CurrentPoco = UserCollectionView.CurrentItem;
         }
 
@@ -88,7 +97,11 @@ namespace FaPA.GUI.Controls
 
             Persist( Instance );
 
-            AllowDelete = !UserCollectionView.IsEmpty;
+            Read();
+
+            RefreshView();
+
+            AllowDelete = UserCollectionView != null && !UserCollectionView.IsEmpty;
         }
         
         protected override void OnCancelDelegateExecute()
@@ -132,7 +145,6 @@ namespace FaPA.GUI.Controls
         
         
         //helpers
-
         protected void RemoveFromFixedArray()
         {
             var current = UserCollectionView.CurrentItem;
@@ -142,7 +154,15 @@ namespace FaPA.GUI.Controls
 
             if (source == null) return;
 
-            var newArray=Array.CreateInstance(typeof(TProperty).GetElementType(), source.Length - 1);
+            if (source.Length == 1)
+            {
+                UserProperty = default(TProperty);
+                return;
+            }
+
+            var arrayLength = source.Length - 1 > 0 ? source.Length - 1 : 1;
+
+            var newArray=Array.CreateInstance(typeof(TProperty).GetElementType(), arrayLength);
 
             var index = 0;
             foreach (var element in source.Where(e=>e!=current))
@@ -151,7 +171,6 @@ namespace FaPA.GUI.Controls
             }
 
             UserProperty = (TProperty) (object) newArray;
-
         }
 
         private bool _isEmpty = true;
@@ -179,6 +198,7 @@ namespace FaPA.GUI.Controls
 
         protected virtual void OnCurrentChanged( object sender, EventArgs e)
         {
+            IsEditing = true;
             CurrentPoco = UserCollectionView.CurrentItem;
             if ( CurrentPoco == null) return;
             Validate();
@@ -195,7 +215,6 @@ namespace FaPA.GUI.Controls
                 view.CommitEdit();
                 view.CommitNew();
             }
-            UserCollectionView.Refresh();
             Validate();
             //base.OnCurrentChanged(UserProperty, new PropertyChangedEventArgs("UserProperty"));
         }
@@ -272,9 +291,7 @@ namespace FaPA.GUI.Controls
                 {
                     UserCollectionView?.MoveCurrentToPosition(currentIndx);
                 }
-            }
-            
-            BeginEdit();
+            }            
         }
 
         public override object Read()

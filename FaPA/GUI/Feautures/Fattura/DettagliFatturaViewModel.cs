@@ -24,7 +24,7 @@ namespace FaPA.GUI.Feautures.Fattura
             }
         }
 
-        readonly Dictionary<DettaglioLineeType, AltriDatiViewModel> _viemModelChilds = 
+        private readonly Dictionary<DettaglioLineeType, AltriDatiViewModel> _viemModelChilds = 
             new Dictionary<DettaglioLineeType, AltriDatiViewModel>();
 
         public DettagliFatturaViewModel( IRepository repository, Core.Fattura instance ) :
@@ -91,6 +91,16 @@ namespace FaPA.GUI.Feautures.Fattura
             return isValidAltriDati ;
         }
 
+        public override void RefreshView()
+        {
+            base.RefreshView();
+            AltridatiViewModel.RefreshView();
+        }
+
+        public override bool Persist(object entity)
+        {
+            return base.Persist(entity)
+        }
     }
 
 }

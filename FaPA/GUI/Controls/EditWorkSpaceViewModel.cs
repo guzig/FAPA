@@ -184,7 +184,6 @@ namespace FaPA.GUI.Controls
             if ( UserProperty == null ) return;
             CurrentPoco = UserProperty;
             HookOnChanged( UserProperty );
-            BeginEdit();
         }
         
         protected virtual void Validate()
@@ -212,6 +211,12 @@ namespace FaPA.GUI.Controls
             }
         }
 
+        protected bool IsEditing
+        {
+            get { return _isEditing; }
+            set { _isEditing = value; }
+        }
+
         protected virtual void MakeTransient()
         {
             if ( !GetDeleteConfirmation() ) return;
@@ -234,7 +239,6 @@ namespace FaPA.GUI.Controls
         protected virtual void OnCancelDelegateExecute()
         {
             CancelEdit();
-            BeginEdit();
             IsInEditing = false;
             LockMessage = null;
             AllowSave = false;
@@ -245,6 +249,8 @@ namespace FaPA.GUI.Controls
         protected void OnPropChanged(object sender, PropertyChangedEventArgs eventArg)
         {
             if ( !( sender is BaseEntity ) ) return;
+
+            _isEditing = true;
 
             LockMessage = EditViewModel<BaseEntity>.OnEditingLockMessage;
             IsInEditing = true;
@@ -283,30 +289,33 @@ namespace FaPA.GUI.Controls
 
             if ( !Repository.Persist(Instance) ) return;
 
-            Instance = ( T ) Repository.Read();
-
-            UserProperty = GetterProp( Instance );
-
             LockMessage = null;
             AllowSave = false;
             IsInEditing = false;
         }
 
+        public virtual void RefreshView()
+        {
+            UserProperty = GetterProp(Instance);
+
+            if (Instance == null) return;
+
+            UserProperty = GetterProp((T)Instance);
+
+            Init();
+
+        }
+
         #region IEditable
 
-        protected bool IsEditing;
+        protected bool _isEditing;
         //private BaseEntity _backupCopy;
 
-        protected void BeginEdit()
-        {
-            if (IsEditing) return;
-            IsEditing = true;
-        }
 
         protected virtual void CancelEdit()
         {
-            if (!IsEditing) return;
-            IsEditing = false;
+            if (!_isEditing) return;
+            _isEditing = false;
 
             if (Repository == null) return;
 
@@ -326,7 +335,9 @@ namespace FaPA.GUI.Controls
 
         public virtual bool Persist(object entity)
         {
-            return Repository.Persist(Instance);
+            var esito = Repository.Persist(Instance);
+            
+            return esito;
         }
 
         public virtual bool Delete()

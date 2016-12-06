@@ -28,6 +28,12 @@ namespace FaPA.GUI.Feautures.Fattura
                 NotifyOfPropertyChange( () => DettagliFatturaViewModel );
             }
         }
+        
+        public TrasmittenteTabViewModel Trasmittente { get; set; }
+
+        public DatiPagamentoTabViewModel DatiPagamento { get; set; }
+
+        public RitenutaTabViewModel RitenutaTabViewModel { get; set; }
 
         //ctor
         public EditFatturaViewModel(IBasePresenter baseCrudPresenter, IList userEntities, 
@@ -59,10 +65,9 @@ namespace FaPA.GUI.Feautures.Fattura
 
         protected override bool TrySaveCurrentEntity()
         {
+           CurrentEntity.SetTrasmittente();
 
-            CurrentEntity.SetTrasmittente();
-
-            return base.TrySaveCurrentEntity();
+           return base.TrySaveCurrentEntity();
         }
 
         protected override void Dispose()
@@ -71,10 +76,11 @@ namespace FaPA.GUI.Feautures.Fattura
             base.Dispose();
         }
 
+
         protected override void DefaultCancelOnEditAction()
         {
            base.DefaultCancelOnEditAction();
-           InitFatturaTabs();
+           RefreshFatturaTabs();
         }
 
         #endregion
@@ -82,12 +88,16 @@ namespace FaPA.GUI.Feautures.Fattura
         public override void OnPageGotFocus()
         {
             base.OnPageGotFocus();
-            InitFatturaTabs();
+
+            if ( DettagliFatturaViewModel == null )
+                InitFatturaTabs();
+            else
+                RefreshFatturaTabs();
         }
 
         private void OnCurrentFatturaChanged(Core.Fattura currententity)
         {
-            InitFatturaTabs();
+            RefreshFatturaTabs();
 
             if (currententity == null || currententity.Id == 0)
             {
@@ -114,14 +124,29 @@ namespace FaPA.GUI.Feautures.Fattura
             DettagliFatturaViewModel.Init();
             DettagliFatturaViewModel.CurrentEntityChanged += OnDettaglioFatturaPropertyChanged;
 
-            var datiPagamento = new DatiPagamentoTabViewModel( this, fattura );
-            datiPagamento.Init();
-            AddTabViewModel<DatiPagamentoTabViewModel>( datiPagamento );
+            DatiPagamento = new DatiPagamentoTabViewModel( this, fattura );
+            DatiPagamento.Init();
+            AddTabViewModel<DatiPagamentoTabViewModel>( DatiPagamento );
 
-            var trasmittente = new TrasmittenteTabViewModel(this, fattura);
-            trasmittente.Init();
-            AddTabViewModel<TrasmittenteTabViewModel>(trasmittente);
+            Trasmittente = new TrasmittenteTabViewModel(this, fattura);
+            Trasmittente.Init();
+            AddTabViewModel<TrasmittenteTabViewModel>( Trasmittente );
+        }
 
+        private void RefreshFatturaTabs()
+        {
+            var fattura = CurrentEntity;
+
+            if (fattura?.Ritenuta != null)
+            {
+                AddTabRitenuta();
+            }
+
+            DettagliFatturaViewModel.RefreshView();
+                
+            DatiPagamento.RefreshView();
+
+            Trasmittente.RefreshView() ;
         }
 
         //protected virtual void OnCurrentChanged(object sender, EventArgs e)
@@ -219,12 +244,12 @@ namespace FaPA.GUI.Feautures.Fattura
 
         private RitenutaTabViewModel AddTabRitenuta()
         {
-            var ritenutaTabViewModel = new RitenutaTabViewModel( this, CurrentEntity);
-            ritenutaTabViewModel.Init();
-            AddTabViewModel<RitenutaTabViewModel>(ritenutaTabViewModel);
-            return ritenutaTabViewModel;
+            RitenutaTabViewModel = new RitenutaTabViewModel( this, CurrentEntity);
+            RitenutaTabViewModel.Init();
+            AddTabViewModel<RitenutaTabViewModel>(RitenutaTabViewModel);
+            return RitenutaTabViewModel;
         }
-
+        
         private void AddTabViewModel<TV>(WorkspaceViewModel tabViewModel )
         {
             // Dispatcher.CurrentDispatcher.BeginInvoke(new System.Action(() =>
