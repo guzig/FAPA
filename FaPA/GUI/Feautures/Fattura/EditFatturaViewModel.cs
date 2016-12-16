@@ -76,11 +76,16 @@ namespace FaPA.GUI.Feautures.Fattura
             base.Dispose();
         }
 
+        public override void Persist()
+        {
+            base.Persist();
+            AllowSave = false;
+        }
 
         protected override void DefaultCancelOnEditAction()
         {
            base.DefaultCancelOnEditAction();
-           RefreshFatturaTabs();
+           RefreshFatturaTabs( CurrentEntity );
         }
 
         #endregion
@@ -92,12 +97,12 @@ namespace FaPA.GUI.Feautures.Fattura
             if ( DettagliFatturaViewModel == null )
                 InitFatturaTabs();
             else
-                RefreshFatturaTabs();
+                RefreshFatturaTabs( CurrentEntity );
         }
 
         private void OnCurrentFatturaChanged(Core.Fattura currententity)
         {
-            RefreshFatturaTabs();
+            RefreshFatturaTabs( CurrentEntity );
 
             if (currententity == null || currententity.Id == 0)
             {
@@ -131,9 +136,10 @@ namespace FaPA.GUI.Feautures.Fattura
             Trasmittente = new TrasmittenteTabViewModel(this, fattura);
             Trasmittente.Init();
             AddTabViewModel<TrasmittenteTabViewModel>( Trasmittente );
+
         }
 
-        private void RefreshFatturaTabs()
+        private void RefreshFatturaTabs( Core.Fattura currententity )
         {
             var fattura = CurrentEntity;
 
@@ -142,11 +148,11 @@ namespace FaPA.GUI.Feautures.Fattura
                 AddTabRitenuta();
             }
 
-            DettagliFatturaViewModel.RefreshView();
+            DettagliFatturaViewModel.RefreshView(fattura);
                 
-            DatiPagamento.RefreshView();
+            DatiPagamento.RefreshView(fattura);
 
-            Trasmittente.RefreshView() ;
+            Trasmittente.RefreshView(fattura) ;
         }
 
         //protected virtual void OnCurrentChanged(object sender, EventArgs e)
@@ -363,6 +369,7 @@ namespace FaPA.GUI.Feautures.Fattura
         }
 
         private Visibility _dettagliFatturaVisibility;
+
         public Visibility DettagliFatturaVisibility
         {
             get { return _dettagliFatturaVisibility; }

@@ -28,6 +28,8 @@ namespace FaPA.GUI.Controls
 
         #region data members
 
+        //public bool IsOnInit { get; protected set; }
+
         protected readonly Action<T, TProperty> SetterProp;
         protected readonly Func<T, TProperty> GetterProp;
         protected readonly IRepository Repository;
@@ -177,7 +179,6 @@ namespace FaPA.GUI.Controls
 
         public virtual void Init()
         {
-            //PocoType = typeof(TP);
             AllowDelete = UserProperty != null;
             AllowInsertNew = true;
 
@@ -250,11 +251,12 @@ namespace FaPA.GUI.Controls
         {
             if ( !( sender is BaseEntity ) ) return;
 
+            var validatable = (IValidatable)sender;
+          
             _isEditing = true;
 
             LockMessage = EditViewModel<BaseEntity>.OnEditingLockMessage;
-            IsInEditing = true;
-            var validatable = (IValidatable) sender;
+
             AllowSave = validatable.DomainResult.Success;
             OnCurrentChanged(sender, eventArg);
         }
@@ -294,8 +296,10 @@ namespace FaPA.GUI.Controls
             IsInEditing = false;
         }
 
-        public virtual void RefreshView()
+        public virtual void RefreshView(T instance)
         {
+            Instance = (T) instance;
+
             UserProperty = GetterProp(Instance);
 
             if (Instance == null) return;

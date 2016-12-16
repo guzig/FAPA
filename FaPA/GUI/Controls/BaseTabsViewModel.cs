@@ -61,7 +61,6 @@ namespace FaPA.GUI.Controls
             {
                 UserCollectionView = null;
             }
-
         }
 
         protected override void PersitEntity()
@@ -74,11 +73,13 @@ namespace FaPA.GUI.Controls
             }
         }
 
-        public override void RefreshView()
+        public override void RefreshView( T isntance)
         {
+            Instance = (T) isntance;
+
             var index = UserCollectionView.CurrentPosition;
 
-            UserProperty = GetterProp((T)Instance);
+            UserProperty = GetterProp(Instance);
 
             Init();
 
@@ -87,6 +88,7 @@ namespace FaPA.GUI.Controls
             UserCollectionView.MoveCurrentToPosition(index);
 
             CurrentPoco = UserCollectionView.CurrentItem;
+
         }
 
         protected override void MakeTransient()
@@ -99,7 +101,7 @@ namespace FaPA.GUI.Controls
 
             Read();
 
-            RefreshView();
+            RefreshView( Instance );
 
             AllowDelete = UserCollectionView != null && !UserCollectionView.IsEmpty;
         }

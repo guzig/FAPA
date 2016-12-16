@@ -34,9 +34,8 @@ namespace FaPA.GUI.Feautures.Fattura
         protected override void AddItemToUserCollection()
         {
             AddToArray();
-            var aray = UserProperty as DettaglioLineeType[];
-            if ( aray == null ) return;
-            var lastAdded= aray[aray.Length - 1];
+            if ( UserProperty == null ) return;
+            var lastAdded= UserProperty[UserProperty.Length - 1];
             InitAltriDatiVm( lastAdded );
         }
 
@@ -50,7 +49,7 @@ namespace FaPA.GUI.Feautures.Fattura
             base.OnCurrentChanged(sender, e);
 
             var cview = sender as ListCollectionView;
-            var dettaglio = cview.CurrentItem as DettaglioLineeType;
+            var dettaglio = cview?.CurrentItem as DettaglioLineeType;
             if ( dettaglio == null ) return;
 
             InitAltriDatiVm( dettaglio );
@@ -77,6 +76,11 @@ namespace FaPA.GUI.Feautures.Fattura
             LockMessage = EditViewModel<BaseEntity>.OnEditingLockMessage;
             IsInEditing = true;
             AllowSave = IsValidate();
+
+            var dettaglio = UserCollectionView.CurrentItem as DettaglioLineeType;
+            if (dettaglio == null) return;
+
+            base.OnPropChanged(dettaglio, e);
         }
 
         public override bool Delete()
@@ -91,16 +95,12 @@ namespace FaPA.GUI.Feautures.Fattura
             return isValidAltriDati ;
         }
 
-        public override void RefreshView()
+        public override void RefreshView(Core.Fattura instance)
         {
-            base.RefreshView();
-            AltridatiViewModel.RefreshView();
+            base.RefreshView( instance);
+            AltridatiViewModel.RefreshView( instance.DettaglioLinee );
         }
 
-        public override bool Persist(object entity)
-        {
-            return base.Persist(entity)
-        }
     }
 
 }

@@ -384,9 +384,9 @@ namespace FaPA.GUI.Controls.MyTabControl
 
             bool isNewEntityAdded = IsNewEntity( _currentEntity );
 
-            if ( !TryPersistEntity() ) return;
-
             _isOnBind = true;
+
+            if ( !TryPersistEntity() ) return;
 
             UserEntitiesView.CurrentChanged -= OnCurrentSelectionChanged;          
             //CurrentDtoEntity.Id = (_currentEntity as BaseEntity).Id;
