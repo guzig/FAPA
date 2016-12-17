@@ -291,20 +291,6 @@ namespace FaPA.GUI.Controls
             IsEditing = false;
         }
 
-        //public virtual void RefreshView()
-        //{
-        //    //Instance = (T) instance;
-
-        //    UserProperty = GetterProp(Instance);
-
-        //    if (Instance == null) return;
-
-        //    UserProperty = GetterProp((T)Instance);
-
-        //    Init();
-
-        //}
-
         #region IEditable
 
         //private BaseEntity _backupCopy;

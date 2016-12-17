@@ -72,24 +72,6 @@ namespace FaPA.GUI.Controls
             }
         }
 
-        //public override void RefreshView( )
-        //{
-        //    //Instance = (T) isntance;
-
-        //    var index = UserCollectionView.CurrentPosition;
-
-        //    UserProperty = GetterProp(Instance);
-
-        //    Init();
-
-        //    if (index < 0 || UserCollectionView == null ) return;
-
-        //    UserCollectionView.MoveCurrentToPosition(index);
-
-        //    CurrentPoco = UserCollectionView.CurrentItem;
-
-        //}
-
         protected override void MakeTransient()
         {
             if ( !GetDeleteConfirmation() ) return;

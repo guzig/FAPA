@@ -94,12 +94,6 @@ namespace FaPA.GUI.Feautures.Fattura
 
         }
 
-        //protected override void DefaultCancelOnEditAction()
-        //{
-        //   base.DefaultCancelOnEditAction();
-        //   InitFatturaTabs( );
-        //}
-
         #endregion
 
         public override void OnPageGotFocus()
@@ -150,24 +144,6 @@ namespace FaPA.GUI.Feautures.Fattura
             AddTabViewModel<TrasmittenteTabViewModel>( TrasmittenteViewModel );
 
         }
-
-        //private void RefreshFatturaTabs( Core.Fattura currententity )
-        //{
-        //    var fattura = CurrentEntity;
-
-        //    if (fattura?.Ritenuta != null)
-        //    {
-        //        AddTabRitenuta();
-        //    }
-
-        //    DettagliFatturaViewModel.RefreshView();
-                
-        //    DatiPagamento.RefreshView();
-
-        //    Trasmittente.RefreshView() ;
-        //}
-
-        //protected virtual void OnCurrentChanged(object sender, EventArgs e)
 
         private void OnDettaglioFatturaPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
