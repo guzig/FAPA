@@ -18,17 +18,13 @@ namespace FaPA.GUI.Feautures.Fattura
             get { return _altridatiViewModel; }
             set
             {
-                if (Equals(value, _altridatiViewModel)) return;
                 _altridatiViewModel = value;
                 NotifyOfPropertyChange(() => AltridatiViewModel);
             }
         }
 
-        private readonly Dictionary<DettaglioLineeType, AltriDatiViewModel> _viemModelChilds = 
-            new Dictionary<DettaglioLineeType, AltriDatiViewModel>();
-
         public DettagliFatturaViewModel( IRepository repository, Core.Fattura instance ) :
-            base( repository, instance, ( Core.Fattura f ) => f.DettaglioLinee, "", false )
+            base( ( Core.Fattura f ) => f.DettaglioLinee, repository, instance, "", false )
         {}
 
         protected override void AddItemToUserCollection()
@@ -55,26 +51,20 @@ namespace FaPA.GUI.Feautures.Fattura
             InitAltriDatiVm( dettaglio );
         }
 
+
         private void InitAltriDatiVm( DettaglioLineeType dettaglio )
         {
-            if ( _viemModelChilds.ContainsKey( dettaglio ) )
-                _altridatiViewModel = _viemModelChilds[dettaglio];
-            else
-            {
-                _altridatiViewModel = new AltriDatiViewModel( this, dettaglio );
-                _altridatiViewModel.Init();
-                _altridatiViewModel.CurrentEntityChanged += OnAltriDatiPropertyChanged;
-                _viemModelChilds.Add( dettaglio, _altridatiViewModel );
-            }
+            AltridatiViewModel = new AltriDatiViewModel( this, dettaglio );
+            AltridatiViewModel.Init();
+            AltridatiViewModel.CurrentEntityChanged += OnAltriDatiPropertyChanged;
 
-            AltridatiViewModel = _altridatiViewModel;
             AllowSave = IsValidate();
         }
 
         private void OnAltriDatiPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             LockMessage = EditViewModel<BaseEntity>.OnEditingLockMessage;
-            IsInEditing = true;
+            IsEditing = true;
             AllowSave = IsValidate();
 
             var dettaglio = UserCollectionView.CurrentItem as DettaglioLineeType;
@@ -95,11 +85,11 @@ namespace FaPA.GUI.Feautures.Fattura
             return isValidAltriDati ;
         }
 
-        public override void RefreshView(Core.Fattura instance)
-        {
-            base.RefreshView( instance);
-            AltridatiViewModel.RefreshView( instance.DettaglioLinee );
-        }
+        //public override void RefreshView()
+        //{
+        //    base.RefreshView();
+        //    AltridatiViewModel.RefreshView( );
+        //}
 
     }
 

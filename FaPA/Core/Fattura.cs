@@ -4,6 +4,7 @@ using System.ComponentModel;
 using FaPA.Core.FaPa;
 using System.Linq;
 using System.Xml;
+using FaPA.AppServices.CoreValidation;
 
 namespace FaPA.Core
 {

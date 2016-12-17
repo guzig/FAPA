@@ -87,15 +87,15 @@ namespace FaPA.GUI.Controls
             }
         }
 
-        private bool _isInEditing;
-        public bool IsInEditing
+        private bool _isEditing;
+        public bool IsEditing
         {
-            get { return _isInEditing; }
+            get { return _isEditing; }
             set
             {
-                if (value == _isInEditing) return;
-                _isInEditing = value;
-                NotifyOfPropertyChange(() => IsInEditing);
+                if (value == _isEditing) return;
+                _isEditing = value;
+                NotifyOfPropertyChange(() => IsEditing);
             }
         }
 
@@ -171,7 +171,7 @@ namespace FaPA.GUI.Controls
 
             UserProperty = Activator.CreateInstance<TProperty>();
 
-            IsInEditing = false;
+            IsEditing = false;
             AllowDelete = true;
             AllowInsertNew = false;
         }       
@@ -212,17 +212,11 @@ namespace FaPA.GUI.Controls
             }
         }
 
-        protected bool IsEditing
-        {
-            get { return _isEditing; }
-            set { _isEditing = value; }
-        }
-
         protected virtual void MakeTransient()
         {
             if ( !GetDeleteConfirmation() ) return;
             UserProperty = default(TProperty);
-            IsInEditing = false;
+            IsEditing = false;
             PersitEntity();
             AllowInsertNew = true;
         }
@@ -234,13 +228,13 @@ namespace FaPA.GUI.Controls
         
         protected virtual bool CancelEditCanExecuted()
         {
-            return IsInEditing; 
+            return IsEditing; 
         }
 
         protected virtual void OnCancelDelegateExecute()
         {
             CancelEdit();
-            IsInEditing = false;
+            IsEditing = false;
             LockMessage = null;
             AllowSave = false;
             AllowDelete = UserProperty != null;
@@ -252,12 +246,13 @@ namespace FaPA.GUI.Controls
             if ( !( sender is BaseEntity ) ) return;
 
             var validatable = (IValidatable)sender;
-          
-            _isEditing = true;
 
+             IsEditing = true;
+            
             LockMessage = EditViewModel<BaseEntity>.OnEditingLockMessage;
 
-            AllowSave = validatable.DomainResult.Success;
+            IsValid = validatable.DomainResult.Success;
+            AllowSave = IsValid;
             OnCurrentChanged(sender, eventArg);
         }
 
@@ -293,32 +288,31 @@ namespace FaPA.GUI.Controls
 
             LockMessage = null;
             AllowSave = false;
-            IsInEditing = false;
+            IsEditing = false;
         }
 
-        public virtual void RefreshView(T instance)
-        {
-            Instance = (T) instance;
+        //public virtual void RefreshView()
+        //{
+        //    //Instance = (T) instance;
 
-            UserProperty = GetterProp(Instance);
+        //    UserProperty = GetterProp(Instance);
 
-            if (Instance == null) return;
+        //    if (Instance == null) return;
 
-            UserProperty = GetterProp((T)Instance);
+        //    UserProperty = GetterProp((T)Instance);
 
-            Init();
+        //    Init();
 
-        }
+        //}
 
         #region IEditable
 
-        protected bool _isEditing;
         //private BaseEntity _backupCopy;
 
 
         protected virtual void CancelEdit()
         {
-            if (!_isEditing) return;
+            if (!IsEditing ) return;
             _isEditing = false;
 
             if (Repository == null) return;
@@ -334,7 +328,9 @@ namespace FaPA.GUI.Controls
 
         public virtual object Read()
         {
-            return GetterProp((T) Repository.Read());
+            var instance = (T) Repository.Read();
+            var userProp = GetterProp(instance);
+            return userProp;
         }
 
         public virtual bool Persist(object entity)

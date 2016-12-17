@@ -40,8 +40,29 @@ namespace FaPA.GUI.Feautures.Fattura
 
         //ctor 
         public AltriDatiViewModel( IRepository repository, DettaglioLineeType instance) :
-            base( repository, instance, (DettaglioLineeType f) => f.AltriDatiGestionali, "Altri dati", true)
+            base( (DettaglioLineeType f) => f.AltriDatiGestionali, repository, instance, "Altri dati", true )
         {}
+
+        //persist change in the main tab view model
+        protected override void PersitEntity()
+        {
+            //base.PersitEntity();
+        }
+
+        //persist change in the main tab view model
+        protected override void MakeTransient()
+        {
+            //if ( !GetDeleteConfirmation() ) return;
+
+            RemoveItem();
+
+            Init();
+
+            //Persist( Instance );
+            //Read();
+
+            AllowDelete = UserCollectionView != null && !UserCollectionView.IsEmpty;
+        }
 
         protected override void AddItemToUserCollection()
         {

@@ -18,6 +18,7 @@ namespace FaPA.GUI.Feautures.Fattura
 {
     public class Presenter : BaseCrudPresenter<Core.Fattura, View>
 	{
+
         //ctor
         public Presenter()
         {          

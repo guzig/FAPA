@@ -7,6 +7,7 @@ namespace FaPA.GUI.Design.Templates
     /// </summary>
     public partial class DettagliFattura
     {
+
         public DettagliFattura()
         {
             InitializeComponent();

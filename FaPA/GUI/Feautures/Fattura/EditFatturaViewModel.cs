@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using FaPA.AppServices.CoreValidation;
 using FaPA.Core;
 using FaPA.Infrastructure;
+using NHibernate.Util;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
@@ -29,9 +30,9 @@ namespace FaPA.GUI.Feautures.Fattura
             }
         }
         
-        public TrasmittenteTabViewModel Trasmittente { get; set; }
+        public TrasmittenteTabViewModel TrasmittenteViewModel { get; set; }
 
-        public DatiPagamentoTabViewModel DatiPagamento { get; set; }
+        public DatiPagamentoTabViewModel DatiPagamentoViewModel { get; set; }
 
         public RitenutaTabViewModel RitenutaTabViewModel { get; set; }
 
@@ -78,15 +79,26 @@ namespace FaPA.GUI.Feautures.Fattura
 
         public override void Persist()
         {
+            var userCollectionView = DettagliFatturaViewModel.UserCollectionView;
+
+            var lastDettaglioFatturaRecordIndex = userCollectionView != null && userCollectionView.Any() ?
+                userCollectionView.CurrentPosition : -1 ;
+
             base.Persist();
+
+            InitFatturaTabs();
             AllowSave = false;
+
+            if ( lastDettaglioFatturaRecordIndex < 0 || userCollectionView == null ) return;
+            userCollectionView.MoveCurrentToPosition( lastDettaglioFatturaRecordIndex );
+
         }
 
-        protected override void DefaultCancelOnEditAction()
-        {
-           base.DefaultCancelOnEditAction();
-           RefreshFatturaTabs( CurrentEntity );
-        }
+        //protected override void DefaultCancelOnEditAction()
+        //{
+        //   base.DefaultCancelOnEditAction();
+        //   InitFatturaTabs( );
+        //}
 
         #endregion
 
@@ -97,12 +109,12 @@ namespace FaPA.GUI.Feautures.Fattura
             if ( DettagliFatturaViewModel == null )
                 InitFatturaTabs();
             else
-                RefreshFatturaTabs( CurrentEntity );
+                InitFatturaTabs();
         }
 
         private void OnCurrentFatturaChanged(Core.Fattura currententity)
         {
-            RefreshFatturaTabs( CurrentEntity );
+            InitFatturaTabs();
 
             if (currententity == null || currententity.Id == 0)
             {
@@ -129,31 +141,31 @@ namespace FaPA.GUI.Feautures.Fattura
             DettagliFatturaViewModel.Init();
             DettagliFatturaViewModel.CurrentEntityChanged += OnDettaglioFatturaPropertyChanged;
 
-            DatiPagamento = new DatiPagamentoTabViewModel( this, fattura );
-            DatiPagamento.Init();
-            AddTabViewModel<DatiPagamentoTabViewModel>( DatiPagamento );
+            DatiPagamentoViewModel = new DatiPagamentoTabViewModel( this, fattura );
+            DatiPagamentoViewModel.Init();
+            AddTabViewModel<DatiPagamentoTabViewModel>( DatiPagamentoViewModel );
 
-            Trasmittente = new TrasmittenteTabViewModel(this, fattura);
-            Trasmittente.Init();
-            AddTabViewModel<TrasmittenteTabViewModel>( Trasmittente );
+            TrasmittenteViewModel = new TrasmittenteTabViewModel(this, fattura);
+            TrasmittenteViewModel.Init();
+            AddTabViewModel<TrasmittenteTabViewModel>( TrasmittenteViewModel );
 
         }
 
-        private void RefreshFatturaTabs( Core.Fattura currententity )
-        {
-            var fattura = CurrentEntity;
+        //private void RefreshFatturaTabs( Core.Fattura currententity )
+        //{
+        //    var fattura = CurrentEntity;
 
-            if (fattura?.Ritenuta != null)
-            {
-                AddTabRitenuta();
-            }
+        //    if (fattura?.Ritenuta != null)
+        //    {
+        //        AddTabRitenuta();
+        //    }
 
-            DettagliFatturaViewModel.RefreshView(fattura);
+        //    DettagliFatturaViewModel.RefreshView();
                 
-            DatiPagamento.RefreshView(fattura);
+        //    DatiPagamento.RefreshView();
 
-            Trasmittente.RefreshView(fattura) ;
-        }
+        //    Trasmittente.RefreshView() ;
+        //}
 
         //protected virtual void OnCurrentChanged(object sender, EventArgs e)
 
@@ -216,7 +228,7 @@ namespace FaPA.GUI.Feautures.Fattura
             if ( CurrentEntity == null ) return;
 
             var ordineTabViewModel = AddTabOrdine();
-            //ordineTabViewModel.IsInEditing = false;
+            //ordineTabViewModel.IsEditing = false;
             //ordineTabViewModel.LockMessage = OnEditingLockMessage;
 
             BasePresenter.SetActiveWorkSpace( BasePresenter.Workspaces.IndexOf( ordineTabViewModel ) );

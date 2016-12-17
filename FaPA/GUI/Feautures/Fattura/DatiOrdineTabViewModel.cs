@@ -8,7 +8,7 @@ namespace FaPA.GUI.Feautures.Fattura
     {
         //ctor
         public DatiOrdineTabViewModel( IRepository repository, Core.Fattura instance ) :
-            base( repository, instance, (Core.Fattura f) => f.DatiOrdineAcquisto, "Ordini", false)
+            base( (Core.Fattura f) => f.DatiOrdineAcquisto, repository, instance, "Ordini", false )
         { }
 
         protected override void AddItemToUserCollection()

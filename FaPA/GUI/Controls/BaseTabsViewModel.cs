@@ -34,9 +34,8 @@ namespace FaPA.GUI.Controls
         #endregion
 
         //ctor
-        protected BaseTabsViewModel( IRepository repository, T instance,
-            Expression<Func<T, TProperty>> getter, string dispName, bool isClosable) :
-                base( repository, instance, getter, dispName, isClosable)
+        protected BaseTabsViewModel( Expression<Func<T, TProperty>> getter, IRepository repository, T instance, 
+            string dispName, bool isClosable ) : base( repository, instance, getter, dispName, isClosable)
         {}
         
         protected abstract void RemoveItemFromUserCollection();
@@ -73,23 +72,23 @@ namespace FaPA.GUI.Controls
             }
         }
 
-        public override void RefreshView( T isntance)
-        {
-            Instance = (T) isntance;
+        //public override void RefreshView( )
+        //{
+        //    //Instance = (T) isntance;
 
-            var index = UserCollectionView.CurrentPosition;
+        //    var index = UserCollectionView.CurrentPosition;
 
-            UserProperty = GetterProp(Instance);
+        //    UserProperty = GetterProp(Instance);
 
-            Init();
+        //    Init();
 
-            if (index < 0 || UserCollectionView == null ) return;
+        //    if (index < 0 || UserCollectionView == null ) return;
 
-            UserCollectionView.MoveCurrentToPosition(index);
+        //    UserCollectionView.MoveCurrentToPosition(index);
 
-            CurrentPoco = UserCollectionView.CurrentItem;
+        //    CurrentPoco = UserCollectionView.CurrentItem;
 
-        }
+        //}
 
         protected override void MakeTransient()
         {
@@ -99,9 +98,9 @@ namespace FaPA.GUI.Controls
 
             Persist( Instance );
 
-            Read();
+            UserProperty = ( TProperty ) base.Read();
 
-            RefreshView( Instance );
+            Init();
 
             AllowDelete = UserCollectionView != null && !UserCollectionView.IsEmpty;
         }
@@ -140,7 +139,7 @@ namespace FaPA.GUI.Controls
             UserCollectionView.MoveCurrentToLast();
             CurrentPoco = UserCollectionView.CurrentItem;
 
-            IsInEditing = true;
+            IsEditing = true;
             AllowDelete = false;
             AllowSave = true;
         }
@@ -200,7 +199,6 @@ namespace FaPA.GUI.Controls
 
         protected virtual void OnCurrentChanged( object sender, EventArgs e)
         {
-            IsEditing = true;
             CurrentPoco = UserCollectionView.CurrentItem;
             if ( CurrentPoco == null) return;
             Validate();
@@ -208,7 +206,7 @@ namespace FaPA.GUI.Controls
             HookOnChanged( CurrentPoco );
         }
 
-        private void RemoveItem()
+        protected void RemoveItem()
         {
             RemoveItemFromUserCollection();
             var view = UserCollectionView as ListCollectionView;
@@ -273,47 +271,18 @@ namespace FaPA.GUI.Controls
 
         protected override void CancelEdit()
         {
-            var currentIndx=-1;
-            if ( UserCollectionView != null && UserCollectionView.Any() )
-                currentIndx = UserCollectionView.CurrentPosition;
+            if ( _userAddedNewPocos.Contains( UserCollectionView.CurrentItem ) )
+            {
+                _userAddedNewPocos.Remove( UserCollectionView.CurrentItem );
+            }
 
             IsEditing = false;
 
-            if ( Repository != null )
-            {
-                var instance = Repository.Read();
-                UserProperty = instance != null ? GetterProp( (T) instance ) : default ( TProperty );
-            }
+            UserProperty = ( TProperty ) base.Read();
 
-            if ( UserProperty != null )
-            {
-                InitCollectionView();
+            Init();
 
-                if (currentIndx >= 0)
-                {
-                    UserCollectionView?.MoveCurrentToPosition(currentIndx);
-                }
-            }            
         }
 
-        public override object Read()
-        {
-            var indx = UserCollectionView?.CurrentPosition;
-
-            //refresh collection froom DB
-            var userProp = base.Read() as object[];
-
-            if (userProp != null)
-            {
-                if (indx != null && indx >= 0 && indx < userProp.Length)
-                    return userProp[(int)indx];
-                
-                //collection changed in the meanwhile
-                if ( userProp.Length >= 0 )
-                    return userProp[0];
-            }
-
-            return null;
-        }
     }
 }

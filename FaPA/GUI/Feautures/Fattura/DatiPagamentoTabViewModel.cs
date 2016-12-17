@@ -9,7 +9,7 @@ namespace FaPA.GUI.Feautures.Fattura
     {
         //ctor
         public DatiPagamentoTabViewModel(IRepository repository, Core.Fattura instance) :
-            base(repository, instance, (Core.Fattura f) => f.DatiPagamento, "Pagamenti", false)
+            base( (Core.Fattura f) => f.DatiPagamento, repository, instance, "Pagamenti", false )
         {
         }
 
