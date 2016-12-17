@@ -253,17 +253,25 @@ namespace FaPA.GUI.Controls
 
         protected override void CancelEdit()
         {
-            if ( _userAddedNewPocos.Contains( UserCollectionView.CurrentItem ) )
-            {
-                _userAddedNewPocos.Remove( UserCollectionView.CurrentItem );
-            }
+            var currentIndx = -1;
+            if ( UserCollectionView != null && UserCollectionView.Any() )
+                currentIndx = UserCollectionView.CurrentPosition;
 
             IsEditing = false;
 
-            UserProperty = ( TProperty ) base.Read();
+            if ( Repository != null )
+            {
+                Instance = ( T ) Repository.Read();
+                UserProperty = Instance != null ? GetterProp( Instance ) : default( TProperty );
+            }
 
             Init();
 
+            if ( UserProperty == null ) return;
+            if ( currentIndx >= 0 )
+            {
+                UserCollectionView?.MoveCurrentToPosition( currentIndx );
+            }
         }
 
     }

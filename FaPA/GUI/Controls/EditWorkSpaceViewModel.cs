@@ -314,7 +314,8 @@ namespace FaPA.GUI.Controls
 
         public virtual object Read()
         {
-            var instance = (T) Repository.Read();
+            var read = Repository.Read();
+            var instance = (T) read;
             var userProp = GetterProp(instance);
             return userProp;
         }

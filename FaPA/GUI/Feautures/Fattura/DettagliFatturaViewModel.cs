@@ -50,8 +50,7 @@ namespace FaPA.GUI.Feautures.Fattura
 
             InitAltriDatiVm( dettaglio );
         }
-
-
+        
         private void InitAltriDatiVm( DettaglioLineeType dettaglio )
         {
             AltridatiViewModel = new AltriDatiViewModel( this, dettaglio );

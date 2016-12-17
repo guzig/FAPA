@@ -143,11 +143,11 @@ namespace FaPA.Core
             }
         }
 
-        //public virtual RegimeFiscaleType RegimeFiscale
-        //{
-        //    get { return CedenteFornitore.DatiAnagrafici.RegimeFiscale; }
-        //    set { CedenteFornitore.DatiAnagrafici.RegimeFiscale = value; }
-        //}
+        public virtual RegimeFiscaleType RegimeFiscale
+        {
+            get { return CedenteFornitore.DatiAnagrafici.RegimeFiscale; }
+            set { CedenteFornitore.DatiAnagrafici.RegimeFiscale = value; }
+        }
 
         public virtual DatiCassaPrevidenzialeType CassaPrevidenziale
         {
@@ -288,24 +288,7 @@ namespace FaPA.Core
         private void OnPropChanged( object sender, PropertyChangedEventArgs e )
         {
             if ( FatturaPa == null )
-                return;
-
-            //if ( e.PropertyName == "FatturaPa" )
-            //{
-            //    if ( sender is IProxy )
-            //    {
-            //        var entity = sender as Fattura;
-            //        if ( entity == null ) return;
-
-            //        object header = entity.FatturaPa.FatturaElettronicaHeader;
-            //        ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntityFpa>( ref header, "FaPA.Core" );
-            //        entity.FatturaElettronicaHeader = ( FatturaElettronicaHeaderType ) header;
-
-            //        object body = entity.FatturaPa.FatturaElettronicaBody;
-            //        ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntityFpa>( ref body, "FaPA.Core" );
-            //        entity.FatturaElettronicaBody =  ( FatturaElettronicaBodyType ) body;
-            //    }
-            //}          
+                return;       
 
             if ( e.PropertyName == nameof(NumeroFatturaDB))
             {

@@ -116,23 +116,23 @@
                                                  Height="25"/>
             
             <Button Command="{Binding AddItemCommand}"                        
-                    ToolTip="Aggiunge una sheda dati pagamento" >
+                    ToolTip="Aggiunge nuovo record" >
 
                 <Image Source="/GUI/Design/Styles/Images/Add_24.png" Width="Auto"/>
             </Button>
 
             <Button Command="{Binding DeleteEntityCommand}"                        
-                    ToolTip="Elimina definitivamente l'oggetto dal database" >
+                    ToolTip="Elimina record" >
 
                 <Image Source="/GUI/Design/Styles/Images/delete(1).png" Width="25"/>
             </Button>
 
-            <Button Command="{Binding PerformCancel}"   Width="25" HorizontalAlignment="Left"                
+            <!--<Button Command="{Binding PerformCancel}"   Width="25" HorizontalAlignment="Left"                
                         ToolTip="Annulla le modifiche apportate"  >
 
                 <Image Source="/GUI/Design/Styles/Images/cancel.png" Width="25"/>
 
-            </Button>
+            </Button>-->
 
         </DockPanel>
 

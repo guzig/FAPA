@@ -62,7 +62,7 @@ namespace FaPA.Core
             string utf8;
             using ( StringWriter writer = new Utf8StringWriter() )
             {
-                Serializer.Serialize(writer, ( FatturaElettronicaType ) objectInstance, NameSpaceFatturaPa);                   
+                Serializer.Serialize(writer, objectInstance, NameSpaceFatturaPa);                   
                 utf8 = writer.ToString();
             }
             return utf8;
