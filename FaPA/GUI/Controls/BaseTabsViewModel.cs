@@ -119,7 +119,6 @@ namespace FaPA.GUI.Controls
 
             InitCollectionView();
             UserCollectionView.MoveCurrentToLast();
-            CurrentPoco = UserCollectionView.CurrentItem;
 
             IsEditing = true;
             AllowDelete = false;
@@ -219,19 +218,20 @@ namespace FaPA.GUI.Controls
         {
             Array array = null;
             var elementType = typeof(TProperty).GetElementType();
+            TProperty userProperty;
             if (UserProperty == null)
             {
-                UserProperty = (TProperty)(object)Array.CreateInstance(elementType, 1);
+                userProperty = (TProperty)(object)Array.CreateInstance(elementType, 1);
             }
             else //copy and resize
             {
                 array = UserProperty as Array;
                 if ( array == null ) return;
                 var len = array.Length + 1;
-                UserProperty = (TProperty)(object)Array.CreateInstance(elementType, len);
+                userProperty = (TProperty)(object)Array.CreateInstance(elementType, len);
             }
 
-            var aray = UserProperty as object[];
+            var aray = userProperty as object[];
             if (aray == null) return;
 
             if ( aray.Length > 1 && array != null )
@@ -249,6 +249,8 @@ namespace FaPA.GUI.Controls
 
             _userAddedNewPocos.Add( newInstance );
             HookOnChanged( newInstance );
+
+            UserProperty = userProperty;
         }
 
         protected override void CancelEdit()

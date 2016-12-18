@@ -22,6 +22,32 @@ namespace FaPA.Core
         {
         }
 
+        public abstract DomainResult Validate();
+
+        public abstract DomainResult ValidatePropertyValue( string prop );
+
+        protected void GetPersistentErrors( IDictionary<string, IEnumerable<string>> errors, string propName )
+        {
+            //get persistent layer validation
+            var validationErrors = CoreValidatorService.GetValidationErrors( propName, this ).ToArray();
+            if ( !validationErrors.Any() ) return;
+            foreach (var keyValuePair in validationErrors)
+                errors.Add(keyValuePair.Key, keyValuePair.Value);
+        }
+
+        protected void GetPersistentErrors(IDictionary<string, IEnumerable<string>> errors)
+        {
+            //get persistent layer validation
+            var validationErrors = CoreValidatorService.GetValidationErrors(this);
+
+            if (validationErrors == null) return;
+
+            foreach (var item in validationErrors)
+                errors.Add(item.Key, item.Value);
+        }
+
+        public virtual bool IsValidating { get; set; } = true;
+
         #endregion
 
 
@@ -73,9 +99,6 @@ namespace FaPA.Core
             return _requestedHashCode.Value;
         }
 
-        public abstract DomainResult Validate();
-
-        public abstract DomainResult ValidatePropertyValue( string prop );
 
         public virtual int CompareTo( object obj )
         {
@@ -89,29 +112,8 @@ namespace FaPA.Core
             throw new ArgumentException( "Object is not a BaseEntity" );
         }
 
-        protected void GetPersistentErrors( IDictionary<string, IEnumerable<string>> errors, string propName )
-        {
-            //get persistent layer validation
-            var validationErrors = CoreValidatorService.GetValidationErrors( propName, this ).ToArray();
-            if ( !validationErrors.Any() ) return;
-            foreach (var keyValuePair in validationErrors)
-                errors.Add(keyValuePair.Key, keyValuePair.Value);
-        }
-
-        protected void GetPersistentErrors(IDictionary<string, IEnumerable<string>> errors)
-        {
-            //get persistent layer validation
-            var validationErrors = CoreValidatorService.GetValidationErrors(this);
-
-            if (validationErrors == null) return;
-
-            foreach (var item in validationErrors)
-                errors.Add(item.Key, item.Value);
-        }
-
         public virtual PropertyChangedEventHandler PropertyChangedEventHandler => null;
 
-        public virtual bool IsValidating { get; set; } = true;
 
         //public virtual BaseEntity ShallowCopy()
         //{

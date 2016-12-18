@@ -91,15 +91,6 @@ namespace FaPA.GUI.Feautures.Fattura
             //return true;
        // }
 
-        //private DettaglioFatturaDto GetViewModel()
-        //{
-        //    var viewModel = MainViewModel as EditFatturaViewModel;
-        //    if (viewModel == null) return null;
-        //    var dettaglioViewModel = viewModel.DettagliFatturaViewModel.UserCollectionView;
-        //    var dettaglioFatturaDto = dettaglioViewModel?.CurrentItem as DettaglioFatturaDto;
-        //    return dettaglioFatturaDto;
-        //}
-
     }
 
 

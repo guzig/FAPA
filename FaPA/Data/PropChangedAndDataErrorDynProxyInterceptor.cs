@@ -63,26 +63,31 @@ namespace FaPA.Data
 
             var returnValue = info.TargetMethod.Invoke( Proxy, info.Arguments );
 
-            if (!info.TargetMethod.Name.StartsWith("set_") ) return returnValue;
+            if ( !info.TargetMethod.Name.StartsWith("set_") ) return returnValue;
             
             var propertyName = info.TargetMethod.Name.Substring("set_".Length);
 
             //Validation
             var entity = info.Target as BaseEntity;
-            if ( entity != null && entity.IsValidating ) 
-            {
-                var validtor = (IValidatable) info.Target;
-                validtor?.ValidatePropertyValue(propertyName);
-            }
+            ValidatePropValue( propertyName, entity );
 
             //INotifyPropertyChanged
             _changed(info.Target, new PropertyChangedEventArgs(propertyName));
 
             if ( entity != null && entity.IsValidating )
                 //RaiseErrors(info.Target);
-                ErrorsChanged?.Invoke(info.Target, new DataErrorsChangedEventArgs(propertyName));
+                ErrorsChanged?.Invoke( info.Target, new DataErrorsChangedEventArgs(propertyName));
 
             return returnValue;
+        }
+
+        private static void ValidatePropValue( string propertyName, BaseEntity entity )
+        {
+            if ( entity != null && entity.IsValidating )
+            {
+                var validtor = ( IValidatable ) entity;
+                validtor?.ValidatePropertyValue( propertyName );
+            }
         }
 
         private void RaiseErrors(object target)

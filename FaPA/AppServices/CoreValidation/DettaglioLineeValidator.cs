@@ -14,20 +14,22 @@ namespace FaPA.AppServices.CoreValidation
 
             var childs = ObjectExplorer.FindAllInstances<AltriDatiGestionaliType>(instance);
             if (childs == null || !childs.Any()) return errors;
+            const string propName = "AltriDatiGestionali";
+
             foreach (var child in childs)
             {
-                var er = CoreValidatorService.GetValidationErrors(child);
-                if (er == null) continue;
-                foreach (var erro in er)
+                var childErrors = CoreValidatorService.GetValidationErrors(child);
+                if (childErrors == null) continue;
+                foreach (var erro in childErrors)
                 {
-                    if ( errors.ContainsKey(erro.Key ) )
+                    if ( errors.ContainsKey( propName ) )
                     {
-                        var temp = errors[erro.Key].ToList();
+                        var temp = errors[propName].ToList();
                         temp.AddRange(erro.Value);
-                        errors[erro.Key] = temp;
+                        errors[propName] = temp;
                     }
                     else
-                        errors.Add(erro.Key, erro.Value);
+                        errors.Add( propName, erro.Value);
                 }
             }
 

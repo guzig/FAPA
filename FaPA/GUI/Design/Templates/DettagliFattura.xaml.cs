@@ -1,4 +1,6 @@
-﻿using System.Windows.Input;
+﻿using System.Windows.Controls;
+using System.Windows.Input;
+using FaPA.GUI.Utils;
 
 namespace FaPA.GUI.Design.Templates
 {
@@ -20,6 +22,7 @@ namespace FaPA.GUI.Design.Templates
         {
             //DataGridHelpers.DataGridKeyUpEventHandler( e, DettagliFatturaGridControl );
         }
+
 
         //private void OnExpanded(object sender, RoutedEventArgs e)
         //{

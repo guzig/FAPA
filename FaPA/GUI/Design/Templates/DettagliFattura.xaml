@@ -77,6 +77,7 @@
                                              RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
                         IsSynchronizedWithCurrentItem="True"
                         PreviewKeyDown="DettagliFatturaGridControl_OnPreviewKeyDown"
+
                         SelectionMode="Single"
                         CanUserAddRows="False" 
                         CanUserDeleteRows="False"
@@ -105,7 +106,7 @@
 
                 <DataGrid.RowValidationRules>
 
-                    <DataErrorValidationRule  ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="True" />
+                    <DataErrorValidationRule  ValidationStep="CommittedValue" ValidatesOnTargetUpdated="True" />
 
                 </DataGrid.RowValidationRules>
 
@@ -125,8 +126,10 @@
 
                     <DataGridTextColumn Header="Descrizione"
                                         Width="Auto" 
-                                        Binding="{Binding Descrizione, Mode=TwoWay, ValidatesOnDataErrors =True,
-                                                          UpdateSourceTrigger =LostFocus}"
+                                        Binding="{Binding Descrizione, Mode=TwoWay, ValidatesOnDataErrors =True, 
+                                                                                    NotifyOnSourceUpdated=True,
+                                                                                    NotifyOnValidationError=True,
+                                                                                    UpdateSourceTrigger =LostFocus}"
                                         ElementStyle="{StaticResource CellErrorInfoStyle}">
 
                     </DataGridTextColumn>
@@ -292,10 +295,10 @@
                                                 <!--<t:AltriDatiGrid GridItemSource="{Binding AltriDatiGestionaliView}"/>-->
 
                                                     <ContentControl Content="{Binding Path=Data.DettagliFatturaViewModel.AltridatiViewModel, 
-                                                                                  NotifyOnSourceUpdated=True, 
-                                                                                  NotifyOnValidationError=True,
-                                                                                  NotifyOnTargetUpdated=True, 
-                                                                                  Source={StaticResource proxyFVM}}"/>
+                                                                                      NotifyOnSourceUpdated=True, 
+                                                                                      NotifyOnValidationError=True,
+                                                                                      NotifyOnTargetUpdated=True, 
+                                                                                      Source={StaticResource proxyFVM}}"/>
 
                                                 <!--<ContentControl>
                                                     <Binding Path="Data.DettagliFatturaViewModel.AltridatiViewModel" 

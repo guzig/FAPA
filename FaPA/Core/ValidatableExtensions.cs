@@ -40,7 +40,15 @@ namespace FaPA.Core
         public static IEnumerable<string> PropErrors(this DomainResult input, string propertyName)
         {
             if ( string.IsNullOrWhiteSpace(propertyName) )
-                yield break;
+            {
+                if ( input.Errors == null )
+                    yield break;
+
+                foreach ( var err in input.Errors.SelectMany( error => error.Value ) )
+                {
+                    yield return err;
+                }
+            }
 
             if ( input.Success ) yield break;
 
