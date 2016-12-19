@@ -3,7 +3,9 @@ using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Windows;
 using System.Windows.Input;
+using FaPA.AppServices.CoreValidation;
 using FaPA.Core;
+using FaPA.Data;
 using FaPA.GUI.Controls.MyTabControl;
 using FaPA.GUI.Feautures.Fattura;
 using FaPA.GUI.Utils;
@@ -12,7 +14,7 @@ using Action = System.Action;
 
 namespace FaPA.GUI.Controls
 {
-    public abstract class EditWorkSpaceViewModel<T, TProperty> : WorkspaceViewModel, IRepository, IDispose
+    public abstract class EditWorkSpaceViewModel<T, TProperty> : WorkspaceViewModel, IRepository, IDispose 
     {
         //ctor
         protected EditWorkSpaceViewModel(IRepository repository, T instance,
@@ -169,7 +171,15 @@ namespace FaPA.GUI.Controls
         {
             LockMessage = EditViewModel<BaseEntity>.OnEditingLockMessage;
 
-            UserProperty = Activator.CreateInstance<TProperty>();
+            var userProperty = (object)Activator.CreateInstance<TProperty>();
+
+            ( ( IValidatable ) userProperty ).Validate();
+
+            ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntity>(ref userProperty, "FaPA.Core");
+            CurrentPoco = userProperty;
+
+            HookOnChanged( CurrentPoco );
+            UserProperty = (TProperty)CurrentPoco;
 
             IsEditing = false;
             AllowDelete = true;

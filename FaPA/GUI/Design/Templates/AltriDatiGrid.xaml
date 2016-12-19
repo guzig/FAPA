@@ -26,7 +26,7 @@
         </DockPanel>
 
         <DockPanel Grid.Row="1">
-            <DataGrid x:Name="AltriDatiGridControl" ItemsSource="{Binding UserCollectionView}"
+            <DataGrid x:Name="AltriDatiGridControl" ItemsSource="{Binding UserCollectionView, NotifyOnSourceUpdated=True}"
                       Visibility="{Binding IsEmpty, Converter={StaticResource BoolToOppositeVisibilityConverter},Mode=OneWay}"
                       IsSynchronizedWithCurrentItem="True" 
                       HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" 

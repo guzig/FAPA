@@ -51,7 +51,7 @@ namespace FaPA.GUI.Controls.MyTabControl
         /// </summary>
         public event EventHandler RequestClose;
 
-        private void OnRequestClose()
+        protected virtual void OnRequestClose()
         {
             if (!string.IsNullOrWhiteSpace(LockMessage))
             {

@@ -269,7 +269,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AppServices\CoreValidation\AltriDatiGestionaliValidator.cs" />
-    <Compile Include="AppServices\CoreValidation\NhvAnagraficaValidator.cs" />
+    <Compile Include="AppServices\CoreValidation\DatiGeneraliDocumentoValidator.cs" />
+    <Compile Include="AppServices\CoreValidation\NhAnagraficaValidator.cs" />
     <Compile Include="AppServices\CoreValidation\BaseCoreValidator.cs" />
     <Compile Include="AppServices\CoreValidation\NhFatturaValidator.cs" />
     <Compile Include="AppServices\CoreValidation\ObjectExplorer.cs" />

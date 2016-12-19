@@ -64,6 +64,13 @@ namespace FaPA.GUI.Feautures.Fattura
             return instance;
         }
 
+        protected override void DefaultCancelOnEditAction()
+        {
+            base.DefaultCancelOnEditAction();
+            InitFatturaTabs();
+            DettagliFatturaViewModel.UserCollectionView.Refresh();
+        }
+
         protected override bool TrySaveCurrentEntity()
         {
            CurrentEntity.SetTrasmittente();
@@ -92,6 +99,7 @@ namespace FaPA.GUI.Feautures.Fattura
             if ( lastDettaglioFatturaRecordIndex < 0 || userCollectionView == null ) return;
             userCollectionView.MoveCurrentToPosition( lastDettaglioFatturaRecordIndex );
 
+            DettagliFatturaViewModel.UserCollectionView.Refresh();
         }
 
         #endregion

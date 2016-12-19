@@ -13,7 +13,7 @@ using NHibernate.Util;
 
 namespace FaPA.GUI.Controls
 {
-    public abstract class BaseTabsViewModel<T, TProperty> : EditWorkSpaceViewModel<T, TProperty>
+    public abstract class BaseTabsViewModel<T, TProperty> : EditWorkSpaceViewModel<T, TProperty> 
     {
         #region data members
 

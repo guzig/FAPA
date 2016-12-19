@@ -70,7 +70,8 @@
 
         <DockPanel Grid.Row="1" HorizontalAlignment="Stretch" Width="Auto">
             <DataGrid x:Name="DettagliFatturaGridControl"
-                        ItemsSource="{Binding Path=DataContext.EditViewModel.DettagliFatturaViewModel.UserCollectionView,
+                        ItemsSource="{Binding Path=DataContext.EditViewModel.DettagliFatturaViewModel.UserCollectionView, 
+                                              NotifyOnSourceUpdated=True,
                                               RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type Window}}}"
                         Visibility="{Binding Path=DataContext.EditViewModel.DettagliFatturaViewModel.IsEmpty, Mode=OneWay, 
                                              Converter={StaticResource BoolToOppositeVisibilityConverter},

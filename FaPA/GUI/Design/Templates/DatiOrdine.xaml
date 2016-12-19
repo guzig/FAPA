@@ -12,7 +12,7 @@
         </Grid.RowDefinitions>
 
         <Border Margin="2,2,2,2" Padding="2,2,2,2">
-            <ContentControl Content="{Binding Dto}"/>
+            <ContentControl Content="{Binding CurrentPoco}"/>
         </Border>
 
         <StackPanel Width="Auto" HorizontalAlignment="Stretch"  Grid.Row="0" Orientation="Vertical"

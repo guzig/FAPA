@@ -69,8 +69,7 @@ namespace FaPA.GUI.Feautures.Fattura
             var dettaglio = UserCollectionView.CurrentItem as DettaglioLineeType;
             if (dettaglio == null) return;
 
-            var validatable = ( IValidatable ) dettaglio;
-            validatable.ValidatePropertyValue( "AltriDatiGestionali" );
+            ( ( IValidatable ) dettaglio).ValidatePropertyValue( "AltriDatiGestionali" );
 
             base.OnPropChanged(dettaglio, e);
 

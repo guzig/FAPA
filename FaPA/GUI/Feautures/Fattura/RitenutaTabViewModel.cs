@@ -1,3 +1,5 @@
+using System;
+using System.Windows;
 using FaPA.Core.FaPa;
 using FaPA.GUI.Controls;
 using FaPA.Infrastructure;
@@ -18,5 +20,6 @@ namespace FaPA.GUI.Feautures.Fattura
         //    //if ( UserProperty != null ) return;
         //    //EventPublisher.Publish( new RemoveTabView( this, ParentViewModel ), this );
         //}
+
     }
 }

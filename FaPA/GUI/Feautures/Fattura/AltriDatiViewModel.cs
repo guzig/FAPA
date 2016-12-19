@@ -6,7 +6,7 @@ using FaPA.Infrastructure;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
-    public class AltriDatiViewModel : BaseTabsViewModel<DettaglioLineeType, AltriDatiGestionaliType[]>
+    public class AltriDatiViewModel : BaseTabsViewModel<DettaglioLineeType, AltriDatiGestionaliType[]> 
     {
         private bool _isDropDownOpen;
         public bool IsDropDownOpen

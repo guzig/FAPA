@@ -64,7 +64,6 @@ namespace FaPA.AppServices.CoreValidation
             var exploredObjects = new HashSet<object>();
 
             TryProxiedAllInstances<T>( ref value, exploredObjects, nameSpace);
-
         }
 
         private static bool TryProxiedAllInstances<T>( ref object value, HashSet<object> exploredObjects, string nameSpace)  where T : class
@@ -112,7 +111,9 @@ namespace FaPA.AppServices.CoreValidation
                 {
                     var proxy = AddPropChangedAndDataErrorInterceptorProxyFactory.Create( type, value);
                     if (proxy != null)
+                    {
                         value = proxy;
+                    }
                     isValueSet = true;
                 }
                 
@@ -124,13 +125,9 @@ namespace FaPA.AppServices.CoreValidation
                     var propertyValue = property.GetValue(value);
 
                     if (propertyValue == null)
-                    {
                         continue;
-                    }
 
-                    var isSet = TryProxiedAllInstances<T>( ref propertyValue, exploredObjects, nameSpace);
-
-                    if ( isSet  )
+                    if ( TryProxiedAllInstances<T>( ref propertyValue, exploredObjects, nameSpace)  )
                         property.SetValue(value, propertyValue );
                 }
             }

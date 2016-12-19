@@ -1,6 +1,6 @@
 ﻿namespace FaPA.AppServices.CoreValidation
 {
-    public class NhvAnagraficaValidator : NhValidator
+    public class NhAnagraficaValidator : NhValidator
     {
 
     }
