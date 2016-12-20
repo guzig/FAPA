@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using AutoMapper;
 using FaPA.DomainServices.Utils;
 using NHibernate;
 using NHibernate.Criterion;
@@ -54,10 +54,14 @@ namespace FaPA.Infrastructure.FlyFetch
                         }
                         e.Result = list;
                     }
-                    for (var i = 0; i < list.Count; ++i)
-                    {
-                        Mapper.Map(list[i], collection[first + i]);
-                    }
+
+                    CopyCollection(collection as ObservableCollection<T>, first, list);
+
+                    //for (var i = 0; i < list.Count; ++i)
+                    //{
+                    //    Mapper.Map(list[i], collection[first + i]);
+                    //}
+
                     FetchedCount += list.Count;
                 }
                 catch (Exception exc)

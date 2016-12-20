@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
 using System.Windows;
-using AutoMapper;
 using Caliburn.Micro;
 using NHibernate;
 using NHibernate.Criterion;
@@ -104,10 +103,16 @@ namespace FaPA.Infrastructure.FlyFetch
                             e.Result = list;
                         }
                     }
-                    if (typeof (T) == typeof (TDto))
-                        CopyCollection(collection as ObservableCollection<T>, first, list);
-                    else
-                        MapToCollection(collection, first, list);
+
+                    CopyCollection(collection as ObservableCollection<T>, first, list);
+
+                    //if (typeof (T) == typeof (TDto))
+                    //{
+                    //    CopyCollection(collection as ObservableCollection<T>, first, list);
+                    //    throw new NotSupportedException();
+                    //}
+                    //else
+                    //    MapToCollection(collection, first, list);
                 }
                 catch (Exception exc)
                 {
@@ -130,17 +135,17 @@ namespace FaPA.Infrastructure.FlyFetch
             wrk.RunWorkerAsync();
         }
 
-        private static void MapToCollection(ObservableCollection<TDto> collection, int first, IList<T> list)
-        {
-            for (var i = 0; i < list.Count; ++i)
-            {
-                var entity = list[i];
-                var dto = collection[first + i];
-                Mapper.Map(entity, dto);
-            }
-        }
+        //private static void MapToCollection(ObservableCollection<TDto> collection, int first, IList<T> list)
+        //{
+        //    for (var i = 0; i < list.Count; ++i)
+        //    {
+        //        var entity = list[i];
+        //        var dto = collection[first + i];
+        //        Mapper.Map(entity, dto);
+        //    }
+        //}
 
-        private static void CopyCollection(ObservableCollection<T> collection, int first, IList<T> list)
+        protected static void CopyCollection(ObservableCollection<T> collection, int first, IList<T> list)
         {
             for (var i = 0; i < list.Count; ++i)
             {

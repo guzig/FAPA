@@ -6,7 +6,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
-using AutoMapper;
 using FaPA.Core;
 using FaPA.DomainServices.Utils;
 using FaPA.GUI.Utils;
@@ -331,31 +330,22 @@ namespace FaPA.GUI.Controls.MyTabControl
         {
             var entities = GetExeCriteria<T>( queryByExample );
 
-            var entitiesdto = Mapper.Map<IEnumerable<T>, IEnumerable<TDto>>( entities );
+            //var entitiesdto = Mapper.Map<IEnumerable<T>, IEnumerable<TDto>>( entities );
 
-            SetUpNewModel( 0, new ObservableCollection<TDto>( entitiesdto ) );
+            SetUpNewModel( 0, new ObservableCollection<T>( entities ) );
         }
 
         protected void SetUpModel<TDto>( IEnumerable<TDto> entitiesdto )
         {
             Model.UserEntities = new ObservableCollection<TDto>( entitiesdto );
             Model.UserCollectionView = CollectionViewSource.GetDefaultView( Model.UserEntities );
-            var viewModel = Model.EditViewModel as EditViewModel<T>;
+            //var viewModel = Model.EditViewModel as EditViewModel<T>;
 
             //if ( viewModel == null ) return;
             //viewModel.SetUpCollectionView( Model.UserEntities, Model.UserCollectionView );
 
             Model.UserCollectionView.MoveCurrentToFirst();
         }
-
-        protected static TDto MapToDto<TE, TDto>( TE source ) where TE : BaseEntity where TDto : BaseEntity
-        {
-            var agentDto = Activator.CreateInstance<TDto>();
-            if ( source == null ) return agentDto;
-            Mapper.Map( source, agentDto );
-            return agentDto;
-        }
-
 
         #region command
 
