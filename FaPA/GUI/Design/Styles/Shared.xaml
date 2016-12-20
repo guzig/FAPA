@@ -10,6 +10,8 @@
     <c1:InverseBooleanConverter x:Key="InverseBooleanConverter" />
     <c1:NullToVisibiltyConverter x:Key="NullToVisibiltyConverter"/>
     <c1:NullToInverseVisibiltyConverter x:Key="NullToInverseVisibiltyConverter"/>
+    <c1:InvertVisibilityConverter x:Key="InvertVisibilityConverter"/>
+    
 
     <Style x:Key="GroupHeaderStyle" TargetType="{x:Type GroupItem}">
         <Setter Property="Template">

@@ -187,7 +187,7 @@ namespace FaPA.GUI.Controls.MyTabControl
 
         public virtual void SetActiveWorkSpace( int index )
         {
-            if ( Model.Workspaces.Count <= index )
+            if ( Model.Workspaces.Count <= index || index < 0)
                 return;
             var workspace = Model.Workspaces[index];
             Model.WorkspacesCollectionView.MoveCurrentTo( workspace );

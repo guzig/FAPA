@@ -134,11 +134,6 @@ namespace FaPA.GUI.Feautures.Fattura
         {
             var fattura = CurrentEntity;
 
-            if (fattura?.Ritenuta != null )
-            {
-                AddTabRitenuta();
-            }
-
             DettagliFatturaViewModel = new DettagliFatturaViewModel(this, fattura);
             DettagliFatturaViewModel.Init();
             DettagliFatturaViewModel.CurrentEntityChanged += OnDettaglioFatturaPropertyChanged;
@@ -150,6 +145,16 @@ namespace FaPA.GUI.Feautures.Fattura
             TrasmittenteViewModel = new TrasmittenteTabViewModel(this, fattura);
             TrasmittenteViewModel.Init();
             AddTabViewModel<TrasmittenteTabViewModel>( TrasmittenteViewModel );
+
+            if (fattura?.Ritenuta != null)
+            {
+                AddTabRitenuta();
+            }
+
+            if ( fattura?.DatiOrdineAcquisto != null )
+            {
+                AddTabOrdine();
+            }
 
         }
 

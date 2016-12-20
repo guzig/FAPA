@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Windows;
 using System.Windows.Input;
@@ -181,7 +182,7 @@ namespace FaPA.GUI.Controls
             HookOnChanged( CurrentPoco );
             UserProperty = (TProperty)CurrentPoco;
 
-            IsEditing = false;
+            IsEditing = true;
             AllowDelete = true;
             AllowInsertNew = false;
         }       
@@ -226,8 +227,13 @@ namespace FaPA.GUI.Controls
         {
             if ( !GetDeleteConfirmation() ) return;
             UserProperty = default(TProperty);
+            CurrentPoco = null;
             IsEditing = false;
             PersitEntity();
+            var instance = (T)Repository.Read();
+            UserProperty = GetterProp(instance);
+            Debug.Assert(UserProperty==null);
+            Init();
             AllowInsertNew = true;
         }
         
@@ -244,6 +250,7 @@ namespace FaPA.GUI.Controls
         protected virtual void OnCancelDelegateExecute()
         {
             CancelEdit();
+            Init();
             IsEditing = false;
             LockMessage = null;
             AllowSave = false;
@@ -299,6 +306,7 @@ namespace FaPA.GUI.Controls
             LockMessage = null;
             AllowSave = false;
             IsEditing = false;
+            AllowDelete = true;
         }
 
         #region IEditable
@@ -316,6 +324,8 @@ namespace FaPA.GUI.Controls
             var instance = ( T ) Repository.Read();
 
             UserProperty =  GetterProp( instance ) ;
+
+            CurrentPoco = UserProperty;
         }
 
         #endregion

@@ -269,7 +269,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AppServices\CoreValidation\AltriDatiGestionaliValidator.cs" />
-    <Compile Include="AppServices\CoreValidation\DatiGeneraliDocumentoValidator.cs" />
     <Compile Include="AppServices\CoreValidation\NhAnagraficaValidator.cs" />
     <Compile Include="AppServices\CoreValidation\BaseCoreValidator.cs" />
     <Compile Include="AppServices\CoreValidation\NhFatturaValidator.cs" />
@@ -400,6 +399,7 @@
     <Compile Include="DomainServices\Utils\LinqUtil.cs" />
     <Compile Include="GUI\Controls\BaseCustomControl.cs" />
     <Compile Include="GUI\Controls\BaseListViewControl.cs" />
+    <Compile Include="GUI\Design\Converters\InvertVisibilityConverter.cs" />
     <Compile Include="GUI\Design\Converters\NullToBooleanConverter.cs" />
     <Compile Include="GUI\Design\Converters\NullToInverseVisibiltyConverter.cs" />
     <Compile Include="GUI\Design\Converters\NullToVisibiltyConverter.cs" />

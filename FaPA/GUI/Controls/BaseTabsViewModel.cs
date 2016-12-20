@@ -58,7 +58,9 @@ namespace FaPA.GUI.Controls
             }
             else
             {
+                CurrentPoco = null;
                 UserCollectionView = null;
+                IsEmpty = true;
             }
         }
 
@@ -89,7 +91,7 @@ namespace FaPA.GUI.Controls
         
         protected override void OnCancelDelegateExecute()
         {
-            if (_userAddedNewPocos.Contains(UserProperty))
+            if (_userAddedNewPocos.Contains(CurrentPoco))
             {
                 RemoveItem();
             }
@@ -139,6 +141,8 @@ namespace FaPA.GUI.Controls
             if (source.Length == 1)
             {
                 UserProperty = default(TProperty);
+                CurrentPoco = null;
+                IsEmpty = true;
                 return;
             }
 
@@ -245,12 +249,14 @@ namespace FaPA.GUI.Controls
             //append new instance
             var newInstance = Activator.CreateInstance( elementType );
             ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntity>( ref newInstance, "FaPA.Core" );
-            aray[aray.Length - 1] = newInstance;
-
             _userAddedNewPocos.Add( newInstance );
             HookOnChanged( newInstance );
+            aray[aray.Length - 1] = newInstance;
+
+            ((IValidatable)newInstance).Validate();
 
             UserProperty = userProperty;
+
         }
 
         protected override void CancelEdit()

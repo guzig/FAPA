@@ -21,5 +21,18 @@ namespace FaPA.GUI.Feautures.Fattura
         //    //EventPublisher.Publish( new RemoveTabView( this, ParentViewModel ), this );
         //}
 
+
+        protected override void OnRequestClose()
+        {
+            if (UserProperty != null)
+            {
+                const string lockMessage = "Non è possibile chiudere una scheda contenente dati.";
+                MessageBox.Show(lockMessage, "Scheda bloccata", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return;
+            }
+
+            base.OnRequestClose();
+        }
+
     }
 }

@@ -14,15 +14,15 @@ namespace FaPA.AppServices.CoreValidation
 
             if ( instnce == null ) return errors;
 
-            propErrors.Add("IdDocumento deve essere valorizzato");
+            const string iddocumento = nameof(instnce.IdDocumento);
 
             if ( string.IsNullOrWhiteSpace(instnce.IdDocumento))
                 propErrors.Add( "IdDocumento deve essere valorizzato" );
-            else if ( instnce.IdDocumento.Length>20)
-                propErrors.Add( "IdDocumento deve essere lungo max 20 caratteri" );
+            else if (instnce.IdDocumento.Length > 20)
+                propErrors.Add("IdDocumento deve essere lungo max 20 caratteri");
 
             if ( propErrors.Any() )
-                errors.Add( nameof( instnce.IdDocumento ), propErrors );
+                errors.Add( iddocumento, propErrors );
 
             return errors;
         }

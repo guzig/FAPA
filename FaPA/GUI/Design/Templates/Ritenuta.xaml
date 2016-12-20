@@ -10,7 +10,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <StackPanel Width="Auto" HorizontalAlignment="Stretch"  Grid.Row="0" Orientation="Vertical"
+        <StackPanel x:Name="infoPanel" Width="Auto" HorizontalAlignment="Stretch"  Grid.Row="0" Orientation="Vertical"
                    Visibility="{Binding CurrentPoco, Converter={StaticResource NullToInverseVisibiltyConverter}}">
 
             <TextBlock Text="Nessuna ritenuta è stata aggiunta" FontSize="14" Foreground="Red" 
@@ -25,7 +25,8 @@
         </StackPanel>
 
         <GroupBox Grid.Row="0" Header="Ritenuta previdenziale"
-                  Visibility="{Binding CurrentPoco, Converter={StaticResource NullToVisibiltyConverter}}">
+                  Visibility="{Binding ElementName=infoPanel, Path=Visibility, Converter={StaticResource InvertVisibilityConverter}}" >
+            
             <Grid Margin="2,2,2,2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="45" />
@@ -65,7 +66,8 @@
         </GroupBox>
 
         <GroupBox Grid.Row="1" Header="Cassa previdenziale"
-                  Visibility="{Binding CurrentPoco, Converter={StaticResource NullToVisibiltyConverter}}">
+                  Visibility="{Binding ElementName=infoPanel, Path=Visibility, Converter={StaticResource InvertVisibilityConverter}}">
+            
             <Grid Margin="2,2,2,2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="45" />
@@ -103,11 +105,12 @@
                     <TextBox   Text="{Binding CurrentPoco.AliquotaIVA, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
                 </StackPanel>
             </Grid>
+        
         </GroupBox>
 
         <StackPanel Orientation="Vertical" Grid.Row="2" Height="Auto"  Margin="2,2,2,2" 
                     utils:FocusAdvancement.AdvancesByEnterKey="True"
-                    Visibility="{Binding CurrentPoco, Converter={StaticResource NullToVisibiltyConverter}}">
+                    Visibility="{Binding ElementName=infoPanel, Path=Visibility, Converter={StaticResource InvertVisibilityConverter}}">
 
             <!--<StackPanel.InputBindings>
                 <KeyBinding Key="Enter" Modifiers="Ctrl" Command="{Binding EnterKey}" />

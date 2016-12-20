@@ -121,10 +121,10 @@ namespace FaPA.Core
         {
             get
             {
-                if (DatiGenerali.DatiOrdineAcquisto == null)
-                {
-                    DatiGenerali.DatiOrdineAcquisto = new[] { new DatiDocumentiCorrelatiType() };
-                }
+                //if (DatiGenerali.DatiOrdineAcquisto == null)
+                //{
+                //    DatiGenerali.DatiOrdineAcquisto = new[] { new DatiDocumentiCorrelatiType() };
+                //}
                 return DatiGenerali.DatiOrdineAcquisto;
             }
             set { DatiGenerali.DatiOrdineAcquisto = value; }
