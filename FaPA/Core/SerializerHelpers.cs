@@ -27,7 +27,11 @@ namespace FaPA.Core
             Overrides.Add(typeof(BaseEntity), "Version", XmlAttributes);
             Overrides.Add(typeof(BaseEntity), "IsValidating", XmlAttributes);
             Overrides.Add(typeof(BaseEntityFpa), "IsValidating", XmlAttributes);
+            Overrides.Add(typeof(BaseEntity), "IsNotyfing", XmlAttributes);
+            Overrides.Add(typeof(BaseEntityFpa), "IsNotyfing", XmlAttributes);
+
             //ObjectExplorer.OverridesAllInstances( typeof( FatturaElettronicaType ), Overrides );
+
             Serializer = new XmlSerializer(typeof (FatturaElettronicaType), Overrides);
         }
 

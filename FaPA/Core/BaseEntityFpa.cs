@@ -27,5 +27,10 @@ namespace FaPA.Core
             return true;
         }
 
+        //public virtual BaseEntity ShallowCopy()
+        //{
+        //    return (BaseEntity)this.MemberwiseClone();
+        //}
+
     }
 }

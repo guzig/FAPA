@@ -115,12 +115,6 @@ namespace FaPA.Core
         }
 
         public virtual PropertyChangedEventHandler PropertyChangedEventHandler => null;
-
-
-        //public virtual BaseEntity ShallowCopy()
-        //{
-        //    return (BaseEntity) this.MemberwiseClone();
-        //}
         
     }
 }

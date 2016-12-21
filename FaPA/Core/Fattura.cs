@@ -44,11 +44,6 @@ namespace FaPA.Core
         {
             get
             {
-                //if ( FatturaPa.FatturaElettronicaHeader == null )
-                //{
-                //    FatturaPa.FatturaElettronicaHeader = new FatturaElettronicaHeaderType();
-                //}
-
                 return FatturaPa.FatturaElettronicaHeader;
             }
             set { FatturaPa.FatturaElettronicaHeader = value; }
@@ -58,11 +53,6 @@ namespace FaPA.Core
         {
             get
             {
-                //if ( FatturaPa.FatturaElettronicaBody == null )
-                //{
-                //    FatturaPa.FatturaElettronicaBody = new FatturaElettronicaBodyType();
-                //}
-
                 return FatturaPa.FatturaElettronicaBody;
             }
 
@@ -180,10 +170,6 @@ namespace FaPA.Core
         {
             get
             {
-                //if ( FatturaElettronicaBody.DatiPagamento == null )
-                //{
-                //    FatturaElettronicaBody.DatiPagamento = new[] { new DatiPagamentoType() };
-                //}
                 return FatturaElettronicaBody.DatiPagamento;
             }
             set { FatturaElettronicaBody.DatiPagamento = value; }
@@ -423,7 +409,8 @@ namespace FaPA.Core
         public virtual XmlDocument GetXmlDocument( )
         {
             HydrateFatturaPa();
-            var xmlData = SerializerHelpers.ObjectToXml( FatturaPa );
+            var proxy = ObjectExplorer.UnProxiedDeep( FatturaPa );
+            var xmlData = SerializerHelpers.ObjectToXml( (FatturaElettronicaType) proxy );
             //var document = XDocument.Parse(xmlData);
             var doc = new XmlDocument();
             doc.LoadXml(xmlData);

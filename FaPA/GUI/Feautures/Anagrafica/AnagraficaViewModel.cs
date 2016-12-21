@@ -12,19 +12,11 @@ namespace FaPA.GUI.Feautures.Anagrafica
         public EditAnagraficaViewModel(IBasePresenter baseCrudPresenter, IList userEntities,
             ICollectionView userCollectionView, ISession session) : base(baseCrudPresenter, userEntities, userCollectionView)
         {
-            //SetUpCollectionView(userEntities, userCollectionView);
             SetUpSession(session, null);
         }
 
         public override string EditTemplateName => "AnagraficaTemplate";
 
-        //protected override void ConfigureMapFromDto()
-        //{
-
-        //    Mapper.CreateMap<AnagraficaDto, Core.Anagrafica>().
-        //        ForSourceMember(l => l.Comune, s => s.Ignore());
-
-        //}
 
         #region Entity event
 

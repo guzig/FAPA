@@ -87,36 +87,6 @@ namespace FaPA.GUI.Controls.MyTabControl
 
         public abstract void CreateNewModel( DetachedCriteria queryByExample );
 
-
-
-        //protected void CreateNewModel<TE, TDto>( int activeTab, string displayName )
-        //{
-        //    var criteria = QueryCriteria;
-        //    var entities = GetExeCriteria<TE>( criteria );
-        //    var entitiesdto = Mapper.Map<IEnumerable<TE>, IEnumerable<TDto>>( entities );
-        //    Model.UserEntities = new ObservableCollection<TDto>( entitiesdto );
-        //    Model.UserCollectionView = CollectionViewSource.GetDefaultView( Model.UserEntities );
-        //    CreateNewModel( displayName, activeTab, Model.UserCollectionView );
-        //}
-
-        //protected void CreateNewModel<TE, TDto>( int activeTab, PropertyGroupDescription groupDescription, string displayName )
-        //{
-        //    var criteria = QueryCriteria;
-        //    var entities = GetExeCriteria<TE>( criteria );
-        //    var entitiesdto = Mapper.Map<IEnumerable<TE>, IEnumerable<TDto>>( entities );
-
-        //    Model.UserEntities = new ObservableCollection<TDto>( entitiesdto );
-
-        //    var userCollectionView = CollectionViewSource.GetDefaultView( Model.UserEntities );
-
-        //    userCollectionView.GroupDescriptions.Add( groupDescription );
-
-        //    Model.UserCollectionView = userCollectionView;
-        //    Model.UserCollectionView.MoveCurrentToFirst();
-
-        //    CreateNewModel( displayName, activeTab, Model.UserCollectionView );
-        //}
-
         public virtual void RefreshSharedViewsAfterDelete( BaseEntity deletedEntity )
         {
             ReferenceDataFactory.LazyRefresh( typeof( T ) );
@@ -264,8 +234,8 @@ namespace FaPA.GUI.Controls.MyTabControl
             {
                 Model.UserEntities = created;
                 Model.UserCollectionView = CollectionViewSource.GetDefaultView( Model.UserEntities );
-                var viewModel = Model.EditViewModel as EditViewModel<T>;
-
+                
+                //var viewModel = Model.EditViewModel as EditViewModel<T>;
                 //if ( viewModel != null )
                 //    viewModel.SetUpCollectionView( Model.UserEntities, Model.UserCollectionView );
 

@@ -63,46 +63,20 @@ namespace FaPA.GUI.Feautures.Anagrafica
         {
             View.Presenter = this;
 
-            var _comuni = new ReferenceDataFactory().GetReferenceCollection<Comune>().
-                DistinctBy(c => c.Denominazione).ToDictionary(k => k.Denominazione, v => v);
+            //var _comuni = new ReferenceDataFactory().GetReferenceCollection<Comune>().
+            //    DistinctBy(c => c.Denominazione).ToDictionary(k => k.Denominazione, v => v);
 
-            //Mapper.CreateMap<Fornitore, AnagraficaDto>().
-            //    ForMember(x => x.IsNotifying, opts => opts.Ignore()).
-            //    ForMember(x => x.Comune, opts => opts.MapFrom(src => _comuni[src.Comune]));
 
-            //Mapper.CreateMap<Committente, AnagraficaDto>().
-            //    ForMember(x => x.IsNotifying, opts => opts.Ignore()).
-            //    ForMember(x => x.Comune, opts => opts.MapFrom(src => _comuni[src.Comune]));
-
-            //Mapper.CreateMap<AnagraficaDto, Fornitore>().
-            //        ForMember(x => x.Fatture, opts => opts.Ignore()).
-            //        ForMember(x => x.Cap, opts => opts.Ignore()).
-            //        ForMember(x => x.Comune, opts => opts.MapFrom(src => src.Comune.Denominazione)).
-            //        ForMember(x => x.Cap, opts =>  opts.MapFrom(src => 
-            //            string.IsNullOrWhiteSpace(src.Cap) ? src.Comune.Cap : src.Cap)).
-            //        ForMember(x => x.Provincia, opts => opts.MapFrom(src => src.Comune.DenominazioneProvincia));
-
-            //Mapper.CreateMap<AnagraficaDto, Committente>().
-            //    ForMember(x => x.Fatture, opts => opts.Ignore()).
-            //    ForMember(x => x.Cap, opts => opts.Ignore()).
-            //    ForMember(x => x.Comune, opts => opts.MapFrom(src => src.Comune.Denominazione)).
-            //        ForMember(x => x.Cap, opts => opts.MapFrom(src =>
-            //           string.IsNullOrWhiteSpace(src.Cap) ? src.Comune.Cap : src.Cap)).
-            //    ForMember(x => x.Provincia, opts => opts.MapFrom(src => src.Comune.DenominazioneProvincia));
         }
 
         public override void CreateNewModel(DetachedCriteria queryByExample)
         {
             var entities = GetExeCriteria<Core.Anagrafica>(queryByExample);
-            //var entitiesdto = Mapper.Map<IEnumerable<Core.Anagrafica>, IEnumerable<AnagraficaDto>>(entities);
             SetUpModel(entities);
         }
 
         private void CreateNewModel(IList searchResult)
         {
-            //var entitiesdto = new ObservableCollection<AnagraficaDto>(
-            //    Mapper.Map<IEnumerable<Core.Anagrafica>, IEnumerable<AnagraficaDto>>(
-            //        searchResult.Cast<Core.Anagrafica>().ToList()));
 
             var entitiesdto = new ObservableCollection<Core.Anagrafica>( 
                 searchResult.Cast<Core.Anagrafica>().ToList() );
@@ -125,14 +99,11 @@ namespace FaPA.GUI.Feautures.Anagrafica
 
         public override void CreateNewModel(int activeTab)
         {
-            Model = new Model();
             IsBusy = true;
             var entities = GetExeCriteria<Core.Anagrafica>(QueryCriteria);
             var entitiesdto = entities == null ? new ObservableCollection<Core.Anagrafica>()
                 : new ObservableCollection<Core.Anagrafica>(entities);
-            Model.UserEntities = entitiesdto;
-            Model.UserCollectionView = CollectionViewSource.GetDefaultView(Model.UserEntities);
-            CreateNewModel( activeTab);
+            SetUpNewModel(0, entitiesdto);
             IsBusy = false;
         }
 
