@@ -117,14 +117,28 @@ namespace FaPA.Core
             }
         }
 
+        public virtual DatiDocumentiCorrelatiType[] DatiConvenzione
+        {
+            get
+            {
+                return DatiGenerali.DatiConvenzione;
+            }
+            set { DatiGenerali.DatiConvenzione = value; }
+        }
+
+        public virtual DatiDocumentiCorrelatiType[] DatiContratto
+        {
+            get
+            {
+                return DatiGenerali.DatiContratto;
+            }
+            set { DatiGenerali.DatiContratto = value; }
+        }
+
         public virtual DatiDocumentiCorrelatiType[] DatiOrdineAcquisto
         {
             get
             {
-                //if (DatiGenerali.DatiOrdineAcquisto == null)
-                //{
-                //    DatiGenerali.DatiOrdineAcquisto = new[] { new DatiDocumentiCorrelatiType() };
-                //}
                 return DatiGenerali.DatiOrdineAcquisto;
             }
             set { DatiGenerali.DatiOrdineAcquisto = value; }

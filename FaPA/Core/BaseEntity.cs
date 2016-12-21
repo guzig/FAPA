@@ -48,6 +48,8 @@ namespace FaPA.Core
 
         public virtual bool IsValidating { get; set; } = true;
 
+        public virtual bool IsNotyfing { get; set; } = true;
+
         #endregion
 
 

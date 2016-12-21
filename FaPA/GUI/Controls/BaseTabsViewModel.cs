@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Windows;
 using System.Windows.Data;
 using FaPA.AppServices.CoreValidation;
 using FaPA.GUI.Controls.MyTabControl;
@@ -10,6 +11,7 @@ using FaPA.Infrastructure;
 using Remotion.Linq.Collections;
 using FaPA.Core;
 using NHibernate.Util;
+using MessageBox = Xceed.Wpf.Toolkit.MessageBox;
 
 namespace FaPA.GUI.Controls
 {
@@ -72,6 +74,8 @@ namespace FaPA.GUI.Controls
             {
                 _userAddedNewPocos.Remove(UserProperty);
             }
+
+            LockMessage = null;
         }
 
         protected override void MakeTransient()
@@ -87,6 +91,7 @@ namespace FaPA.GUI.Controls
             Init();
 
             AllowDelete = UserCollectionView != null && !UserCollectionView.IsEmpty;
+
         }
         
         protected override void OnCancelDelegateExecute()
@@ -280,6 +285,18 @@ namespace FaPA.GUI.Controls
             {
                 UserCollectionView?.MoveCurrentToPosition( currentIndx );
             }
+        }
+
+        protected void CloseIfNotEmpty()
+        {
+            if (UserCollectionView != null && !UserCollectionView.IsEmpty)
+            {
+                const string lockMessage = "Non è possibile chiudere una scheda contenente dati.";
+                MessageBox.Show(lockMessage, "Scheda bloccata", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return;
+            }
+
+            base.OnRequestClose();
         }
 
     }

@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="FaPA.GUI.Design.Templates.DatiOrdine"
+﻿<UserControl x:Class="FaPA.GUI.Design.Templates.DatiDocumentiCorrelati"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:utils="clr-namespace:FaPA.GUI.Utils"
@@ -18,7 +18,7 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <GroupBox Grid.Row="0" Header="Dati ordine di acquisto">
+                <GroupBox Grid.Row="0" Header="Dati documenti correlati">
                     <Grid Margin="2,2,2,2">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -84,12 +84,12 @@
         <StackPanel Width="Auto" HorizontalAlignment="Stretch"  Grid.Row="0" Orientation="Vertical"
                     Visibility="{Binding IsEmpty, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
 
-            <TextBlock Text="Nessun dettaglio ordine è stato aggiunto " FontSize="14" Foreground="Red" 
+            <TextBlock Text="Nessun documento correlato è stato aggiunto " FontSize="14" Foreground="Red" 
                            Height="Auto" Margin="10,25,15,15" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
 
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,15,0,15"> 
                     <Hyperlink FontSize="14"  Command="{Binding AddItemCommand}">
-                        <Run Text="Aggiungi un dettaglio ordine" />
+                        <Run Text="Aggiungi un documento correlato" />
                     </Hyperlink>
             </TextBlock>
 

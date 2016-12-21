@@ -156,6 +156,16 @@ namespace FaPA.GUI.Feautures.Fattura
                 AddTabOrdine();
             }
 
+            if (fattura?.DatiContratto != null)
+            {
+                AddTabContratto();
+            }
+
+            if (fattura?.DatiConvenzione != null)
+            {
+                AddTabConvenzione();
+            }
+
         }
 
         private void OnDettaglioFatturaPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -192,7 +202,59 @@ namespace FaPA.GUI.Feautures.Fattura
         #endregion
 
         #region UI commands
-        
+
+        private ICommand _addConvenzioneCommand;
+        public ICommand AddConvenzioneCommand
+        {
+            get
+            {
+                if (_addConvenzioneCommand != null) return _addConvenzioneCommand;
+                _addConvenzioneCommand = new RelayCommand(param => AddConvenzione(), r => true);
+                return _addConvenzioneCommand;
+            }
+        }
+
+        private void AddConvenzione()
+        {
+            if (CurrentEntity == null) return;
+            var ordineTabViewModel = AddTabConvenzione();
+            BasePresenter.SetActiveWorkSpace(BasePresenter.Workspaces.IndexOf(ordineTabViewModel));
+        }
+
+        private DatiConvenzioneTabViewModel AddTabConvenzione()
+        {
+            var datiOrdine = new DatiConvenzioneTabViewModel(this, CurrentEntity);
+            datiOrdine.Init();
+            AddTabViewModel<DatiConvenzioneTabViewModel>(datiOrdine);
+            return datiOrdine;
+        }
+
+        private ICommand _addContrattoCommand;
+        public ICommand AddContrattoCommand
+        {
+            get
+            {
+                if (_addContrattoCommand != null) return _addContrattoCommand;
+                _addContrattoCommand = new RelayCommand(param => AddContratto(), r => true);
+                return _addContrattoCommand;
+            }
+        }
+
+        private void AddContratto()
+        {
+            if (CurrentEntity == null) return;
+            var ordineTabViewModel = AddTabContratto();
+            BasePresenter.SetActiveWorkSpace(BasePresenter.Workspaces.IndexOf(ordineTabViewModel));
+        }
+
+        private DatiContrattoTabViewModel AddTabContratto()
+        {
+            var datiOrdine = new DatiContrattoTabViewModel(this, CurrentEntity);
+            datiOrdine.Init();
+            AddTabViewModel<DatiContrattoTabViewModel>(datiOrdine);
+            return datiOrdine;
+        }
+
         private ICommand _addOrdineCommand;
         public ICommand AddOrdineCommand
         {

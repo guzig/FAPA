@@ -3,7 +3,6 @@ DataGridHelpers.DataGridKeyUpEventHandler( e, FattureGridSearch );
 
 serialization
 --riepilogo per ogni dettaglio iva
---ritenuta
 
 archivio comuni e provincie
 verificare standard iso ..nazione etc

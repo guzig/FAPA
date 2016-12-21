@@ -196,7 +196,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="GUI\Design\Templates\DatiOrdine.xaml">
+    <Page Include="GUI\Design\Templates\DatiDocumentiCorrelati.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -400,6 +400,8 @@
     <Compile Include="GUI\Design\Converters\NullToInverseVisibiltyConverter.cs" />
     <Compile Include="GUI\Design\Converters\NullToVisibiltyConverter.cs" />
     <Compile Include="GUI\Feautures\Anagrafica\AnagraficaListViewModel.cs" />
+    <Compile Include="GUI\Feautures\Fattura\DatiContrattoTabViewModel.cs" />
+    <Compile Include="GUI\Feautures\Fattura\DatiConvenzioneTabViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\UniqueFatturaValidationRule.cs" />
     <Compile Include="GUI\Feautures\Fattura\FatturaListViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\ReflectionHelpers.cs" />
@@ -441,8 +443,8 @@
     </Compile>
     <Compile Include="GUI\Design\Templates\AnagraficaSearchTemplate.xaml.cs" />
     <Compile Include="GUI\Controls\CRUDVM.xaml.cs" />
-    <Compile Include="GUI\Design\Templates\DatiOrdine.xaml.cs">
-      <DependentUpon>DatiOrdine.xaml</DependentUpon>
+    <Compile Include="GUI\Design\Templates\DatiDocumentiCorrelati.xaml.cs">
+      <DependentUpon>DatiDocumentiCorrelati.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\Design\Templates\DettagliFattura.xaml.cs" />
     <Compile Include="GUI\Design\Templates\Fattura.xaml.cs">

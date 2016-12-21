@@ -71,12 +71,19 @@ namespace FaPA.Data
             var entity = info.Target as BaseEntity;
             ValidatePropValue( propertyName, entity );
 
-            //INotifyPropertyChanged
-            _changed(info.Target, new PropertyChangedEventArgs(propertyName));
+             if ( entity != null && propertyName != nameof(entity.IsNotyfing) && 
+                  propertyName != nameof(entity.IsValidating) && entity.IsNotyfing)
+             {
+                 //INotifyPropertyChanged
+                 _changed(info.Target, new PropertyChangedEventArgs(propertyName));
+             }
 
-            if ( entity != null && entity.IsValidating )
+            if ( entity != null && propertyName != nameof( entity.IsValidating ) && 
+                 propertyName != nameof(entity.IsNotyfing) && entity.IsValidating )
+            {
                 //RaiseErrors(info.Target);
-                ErrorsChanged?.Invoke( info.Target, new DataErrorsChangedEventArgs(propertyName));
+                ErrorsChanged?.Invoke( info.Target, new DataErrorsChangedEventArgs(propertyName));               
+            }
 
             return returnValue;
         }

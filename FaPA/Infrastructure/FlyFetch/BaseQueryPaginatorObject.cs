@@ -15,7 +15,7 @@ namespace FaPA.Infrastructure.FlyFetch
     {
         public DetachedCriteria DetachedCriteria { get; set; }
         public INotifyDataSourceHit NotifyHit{ get; set; }
-        public INotifyDataSourceLoadCompleted NotifyDataSourceLoadCompleted { get; set; }
+        protected INotifyDataSourceLoadCompleted NotifyDataSourceLoadCompleted { get; set; }
         public Action<Exception> ReportError{ get; set; }
         //public ISession Session{ get; set; }
         protected int FetchedCount;

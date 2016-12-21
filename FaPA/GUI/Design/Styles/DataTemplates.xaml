@@ -283,8 +283,16 @@
         </Grid>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type a:DatiConvenzioneTabViewModel}">
+        <t1:DatiDocumentiCorrelati/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type a:DatiContrattoTabViewModel}">
+        <t1:DatiDocumentiCorrelati/>
+    </DataTemplate>    
+    
     <DataTemplate DataType="{x:Type a:DatiOrdineTabViewModel}">
-        <t1:DatiOrdine/>
+        <t1:DatiDocumentiCorrelati/>
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type finder:StringSearchProperty}">

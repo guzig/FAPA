@@ -39,6 +39,7 @@ namespace FaPA.GUI.Controls.MyTabControl
             set
             {
                 if (value == _lockMessage) return;
+
                 _lockMessage = value;
                 NotifyOfPropertyChange(() => LockMessage);
             }

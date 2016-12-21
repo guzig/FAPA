@@ -155,10 +155,16 @@
                         <RibbonMenuItem Header="Ritenuta" 
                                         Command="{Binding Presenter.EditFatturaViewModel.AddRitenutaCommand,  RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
                         
-                        <RibbonMenuItem Header="Altri dati" />
-
                         <RibbonMenuItem Header="Ordini" 
                                         Command="{Binding Presenter.EditFatturaViewModel.AddOrdineCommand,  RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+
+                        <RibbonMenuItem Header="Contratto" 
+                                        Command="{Binding Presenter.EditFatturaViewModel.AddContrattoCommand,  RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+
+                        <RibbonMenuItem Header="Convenzione" 
+                                        Command="{Binding Presenter.EditFatturaViewModel.AddConvenzioneCommand,  RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+
+
                     </RibbonSplitButton>
                     
                     

@@ -1,16 +1,14 @@
-using System;
-using System.Windows;
 using FaPA.Core.FaPa;
 using FaPA.GUI.Controls;
 using FaPA.Infrastructure;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
-    public class DatiOrdineTabViewModel : BaseTabsViewModel<Core.Fattura, DatiDocumentiCorrelatiType[]>
+    public class DatiConvenzioneTabViewModel : BaseTabsViewModel<Core.Fattura, DatiDocumentiCorrelatiType[]>
     {
         //ctor
-        public DatiOrdineTabViewModel( IRepository repository, Core.Fattura instance ) :
-            base( (Core.Fattura f) => f.DatiOrdineAcquisto, repository, instance, "Ordini", true )
+        public DatiConvenzioneTabViewModel(IRepository repository, Core.Fattura instance) :
+            base((Core.Fattura f) => f.DatiConvenzione, repository, instance, "Convenzione", true)
         { }
 
         protected override void AddItemToUserCollection()
@@ -27,5 +25,6 @@ namespace FaPA.GUI.Feautures.Fattura
         {
             CloseIfNotEmpty();
         }
+
     }
 }

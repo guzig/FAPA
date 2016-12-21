@@ -5,9 +5,9 @@ namespace FaPA.GUI.Design.Templates
     /// <summary>
     /// Interaction logic for Ritenuta.xaml
     /// </summary>
-    public partial class DatiOrdine : UserControl
+    public partial class DatiDocumentiCorrelati : UserControl
     {
-        public DatiOrdine()
+        public DatiDocumentiCorrelati()
         {
             InitializeComponent();
         }

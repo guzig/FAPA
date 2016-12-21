@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Xml.Serialization;
+using FaPA.Core;
 using FaPA.Data;
 using NHibernate.Proxy.DynamicProxy;
 
@@ -162,15 +163,27 @@ namespace FaPA.AppServices.CoreValidation
                     {
                         var app = array.GetValue(i);
                         if (app == null || app.GetType().IsEnum) continue;
-                        var res = UnProxiedDeep(app, exploredObjects);
-                        if ( res != null  )
+                        var proxy = UnProxiedDeep(app, exploredObjects);
+                        if (proxy == null) continue;
+
+                        var baseEntity = proxy as BaseEntity;
+                        if (baseEntity != null)
                         {
-                            array.SetValue(res, i);
+                            baseEntity.IsNotyfing = false;
+                            baseEntity.IsValidating = false;
+                        }
+
+                        array.SetValue(proxy, i);
+
+                        if (baseEntity != null)
+                        {
+                            baseEntity.IsNotyfing = true;
+                            baseEntity.IsValidating = true;
                         }
                     }
                     return array;
                 }
-                else if (IsList(enumerable))
+                else if ( IsList( enumerable ) )
                 {
                     throw new NotImplementedException();
                 }
@@ -180,7 +193,6 @@ namespace FaPA.AppServices.CoreValidation
             else
             {
                 var possibleMatch = value as IProxy;
-
                 var type = value.GetType();
                 var properties = type.GetProperties(_bindingFlags).ToArray();
 
@@ -196,23 +208,32 @@ namespace FaPA.AppServices.CoreValidation
 
                     var unproxied = UnProxiedDeep( propertyValue, exploredObjects);
 
-                    if ( unproxied != null )
-                        property.SetValue( value, unproxied );
+                    if (unproxied == null) continue;
+
+                    var baseEntity = value as BaseEntity;
+                    if ( baseEntity != null )
+                    {
+                        baseEntity.IsNotyfing = false;
+                        baseEntity.IsValidating = false;
+                    }
+
+                    property.SetValue( value, unproxied );
+
+                    if (baseEntity != null)
+                    {
+                        baseEntity.IsNotyfing = true;
+                        baseEntity.IsValidating = true;
+                    }
                 }
 
-                if (possibleMatch != null)
-                {
-                    var inst = possibleMatch.Interceptor as PropChangedAndDataErrorDynProxyInterceptor;
-                    if ( inst == null ) return value;
-                    var proxy = inst.Proxy;
-                    return proxy ?? value;
-                }
-                return value;
-
+                if (possibleMatch == null) return value;
+                var inst = possibleMatch.Interceptor as PropChangedAndDataErrorDynProxyInterceptor;
+                if ( inst == null ) return value;
+                var proxy = inst.Proxy;
+                return proxy ?? value;
             }
 
             return null;
-
         }
 
 
