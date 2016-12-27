@@ -86,7 +86,7 @@ namespace FaPA.GUI.Feautures.Fattura
 
         public override void Persist()
         {
-            var userCollectionView = DettagliFatturaViewModel.UserCollectionView;
+            var userCollectionView = DettagliFatturaViewModel?.UserCollectionView;
 
             var lastDettaglioFatturaRecordIndex = userCollectionView != null && userCollectionView.Any() ?
                 userCollectionView.CurrentPosition : -1 ;

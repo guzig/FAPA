@@ -114,7 +114,7 @@
                 <DataGrid.Columns >
                     
                     <DataGridTextColumn Header="Num" Width="Auto" 
-                                        Binding="{Binding NumeroLinea, Mode=OneWay, UpdateSourceTrigger =LostFocus}"
+                                        Binding="{Binding NumeroLinea, Mode=TwoWay, UpdateSourceTrigger =LostFocus}"
                                         ElementStyle="{StaticResource CellErrorInfoStyle}">
 
                     </DataGridTextColumn>

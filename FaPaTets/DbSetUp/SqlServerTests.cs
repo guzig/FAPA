@@ -189,7 +189,7 @@ namespace FaPaTets.DbSetUp
                     Indirizzo = "Via Roma 1"
                 };
 
-                var anagraficaCedente = new Fornitore()
+                var anagraficaCedente = new Committente()
                 {
                     Denominazione = "Comune di Isola di Capo Rizzuto",
                     CodiceFiscale = "81004130795",
@@ -202,17 +202,17 @@ namespace FaPaTets.DbSetUp
                     Indirizzo = "Piazza Falcone e Borsellino"
                 };
 
-                var anagraficaCommittente = new Committente()
+                var anagraficaCommittente = new Fornitore()
                 {
-                    Denominazione = "Committente 1",
-                    CodiceFiscale = "00304310790",
-                    PIva = "00304310790",
+                    Denominazione = "PA·WARE",
+                    CodiceFiscale = "GZZMRA65R50D181Y",
+                    PIva = "03462320791",
                     Comune = "Cropani",
                     Cap = "88051",
-                    Civico = "01",
+                    Civico = "snc",
                     Provincia = "CZ",
                     Nazione = "IT",
-                    Indirizzo = "Via Roma"
+                    Indirizzo = "Via Lombardia"
                 };
                 
                 session1.Save(anagraficaCedente);
@@ -284,8 +284,8 @@ namespace FaPaTets.DbSetUp
         {
             //BootStrapper.Initialize();
             //var session = BootStrapper.SessionFactory.OpenStatelessSession();
-            var nomeFileCap = // @"C:\Users\tonio\Desktop\listacomuniConCAP.txt";
-                              @"C:\Users\Devs\Desktop\listacomuniConCAP.txt";
+            var nomeFileCap =  @"C:\Users\tonio\Desktop\listacomuniConCAP.txt";
+                              //@"C:\Users\Devs\Desktop\listacomuniConCAP.txt";
 
 
             var dictCap = new Dictionary<string,string>(); 
@@ -305,8 +305,8 @@ namespace FaPaTets.DbSetUp
 
             using (var tx = session.BeginTransaction())
             {
-                var nomeFile = //@"C:\Users\tonio\Desktop\elenco-comuni-italiani.csv";
-                               @"C:\Users\Devs\Desktop\elenco-comuni-italiani.csv";
+                var nomeFile = @"C:\Users\tonio\Desktop\elenco-comuni-italiani.csv";
+                               //@"C:\Users\Devs\Desktop\elenco-comuni-italiani.csv";
                             
                 using (TextReader readerComuni = new StreamReader(nomeFile))
                 {

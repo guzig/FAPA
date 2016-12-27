@@ -86,7 +86,7 @@
             <TextBlock Text="Comune" />
             <ComboBox IsReadOnly="False" IsEditable="True" IsTextSearchEnabled="True"
                       TextSearch.TextPath="Denominazione" DisplayMemberPath="Denominazione"
-                      ItemsSource="{Binding  Path=ComuniProvincia}"
+                      ItemsSource="{Binding  Path=ComuniProvinciaView}"
                       SelectedValuePath="Denominazione"
                       SelectedValue="{Binding Path=CurrentEntity.Comune, Mode=TwoWay}">
             </ComboBox>            
