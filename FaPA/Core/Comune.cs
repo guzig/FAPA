@@ -9,6 +9,7 @@ namespace FaPA.Core
         public virtual string Denominazione { get; set; }
         public virtual string NomeRegione { get; set; }
         public virtual string NomeCitt‡Metropolitana { get; set; }
+        public virtual string SiglaProvincia { get; set; }
         public virtual string DenominazioneProvincia { get; set; }
         public virtual string FlagComuneCapoluogo { get; set; }
         public virtual string SiglaAuto { get; set; }

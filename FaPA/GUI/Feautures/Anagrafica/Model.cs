@@ -8,6 +8,7 @@ namespace FaPA.GUI.Feautures.Anagrafica
     public class Model: BaseCrudModel
     {
         private EditAnagraficaViewModel _editViewModel;
+        
         //ctor
         public override void SetEditViewModel(ISession session, IBasePresenter basePresenter)
         {

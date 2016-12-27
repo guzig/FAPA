@@ -10,6 +10,15 @@ namespace FaPA.Data
         {
             DiscriminatorValue("committente");
 
+            Property(x => x.CodUfficioPa, d =>
+            {
+                d.Column(c =>
+                {
+                    c.Length(6);
+                    //c.NotNullable(true);
+                });
+            });
+
             Set(x => x.Fatture, s =>
             {
                 s.Inverse(true); // Is collection inverse?

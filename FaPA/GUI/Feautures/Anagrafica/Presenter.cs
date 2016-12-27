@@ -27,20 +27,6 @@ namespace FaPA.GUI.Feautures.Anagrafica
 
         public GenericsObservable<bool> AllowEditing { get; set; }
 
-        private IList<Comune> _comuni;
-        public IList<Comune> Comuni
-        {
-            get
-            {
-                if (_comuni == null)
-                {
-                    _comuni = new ReferenceDataFactory().GetReferenceCollection<Comune>();
-
-                }
-                return _comuni;
-            }
-        }
-
         private string _onGridEmptyText = "Inserisci una nuova anagrafica";
         public string OnGridEmptyText
         {
@@ -174,6 +160,8 @@ namespace FaPA.GUI.Feautures.Anagrafica
         #endregion
 
         private ICommand _entityChoosenCommand;
+        
+
         public ICommand EntityChoosenCommand
         {
             get

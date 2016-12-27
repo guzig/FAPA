@@ -12,6 +12,7 @@
             <RowDefinition Height="45" />
             <RowDefinition Height="45" />
             <RowDefinition Height="45" />
+            <RowDefinition Height="45" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
@@ -70,14 +71,24 @@
             <TextBlock Text="CAP" />
             <TextBox   Text="{Binding CurrentEntity.Cap, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
         </StackPanel>
-            
+
         <StackPanel Grid.Row="5" Grid.Column="1" Margin="2,0,2,0">
+            <TextBlock Text="Provincia" />
+            <ComboBox IsReadOnly="False" IsEditable="True" IsTextSearchEnabled="True"
+                      TextSearch.TextPath="DenominazioneProvincia" DisplayMemberPath="DenominazioneProvincia"
+                      ItemsSource="{Binding  Path=Provincie}"
+                      SelectedValuePath="SiglaProvincia"
+                      SelectedValue="{Binding Path=CurrentEntity.Provincia, Mode=TwoWay}">
+            </ComboBox>
+        </StackPanel>
+
+        <StackPanel Grid.Row="6" Grid.Column="1" Margin="2,0,2,0">
             <TextBlock Text="Comune" />
             <ComboBox IsReadOnly="False" IsEditable="True" IsTextSearchEnabled="True"
                       TextSearch.TextPath="Denominazione" DisplayMemberPath="Denominazione"
-                      ItemsSource="{Binding  Path=Presenter.Comuni, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-                      SelectedValue="{Binding Path=CurrentEntity.Comune, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
-                                              ValidatesOnDataErrors=True, ValidatesOnExceptions=True}">
+                      ItemsSource="{Binding  Path=ComuniProvincia}"
+                      SelectedValuePath="Denominazione"
+                      SelectedValue="{Binding Path=CurrentEntity.Comune, Mode=TwoWay}">
             </ComboBox>            
         </StackPanel>
 

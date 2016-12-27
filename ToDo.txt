@@ -13,7 +13,7 @@ accenti lista comuni
 dati fattura pa: id trasmittente et all
 
 
-pec, email, tel, fax
+pec, email, tel, fax GUI
 
 cig 6 char
 

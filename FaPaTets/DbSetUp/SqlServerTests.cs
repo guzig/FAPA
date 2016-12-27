@@ -20,6 +20,125 @@ namespace FaPaTets.DbSetUp
     [TestFixture]
     class SqlServerTests
     {
+        public static IDictionary<string, string> _provincie = new Dictionary<string, string>()
+        {
+            #region provincie
+            {"AG", "Agrigento"},
+            {"AL", "Alessandria"},
+            {"AN", "Ancona"},
+            {"AO", "Aosta"},
+            {"AR", "Arezzo"},
+            {"AP", "Ascoli Piceno"},
+            {"AT", "Asti"},
+            {"AV", "Avellino"},
+            {"BA", "Bari"},
+            {"BT", "Barletta-Andria-Trani"},
+            {"BL", "Belluno"},
+            {"BN", "Benevento"},
+            {"BG", "Bergamo"},
+            {"BI", "Biella"},
+            {"BO", "Bologna"},
+            {"BZ", "Bolzano"},
+            {"BS", "Brescia"},
+            {"BR", "Brindisi"},
+            {"CA", "Cagliari"},
+            {"CL", "Caltanissetta"},
+            {"CB", "Campobasso"},
+            {"CE", "Caserta"},
+            {"CT", "Catania"},
+            {"CZ", "Catanzaro"},
+            {"CH", "Chieti"},
+            {"CO", "Como"},
+            {"CS", "Cosenza"},
+            {"CR", "Cremona"},
+            {"KR", "Crotone"},
+            {"CN", "Cuneo"},
+            {"EN", "Enna"},
+            {"FE", "Ferrara"},
+            {"FM", "Fermo"},
+            {"FI", "Firenze"},
+            {"FG", "Foggia"},
+            {"FO", "Forli'-Cesena"},
+            {"FC", "Forli'-Cesena"},
+            {"FR", "Frosinone"},
+            {"GE", "Genova"},
+            {"GO", "Gorizia"},
+            {"GR", "Grosseto"},
+            {"IM", "Imperia"},
+            {"IS", "Isernia"},
+            {"SP", "La Spezia"},
+            {"AQ", "L'Aquila"},
+            {"LT", "Latina"},
+            {"LE", "Lecce"},
+            {"LC", "Lecco"},
+            {"LI", "Livorno"},
+            {"LO", "Lodi"},
+            {"LU", "Lucca"},
+            {"MC", "Macerata"},
+            {"MB", "Monza e Brianza"},
+            {"MN", "Mantova"},
+            {"MS", "Massa-Carrara"},
+            {"MT", "Matera"},
+            {"ME", "Messina"},
+            {"MI", "Milano"},
+            {"MO", "Modena"},
+            {"NA", "Napoli"},
+            {"NO", "Novara"},
+            {"NU", "Nuoro"},
+            {"OR", "Oristano"},
+            {"PD", "Padova"},
+            {"PA", "Palermo"},
+            {"PR", "Parma"},
+            {"PV", "Pavia"},
+            {"PG", "Perugia"},
+            {"PS", "Pesaro e Urbino"},
+            {"PU", "Pesaro e Urbino"},
+            {"PE", "Pescara"},
+            {"PC", "Piacenza"},
+            {"PI", "Pisa"},
+            {"PT", "Pistoia"},
+            {"OG", "Provincia dell'Ogliastra"},
+            {"PN", "Pordenone"},
+            {"PZ", "Potenza"},
+            {"PO", "Prato"},
+            {"RG", "Ragusa"},
+            {"RA", "Ravenna"},
+            {"RC", "Reggio di Calabria"},
+            {"RE", "Reggio nell'Emilia"},
+            {"RI", "Rieti"},
+            {"RN", "Rimini"},
+            {"RM", "Roma"},
+            {"RO", "Rovigo"},
+            {"SA", "Salerno"},
+            {"SS", "Sassari"},
+            {"OT", "Sassari"},
+            {"SV", "Savona"},
+            {"SI", "Siena"},
+            {"SR", "Siracusa"},
+            {"SO", "Sondrio"},
+            {"TA", "Taranto"},
+            {"TE", "Teramo"},
+            {"TR", "Terni"},
+            {"TO", "Torino"},
+            {"TP", "Trapani"},
+            {"TN", "Trento"},
+            {"TV", "Treviso"},
+            {"TS", "Trieste"},
+            {"UD", "Udine"},
+            {"VA", "Varese"},
+            {"VE", "Venezia"},
+            {"VB", "Verbano-Cusio-Ossola"},
+            {"VC", "Vercelli"},
+            {"VR", "Verona"},
+            {"VV", "Vibo Valentia"},
+            {"VI", "Vicenza"},
+            {"VT", "Viterbo"},
+            {"VS", "Provincia del Medio Campidano"},
+            {"CI", "Provincia di Carbonia-Iglesias"}
+           
+            #endregion
+        };
+
         [Test]
         public void CanCreateSqlServerDb()
         {
@@ -56,6 +175,20 @@ namespace FaPaTets.DbSetUp
             using (ISession session1 = sessionfactory.OpenSession())
             using (ITransaction tx = session1.BeginTransaction())
             {
+                var committente = new Committente()
+                {
+                    CodUfficioPa = "EZ8816",
+                    Denominazione = "Comune di Crucoli",
+                    CodiceFiscale = "00297210791",
+                    PIva = "00297210791",
+                    Comune = "Comune di Crucoli",
+                    Cap = "88812",
+                    Civico = "01",
+                    Provincia = "KR",
+                    Nazione = "IT",
+                    Indirizzo = "Via Roma 1"
+                };
+
                 var anagraficaCedente = new Fornitore()
                 {
                     Denominazione = "Comune di Isola di Capo Rizzuto",
@@ -68,6 +201,7 @@ namespace FaPaTets.DbSetUp
                     Nazione = "IT",
                     Indirizzo = "Piazza Falcone e Borsellino"
                 };
+
                 var anagraficaCommittente = new Committente()
                 {
                     Denominazione = "Committente 1",
@@ -83,7 +217,7 @@ namespace FaPaTets.DbSetUp
                 
                 session1.Save(anagraficaCedente);
                 session1.Save(anagraficaCommittente);
-                //session1.Save(fattura);
+                session1.Save(committente);
 
                 tx.Commit();
             }
@@ -150,8 +284,8 @@ namespace FaPaTets.DbSetUp
         {
             //BootStrapper.Initialize();
             //var session = BootStrapper.SessionFactory.OpenStatelessSession();
-            var nomeFileCap =  @"C:\Users\tonio\Desktop\listacomuniConCAP.txt";
-                               //@"C:\Users\Devs\Desktop\listacomuniConCAP.txt";
+            var nomeFileCap = // @"C:\Users\tonio\Desktop\listacomuniConCAP.txt";
+                              @"C:\Users\Devs\Desktop\listacomuniConCAP.txt";
 
 
             var dictCap = new Dictionary<string,string>(); 
@@ -171,15 +305,23 @@ namespace FaPaTets.DbSetUp
 
             using (var tx = session.BeginTransaction())
             {
-                var nomeFile = @"C:\Users\tonio\Desktop\elenco-comuni-italiani.csv";
-                //@"C:\Users\Devs\Desktop\elenco-comuni-italiani.csv";
-                //@"C:\Users\tonio\Desktop\elenco-comuni-italiani.csv";
+                var nomeFile = //@"C:\Users\tonio\Desktop\elenco-comuni-italiani.csv";
+                               @"C:\Users\Devs\Desktop\elenco-comuni-italiani.csv";
+                            
                 using (TextReader readerComuni = new StreamReader(nomeFile))
                 {
                     string line;
                     while ((line = readerComuni.ReadLine()) != null)
                     {
                         var fields = line.Split(';').ToArray();
+                        var siglaProv = fields[13];
+
+                        if ( !_provincie.ContainsKey(siglaProv))
+                        {
+                            var f = 1;
+                        }
+                        var denomProv = _provincie[siglaProv];
+
                         var comune = new Comune
                         {
                             //Codice Regione;Codice Città Metropolitana;Codice Provincia (1);
@@ -196,7 +338,8 @@ namespace FaPaTets.DbSetUp
                             Denominazione = fields[5],
                             NomeRegione = fields[9],
                             NomeCittàMetropolitana = fields[10],
-                            DenominazioneProvincia = fields[13],
+                            DenominazioneProvincia = denomProv,
+                            SiglaProvincia = fields[13],
                             FlagComuneCapoluogo = fields[12],
                             SiglaAuto = fields[13],
                             CodiceCatastale = fields[17],

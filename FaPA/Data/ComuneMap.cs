@@ -63,13 +63,22 @@ namespace FaPA.Data
                     c.Index("denmcmne");
                 } );
             } );
-            Property( x => x.DenominazioneProvincia, d =>
+            Property( x => x.SiglaProvincia, d =>
             {
                 d.Column( c =>
                 {
                     c.NotNullable( true );
+                    c.Index("siglaprov");
                 } );
             } );
+            Property(x => x.DenominazioneProvincia, d =>
+            {
+                d.Column(c =>
+                {
+                    c.NotNullable(true);
+                    c.Index("denomprov");
+                });
+            });
             Property( x => x.FlagComuneCapoluogo, d =>
             {
                 d.Column( c =>

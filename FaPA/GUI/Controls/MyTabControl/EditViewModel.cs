@@ -28,17 +28,26 @@ namespace FaPA.GUI.Controls.MyTabControl
 
         public IBasePresenter BasePresenter { get; private set; }
 
-        public delegate void OnCurrentChangedhandler(T currentEntity);
+        public delegate void OnCurrentChangedhandler(T currententity);
 
         public event OnCurrentChangedhandler CurrentEntityChanged;
+
+        public delegate void OnCurrentPropChangedhandler(T currentEntity, PropertyChangedEventArgs eventArgs);
+
+        public event OnCurrentPropChangedhandler CurrentEntityPropChanged;
 
         //public event OnCurrentChangedhandler CurrentChanging;
 
         private void OnCurrentChanged( T sender )
         {
             var handler = CurrentEntityChanged;
-            if ( handler != null )
-                handler( sender );
+            handler?.Invoke( sender );
+        }
+
+        private void OnCurrentPropChanged(T sender, PropertyChangedEventArgs eventArgs)
+        {
+            var handler = CurrentEntityPropChanged;
+            handler?.Invoke(sender, eventArgs);
         }
 
         //void OnCurrentChanging(T sender)
@@ -47,7 +56,7 @@ namespace FaPA.GUI.Controls.MyTabControl
         //    if (handler != null)
         //        handler(sender);
         //}
-        
+
         private readonly BackgroundWorker _searchBackgroundWorker;
 
         private bool _isOnBind ;
@@ -268,18 +277,29 @@ namespace FaPA.GUI.Controls.MyTabControl
         {
             _onCancelDelegate = DefaultCancelOnEditAction;
 
-            if (_isOnBind ) return;
-            
+            if (_isOnBind )
+            {
+                OnCurrentPropChanged((T)sender, argts);
+                return;
+            }            
+
             AllowSave = CurrentEntity.DomainResult.Success;
             LockMessage = OnEditingLockMessage;
 
-            if ( IsInEditing ) return;
+            if ( IsInEditing )
+            {
+                OnCurrentPropChanged((T)sender, argts);
+                return;
+            }
 
             IsInEditing = true;
             AllowRecordsNavigation = false;
             AllowFastSearch = false;
             AllowDelete = false;
             AllowInsertNewEntity = false;
+
+            OnCurrentPropChanged((T)sender, argts);
+
         }
              
         private void OnCurrentSelectionChanged(object sender, EventArgs args)
