@@ -48,21 +48,26 @@ namespace FaPA.GUI.Feautures.Fattura
 
         public override string EditTemplateName => "FatturaTemplate";
 
-        protected override Core.Fattura CreateInstance()
+        public override void CreateNewEntity()
         {
-            var instance = base.CreateInstance();
-            instance.Init();
+            CurrentEntity = null;
+            object newInstance = CreateInstance();
+            ( ( Core.Fattura )newInstance).Init();
+            ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntity>(ref newInstance, "FaPA.Core");
+            
+            CurrentEntity = (Core.Fattura) newInstance;
 
-            object currentHeader = instance.FatturaElettronicaHeader;
-            ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntityFpa>(ref currentHeader, "FaPA.Core");
-            instance.FatturaElettronicaHeader = (FaPA.Core.FaPa.FatturaElettronicaHeaderType)currentHeader;
+            InitFatturaTabs();
 
-            object currentBody = instance.FatturaElettronicaBody;
-            ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntityFpa>(ref currentBody, "FaPA.Core");
-            instance.FatturaElettronicaBody = (FaPA.Core.FaPa.FatturaElettronicaBodyType)currentBody;
+            //object currentHeader = CurrentEntity.FatturaElettronicaHeader;
+            //ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntityFpa>(ref currentHeader, "FaPA.Core");
+            //CurrentEntity.FatturaElettronicaHeader = (FaPA.Core.FaPa.FatturaElettronicaHeaderType)currentHeader;
 
-            return instance;
+            //object currentBody = CurrentEntity.FatturaElettronicaBody;
+            //ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntityFpa>(ref currentBody, "FaPA.Core");
+            //CurrentEntity.FatturaElettronicaBody = (FaPA.Core.FaPa.FatturaElettronicaBodyType)currentBody;
         }
+
 
         protected override void DefaultCancelOnEditAction()
         {

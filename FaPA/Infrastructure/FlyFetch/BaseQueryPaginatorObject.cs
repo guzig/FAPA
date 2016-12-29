@@ -123,7 +123,7 @@ namespace FaPA.Infrastructure.FlyFetch
             wrk.RunWorkerCompleted += (s, e) =>
             {
                 var entities = e.Result as IList<T>;
-                FetchedCount += entities.Count;
+                if (entities != null) FetchedCount += entities.Count;
                 if (FetchedCount >= Count)
                 {
                     IsFetchCompleted = true;

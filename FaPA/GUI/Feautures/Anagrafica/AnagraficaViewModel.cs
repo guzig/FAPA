@@ -67,7 +67,7 @@ namespace FaPA.GUI.Feautures.Anagrafica
             }
         }
 
-     public EditAnagraficaViewModel(IBasePresenter baseCrudPresenter, IList userEntities,
+        public EditAnagraficaViewModel(IBasePresenter baseCrudPresenter, IList userEntities,
             ICollectionView userCollectionView, ISession session) : base(baseCrudPresenter, userEntities, userCollectionView)
         {
             SetUpSession(session, null);
