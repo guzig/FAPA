@@ -465,7 +465,7 @@
     <Compile Include="GUI\Design\Templates\SearchTypeTemplates\TypeStringCriterion.xaml.cs" />
     <Compile Include="GUI\Design\Templates\SearchTypeTemplates\TypeSystem.cs" />
     <Compile Include="GUI\Design\Templates\SearchTypeTemplates\TypeTagsAssociationByCheckBoxCriterion.xaml.cs" />
-    <Compile Include="GUI\Feautures\Anagrafica\AnagraficaViewModel.cs" />
+    <Compile Include="GUI\Feautures\Anagrafica\EditAnagraficaViewModel.cs" />
     <Compile Include="GUI\Feautures\Anagrafica\Model.cs" />
     <Compile Include="GUI\Feautures\Anagrafica\Presenter.cs" />
     <Compile Include="GUI\Feautures\Fattura\AltriDatiViewModel.cs" />

@@ -48,24 +48,23 @@ namespace FaPA.GUI.Feautures.Fattura
 
         public override string EditTemplateName => "FatturaTemplate";
 
+        protected override Core.Fattura CreateInstance()
+        {
+            object entity = Activator.CreateInstance( typeof( Core.Fattura ) );
+
+            ( ( Core.Fattura ) entity ).Init();
+
+            ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntity>( ref entity, "FaPA.Core" );
+
+            return ( Core.Fattura ) entity ;
+        }
+
         public override void CreateNewEntity()
         {
-            CurrentEntity = null;
-            object newInstance = CreateInstance();
-            ( ( Core.Fattura )newInstance).Init();
-            ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntity>(ref newInstance, "FaPA.Core");
-            
-            CurrentEntity = (Core.Fattura) newInstance;
-
+            CurrentEntity = CreateInstance();
+          
             InitFatturaTabs();
 
-            //object currentHeader = CurrentEntity.FatturaElettronicaHeader;
-            //ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntityFpa>(ref currentHeader, "FaPA.Core");
-            //CurrentEntity.FatturaElettronicaHeader = (FaPA.Core.FaPa.FatturaElettronicaHeaderType)currentHeader;
-
-            //object currentBody = CurrentEntity.FatturaElettronicaBody;
-            //ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntityFpa>(ref currentBody, "FaPA.Core");
-            //CurrentEntity.FatturaElettronicaBody = (FaPA.Core.FaPa.FatturaElettronicaBodyType)currentBody;
         }
 
 
@@ -87,24 +86,6 @@ namespace FaPA.GUI.Feautures.Fattura
         {
             CurrentEntityChanged -= OnCurrentFatturaChanged;
             base.Dispose();
-        }
-
-        public override void Persist()
-        {
-            var userCollectionView = DettagliFatturaViewModel?.UserCollectionView;
-
-            var lastDettaglioFatturaRecordIndex = userCollectionView != null && userCollectionView.Any() ?
-                userCollectionView.CurrentPosition : -1 ;
-
-            base.Persist();
-
-            InitFatturaTabs();
-            AllowSave = false;
-
-            if ( lastDettaglioFatturaRecordIndex < 0 || userCollectionView == null ) return;
-            userCollectionView.MoveCurrentToPosition( lastDettaglioFatturaRecordIndex );
-
-            DettagliFatturaViewModel.UserCollectionView.Refresh();
         }
 
         #endregion

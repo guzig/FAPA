@@ -262,8 +262,6 @@ namespace FaPA.GUI.Controls.MyTabControl
             UserEntitiesView.MoveCurrentToFirst();
             UserEntitiesView.CurrentChanged += OnCurrentSelectionChanged;
             RequestClose += OnClose;
-
-            //_blankDtoEntity = CreateDtoInstance();
         }
 
         protected void SetUpSession(ISession session, IStatelessSession statelessSession )
@@ -401,35 +399,29 @@ namespace FaPA.GUI.Controls.MyTabControl
         public virtual void Persist()
         {
             AllowSave = false;
-
-            bool isNewEntityAdded = IsNewEntity( _currentEntity );
-
+            var isNewEntityAdded = IsNewEntity( _currentEntity );
             _isOnBind = true;
 
             if ( !TryPersistEntity() ) return;
 
-            UserEntitiesView.CurrentChanged -= OnCurrentSelectionChanged;          
-            //CurrentDtoEntity.Id = (_currentEntity as BaseEntity).Id;
-            //SetContextAfterBindEntity();
-
+            //UserEntitiesView.CurrentChanged -= OnCurrentSelectionChanged;          
             if (isNewEntityAdded)
             {
                 DisplayName = DisplayName.Replace("Crea","Dettaglio");
                 BasePresenter.RefreshSharedViewsAfterAddedNew( CurrentEntity );
                 PublishAddedNewEntityEvent(CurrentEntity);
+                UserCollection.Add( CurrentEntity );
+                UserEntitiesView.MoveCurrentToLast();
             }
                 //EntityAddedNew: event ->  CurrentEntityChanged: event -> ShowCurrent
             else
             {
                 PublishUpdateEntityEvent(CurrentEntity);
                 BasePresenter.RefreshSharedViewsAfterUpdated( CurrentEntity );
+                LoadAndShowCurrentEntity();
             }
-
-            UserEntitiesView.CurrentChanged += OnCurrentSelectionChanged;
-
-            _isOnBind = false;
-
-            LoadAndShowCurrentEntity();
+            //UserEntitiesView.CurrentChanged += OnCurrentSelectionChanged;
+            _isOnBind = false;           
         }
 
         public bool TryPersistEntity(  )
@@ -513,11 +505,7 @@ namespace FaPA.GUI.Controls.MyTabControl
         {
             try
             {
-                CurrentEntity=CreateInstance();
-                //var newDto = CreateDtoInstance();
-                //DecorateEntityLevelValidationProps(CurrentEntity);            
-                //MapToDto( CurrentEntity, ref newDto );
-                //CurrentDtoEntity = newDto;
+                CurrentEntity = ( T ) AddPropChangedAndDataErrorInterceptorProxyFactory.Create( typeof( T ), CreateInstance() );
             }
             catch (Exception e)
             {
@@ -534,6 +522,7 @@ namespace FaPA.GUI.Controls.MyTabControl
             IsInEditing = true;
             //IsNewEntity = true;
             CreateNewEntity();
+
             DecorateEntity();
 
             var validtor = CurrentEntity as IValidatable;
@@ -560,9 +549,9 @@ namespace FaPA.GUI.Controls.MyTabControl
             if ( CurrentEntity == null )
                 entity = Activator.CreateInstance<T>();
             else
-                entity = (T) Activator.CreateInstance( CurrentEntity.GetType() );
+                entity = (T) Activator.CreateInstance( CurrentEntity.NhUnproxy() );
 
-            return (T) AddPropChangedAndDataErrorInterceptorProxyFactory.Create(typeof(T), entity);
+            return entity;
         }
 
 
@@ -605,7 +594,6 @@ namespace FaPA.GUI.Controls.MyTabControl
             if (UserEntitiesView.CurrentItem == null) return;
 
             var currentItem = (BaseEntity) UserCollection[UserEntitiesView.CurrentPosition];
-                //UserEntitiesView.CurrentItem;
 
             if ( !UserEntitiesView.IsEmpty )
             {
@@ -634,7 +622,10 @@ namespace FaPA.GUI.Controls.MyTabControl
         protected virtual void DecorateEntity()
         {
             //CurrentEntity.OnDataErrorInfo += OnDataErrorInfo;
-            ((INotifyPropertyChanged) CurrentEntity).PropertyChanged += OnPropChanged;
+
+            var notifyPropertyChanged = CurrentEntity as INotifyPropertyChanged;
+            if ( notifyPropertyChanged != null )
+                notifyPropertyChanged.PropertyChanged += OnPropChanged;
         }
 
         private void ReplaceSessionAfterError()
