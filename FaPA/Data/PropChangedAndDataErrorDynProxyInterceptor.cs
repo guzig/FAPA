@@ -66,25 +66,23 @@ namespace FaPA.Data
             if ( !info.TargetMethod.Name.StartsWith("set_") ) return returnValue;
             
             var propertyName = info.TargetMethod.Name.Substring("set_".Length);
+            var entity = info.Target as BaseEntity;
 
             //Validation
-            var entity = info.Target as BaseEntity;
-            ValidatePropValue( propertyName, entity );
-
-             if ( entity != null && propertyName != nameof(entity.IsNotyfing) && 
-                  propertyName != nameof(entity.IsValidating) && entity.IsNotyfing)
-             {
-                 //INotifyPropertyChanged
-                 _changed(info.Target, new PropertyChangedEventArgs(propertyName));
-             }
-
             if ( entity != null && propertyName != nameof( entity.IsValidating ) && 
                  propertyName != nameof(entity.IsNotyfing) && entity.IsValidating )
             {
-                //RaiseErrors(info.Target);
+                ValidatePropValue( propertyName, entity );
                 ErrorsChanged?.Invoke( info.Target, new DataErrorsChangedEventArgs(propertyName));               
             }
 
+            //INotifyPropertyChanged
+             if ( entity != null && propertyName != nameof(entity.IsNotyfing) && 
+                  propertyName != nameof(entity.IsValidating) && entity.IsNotyfing)
+             {
+                 _changed(info.Target, new PropertyChangedEventArgs(propertyName));
+             }
+             
             return returnValue;
         }
 

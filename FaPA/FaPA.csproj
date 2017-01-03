@@ -267,7 +267,9 @@
     <Compile Include="AppServices\CoreValidation\AltriDatiGestionaliValidator.cs" />
     <Compile Include="AppServices\CoreValidation\NhAnagraficaValidator.cs" />
     <Compile Include="AppServices\CoreValidation\BaseCoreValidator.cs" />
+    <Compile Include="AppServices\CoreValidation\NhCommittenteValidator.cs" />
     <Compile Include="AppServices\CoreValidation\NhFatturaValidator.cs" />
+    <Compile Include="AppServices\CoreValidation\NhInstanceValidator.cs" />
     <Compile Include="AppServices\CoreValidation\ObjectExplorer.cs" />
     <Compile Include="AppServices\CoreValidation\CoreValidatorService.cs" />
     <Compile Include="AppServices\CoreValidation\DatiRitenutaValidator.cs" />
@@ -380,6 +382,8 @@
     <Compile Include="Data\PropertyChangedLazyInitializer.cs" />
     <Compile Include="Data\PropertyChangedProxyFactory.cs" />
     <Compile Include="Data\PropertyChangedProxyFactoryFactory.cs" />
+    <Compile Include="Data\ValidationMaps\CommittenteSofValidation.cs" />
+    <Compile Include="Data\ValidationMaps\FornitoreSofValidation.cs" />
     <Compile Include="Data\ValidationMaps\FatturaSofValidation.cs" />
     <Compile Include="Data\CommittenteMap.cs" />
     <Compile Include="Data\FornitoreMap.cs" />
@@ -400,6 +404,7 @@
     <Compile Include="GUI\Design\Converters\NullToInverseVisibiltyConverter.cs" />
     <Compile Include="GUI\Design\Converters\NullToVisibiltyConverter.cs" />
     <Compile Include="GUI\Feautures\Anagrafica\AnagraficaListViewModel.cs" />
+    <Compile Include="GUI\Feautures\Anagrafica\EditAnagraficaViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\DatiContrattoTabViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\DatiConvenzioneTabViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\UniqueFatturaValidationRule.cs" />
@@ -431,7 +436,7 @@
     <Compile Include="GUI\Design\Converters\StringToDataTemplateConverter.cs" />
     <Compile Include="GUI\Design\Converters\StringToVisibilityConverter.cs" />
     <Compile Include="GUI\Design\Converters\ZeroToOneBasedIndexConverter.cs" />
-    <Compile Include="GUI\Design\Events\RemoveTabView.cs" />
+    <Compile Include="GUI\Design\Events\RemoveTabViewEventArg.cs" />
     <Compile Include="GUI\Design\Templates\AltriDatiGrid.xaml.cs">
       <DependentUpon>AltriDatiGrid.xaml</DependentUpon>
     </Compile>
@@ -465,7 +470,6 @@
     <Compile Include="GUI\Design\Templates\SearchTypeTemplates\TypeStringCriterion.xaml.cs" />
     <Compile Include="GUI\Design\Templates\SearchTypeTemplates\TypeSystem.cs" />
     <Compile Include="GUI\Design\Templates\SearchTypeTemplates\TypeTagsAssociationByCheckBoxCriterion.xaml.cs" />
-    <Compile Include="GUI\Feautures\Anagrafica\EditAnagraficaViewModel.cs" />
     <Compile Include="GUI\Feautures\Anagrafica\Model.cs" />
     <Compile Include="GUI\Feautures\Anagrafica\Presenter.cs" />
     <Compile Include="GUI\Feautures\Fattura\AltriDatiViewModel.cs" />

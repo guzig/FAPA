@@ -16,7 +16,8 @@ namespace FaPA.AppServices.CoreValidation
             { typeof ( DatiRitenutaType ), new DatiRitenutaValidator() },
             { typeof ( AltriDatiGestionaliType ), new AltriDatiGestionaliValidator() },
             { typeof ( DettaglioLineeType ), new DettaglioLineeValidator() },
-            { typeof ( Anagrafica ), new NhAnagraficaValidator() },
+            { typeof ( Committente ), new NhCommittenteValidator() },
+            { typeof ( Fornitore ), new NhFornitoreValidator() },
             { typeof ( Fattura ), new NhFatturaValidator() }
         };
 

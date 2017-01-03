@@ -18,16 +18,28 @@ namespace FaPA.GUI.Feautures.Fattura
 {
     public class Presenter : BaseCrudPresenter<Core.Fattura, View>
 	{
+        private Action<Presenter> _onLoaded;
 
         //ctor
         public Presenter()
         {          
             View.Presenter = this;
            
-            EventPublisher.Register<RemoveTabView>( OnCancelEditOnViewModel );
+            //EventPublisher.Register<RemoveTabViewEventArg>( OnCancelEditOnViewModel );
         }
-        
+
         #region props
+
+        protected override QueryOver QueryCriteria
+        {
+            get
+            {
+                return QueryOver.Of<Core.Fattura>().Fetch( f => f.AnagraficaCedenteDB ).Eager.
+                  Fetch( f => f.AnagraficaCommittenteDB ).Eager.
+              OrderBy( f => f.DataFatturaDB ).Asc;
+            }
+            //.Cacheable().CacheMode(CacheMode.Normal)
+        }
 
         private IList<Fornitore> _fornitori;
         public IList<Fornitore> Fornitori
@@ -67,6 +79,26 @@ namespace FaPA.GUI.Feautures.Fattura
 
         #region Initialization
 
+        public void Initialize( Action<Presenter> onLoaded )
+        {
+            _onLoaded = onLoaded;
+        }
+
+        public void OnLoaded()
+        {
+            _onLoaded( this );
+
+            //var _comuni = new ReferenceDataFactory( typeof( Comune ) ).ReferenceCollection ;
+
+            var anagrafiche = new ReferenceDataFactory().GetReferenceCollection<Core.Anagrafica>(); 
+
+            Fornitori = anagrafiche.Where(a => a is Fornitore).Cast<Fornitore>().
+                OrderBy(f=>f.Denominazione + f.Cognome + f.Nome ).ToList();
+
+            Committenti = anagrafiche.Where(a => a is Committente).Cast<Committente>().
+                OrderBy(f => f.Denominazione + f.Cognome + f.Nome).ToList();
+        }
+
         public override void CreateNewModel(DetachedCriteria queryByExample)
         {
             InitModel(queryByExample);
@@ -96,28 +128,6 @@ namespace FaPA.GUI.Feautures.Fattura
             //Model.SelectedPageChanged += OnPageChanged;
         }
 
-        //private void OnWorkspacesChanged(object sender, NotifyCollectionChangedEventArgs e)
-        //{
-        //    DecorateFatturaViewModels();
-        //}
-
-        //protected new void OnPageChanged(object o, PropertyChangeEventArgs data)
-        //{
-            //var tabViewModel = data.NewValue as ListViewViewModel;
-
-            //if (tabViewModel == null) return;
-
-            //if (tabViewModel is EditViewModel<T>)
-            //    //default behavoir on page changed
-            //    ((EditViewModel<T>)Model.EditViewModel).ShowCurrentEntity();
-            //else
-            //{
-            //    if (!tabViewModel.NeedRefresh) return;
-            //    Model.UserCollectionView.Refresh();
-            //    tabViewModel.NeedRefresh = false;
-            //}
-        //}
-
         public override void CreateNewModel(QueryOver queryByExample)
         {
             InitModel(queryByExample.DetachedCriteria);
@@ -133,36 +143,13 @@ namespace FaPA.GUI.Feautures.Fattura
             CreateNewModel(pageSize, pageProvider, pageProvider, c => { CreateModel(activeTab, c); });
         }
 
-        private QueryOver GetFattureByLastYearCriteria()
+        protected override BaseCrudModel CreateNewModel()
         {
-            var maxYear = Session.QueryOver<Core.Fattura>()
-                .Select(
-                    Projections.Max(Projections.SqlGroupProjection("YEAR(DataFatturaDB) As [Year]", "YEAR(DataFatturaDB)",
-                        new[] {"YEAR"}, new IType[] {NHibernateUtil.Int32}))).Cacheable().SingleOrDefault<Int32>();
-
-            QueryOver detachedCriteria;
-
-            if (maxYear > 0)
-            {
-                var maxDate = new DateTime(maxYear, 12, 31);
-                var minDate = new DateTime(maxYear, 01, 01);
-
-                detachedCriteria = QueryOver.Of<Core.Fattura>().
-                    Fetch(f => f.AnagraficaCedenteDB).Eager.Fetch(f => f.AnagraficaCommittenteDB).Eager.
-                    Where(f => f.DataFatturaDB >= minDate).And(f => f.DataFatturaDB <= maxDate);
-            }
-            else
-                detachedCriteria = QueryOver.Of<Core.Fattura>().
-                    Fetch(f => f.AnagraficaCedenteDB).Eager.Fetch(f => f.AnagraficaCommittenteDB).Eager;
-            return detachedCriteria;
+            return new Model();
         }
-
-        #endregion
         
-        #region  reference collection props
-
         #endregion
-      
+             
         #region entities events
 
         protected override void RegisterEntityAddedNewEvent()
@@ -174,14 +161,6 @@ namespace FaPA.GUI.Feautures.Fattura
         //{
         //    EventPublisher.Register<FatturaUpdated>( RefreshAfterUpdated );
         //}
-
-        protected override QueryOver QueryCriteria
-        {
-            get { return QueryOver.Of<Core.Fattura>().Fetch(f=>f.AnagraficaCedenteDB).Eager.
-                    Fetch(f=>f.AnagraficaCommittenteDB).Eager.
-                OrderBy(f=>f.DataFatturaDB).Asc; }
-            //.Cacheable().CacheMode(CacheMode.Normal)
-        }
 
         //private void RefreshAfterAddedNew( FatturaAddedNew fattura )
         //{
@@ -196,28 +175,6 @@ namespace FaPA.GUI.Feautures.Fattura
         #endregion
 
         #region command
-
-        public void Initialize( Action<Presenter> onLoaded )
-        {
-            _onLoaded = onLoaded;
-        }
-
-        private Action<Presenter> _onLoaded;
-
-        public void OnLoaded()
-        {
-            _onLoaded( this );
-
-            //var _comuni = new ReferenceDataFactory( typeof( Comune ) ).ReferenceCollection ;
-
-            var anagrafiche = new ReferenceDataFactory().GetReferenceCollection<Core.Anagrafica>(); 
-
-            Fornitori = anagrafiche.Where(a => a is Fornitore).Cast<Fornitore>().
-                OrderBy(f=>f.Denominazione + f.Cognome + f.Nome ).ToList();
-
-            Committenti = anagrafiche.Where(a => a is Committente).Cast<Committente>().
-                OrderBy(f => f.Denominazione + f.Cognome + f.Nome).ToList();
-        }
 
         //private ICommand _openPdf;
         //public ICommand OpenPdf
@@ -333,59 +290,70 @@ namespace FaPA.GUI.Feautures.Fattura
 
         #endregion
 
-        #region INotifyDataSourceHit Members
+        #region Utils Members
 
-        protected override BaseCrudModel CreateNewModel()
+        private QueryOver GetFattureByLastYearCriteria()
         {
-            var model = new Model();
-            return model;
-        }
+            var maxYear = Session.QueryOver<Core.Fattura>()
+                .Select(
+                    Projections.Max(Projections.SqlGroupProjection("YEAR(DataFatturaDB) As [Year]", "YEAR(DataFatturaDB)",
+                        new[] {"YEAR"}, new IType[] {NHibernateUtil.Int32}))).Cacheable().SingleOrDefault<Int32>();
 
+            QueryOver detachedCriteria;
+
+            if (maxYear > 0)
+            {
+                var maxDate = new DateTime(maxYear, 12, 31);
+                var minDate = new DateTime(maxYear, 01, 01);
+
+                detachedCriteria = QueryOver.Of<Core.Fattura>().
+                    Fetch(f => f.AnagraficaCedenteDB).Eager.Fetch(f => f.AnagraficaCommittenteDB).Eager.
+                    Where(f => f.DataFatturaDB >= minDate).And(f => f.DataFatturaDB <= maxDate);
+            }
+            else
+                detachedCriteria = QueryOver.Of<Core.Fattura>().
+                    Fetch(f => f.AnagraficaCedenteDB).Eager.Fetch(f => f.AnagraficaCommittenteDB).Eager;
+            return detachedCriteria;
+        }
+        
         public override void QueryInProgress(bool inProgress)
         {
             //Model.EditViewModel. = inProgress;
         }
-
-        #endregion
-
-        //private IList<Core.Anagrafica> LoadReferences()
+        
+        //private void OnCancelEditOnViewModel( RemoveTabViewEventArg tabRemovedEventArgArg )
         //{
-        //    IList<Core.Anagrafica> anagrafiche = new List<Core.Anagrafica>();
-        //    using (var tx = Session.BeginTransaction())
-        //    {
-        //        var fornitori = QueryOver.Of<Core.Anagrafica>();
+        //    if ( !Model.EditViewModel.Equals(tabRemovedEventArgArg.ParentViewModel))
+        //        return;
 
-        //        var results = Session.CreateMultiCriteria().
-        //            Add(fornitori).
-        //            //Add(causali).Add(pods).
-        //            List();
+        //    var vmType = tabRemovedEventArgArg.ViewModel.GetType();
 
-        //        var result = (results[0] as IList) as List<Core.Anagrafica>;
-        //        if ( result != null)
-        //        {
-        //            anagrafiche = result;                   
-        //        }
+        //    tabRemovedEventArgArg.ParentViewModel.Load();
 
-        //        tx.Commit();
-        //    }
-        //    return anagrafiche;
+        //    SetActiveWorkSpace( 1 );
+
+        //    var tabViewModel = Workspaces.FirstOrDefault( w => w.GetType() == vmType );
+        //    if ( tabViewModel != null )
+        //        Workspaces.Remove( tabViewModel );
         //}
 
-        private void OnCancelEditOnViewModel( RemoveTabView vm )
-        {
-            if ( !Model.EditViewModel.Equals(vm.ParentViewModel))
-                return;
+        //protected new void OnPageChanged(object o, PropertyChangeEventArgs data)
+        //{
+        //var tabViewModel = data.NewValue as ListViewViewModel;
 
-            var vmType = vm.ViewModel.GetType();
+        //if (tabViewModel == null) return;
 
-            vm.ParentViewModel.Load();
+        //if (tabViewModel is EditViewModel<T>)
+        //    //default behavoir on page changed
+        //    ((EditViewModel<T>)Model.EditViewModel).ShowCurrentEntity();
+        //else
+        //{
+        //    if (!tabViewModel.NeedRefresh) return;
+        //    Model.UserCollectionView.Refresh();
+        //    tabViewModel.NeedRefresh = false;
+        //}
+        //}
 
-            SetActiveWorkSpace( 1 );
-
-            var tabViewModel = Workspaces.FirstOrDefault( w => w.GetType() == vmType );
-            if ( tabViewModel != null )
-                Workspaces.Remove( tabViewModel );
-        }
-
+        #endregion
     }
 }

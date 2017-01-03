@@ -6,9 +6,7 @@ namespace FaPA.GUI.Controls.MyTabControl
 {
     public interface IEditViewModel
     {
-        void Load();
-        void LoadAndShowCurrentEntity();
-        object CurrentEntityToObject { get; }
+        //void Load();
         void Persist();
         void MakeTransient();
         void CreateNewEntity();

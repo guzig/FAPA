@@ -16,6 +16,7 @@ namespace FaPA.Core
         public virtual string Comune { get; set; }
         public virtual string Provincia { get; set; }
         public virtual string Nazione { get; set; }
+        public virtual string CodUfficio { get; set; }
         public virtual string Pec { get; set; }
         public virtual string Email { get; set; }
         public virtual string Tel { get; set; }
@@ -27,7 +28,7 @@ namespace FaPA.Core
             get { return !string.IsNullOrWhiteSpace( Denominazione ) ? Denominazione : Cognome + " " + Nome; }
         }
 
-        public virtual ICollection<Fattura> Fatture { get;  protected set; } = new Collection<Fattura>();
+        public virtual ICollection<Fattura> Fatture { get; } = new Collection<Fattura>();
         
         public override DomainResult Validate()
         {

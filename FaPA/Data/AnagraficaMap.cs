@@ -38,13 +38,47 @@ namespace FaPA.Data
                 d.Column( c =>
                 {
                     c.Length( 28 );
-                    c.NotNullable( true );
+                    //c.NotNullable( true );
+                    c.Unique( true );
+                    c.Check( "" );
                 } );
             } );
 
-            Property(x => x.Denominazione);
-            Property(x => x.Cognome);
-            Property(x => x.Nome);
+            Property( x => x.Denominazione, d =>
+            {
+                d.Column( c =>
+                {
+                    c.Length( 150 );
+                    c.Index( "denomidx" );
+                } );
+            } );
+
+            Property( x => x.Cognome, d =>
+            {
+                d.Column( c =>
+                {
+                    c.Length( 80 );
+                    c.Index( "cognomidx" );
+                } );
+            } );
+
+            Property( x => x.Nome, d =>
+            {
+                d.Column( c =>
+                {
+                    c.Length( 80 );
+                    c.Index( "nomidx" );
+                } );
+            } );
+
+            Property( x => x.CodUfficio, d =>
+            {
+                d.Column( c =>
+                {
+                    c.Length( 6 );
+                } );
+            } );
+
             Property(x => x.Email);
             Property(x => x.Pec);
             Property(x => x.Tel);
@@ -56,6 +90,7 @@ namespace FaPA.Data
                     c.Length(1000);
                 });
             });
+
             Property(x => x.Comune, d =>
             {
                 d.Column(c =>
@@ -69,7 +104,7 @@ namespace FaPA.Data
             {
                 d.Column(c =>
                 {
-                    c.Length(50);
+                    c.Length(2);
                     c.NotNullable(true);
                 });
             });
@@ -78,7 +113,7 @@ namespace FaPA.Data
             {
                 d.Column(c =>
                 {
-                    c.Length(50);
+                    c.Length(5);
                     c.NotNullable(true);
                 });
             });

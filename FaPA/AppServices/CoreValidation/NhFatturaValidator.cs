@@ -4,15 +4,15 @@ using FaPA.DomainServices.Utils;
 
 namespace FaPA.AppServices.CoreValidation
 {
-    public class NhFatturaValidator : NhValidator
+    public class NhFatturaValidator : NhInstanceValidator
     {
-        private static readonly string[] _itemLevelValidationGroup = { "NumeroFatturaDB", "DataFatturaDB", "AnagraficaCedenteDB" };
-        
+        protected override IEnumerable<string> ItemLevelValidationGroup => new[] { "NumeroFatturaDB", "DataFatturaDB", "AnagraficaCedenteDB" };
+
         public override IDictionary<string, IEnumerable<string>> GetValidationErrors(string columnName, object instance)
         {
             if ( Validator == null ) return new Dictionary<string, IEnumerable<string>>();
 
-            if (_itemLevelValidationGroup.Contains(columnName))
+            if ( ItemLevelValidationGroup.Contains(columnName))
                 return GetValidationErrors(instance);
 
             var errors =  Validator.ValidatePropertyValue(instance, columnName).

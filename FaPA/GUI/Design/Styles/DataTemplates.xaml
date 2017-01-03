@@ -1,29 +1,31 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:finder="clr-namespace:FaPA.Infrastructure.Finder"
-                    xmlns:templates="clr-namespace:FaPA.GUI.Design.Templates.SearchTypeTemplates"
-                    xmlns:searchFattura="clr-namespace:FaPA.GUI.Feautures.SearchFattura"
+                    xmlns:fnd="clr-namespace:FaPA.Infrastructure.Finder"
+                    xmlns:t="clr-namespace:FaPA.GUI.Design.Templates.SearchTypeTemplates"
+                    xmlns:sf="clr-namespace:FaPA.GUI.Feautures.SearchFattura"
                     xmlns:a="clr-namespace:FaPA.GUI.Feautures.Fattura"
                     xmlns:t1="clr-namespace:FaPA.GUI.Design.Templates"
-                    xmlns:controls="clr-namespace:FaPA.GUI.Controls"
-                    xmlns:utils="clr-namespace:FaPA.GUI.Utils"
+                    xmlns:ctrls="clr-namespace:FaPA.GUI.Controls"
+                    xmlns:u="clr-namespace:FaPA.GUI.Utils"
                     xmlns:mr="clr-namespace:FaPA.GUI.Controls.MyRecordNavigator"
-                    xmlns:local="clr-namespace:FaPA.GUI.Feautures.Anagrafica"
+                    xmlns:l="clr-namespace:FaPA.GUI.Feautures.Anagrafica"
                     xmlns:fp="clr-namespace:FaPA.Core.FaPa">
-
+    
+    <DataTemplate DataType="{x:Type l:EditAnagraficaViewModel}">
+        <ctrls:CRUDVM/>
+    </DataTemplate>
+    
     <DataTemplate x:Key="AnagraficaTemplate">
         <t1:Anagrafica  />
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type local:AnagraficaListViewModel}">
+    <DataTemplate DataType="{x:Type l:AnagraficaListViewModel}">
         <t1:AnagraficaGrid GridItemSource="{Binding Path=DataContext.UserCollectionView,
                                                     RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
                            IsSynchronizedWithCurrentItem="True"/>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type local:EditAnagraficaViewModel}">
-        <controls:CRUDVM/>
-    </DataTemplate>
+
 
     <DataTemplate x:Key="FatturaTemplate">
         <t1:Fattura />
@@ -42,7 +44,7 @@
     </DataTemplate>    
 
     <DataTemplate DataType="{x:Type a:EditFatturaViewModel}">
-        <controls:CRUDVM/>
+        <ctrls:CRUDVM/>
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type a:RitenutaTabViewModel}">
@@ -76,7 +78,7 @@
 
             </StackPanel>
 
-            <Grid utils:FocusAdvancement.AdvancesByEnterKey="True" Grid.Row="1" 
+            <Grid u:FocusAdvancement.AdvancesByEnterKey="True" Grid.Row="1" 
                   Visibility="{Binding IsEmpty, Mode=OneWay, Converter={StaticResource BoolToOppositeVisibilityConverter}}">
                 <Grid.RowDefinitions >
                     <RowDefinition Height="265" />
@@ -116,7 +118,7 @@
                                                 TextSearch.TextPath="Description"
                                                 DisplayMemberPath="Description"
                                                 SelectedValuePath="Value"
-						                        ItemsSource="{Binding Source={utils:Enumeration {x:Type fp:CondizioniPagamentoType}}}"
+						                        ItemsSource="{Binding Source={u:Enumeration {x:Type fp:CondizioniPagamentoType}}}"
                                                 SelectedValue="{Binding CurrentPoco.CondizioniPagamento, Mode=TwoWay, 
                                                                         UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
                                 </StackPanel>
@@ -295,36 +297,36 @@
         <t1:DatiDocumentiCorrelati/>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type finder:StringSearchProperty}">
-        <templates:TypeStringCriterion/>
+    <DataTemplate DataType="{x:Type fnd:StringSearchProperty}">
+        <t:TypeStringCriterion/>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type finder:EnumSearchProperty}">
-        <templates:TypeEnumCriterion />
+    <DataTemplate DataType="{x:Type fnd:EnumSearchProperty}">
+        <t:TypeEnumCriterion />
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type finder:DoubleSearchProperty}">
-        <templates:TypeNullDoubleCriterion />
+    <DataTemplate DataType="{x:Type fnd:DoubleSearchProperty}">
+        <t:TypeNullDoubleCriterion />
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type finder:FloatSearchProperty}">
-        <templates:TypeNullDoubleCriterion />
+    <DataTemplate DataType="{x:Type fnd:FloatSearchProperty}">
+        <t:TypeNullDoubleCriterion />
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type finder:Int64SearchProperty}">
-        <templates:TypeNullInt64Criterion />
+    <DataTemplate DataType="{x:Type fnd:Int64SearchProperty}">
+        <t:TypeNullInt64Criterion />
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type finder:DateTimeSearchProperty}">
-        <templates:TypeDateTimeCriterion />
+    <DataTemplate DataType="{x:Type fnd:DateTimeSearchProperty}">
+        <t:TypeDateTimeCriterion />
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type searchFattura:FornitoreSearchProperty}">
-        <templates:TypeAssociationByComboBoxCriterion />
+    <DataTemplate DataType="{x:Type sf:FornitoreSearchProperty}">
+        <t:TypeAssociationByComboBoxCriterion />
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type searchFattura:CommittenteSearchProperty}">
-        <templates:TypeAssociationByComboBoxCriterion />
+    <DataTemplate DataType="{x:Type sf:CommittenteSearchProperty}">
+        <t:TypeAssociationByComboBoxCriterion />
     </DataTemplate>
     
     <!--<DataTemplate DataType="{x:Type searchFattura:CodicePoDSearchProperty}">

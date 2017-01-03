@@ -97,7 +97,7 @@ namespace FaPA.GUI.Feautures.Anagrafica
         {
             IsBusy = true;
             Model = new Model();
-            InitViewModel<Core.Anagrafica>(queryByExample);
+            InitViewModel(queryByExample);
             IsBusy = false;
         }
 

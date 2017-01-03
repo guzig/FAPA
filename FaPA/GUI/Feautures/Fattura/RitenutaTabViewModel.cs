@@ -18,7 +18,7 @@ namespace FaPA.GUI.Feautures.Fattura
         //{
         //    base.OnCancelDelegateExecute();
         //    //if ( UserProperty != null ) return;
-        //    //EventPublisher.Publish( new RemoveTabView( this, ParentViewModel ), this );
+        //    //EventPublisher.Publish( new RemoveTabViewEventArg( this, ParentViewModel ), this );
         //}
 
 

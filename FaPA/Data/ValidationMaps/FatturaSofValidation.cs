@@ -13,19 +13,19 @@ namespace FaPA.Data.ValidationMaps
         //see:http://fabiomaulo.blogspot.it/2010/01/nhibernatevalidator-changing-validation.html
         public FatturaSofValidation()
         {
-            ValidateInstance.By((fattura, validationContext) =>
+            ValidateInstance.By((fattura, context) =>
             {
                 var isValid = true;
 
                 if (fattura.DataFatturaDB == DateTime.MinValue)
                 {
-                    validationContext.AddInvalid<Fattura, DateTime>("Data fattura non valida", p => p.DataFatturaDB);
+                    context.AddInvalid<Fattura, DateTime>("Data fattura non valida", p => p.DataFatturaDB);
                     isValid = false;
                 }
 
                 if (fattura.AnagraficaCedenteDB == null)
                 {
-                    validationContext.AddInvalid<Fattura, Fornitore>("Specificare un fornitore ",
+                    context.AddInvalid<Fattura, Fornitore>("Specificare un fornitore ",
                         p => p.AnagraficaCedenteDB);
                     isValid = false;
                 }
@@ -33,9 +33,9 @@ namespace FaPA.Data.ValidationMaps
                 if ( !isValid || IsUniqueFattura( fattura ) ) return isValid;
 
                 const string error = "Numero, data, e, fornitore, fattura non sono unici";
-                validationContext.AddInvalid<Fattura, string>(error, p => p.NumeroFatturaDB);
-                validationContext.AddInvalid<Fattura, DateTime>(error, p => p.DataFatturaDB);
-                validationContext.AddInvalid<Fattura, Fornitore>(error, p => p.AnagraficaCedenteDB);
+                context.AddInvalid<Fattura, string>(error, p => p.NumeroFatturaDB);
+                context.AddInvalid<Fattura, DateTime>(error, p => p.DataFatturaDB);
+                context.AddInvalid<Fattura, Fornitore>(error, p => p.AnagraficaCedenteDB);
 
                 return false;
             });
@@ -47,10 +47,9 @@ namespace FaPA.Data.ValidationMaps
             Define(f => f.AnagraficaCedenteDB).NotNullable().WithMessage("Specificare un fornitore");
             Define(f => f.AnagraficaCommittenteDB).NotNullable().WithMessage("Specificare un committente");
             Define(f => f.DataFatturaDB).Satisfy(d => d != DateTime.MinValue && d != DateTime.MaxValue).WithMessage("Data fattura è un campo richiesto");
-
         }
 
-        private static bool IsUniqueFattura( Fattura fatt)
+        private static bool IsUniqueFattura( Fattura fatt )
         {
             if ( fatt.AnagraficaCedenteDB == null || string.IsNullOrWhiteSpace( fatt.NumeroFatturaDB )  ||
                  fatt.DataFatturaDB == DateTime.MinValue || fatt.DataFatturaDB == DateTime.MaxValue)

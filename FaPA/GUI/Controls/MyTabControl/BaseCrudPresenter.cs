@@ -296,7 +296,7 @@ namespace FaPA.GUI.Controls.MyTabControl
 
 
 
-        protected void InitViewModel<TDto>( QueryOver queryByExample )
+        protected void InitViewModel( QueryOver queryByExample )
         {
             var entities = GetExeCriteria<T>( queryByExample );
 
@@ -305,9 +305,9 @@ namespace FaPA.GUI.Controls.MyTabControl
             SetUpNewModel( 0, new ObservableCollection<T>( entities ) );
         }
 
-        protected void SetUpModel<TDto>( IEnumerable<TDto> entitiesdto )
+        protected void SetUpModel( IEnumerable<T> entitiesdto )
         {
-            Model.UserEntities = new ObservableCollection<TDto>( entitiesdto );
+            Model.UserEntities = new ObservableCollection<T>( entitiesdto );
             Model.UserCollectionView = CollectionViewSource.GetDefaultView( Model.UserEntities );
             //var viewModel = Model.EditViewModel as EditViewModel<T>;
 

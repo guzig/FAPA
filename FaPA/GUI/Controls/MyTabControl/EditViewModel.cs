@@ -24,9 +24,22 @@ namespace FaPA.GUI.Controls.MyTabControl
     public abstract class EditViewModel<T> :  ListViewViewModel, IEditViewModel, 
         IRepository, IDispose where T : BaseEntity
     {
+        #region fields
+
+        private readonly BackgroundWorker _searchBackgroundWorker;
+
+        private bool _isOnBind;
+
+        private static readonly NhProxyInspector ProxyInspector = new NhProxyInspector();
+
+        private ISession _session;
+        private IStatelessSession _statelessSession;
+
+        #endregion
+
         public virtual string EditTemplateName { get; }
 
-        public IBasePresenter BasePresenter { get; private set; }
+        public IBasePresenter BasePresenter { get; }
 
         public delegate void OnCurrentChangedhandler(T currententity);
 
@@ -56,13 +69,7 @@ namespace FaPA.GUI.Controls.MyTabControl
         //    if (handler != null)
         //        handler(sender);
         //}
-
-        private readonly BackgroundWorker _searchBackgroundWorker;
-
-        private bool _isOnBind ;
-
-        private static readonly NhProxyInspector ProxyInspector = new NhProxyInspector();
-
+       
         #region props
         private bool _isValid=true;
         public bool IsValid
@@ -99,11 +106,8 @@ namespace FaPA.GUI.Controls.MyTabControl
             }
         }
 
-        public object CurrentEntityToObject
-        {
-            get { return _currentEntity; } 
-        }
-        
+        //public object CurrentEntityToObject => _currentEntity;
+
         private IList _userCollection;
         public IList UserCollection
         {
@@ -130,8 +134,7 @@ namespace FaPA.GUI.Controls.MyTabControl
         public const string OnEditingLockMessage = "Salvare o annullare le modifiche apportate prima di chiudere la scheda.";
         private const string OnFastSearchLockMessage = "Annullare la ricerca in corso, prima di chiudere la scheda .";
 
-        protected ISession Session;
-        private IStatelessSession _statelessSession;
+
 
         private bool _allowPrint = true;
         public bool AllowPrint
@@ -266,8 +269,8 @@ namespace FaPA.GUI.Controls.MyTabControl
 
         protected void SetUpSession(ISession session, IStatelessSession statelessSession )
         {
-            Session = session;
-            Session.FlushMode=FlushMode.Never;
+            _session = session;
+            _session.FlushMode=FlushMode.Never;
             _statelessSession = statelessSession;
         }
         
@@ -297,7 +300,6 @@ namespace FaPA.GUI.Controls.MyTabControl
             AllowInsertNewEntity = false;
 
             OnCurrentPropChanged((T)sender, argts);
-
         }
              
         private void OnCurrentSelectionChanged(object sender, EventArgs args)
@@ -379,10 +381,10 @@ namespace FaPA.GUI.Controls.MyTabControl
             try
             {
                 T instance;
-                using (var tx = Session.BeginTransaction())
+                using (var tx = _session.BeginTransaction())
                 {
-                    Session.Evict( Session.Get<T>( id ) );
-                    instance = Session.Get<T>( id );
+                    _session.Evict( _session.Get<T>( id ) );
+                    instance = _session.Get<T>( id );
                     tx.Commit();
                 }
                 return instance;
@@ -442,14 +444,14 @@ namespace FaPA.GUI.Controls.MyTabControl
 
         protected virtual bool TrySaveCurrentEntity()
         {
-            using (var tx = Session.BeginTransaction())
+            using (var tx = _session.BeginTransaction())
             {
                 try
                 {
-                    Session.Clear();
+                    _session.Clear();
                     var typeName = ProxyInspector.GuessType( CurrentEntity ).FullName;
-                    Session.SaveOrUpdate(typeName, CurrentEntity);
-                    Session.Flush();
+                    _session.SaveOrUpdate(typeName, CurrentEntity);
+                    _session.Flush();
                     tx.Commit();
                     return true;
                 }
@@ -457,7 +459,7 @@ namespace FaPA.GUI.Controls.MyTabControl
                 {
                     Debug.Print( e.Message );
                     tx.Rollback();
-                    Session.Clear();
+                    _session.Clear();
                     return false;
                 }
             }
@@ -484,12 +486,12 @@ namespace FaPA.GUI.Controls.MyTabControl
         {
             try
             {
-                using ( var tx = Session.BeginTransaction() )
+                using ( var tx = _session.BeginTransaction() )
                 {
                     var typeName = ProxyInspector.GuessType(_currentEntity).FullName;
-                    var entity = Session.Get<T>( CurrentEntity.Id );
-                    Session.Delete( typeName, entity );
-                    Session.Flush();
+                    var entity = _session.Get<T>( CurrentEntity.Id );
+                    _session.Delete( typeName, entity );
+                    _session.Flush();
                     tx.Commit();
                 }
             }
@@ -525,14 +527,9 @@ namespace FaPA.GUI.Controls.MyTabControl
 
             DecorateEntity();
 
-            var validtor = CurrentEntity as IValidatable;
-            if ( validtor != null )
-            {
-                validtor.Validate();
-                validtor.HandleValidationResults();
-            }
+            ValidateAndShow( CurrentEntity );
 
-            AllowSave = validtor == null || validtor.DomainResult.Success;
+            AllowSave = CurrentEntity == null || CurrentEntity.DomainResult.Success;
             IsSearchModality = false;
             DisplayName = DisplayName.Replace("Dettaglio","Crea");
             LockMessage = OnEditingLockMessage;
@@ -540,6 +537,13 @@ namespace FaPA.GUI.Controls.MyTabControl
             AllowInsertNewEntity = false;
             AllowRecordsNavigation = false;
             AllowDelete = false;
+        }
+
+        private static void ValidateAndShow( IValidatable validtor )
+        {
+            if ( validtor == null ) return;
+            validtor.Validate();
+            validtor.HandleValidationResults();
         }
 
         protected virtual T CreateInstance()
@@ -583,8 +587,6 @@ namespace FaPA.GUI.Controls.MyTabControl
             Load();
 
             _isOnBind = false;
-
-            //OnCurrentChanged( CurrentEntity );
 
             _onCancelDelegate = DefaultCancelOnEditAction;
         }
@@ -630,9 +632,9 @@ namespace FaPA.GUI.Controls.MyTabControl
 
         private void ReplaceSessionAfterError()
         {
-            if (Session != null)
+            if (_session != null)
             {
-                Session.Clear();
+                _session.Clear();
                 //ReplaceEntitiesLoadedByFaultedSession();
             }
         }
@@ -678,7 +680,7 @@ namespace FaPA.GUI.Controls.MyTabControl
         {
             //OnCurrentChanging(CurrentEntity);
             
-            Session.Clear();
+            _session.Clear();
             
             //CurrentEntity = CreateInstance();
 
@@ -792,7 +794,7 @@ namespace FaPA.GUI.Controls.MyTabControl
                 //if (SetAssociationCriteria != null)
                 //SetAssociationCriteria(criteria, CurrentEntity);
 
-                return CriteriaTransformer.TransformToRowCount(_queryByExample.GetExecutableCriteria(Session))
+                return CriteriaTransformer.TransformToRowCount(_queryByExample.GetExecutableCriteria(_session))
                     .UniqueResult<int>();
             }
             catch (Exception)
@@ -852,7 +854,7 @@ namespace FaPA.GUI.Controls.MyTabControl
 
         private void UnProxy(BaseEntity instance)
         {
-            Session.GetSessionImplementation().PersistenceContext.Unproxy(instance);
+            _session.GetSessionImplementation().PersistenceContext.Unproxy(instance);
         }
 
         public event Action Disposed = delegate { };
@@ -861,7 +863,7 @@ namespace FaPA.GUI.Controls.MyTabControl
         {
             base.Dispose();
 
-            Session?.Dispose();
+            _session?.Dispose();
 
             _statelessSession?.Dispose();
 

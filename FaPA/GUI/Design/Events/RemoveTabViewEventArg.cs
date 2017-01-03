@@ -5,12 +5,12 @@ namespace FaPA.GUI.Design.Events
 {
     namespace Emule.GUI.Design.Events
     {
-        public class RemoveTabView
+        public class RemoveTabViewEventArg
         {
             public readonly WorkspaceViewModel ViewModel;
             public readonly IEditViewModel ParentViewModel;
 
-            public RemoveTabView(WorkspaceViewModel viewModel, IEditViewModel parentViewModel)
+            public RemoveTabViewEventArg(WorkspaceViewModel viewModel, IEditViewModel parentViewModel)
             {
                 ViewModel = viewModel;
                 ParentViewModel = parentViewModel;
