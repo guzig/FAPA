@@ -1,17 +1,20 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using FaPA.Core;
 using NHibernate.Proxy.DynamicProxy;
 
 namespace FaPA.Data
 {
-    public class PropChangedAndDataErrorDynProxyInterceptor : NHibernate.Proxy.DynamicProxy.IInterceptor
+    public class PropChangedAndDataErrorDynProxyInterceptor : NHibernate.Proxy.DynamicProxy.IInterceptor, ICrossPropertiesValidationResolver
     {
         private readonly PropertyChangedEventHandler _onChangedHanler;
         public object Proxy { get; set; }
         private PropertyChangedEventHandler _changed = delegate { };
+        private readonly Type _proxyType;
         private event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
-        
+        private readonly CrossPropertiesValidationResolver _crossPropsValidationResolver = new CustomCrossPropertiesValidationResolver();
+
         public PropChangedAndDataErrorDynProxyInterceptor(){}
 
         public PropChangedAndDataErrorDynProxyInterceptor(object proxy, PropertyChangedEventHandler onChangedHanler)
@@ -23,6 +26,7 @@ namespace FaPA.Data
             }
 
             Proxy = proxy;
+            _proxyType = Proxy.GetType();
         }
 
         public object Intercept(InvocationInfo info)
@@ -73,7 +77,7 @@ namespace FaPA.Data
                  propertyName != nameof(entity.IsNotyfing) && entity.IsValidating )
             {
                 ValidatePropValue( propertyName, entity );
-                ErrorsChanged?.Invoke( info.Target, new DataErrorsChangedEventArgs(propertyName));               
+                ShowPropValidationError( propertyName, info.Target );
             }
 
             //INotifyPropertyChanged
@@ -84,6 +88,22 @@ namespace FaPA.Data
              }
              
             return returnValue;
+        }
+
+        private void ShowPropValidationError( string propertyName, object target )
+        {
+            var crossProperties = _crossPropsValidationResolver.TryGetCrossCoupledPropValidation( _proxyType, propertyName );
+            if ( crossProperties == null)
+            {
+                ErrorsChanged?.Invoke( target, new DataErrorsChangedEventArgs( propertyName ) );
+            }
+            else
+            {
+                foreach ( var propName in crossProperties )
+                {
+                    ErrorsChanged?.Invoke( target, new DataErrorsChangedEventArgs( propName ) );
+                }
+            }
         }
 
         private static void ValidatePropValue( string propertyName, BaseEntity entity )
@@ -102,8 +122,18 @@ namespace FaPA.Data
             if ( valdtor.DomainResult.Success ) return ;
             foreach (var pair in valdtor.DomainResult.Errors)
             {
-                ErrorsChanged?.Invoke( target, new DataErrorsChangedEventArgs( pair.Key ) );
+                ShowPropValidationError( pair.Key, target );
             }
+        }
+
+        public virtual void AddCrossCoupledPropValidation<TEntity>( ICrossPropertiesValidationContext<TEntity> crossPropContext )
+        {
+            _crossPropsValidationResolver.AddCrossCoupledPropValidation( crossPropContext );
+        }
+
+        public virtual HashSet<string> TryGetCrossCoupledPropValidation( Type type, string propName )
+        {
+            return _crossPropsValidationResolver.TryGetCrossCoupledPropValidation( type, propName );
         }
     }
 }

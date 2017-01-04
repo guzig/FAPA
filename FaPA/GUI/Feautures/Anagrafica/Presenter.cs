@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Data;
 using System.Windows.Input;
-using FaPA.Core;
-using FaPA.DomainServices.Utils;
 using FaPA.GUI.Controls.MyTabControl;
 using FaPA.GUI.Utils;
 using FaPA.Infrastructure;

@@ -1,4 +1,3 @@
-using System;
 using FaPA.Core;
 using FaPA.DomainServices;
 using NHibernate;

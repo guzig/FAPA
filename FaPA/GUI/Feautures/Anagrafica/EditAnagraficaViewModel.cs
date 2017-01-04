@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -7,7 +6,6 @@ using System.Windows.Data;
 using FaPA.Core;
 using FaPA.DomainServices.Utils;
 using FaPA.GUI.Controls.MyTabControl;
-using FaPA.GUI.Utils;
 using NHibernate;
 
 namespace FaPA.GUI.Feautures.Anagrafica

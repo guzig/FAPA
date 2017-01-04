@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 using FaPA.AppServices.CoreValidation;
 using FaPA.Core;
 using FaPA.Infrastructure;
-using NHibernate.Util;
 
 namespace FaPA.GUI.Feautures.Fattura
 {

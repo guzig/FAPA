@@ -15,12 +15,12 @@ namespace FaPA.Data.ValidationMaps
         {
             ValidateInstance.By( ValidateInstanc );
 
-            Define( l => l.Comune ).NotNullableAndNotEmpty().WithMessage( "Specificare un comune" );
-            Define( l => l.Provincia ).NotNullableAndNotEmpty().WithMessage( "Specificare la provincia " );
-            Define( l => l.Cap ).NotNullableAndNotEmpty().WithMessage( "Specificare la provincia " );
-            Define( f => f.Indirizzo ).NotNullable().WithMessage( "Specificare indirizzo" );
-            Define( f => f.Civico ).NotNullable().WithMessage( "Specificare il civico" );
-            Define( f => f.Nazione ).NotNullable().WithMessage( "Specificare la naizone" );
+            //Define( l => l.Comune ).NotNullableAndNotEmpty().WithMessage( "Specificare un comune" );
+            //Define( l => l.Provincia ).NotNullableAndNotEmpty().WithMessage( "Specificare la provincia " );
+            //Define( l => l.Cap ).NotNullableAndNotEmpty().WithMessage( "Specificare la provincia " );
+            //Define( f => f.Indirizzo ).NotNullable().WithMessage( "Specificare indirizzo" );
+            //Define( f => f.Civico ).NotNullable().WithMessage( "Specificare il civico" );
+            //Define( f => f.Nazione ).NotNullable().WithMessage( "Specificare la naizone" );
 
         }
 
@@ -29,35 +29,53 @@ namespace FaPA.Data.ValidationMaps
             bool isValid = true;
             if ( !string.IsNullOrWhiteSpace( anag.PIva ) || !string.IsNullOrWhiteSpace( anag.Denominazione ) )
             {
+                if ( anag.PIva.Length != 11 )
+                {
+                    context.AddInvalid<Committente, string>( "P.IVA non valida", p => p.Denominazione );
+                    isValid = false;
+                }
+
+                if ( anag.CodiceFiscale.Length != 11 )
+                {
+                    context.AddInvalid<Committente, string>( "Codice fiscale non valido", p => p.Denominazione );
+                    isValid = false;
+                }
+
                 if ( string.IsNullOrWhiteSpace( anag.Denominazione ) )
                 {
                     context.AddInvalid<Committente, string>( "Denominazione non valida", p => p.Denominazione );
+                    isValid = false;
                 }
                 if ( string.IsNullOrWhiteSpace( anag.PIva ) )
                 {
                     context.AddInvalid<Committente, string>( "P.Iva non valida", p => p.PIva );
-                }
-                isValid = false;
+                    isValid = false;
+                }              
             }
             else
             {
                 if ( string.IsNullOrWhiteSpace( anag.Cognome ) )
                 {
                     context.AddInvalid<Committente, string>( "Cognome non valido", p => p.Cognome );
+                    isValid = false;
                 }
 
                 if ( string.IsNullOrWhiteSpace( anag.Nome ) )
                 {
                     context.AddInvalid<Committente, string>( "Nome non valido", p => p.Nome );
+                    isValid = false;
                 }
 
                 if ( string.IsNullOrWhiteSpace( anag.CodiceFiscale ) )
                 {
                     context.AddInvalid<Committente, string>( "CodiceFiscale non valido", p => p.CodiceFiscale );
+                    isValid = false;
                 }
             }
 
-            if ( !isValid || !IsUnique( anag ) ) return false;
+            if ( !isValid  ) return false;
+
+            if ( string.IsNullOrWhiteSpace( anag.CodiceFiscale ) || IsUnique( anag ) ) return true;
 
             const string error = "Questo codice fiscale esiste già";
             context.AddInvalid<Committente, string>( error, p => p.CodiceFiscale );
@@ -67,9 +85,6 @@ namespace FaPA.Data.ValidationMaps
 
         private static bool IsUnique( Committente anag  )
         {
-            if ( string.IsNullOrWhiteSpace( anag.CodiceFiscale ) )
-                return false;
-
             object isLock = 0;
             int result;
             lock ( isLock )

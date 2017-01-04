@@ -284,6 +284,9 @@
     <Compile Include="Core\BaseEntityFpa.cs" />
     <Compile Include="Core\Committente.cs" />
     <Compile Include="Core\Comune.cs" />
+    <Compile Include="Core\CrossPropertiesValidationContext.cs" />
+    <Compile Include="Core\CrossPropertiesValidationResolver.cs" />
+    <Compile Include="Core\CustomCrossPropertiesValidationResolver.cs" />
     <Compile Include="Core\DomainResult.cs" />
     <Compile Include="Core\FaPa\AllegatiType.cs" />
     <Compile Include="Core\FaPa\AltriDatiGestionaliType.cs" />
@@ -367,6 +370,8 @@
     <Compile Include="Core\FaPa\SignatureFPA\X509IssuerSerialType.cs" />
     <Compile Include="Core\Fattura.cs" />
     <Compile Include="Core\Fornitore.cs" />
+    <Compile Include="Core\ICrossPropertiesValidationContext.cs" />
+    <Compile Include="Core\ICrossPropertiesValidationResolver.cs" />
     <Compile Include="Core\IEntity.cs" />
     <Compile Include="Core\IFlyFetch.cs" />
     <Compile Include="Core\IValidatable.cs" />

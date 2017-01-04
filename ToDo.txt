@@ -1,3 +1,4 @@
+p.iva codfiscale validazione
 
 DataGridHelpers.DataGridKeyUpEventHandler( e, FattureGridSearch );
 

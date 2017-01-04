@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using FaPA.Core.FaPa;
 
 namespace FaPA.AppServices.CoreValidation
 {

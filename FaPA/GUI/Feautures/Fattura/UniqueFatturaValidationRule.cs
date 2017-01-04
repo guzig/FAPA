@@ -31,7 +31,7 @@ namespace FaPA.GUI.Feautures.Fattura
                      fattura.DomainResult.Errors.Any( i=> ItemLevelValidationProps.Contains( i.Key ) ) )
                     return new ValidationResult(false, "Numero fattura già registrato");
             }
-                return ValidationResult.ValidResult;
+            return ValidationResult.ValidResult;
         }
     }
 }
