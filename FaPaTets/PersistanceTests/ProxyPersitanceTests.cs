@@ -20,10 +20,10 @@ namespace FaPaTets.PersistanceTests
 
             var fattura = DataTestFactory.GetFattura();
 
-            AddPropChangedAndDataErrorInterceptorProxyFactory.Create( typeof(Committente), 
+            AddPropChangedAndDataErrorInterceptorProxyFactory.Create( typeof(Anagrafica), 
                 fattura.AnagraficaCommittenteDB);
 
-            AddPropChangedAndDataErrorInterceptorProxyFactory.Create(typeof(Fornitore),
+            AddPropChangedAndDataErrorInterceptorProxyFactory.Create(typeof(Anagrafica),
                 fattura.AnagraficaCedenteDB);
 
             fattura.SetTrasmittente();
@@ -33,8 +33,8 @@ namespace FaPaTets.PersistanceTests
             fattura.FatturaPa = (FatturaElettronicaType) ObjectExplorer.UnProxiedDeep(current);
             using ( var transaction = session.BeginTransaction())
             {
-                session.SaveOrUpdate(typeof(Fornitore).FullName, fattura.AnagraficaCedenteDB);
-                session.SaveOrUpdate(typeof(Committente).FullName, fattura.AnagraficaCommittenteDB);
+                session.SaveOrUpdate(typeof(Anagrafica).FullName, fattura.AnagraficaCedenteDB);
+                session.SaveOrUpdate(typeof(Anagrafica).FullName, fattura.AnagraficaCommittenteDB);
                 session.SaveOrUpdate( typeof( Fattura ).FullName, fattura );
                 session.Flush();
                 transaction.Commit();
@@ -71,8 +71,8 @@ namespace FaPaTets.PersistanceTests
             using (var session = _sessionFactory.OpenSession( new AddPropertyChangedInterceptor() ) )
             using (var transaction = session.BeginTransaction())
             {
-                session.SaveOrUpdate(typeof(Fornitore).FullName, fattura.AnagraficaCedenteDB);
-                session.SaveOrUpdate(typeof(Committente).FullName, fattura.AnagraficaCommittenteDB);
+                session.SaveOrUpdate(typeof(Anagrafica).FullName, fattura.AnagraficaCedenteDB);
+                session.SaveOrUpdate(typeof(Anagrafica).FullName, fattura.AnagraficaCommittenteDB);
                 session.SaveOrUpdate(typeof(Fattura).FullName, fattura);
                 session.Flush();
                 transaction.Commit();

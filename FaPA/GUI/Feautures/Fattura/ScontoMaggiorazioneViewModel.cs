@@ -1,4 +1,4 @@
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using FaPA.Core.FaPa;
 using FaPA.GUI.Controls;
 using FaPA.GUI.Utils;
@@ -6,7 +6,7 @@ using FaPA.Infrastructure;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
-    public class AltriDatiViewModel : BaseTabsViewModel<DettaglioLineeType, AltriDatiGestionaliType[]> 
+    public class ScontoMaggiorazioneViewModel : BaseTabsViewModel<DettaglioLineeType, ScontoMaggiorazioneType[]>
     {
         private bool _isDropDownOpen;
         public bool IsDropDownOpen
@@ -14,11 +14,8 @@ namespace FaPA.GUI.Feautures.Fattura
             get { return _isDropDownOpen; }
             set
             {
-                if (value == _isDropDownOpen) return;
-                _isDropDownOpen = value;
-                //if (_isDropDownOpen == false)
-                //    OnDropDownClosedExecuted();
-                NotifyOfPropertyChange(() => IsDropDownOpen);
+                if ( value == _isDropDownOpen ) return;
+                NotifyOfPropertyChange( () => IsDropDownOpen );
             }
         }
 
@@ -27,8 +24,8 @@ namespace FaPA.GUI.Feautures.Fattura
         {
             get
             {
-                if (_onDropDownButtonClosed != null) return _onDropDownButtonClosed;
-                _onDropDownButtonClosed = new RelayCommand(OnDropDownClosedExecuted , p => true);
+                if ( _onDropDownButtonClosed != null ) return _onDropDownButtonClosed;
+                _onDropDownButtonClosed = new RelayCommand( OnDropDownClosedExecuted, p => true );
                 return _onDropDownButtonClosed;
             }
         }
@@ -42,11 +39,10 @@ namespace FaPA.GUI.Feautures.Fattura
             AllowSave = IsValid;
         }
 
-
         //ctor 
-        public AltriDatiViewModel( IRepository repository, DettaglioLineeType instance) :
-            base( (DettaglioLineeType f) => f.AltriDatiGestionali, repository, instance, "Altri dati", true )
-        {}
+        public ScontoMaggiorazioneViewModel( IRepository repository, DettaglioLineeType instance ) :
+            base( (DettaglioLineeType f) => f.ScontoMaggiorazione, repository, instance, "Sconto/Magg.", true )
+        { }
 
         //persist change in the main tab view model
         protected override void PersitEntity()
@@ -63,9 +59,6 @@ namespace FaPA.GUI.Feautures.Fattura
 
             Init();
 
-            //Persist( Instance );
-            //Read();
-
             AllowDelete = UserCollectionView != null && !UserCollectionView.IsEmpty;
         }
 
@@ -79,22 +72,6 @@ namespace FaPA.GUI.Feautures.Fattura
             RemoveFromFixedArray();
         }
 
-        //protected override bool CanAddEntity( object obj )
-        //{
-            //var viewModel = MainViewModel as EditFatturaViewModel;
-            //var hasParentErrors = false;
-            //if (viewModel?.CurrentEntity?.DettaglioLinee == null) return !HasError; 
-            //foreach (var poco in viewModel.CurrentEntity.DettaglioLinee)
-            //{
-            //    if (!CoreValidatorService.HasErrors(poco)) continue;
-            //    hasParentErrors = true;
-            //    break;
-            //}
-
-            //return !HasError && !hasParentErrors;
-
-            //return true;
-       // }
 
     }
 

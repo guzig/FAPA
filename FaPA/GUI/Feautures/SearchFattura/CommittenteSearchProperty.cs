@@ -3,7 +3,7 @@ using NHibernate.SqlCommand;
 
 namespace FaPA.GUI.Feautures.SearchFattura
 {
-    public class CommittenteSearchProperty : AssociationSearchProperty<Core.Committente>
+    public class CommittenteSearchProperty : AssociationSearchProperty<Core.Anagrafica>
     {
 
         public CommittenteSearchProperty( string propName, ObjectFinder rootFinder )

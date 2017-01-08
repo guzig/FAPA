@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 using FaPA.AppServices.CoreValidation;
 using FaPA.Core;
 using FaPA.Infrastructure;
-using NHibernate.Util;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
@@ -24,7 +23,6 @@ namespace FaPA.GUI.Feautures.Fattura
             get { return _dettagliFatturaViewModel; }
             set
             {
-                if ( Equals( value, _dettagliFatturaViewModel ) ) return;
                 _dettagliFatturaViewModel = value;
                 NotifyOfPropertyChange( () => DettagliFatturaViewModel );
             }

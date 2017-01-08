@@ -31,7 +31,8 @@ namespace FaPA.Core.FaPa
             }
             set
             {
-                _percentualeField = value;
+                _percentualeField = decimal.Parse( string.Format( "{0:###0.00#}", value ) );
+                PercentualeSpecified = _percentualeField != 0;
             }
         }
         
@@ -48,7 +49,7 @@ namespace FaPA.Core.FaPa
             }
         }
 
-        public virtual  decimal Importo
+        public virtual decimal Importo
         {
             get
             {
@@ -56,7 +57,8 @@ namespace FaPA.Core.FaPa
             }
             set
             {
-                _importoField = value;
+                _importoField = decimal.Parse( string.Format( "{0:###0.00}", value ) ); 
+                ImportoSpecified = _importoField != 0;
             }
         }
         

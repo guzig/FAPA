@@ -76,7 +76,7 @@
             <TextBlock Text="Provincia" />
             <ComboBox IsReadOnly="False" IsEditable="True" IsTextSearchEnabled="True"
                       TextSearch.TextPath="DenominazioneProvincia" DisplayMemberPath="DenominazioneProvincia"
-                      ItemsSource="{Binding  Path=Provincie}"
+                      ItemsSource="{Binding  Path=CurrentEntity.Provincie, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
                       SelectedValuePath="SiglaProvincia"
                       SelectedValue="{Binding Path=CurrentEntity.Provincia, Mode=TwoWay}">
             </ComboBox>
@@ -86,7 +86,7 @@
             <TextBlock Text="Comune" />
             <ComboBox IsReadOnly="False" IsEditable="True" IsTextSearchEnabled="True"
                       TextSearch.TextPath="Denominazione" DisplayMemberPath="Denominazione"
-                      ItemsSource="{Binding  Path=ComuniProvinciaView}"
+                      ItemsSource="{Binding  Path=CurrentEntity.ComuniPerProvincia, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
                       SelectedValuePath="Denominazione"
                       SelectedValue="{Binding Path=CurrentEntity.Comune, Mode=TwoWay}">
             </ComboBox>            

@@ -127,24 +127,20 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="Xceed.Wpf.AvalonDock, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Extended.Wpf.Toolkit.2.6\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Extended.Wpf.Toolkit.2.6\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Extended.Wpf.Toolkit.2.6\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Extended.Wpf.Toolkit.2.6\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
-    </Reference>
-    <Reference Include="Xceed.Wpf.DataGrid, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Extended.Wpf.Toolkit.2.6\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Xceed.Wpf.Toolkit, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -173,6 +169,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\Design\Styles\Shared.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GUI\Design\Templates\ScontoMaggiorazione.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -265,6 +265,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AppServices\CoreValidation\AltriDatiGestionaliValidator.cs" />
+    <Compile Include="AppServices\CoreValidation\ScontoMaggiorazioneValidator.cs" />
     <Compile Include="AppServices\CoreValidation\NhAnagraficaValidator.cs" />
     <Compile Include="AppServices\CoreValidation\BaseCoreValidator.cs" />
     <Compile Include="AppServices\CoreValidation\NhCommittenteValidator.cs" />
@@ -278,12 +279,15 @@
     <Compile Include="AppServices\CoreValidation\ICoreValidator.cs" />
     <Compile Include="AppServices\CoreValidation\DatiCorrelatiValidator.cs" />
     <Compile Include="AppServices\CoreValidation\NhValidator.cs" />
+    <Compile Include="AppServices\ReferenceDataFactory.cs" />
     <Compile Include="AppServices\StoreAccess.cs" />
     <Compile Include="Core\Anagrafica.cs" />
     <Compile Include="Core\BaseEntity.cs" />
     <Compile Include="Core\BaseEntityFpa.cs" />
-    <Compile Include="Core\Committente.cs" />
     <Compile Include="Core\Comune.cs" />
+    <Compile Include="Core\CrossPropertiesValidationContext.cs" />
+    <Compile Include="Core\CrossPropertiesValidationResolver.cs" />
+    <Compile Include="Core\CustomCrossPropertiesValidationResolver.cs" />
     <Compile Include="Core\DomainResult.cs" />
     <Compile Include="Core\FaPa\AllegatiType.cs" />
     <Compile Include="Core\FaPa\AltriDatiGestionaliType.cs" />
@@ -366,7 +370,8 @@
     <Compile Include="Core\FaPa\SignatureFPA\X509DataType.cs" />
     <Compile Include="Core\FaPa\SignatureFPA\X509IssuerSerialType.cs" />
     <Compile Include="Core\Fattura.cs" />
-    <Compile Include="Core\Fornitore.cs" />
+    <Compile Include="Core\ICrossPropertiesValidationContext.cs" />
+    <Compile Include="Core\ICrossPropertiesValidationResolver.cs" />
     <Compile Include="Core\IEntity.cs" />
     <Compile Include="Core\IFlyFetch.cs" />
     <Compile Include="Core\IValidatable.cs" />
@@ -382,11 +387,8 @@
     <Compile Include="Data\PropertyChangedLazyInitializer.cs" />
     <Compile Include="Data\PropertyChangedProxyFactory.cs" />
     <Compile Include="Data\PropertyChangedProxyFactoryFactory.cs" />
-    <Compile Include="Data\ValidationMaps\CommittenteSofValidation.cs" />
-    <Compile Include="Data\ValidationMaps\FornitoreSofValidation.cs" />
+    <Compile Include="Data\ValidationMaps\AnagraficaSofValidation.cs" />
     <Compile Include="Data\ValidationMaps\FatturaSofValidation.cs" />
-    <Compile Include="Data\CommittenteMap.cs" />
-    <Compile Include="Data\FornitoreMap.cs" />
     <Compile Include="Data\PropertyPathExtensions.cs" />
     <Compile Include="Data\FatturaMap.cs" />
     <Compile Include="Data\ModelMapperWithNamingConventions.cs" />
@@ -403,13 +405,18 @@
     <Compile Include="GUI\Design\Converters\NullToBooleanConverter.cs" />
     <Compile Include="GUI\Design\Converters\NullToInverseVisibiltyConverter.cs" />
     <Compile Include="GUI\Design\Converters\NullToVisibiltyConverter.cs" />
+    <Compile Include="GUI\Design\Templates\ScontoMaggiorazione.xaml.cs">
+      <DependentUpon>ScontoMaggiorazione.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Feautures\Anagrafica\AnagraficaListViewModel.cs" />
     <Compile Include="GUI\Feautures\Anagrafica\EditAnagraficaViewModel.cs" />
+    <Compile Include="GUI\Feautures\Fattura\ScontoMaggiorazioneViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\DatiContrattoTabViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\DatiConvenzioneTabViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\UniqueFatturaValidationRule.cs" />
     <Compile Include="GUI\Feautures\Fattura\FatturaListViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\ReflectionHelpers.cs" />
+    <Compile Include="GUI\Utils\TextBoxBehavior.cs" />
     <Compile Include="Infrastructure\Helpers\NhProxyInspector.cs" />
     <Compile Include="Infrastructure\IRepository.cs" />
     <Compile Include="GUI\Controls\MyRecordNavigator\MyRecordNavigator.xaml.cs" />

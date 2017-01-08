@@ -45,8 +45,8 @@ namespace FaPaTets
             using (ISession session1 = databaseScope.OpenSession() )
             using ( ITransaction tx = session1.BeginTransaction() )
             {
-                var anagraficaCedente = new Fornitore() {CodiceFiscale = "00"};
-                var anagraficaCommittente = new Committente() { CodiceFiscale = "00" };
+                var anagraficaCedente = new Anagrafica() {CodiceFiscale = "00"};
+                var anagraficaCommittente = new Anagrafica() { CodiceFiscale = "00" };
                 var fattura = new Fattura()
                 {
                     //DataFatturaDB = DateTime.Now,

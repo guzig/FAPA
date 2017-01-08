@@ -11,7 +11,6 @@ using FaPA.Infrastructure;
 using Remotion.Linq.Collections;
 using FaPA.Core;
 using NHibernate.Util;
-using MessageBox = Xceed.Wpf.Toolkit.MessageBox;
 
 namespace FaPA.GUI.Controls
 {
@@ -49,6 +48,7 @@ namespace FaPA.GUI.Controls
         {
             if (UserProperty != null)
             {
+                AllowDelete = true;
                 InitCollectionView();
 
                 foreach (var item in UserCollectionView)
@@ -60,6 +60,7 @@ namespace FaPA.GUI.Controls
             }
             else
             {
+                AllowDelete = false;
                 CurrentPoco = null;
                 UserCollectionView = null;
                 IsEmpty = true;
@@ -158,7 +159,7 @@ namespace FaPA.GUI.Controls
             var index = 0;
             foreach (var element in source.Where(e=>e!=current))
             {
-                newArray.SetValue(element,index);
+                newArray.SetValue(element,index++);
             }
 
             UserProperty = (TProperty) (object) newArray;

@@ -39,7 +39,7 @@ namespace FaPaTets.Misc
         {
             var fattura = new Fattura();
           
-            var fornitore = new Fornitore();
+            var fornitore = new Anagrafica();
             var f  = GetSetter1( (Fattura x) => x.AnagraficaCedenteDB);
             f(fattura,fornitore);
 

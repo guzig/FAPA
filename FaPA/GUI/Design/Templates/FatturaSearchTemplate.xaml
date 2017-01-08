@@ -60,13 +60,13 @@
         </DockPanel>
 
         <DockPanel Width="Auto" Grid.Row="5" HorizontalAlignment="Left" >
-            <ContentControl Content="{Binding Path=FatturaFinder.Fornitore,  ElementName=Root, Mode=TwoWay}"
+            <ContentControl Content="{Binding Path=FatturaFinder.Anagrafica,  ElementName=Root, Mode=TwoWay}"
                                                     IsEnabled="{Binding AllowEditing.Value}">
             </ContentControl>
         </DockPanel>
 
         <DockPanel Width="Auto" Grid.Row="6" HorizontalAlignment="Left" >
-            <ContentControl Content="{Binding Path=FatturaFinder.Committente,  ElementName=Root, Mode=TwoWay}"
+            <ContentControl Content="{Binding Path=FatturaFinder.Anagrafica,  ElementName=Root, Mode=TwoWay}"
                                                 IsEnabled="{Binding AllowEditing.Value}">
             </ContentControl>
         </DockPanel>

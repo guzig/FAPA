@@ -406,7 +406,7 @@ namespace FaPA.GUI.Controls.MyTabControl
 
             if ( !TryPersistEntity() ) return;
 
-            //UserEntitiesView.CurrentChanged -= OnCurrentSelectionChanged;          
+            UserEntitiesView.CurrentChanged -= OnCurrentSelectionChanged;          
             if (isNewEntityAdded)
             {
                 DisplayName = DisplayName.Replace("Crea","Dettaglio");
@@ -415,14 +415,14 @@ namespace FaPA.GUI.Controls.MyTabControl
                 UserCollection.Add( CurrentEntity );
                 UserEntitiesView.MoveCurrentToLast();
             }
-                //EntityAddedNew: event ->  CurrentEntityChanged: event -> ShowCurrent
             else
             {
-                PublishUpdateEntityEvent(CurrentEntity);
+                PublishUpdateEntityEvent(CurrentEntity); // -> LoadAndShowCurrent
                 BasePresenter.RefreshSharedViewsAfterUpdated( CurrentEntity );
-                LoadAndShowCurrentEntity();
             }
-            //UserEntitiesView.CurrentChanged += OnCurrentSelectionChanged;
+            UserEntitiesView.CurrentChanged += OnCurrentSelectionChanged;
+            UserEntitiesView.Refresh();
+            OnCurrentChanged( CurrentEntity );
             _isOnBind = false;           
         }
 
@@ -575,7 +575,6 @@ namespace FaPA.GUI.Controls.MyTabControl
         {
             BindCurrent();
             SetContextAfterBindEntity();
-            OnCurrentChanged(CurrentEntity);
         }
 
         private void BindCurrent()

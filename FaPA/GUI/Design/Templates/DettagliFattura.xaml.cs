@@ -1,6 +1,4 @@
-﻿using System.Windows.Controls;
-using System.Windows.Input;
-using FaPA.GUI.Utils;
+﻿using System.Windows.Input;
 
 namespace FaPA.GUI.Design.Templates
 {

@@ -1,9 +1,12 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+using FaPA.AppServices;
 
 namespace FaPA.Core
 {
-    public abstract class Anagrafica : BaseEntity
+    public class Anagrafica : BaseEntity
     {
         public virtual string Cognome { get; set; }
         public virtual string Nome { get; set; }
@@ -16,19 +19,42 @@ namespace FaPA.Core
         public virtual string Comune { get; set; }
         public virtual string Provincia { get; set; }
         public virtual string Nazione { get; set; }
-        public virtual string CodUfficio { get; set; }
+        public virtual string CodUfficioPa { get; set; }
         public virtual string Pec { get; set; }
         public virtual string Email { get; set; }
         public virtual string Tel { get; set; }
         public virtual string Fax { get; set; }
         public virtual string Note { get; set; }
 
+        public virtual IList<Comune> ComuniPerProvincia { get; set; }
+
+        public static IList<Comune> Provincie => SharedReferenceDataFactory.Provincie;
+
+        public override PropertyChangedEventHandler PropertyChangedEventHandler => OnPropChanged;
+
+        private void OnPropChanged( object sender, PropertyChangedEventArgs e )
+        {
+            var proxy = ( Anagrafica ) sender;
+            if ( proxy == null )
+                return;
+
+            if ( e.PropertyName == nameof( Provincia ) )
+            {
+                proxy.ComuniPerProvincia = SharedReferenceDataFactory.Comuni.
+                    Where( p => p.SiglaProvincia == Provincia ).OrderBy( p => p.Denominazione ).ToList();
+
+                if ( ComuniPerProvincia.Any( c=>c.Denominazione == Comune ) ) return;
+                proxy.Comune = null;
+            }
+
+        }
+
         public virtual string Denom
         {
             get { return !string.IsNullOrWhiteSpace( Denominazione ) ? Denominazione : Cognome + " " + Nome; }
         }
 
-        public virtual ICollection<Fattura> Fatture { get; } = new Collection<Fattura>();
+        public virtual ICollection<Fattura> Fatture { get; protected set; } = new Collection<Fattura>();
         
         public override DomainResult Validate()
         {

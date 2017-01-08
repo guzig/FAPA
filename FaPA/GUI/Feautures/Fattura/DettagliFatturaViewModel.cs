@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Data;
 using FaPA.Core;
@@ -12,7 +11,22 @@ namespace FaPA.GUI.Feautures.Fattura
 {
     public class DettagliFatturaViewModel : BaseTabsViewModel<Core.Fattura, DettaglioLineeType[]>
     {
-        private AltriDatiViewModel _altridatiViewModel ;
+        
+        private bool _isOnInit;
+
+        private ScontoMaggiorazioneViewModel _scontoMaggiorazioneViewModel;
+        public ScontoMaggiorazioneViewModel ScontoMaggiorazioneViewModel
+        {
+            get { return _scontoMaggiorazioneViewModel; }
+            set
+            {
+                if ( Equals( value, _scontoMaggiorazioneViewModel ) ) return;
+                _scontoMaggiorazioneViewModel = value;
+                NotifyOfPropertyChange( () => ScontoMaggiorazioneViewModel );
+            }
+        }
+
+        private AltriDatiViewModel _altridatiViewModel;
         public AltriDatiViewModel AltridatiViewModel
         {
             get { return _altridatiViewModel; }
@@ -27,12 +41,24 @@ namespace FaPA.GUI.Feautures.Fattura
             base( ( Core.Fattura f ) => f.DettaglioLinee, repository, instance, "", false )
         {}
 
+        public override void Init()
+        {
+            _isOnInit = true;
+            base.Init();
+
+            var dettaglio = UserCollectionView?.CurrentItem as DettaglioLineeType;
+            if ( dettaglio == null ) return;
+
+            InitAltriChildViewModel( dettaglio );
+            _isOnInit = false;
+        }
+
         protected override void AddItemToUserCollection()
         {
             AddToArray();
             if ( UserProperty == null ) return;
             var lastAdded= UserProperty[UserProperty.Length - 1];
-            InitAltriDatiVm( lastAdded );
+            InitAltriChildViewModel( lastAdded );
         }
 
         protected override void RemoveItemFromUserCollection()
@@ -42,22 +68,37 @@ namespace FaPA.GUI.Feautures.Fattura
 
         protected override void OnCurrentChanged(object  sender, EventArgs e)
         {
+            if ( _isOnInit ) return;
+
             base.OnCurrentChanged(sender, e);
 
             var cview = sender as ListCollectionView;
             var dettaglio = cview?.CurrentItem as DettaglioLineeType;
             if ( dettaglio == null ) return;
 
-            InitAltriDatiVm( dettaglio );
+            InitAltriChildViewModel( dettaglio );
         }
-        
-        private void InitAltriDatiVm( DettaglioLineeType dettaglio )
+
+        private void InitAltriChildViewModel( DettaglioLineeType dettaglio )
+        {
+            InitAltriDatiViewModel( dettaglio );
+            InitScontoMaggiorazioneViewModel( dettaglio );
+            AllowSave = IsValidate();
+        }
+
+
+        private void InitAltriDatiViewModel( DettaglioLineeType dettaglio )
         {
             AltridatiViewModel = new AltriDatiViewModel( this, dettaglio );
             AltridatiViewModel.Init();
             AltridatiViewModel.CurrentEntityChanged += OnAltriDatiPropertyChanged;
+        }
 
-            AllowSave = IsValidate();
+        private void InitScontoMaggiorazioneViewModel( DettaglioLineeType dettaglio )
+        {
+            ScontoMaggiorazioneViewModel = new ScontoMaggiorazioneViewModel( this, dettaglio );
+            ScontoMaggiorazioneViewModel.Init();
+            ScontoMaggiorazioneViewModel.CurrentEntityChanged += OnScontoMaggiorazionePropertyChanged;
         }
 
         private void OnAltriDatiPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -69,9 +110,24 @@ namespace FaPA.GUI.Feautures.Fattura
             var dettaglio = UserCollectionView.CurrentItem as DettaglioLineeType;
             if (dettaglio == null) return;
 
-            ( ( IValidatable ) dettaglio).ValidatePropertyValue( "AltriDatiGestionali" );
+            ( ( IValidatable ) dettaglio).ValidatePropertyValue( nameof( dettaglio.AltriDatiGestionali ) );
 
             base.OnPropChanged(dettaglio, e);
+
+        }
+
+        private void OnScontoMaggiorazionePropertyChanged( object sender, PropertyChangedEventArgs e )
+        {
+            LockMessage = EditViewModel<BaseEntity>.OnEditingLockMessage;
+            IsEditing = true;
+            AllowSave = IsValidate();
+
+            var dettaglio = UserCollectionView.CurrentItem as DettaglioLineeType;
+            if ( dettaglio == null ) return;
+
+            ( ( IValidatable ) dettaglio ).ValidatePropertyValue( nameof(dettaglio.ScontoMaggiorazione) );
+
+            base.OnPropChanged( dettaglio, e );
 
         }
 
@@ -83,8 +139,9 @@ namespace FaPA.GUI.Feautures.Fattura
 
         private bool IsValidate()
         {
-            var isValidAltriDati = AltridatiViewModel == null || AltridatiViewModel.IsValid;
-            return isValidAltriDati ;
+            var isValidAltriDatiViewModel = AltridatiViewModel == null || AltridatiViewModel.IsValid;
+            var isValidScontoMaggiorazioneViewModel = ScontoMaggiorazioneViewModel == null || ScontoMaggiorazioneViewModel.IsValid;
+            return isValidAltriDatiViewModel && isValidScontoMaggiorazioneViewModel ;
         }
 
         //public override void RefreshView()

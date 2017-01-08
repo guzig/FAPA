@@ -23,7 +23,7 @@ namespace FaPaTets.PersistanceTests
             fattura.DatiGeneraliDocumento.Numero = "a1";
             using (var tx = session.BeginTransaction())
             {
-                fattura.AnagraficaCedenteDB = session.Get<Fornitore>(32768L);
+                fattura.AnagraficaCedenteDB = session.Get<Anagrafica>(32768L);
                 tx.Commit();
             }
 

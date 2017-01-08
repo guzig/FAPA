@@ -7,7 +7,6 @@ using NHibernate;
 
 namespace FaPA.DomainServices.Utils
 {
-
     public class ReferenceDataFactory
     {
         private static readonly ConcurrentDictionary<Type, IEnumerable> ReferenceDataList =

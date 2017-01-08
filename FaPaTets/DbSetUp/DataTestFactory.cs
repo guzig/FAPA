@@ -7,7 +7,7 @@ namespace FaPaTets.DbSetUp
     {
         public static Fattura GetFattura()
         {
-            var fornitore = new Fornitore();
+            var fornitore = new Anagrafica();
             fornitore.Denominazione = "Comune di Isola di Capo Rizzuto";
             fornitore.CodiceFiscale = "81004130795";
             fornitore.PIva = "01939480792";
@@ -18,9 +18,9 @@ namespace FaPaTets.DbSetUp
             fornitore.Nazione = "IT";
             fornitore.Indirizzo = "Piazza Falcone e Borsellino";
 
-            var committente = new Committente();
+            var committente = new Anagrafica();
 
-            committente.Denominazione = "Committente 1";
+            committente.Denominazione = "Anagrafica 1";
             committente.CodiceFiscale = "00304310790";
             committente.PIva = "00304310790";
             committente.Comune = "Cropani";
