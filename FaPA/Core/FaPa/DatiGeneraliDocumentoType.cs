@@ -19,11 +19,11 @@ namespace FaPA.Core.FaPa
 
         private string numeroField;
 
-        private DatiRitenutaType datiRitenutaField;
+        private DatiRitenutaType datiRitenutaField = new DatiRitenutaType();
 
-        private DatiBolloType datiBolloField;
+        private DatiBolloType datiBolloField = new DatiBolloType();
 
-        private DatiCassaPrevidenzialeType datiCassaPrevidenzialeField;
+        private DatiCassaPrevidenzialeType datiCassaPrevidenzialeField = new DatiCassaPrevidenzialeType();
 
         private ScontoMaggiorazioneType[] scontoMaggiorazioneField;
 
@@ -93,6 +93,9 @@ namespace FaPA.Core.FaPa
             }
         }
 
+        [XmlIgnore]
+        public virtual bool DatiRitenutaSpecified { get; set; }  
+        
         public virtual DatiRitenutaType DatiRitenuta
         {
             get
@@ -102,8 +105,12 @@ namespace FaPA.Core.FaPa
             set
             {
                 datiRitenutaField = value;
+                DatiRitenutaSpecified = DatiRitenuta.AliquotaRitenuta != 0 || DatiRitenuta.ImportoRitenuta != 0;
             }
         }
+
+        [XmlIgnore]
+        public bool DatiBolloSpecified { get; set; }
 
         public virtual DatiBolloType DatiBollo
         {
@@ -114,8 +121,12 @@ namespace FaPA.Core.FaPa
             set
             {
                 datiBolloField = value;
+                DatiBolloSpecified = DatiBollo.ImportoBollo > 0;
             }
         }
+
+        [XmlIgnore]
+        public virtual bool DatiCassaPrevidenzialeSpecified { get; set; }
 
         public virtual DatiCassaPrevidenzialeType DatiCassaPrevidenziale
         {
@@ -126,6 +137,7 @@ namespace FaPA.Core.FaPa
             set
             {
                 datiCassaPrevidenzialeField = value;
+                DatiCassaPrevidenzialeSpecified = datiCassaPrevidenzialeField.ImportoContributoCassa != 0;
             }
         }
 

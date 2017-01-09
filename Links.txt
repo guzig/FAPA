@@ -44,3 +44,7 @@ http://seesharpsoftware.com.au/mvvm-validation-with-nhibernate-validator/
 http://www.seesharpsoftware.com.au/idataerrorinfo-behavior-using-dynamicproxy/
 http://stackoverflow.com/questions/7223058/multiple-interceptors-in-nhibernate
 
+tab control
+
+http://blog.dancoder.com/2015/05/wizard-style-tabcontrol/
+http://www.wpfhelper.com/index.php/23-modern-ui-for-wpf/android-ui-for-wpf/30-wpf-tabcontrol-style-inspired-by-android

@@ -17,6 +17,18 @@ namespace FaPA.GUI.Feautures.Fattura
 {
     public class EditFatturaViewModel : EditViewModel<Core.Fattura>
     {
+        private DatiGeneraliDocumentoViewModel _datiGeneraliDocumentoViewModel;
+        public DatiGeneraliDocumentoViewModel DatiGeneraliDocumentoViewModel
+        {
+            get { return _datiGeneraliDocumentoViewModel; }
+            set
+            {
+                if (Equals(value, _datiGeneraliDocumentoViewModel)) return;
+                _datiGeneraliDocumentoViewModel = value;
+                NotifyOfPropertyChange(() => DatiGeneraliDocumentoViewModel);
+            }
+        }
+
         private DettagliFatturaViewModel _dettagliFatturaViewModel;
         public DettagliFatturaViewModel DettagliFatturaViewModel
         {
@@ -122,6 +134,11 @@ namespace FaPA.GUI.Feautures.Fattura
             DettagliFatturaViewModel.Init();
             DettagliFatturaViewModel.CurrentEntityChanged += OnDettaglioFatturaPropertyChanged;
 
+            DatiGeneraliDocumentoViewModel = new DatiGeneraliDocumentoViewModel(this, fattura);
+            DatiGeneraliDocumentoViewModel.Init();
+            DatiGeneraliDocumentoViewModel.CurrentEntityChanged += OnDatiGeneraliDocumentoPropertyChanged;
+            AddTabViewModel<DatiGeneraliDocumentoViewModel>(DatiGeneraliDocumentoViewModel);
+
             DatiPagamentoViewModel = new DatiPagamentoTabViewModel( this, fattura );
             DatiPagamentoViewModel.Init();
             AddTabViewModel<DatiPagamentoTabViewModel>( DatiPagamentoViewModel );
@@ -152,13 +169,23 @@ namespace FaPA.GUI.Feautures.Fattura
 
         }
 
+        private void OnDatiGeneraliDocumentoPropertyChanged(object sender, PropertyChangedEventArgs eventarg)
+        {
+            OnChildChanged();
+        }
+
         private void OnDettaglioFatturaPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            OnChildChanged();
+        }
+
+        private void OnChildChanged()
         {
             LockMessage = EditViewModel<BaseEntity>.OnEditingLockMessage;
             IsInEditing = true;
             AllowSave = IsValidate();
         }
-        
+
         private bool IsValidate()
         {
             //Validate();
@@ -416,7 +443,6 @@ namespace FaPA.GUI.Feautures.Fattura
         }
 
         private Visibility _dettagliFatturaVisibility;
-
         public Visibility DettagliFatturaVisibility
         {
             get { return _dettagliFatturaVisibility; }
