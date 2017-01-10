@@ -38,12 +38,5 @@ namespace FaPA.GUI.Feautures.Fattura
             }
         }
 
-        private void Hook(object poco)
-        {
-            var notifyPropertyChanged = poco as INotifyPropertyChanged;
-            if (notifyPropertyChanged == null) return;
-            notifyPropertyChanged.PropertyChanged -= OnPropChanged;
-            notifyPropertyChanged.PropertyChanged += OnPropChanged;
-        }
     }
 }

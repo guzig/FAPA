@@ -420,7 +420,7 @@
     </Compile>
     <Compile Include="GUI\Feautures\Anagrafica\AnagraficaListViewModel.cs" />
     <Compile Include="GUI\Feautures\Anagrafica\EditAnagraficaViewModel.cs" />
-    <Compile Include="GUI\Feautures\Fattura\DatiGeneraliDocumento.cs" />
+    <Compile Include="GUI\Feautures\Fattura\DatiGeneraliDocumentoViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\ScontoMaggiorazioneViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\DatiContrattoTabViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\DatiConvenzioneTabViewModel.cs" />

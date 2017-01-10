@@ -139,18 +139,18 @@ namespace FaPA.GUI.Feautures.Fattura
             DatiGeneraliDocumentoViewModel.CurrentEntityChanged += OnDatiGeneraliDocumentoPropertyChanged;
             AddTabViewModel<DatiGeneraliDocumentoViewModel>(DatiGeneraliDocumentoViewModel);
 
-            DatiPagamentoViewModel = new DatiPagamentoTabViewModel( this, fattura );
-            DatiPagamentoViewModel.Init();
-            AddTabViewModel<DatiPagamentoTabViewModel>( DatiPagamentoViewModel );
-
             TrasmittenteViewModel = new TrasmittenteTabViewModel(this, fattura);
             TrasmittenteViewModel.Init();
             AddTabViewModel<TrasmittenteTabViewModel>( TrasmittenteViewModel );
 
-            if (fattura?.Ritenuta != null)
-            {
-                AddTabRitenuta();
-            }
+            DatiPagamentoViewModel = new DatiPagamentoTabViewModel( this, fattura );
+            DatiPagamentoViewModel.Init();
+            AddTabViewModel<DatiPagamentoTabViewModel>( DatiPagamentoViewModel );
+            
+            //if (fattura?.Ritenuta != null)
+            //{
+            //    AddTabRitenuta();
+            //}
 
             if ( fattura?.DatiOrdineAcquisto != null )
             {
