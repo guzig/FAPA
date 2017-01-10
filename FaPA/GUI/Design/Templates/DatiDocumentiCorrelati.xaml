@@ -44,7 +44,7 @@
                                                                             NotifyOnSourceUpdated=True, 
                                                                             NotifyOnTargetUpdated=True, 
                                                                             NotifyOnValidationError=True}" 
-                                   HorizontalAlignment="Stretch" />
+                                        HorizontalAlignment="Stretch" />
                         </StackPanel>
 
                         <StackPanel Grid.Row="0" Grid.Column="1" Margin="2,0,2,0" Width="25">
