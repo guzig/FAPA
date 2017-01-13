@@ -5,6 +5,8 @@ using FaPA.Core.FaPa;
 using System.Linq;
 using System.Xml;
 using FaPA.AppServices.CoreValidation;
+using FaPA.Core;
+using FaPA.GUI.Design.Templates;
 
 namespace FaPA.Core
 {
@@ -83,6 +85,16 @@ namespace FaPA.Core
                 return FatturaPa.FatturaElettronicaBody.DatiGenerali;
             }
             set { FatturaPa.FatturaElettronicaBody.DatiGenerali = value; }
+        }
+
+        public virtual ScontoMaggiorazioneType[] ScontoMaggiorazione
+        {
+            get
+            {
+                return DatiGeneraliDocumento.ScontoMaggiorazione;
+            }
+
+            set { DatiGeneraliDocumento.ScontoMaggiorazione = value; }
         }
 
         public virtual DatiGeneraliDocumentoType DatiGeneraliDocumento

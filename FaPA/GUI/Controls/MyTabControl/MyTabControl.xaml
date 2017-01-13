@@ -30,8 +30,7 @@
             <GradientStop Color="#FFFEBB67" Offset="1"/>
         </LinearGradientBrush>
 
-        <ControlTemplate x:Key="MainTabControlTemplateEx"
-			             TargetType="{x:Type mtbc:TabControlEx}">
+        <ControlTemplate x:Key="MainTabControlTemplateEx" TargetType="{x:Type mtbc:TabControlEx}">
             <Grid>
 
                 <Grid.RowDefinitions>
@@ -41,7 +40,7 @@
                 </Grid.RowDefinitions>
 
                 <TabPanel   x:Name="tabpanel" 
-                            Background="{StaticResource Brush_HeaderBackground}"
+                            Background="#ededed"
                             Margin="0"
 		                    Grid.Row="0"
 		                    IsItemsHost="True" />
@@ -51,8 +50,7 @@
                       Background="{StaticResource Brush_ToolBar}"
                       HorizontalAlignment="Stretch"/>
 
-                <Grid x:Name="PART_ItemsHolder"
-                      Grid.Row="2"/>
+                <Grid x:Name="PART_ItemsHolder" Grid.Row="2"/>
             </Grid>
             <!-- no content presenter -->
             <ControlTemplate.Triggers>
@@ -117,10 +115,22 @@
             </Setter>
         </Style>
 
+        <Style x:Key="MyFocusVisualStyte" >
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border x:Name="FocusStyle" Background="#4433b4ed" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <Style TargetType="{x:Type TabItem}">
             <Setter Property="Padding" Value="5"/>
-            <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="Background" Value="{StaticResource Brush_HeaderBackground}"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#FF474747"/>
+            <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisualStyte}" />
             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
             <Setter Property="VerticalContentAlignment" Value="Stretch"/>
             <EventSetter Event="PreviewMouseLeftButtonDown"  
@@ -128,48 +138,81 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type TabItem}" >
-                        <Border SnapsToDevicePixels="true" x:Name="Bd"
-                            Background="{TemplateBinding Background}"
-                            BorderThickness="0" BorderBrush="Black">
 
-                            <DockPanel Width="Auto">
+                        <Grid x:Name="Root">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="1" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="6" />
+                                <RowDefinition Height="2" />
+                            </Grid.RowDefinitions>
+
+                            <DockPanel Width="Auto" Margin="0,0,-1,0" Background="#ededed" >
 
                                 <Button x:Name="PART_Close" 
-                                    HorizontalAlignment="Center" 
-                                    Margin="3" 
-                                    VerticalAlignment="Center" Width="16" Height="16" 
-                                    Command="{Binding Path=CloseCommand}"    
-                                    Visibility="{Binding IsCloseable, Converter={StaticResource bool2VisibilityConverter}, ConverterParameter=True}"                                    
-                                    DockPanel.Dock="Right" Focusable="False"
-                                    Style="{DynamicResource CloseableTabItemButtonStyle}" 
-                                    ToolTip="Rimuovi scheda">
+                                        HorizontalAlignment="Center" 
+                                        Margin="3" 
+                                        VerticalAlignment="Center" Width="16" Height="16" 
+                                        Command="{Binding Path=CloseCommand}"    
+                                        Visibility="{Binding IsCloseable, Converter={StaticResource bool2VisibilityConverter}, ConverterParameter=True}"                                    
+                                        DockPanel.Dock="Right" Focusable="False"
+                                        Style="{DynamicResource CloseableTabItemButtonStyle}" 
+                                        ToolTip="Rimuovi scheda">
                                     <Path x:Name="Path" Stretch="Fill" StrokeThickness="0.5" 
-                                          Stroke="{DynamicResource closeTabCrossStroke}" Fill="Coral" 
-                                          Data="F1 M 2.28484e-007,1.33331L 1.33333,0L 4.00001,2.66669L 6.66667,6.10352e-005L 8,1.33331L 5.33334,4L 8,6.66669L 6.66667,8L 4,5.33331L 1.33333,8L 1.086e-007,6.66669L 2.66667,4L 2.28484e-007,1.33331 Z " 
-                                          HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                              Stroke="{DynamicResource closeTabCrossStroke}" Fill="Blue" 
+                                              Data="F1 M 2.28484e-007,1.33331L 1.33333,0L 4.00001,2.66669L 6.66667,6.10352e-005L 8,1.33331L 5.33334,4L 8,6.66669L 6.66667,8L 4,5.33331L 1.33333,8L 1.086e-007,6.66669L 2.66667,4L 2.28484e-007,1.33331 Z " 
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                                 </Button>
                                 <Label x:Name="lbl" 
-                                    Content="{Binding Path=DisplayName}" 
-                                    VerticalAlignment="Center" 
-                                    Foreground="LightGray"
-                                    FontWeight="ExtraBold"/>
+                                        Content="{Binding Path=DisplayName}" 
+                                        FontFamily="Segoe UI Semibold"
+                                        VerticalAlignment="Center" 
+                                        Foreground="#FF474747"  FontSize="14"  />
                             </DockPanel>
-                        </Border>
+
+                            <Border Grid.Column="1" Margin="0,10,0,4" Background="#d6d6d6" />
+
+                            <Border Grid.Row="1" Grid.ColumnSpan="2" Background="#ededed"/>
+                            <Border Grid.Row="1" Grid.ColumnSpan="2" Name="Border1Highlited" Background="Transparent"/>
+
+                            <Border Grid.Row="2" Grid.ColumnSpan="2" Background="#c9c9c9"/>
+                            <Border Grid.Row="2" Grid.ColumnSpan="2" Name="Border2Highlited" Background="Transparent"/>
+
+                        </Grid>
+
+                        <ControlTemplate.Resources>
+                            <Storyboard x:Key="StartAction">
+                                <DoubleAnimation Storyboard.TargetName="Border1Highlited" Storyboard.TargetProperty="(UIElement.Opacity)" From="0" To="1" Duration="0:0:0.5"/>
+                                <DoubleAnimation Storyboard.TargetName="Border2Highlited" Storyboard.TargetProperty="(UIElement.Opacity)" From="0" To="1" Duration="0:0:0.5"/>
+                            </Storyboard>
+
+                            <Storyboard x:Key="ExitAction">
+                                <DoubleAnimation Storyboard.TargetName="Border1Highlited" Storyboard.TargetProperty="Opacity" From="1" To="0" Duration="0:0:0.3" />
+                                <DoubleAnimation Storyboard.TargetName="Border2Highlited" Storyboard.TargetProperty="Opacity" From="1" To="0" Duration="0:0:0.3" />
+                            </Storyboard>
+                        </ControlTemplate.Resources>
+
                         <ControlTemplate.Triggers>
-                            <Trigger Property="Selector.IsSelected" Value="True">
-                                <Setter Property="Background" TargetName="Bd" Value="{StaticResource SelectorHighlight}"/>
-                                <Setter Property="TextElement.Foreground" TargetName="lbl" Value="#08298A"/>
-                                <Setter Property="Fill" TargetName="Path" Value="DarkTurquoise"/>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Panel.ZIndex" Value="100" />
+                                <Setter TargetName="Border1Highlited" Property="Background" Value="#33b4ed" />
+                                <Setter TargetName="Border2Highlited" Property="Background" Value="#009de2" />
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard Storyboard="{StaticResource StartAction}"/>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard Storyboard="{StaticResource ExitAction}"/>
+                                </Trigger.ExitActions>
                             </Trigger>
-                            <Trigger Property="IsMouseOver" SourceName="PART_Close" Value="True">
-                                <Setter Property="Fill" TargetName="Path" Value="Red"/>
-                                <Setter Property="TextElement.Foreground" TargetName="lbl" Value="White"/>
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" SourceName="Bd" Value="True">
-                                <Setter Property="TextElement.Foreground" TargetName="lbl" Value="White"/>
-                            </Trigger>
+
                             <Trigger Property="IsPressed" SourceName="PART_Close" Value="True">
                                 <Setter Property="Fill" TargetName="Path" Value="Red"/>
+                            </Trigger>                            
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="#cccccc" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>

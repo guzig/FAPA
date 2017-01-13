@@ -9,10 +9,28 @@ namespace FaPA.GUI.Feautures.Fattura
 {
     public class DatiGeneraliDocumentoViewModel : EditWorkSpaceViewModel<Core.Fattura, DatiGeneraliDocumentoType>
     {
+        private ScontoMaggiorazioneGeneraleViewModel _scontoMaggiorazioneGeneraleView;
+        public ScontoMaggiorazioneGeneraleViewModel ScontoMaggiorazioneGeneraleView
+        {
+            get { return _scontoMaggiorazioneGeneraleView; }
+            set
+            {
+                if (Equals(value, _scontoMaggiorazioneGeneraleView)) return;
+                _scontoMaggiorazioneGeneraleView = value;
+                NotifyOfPropertyChange(() => ScontoMaggiorazioneGeneraleView);
+            }
+        }
+
         //ctor
-        public DatiGeneraliDocumentoViewModel(IRepository repository, Core.Fattura instance) : 
-            base( repository, instance, (Core.Fattura f) => f.DatiGeneraliDocumento,"DatiGenerali", false )
-        { }
+        public DatiGeneraliDocumentoViewModel(IRepository repository, Core.Fattura instance) :
+            base(repository, instance, (Core.Fattura f) => f.DatiGeneraliDocumento, "DatiGenerali", false)
+        {
+            ScontoMaggiorazioneGeneraleView = new ScontoMaggiorazioneGeneraleViewModel(repository, 
+                instance.DatiGeneraliDocumento);
+            ScontoMaggiorazioneGeneraleView.Init();
+        }
+
+
 
         protected override void HookOnChanged(object poco)
         {

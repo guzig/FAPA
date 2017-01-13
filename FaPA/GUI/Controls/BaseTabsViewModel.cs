@@ -185,7 +185,7 @@ namespace FaPA.GUI.Controls
             CurrentPoco = UserCollectionView.CurrentItem;
             UserCollectionView.CurrentChanged -= OnCurrentChanged;
             UserCollectionView.CurrentChanged += OnCurrentChanged;
-            IsEmpty = UserCollectionView == null || UserCollectionView.IsEmpty;
+            IsEmpty = UserProperty == null || UserCollectionView == null || UserCollectionView.IsEmpty;
         }
 
         protected virtual void OnCurrentChanged( object sender, EventArgs e)
