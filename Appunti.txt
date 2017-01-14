@@ -4,7 +4,7 @@ entity level validation
 
 
 lunghezza campi in validation
-HookOnChanged
+
 
 trasmittente per ogni singola fattura... appena valorizzo AnagraficaCedenteDB se vuoto lo valorizzo 
 
@@ -13,12 +13,16 @@ SoggettoEmittente (SOLO SE TERZO EMITTENTE) (scheda vuota valorizzata solo se...
 
 descrizione enums
 
-ScontoMaggiorazioneType
+
 DatiBolloType
 ContattiType
-ScontoMaggiorazioneType
+DatiDdtType
+DatiTrasportoType
+
 NumeroFatturaPrincipale
 DatiFattureCollegate
+
+
 
 
 PROGRESSIVO INVIO
@@ -57,7 +61,6 @@ RiferimentoAmministrazione
 valorizza da ultima fattura utente
 nuova fattura da fattura corrente
 
-gestisione persona fisica giuridica
 
 		Text="{Binding DataFatturaDB, StringFormat='{}{0:d}', ValidatesOnDataErrors=True}"
 

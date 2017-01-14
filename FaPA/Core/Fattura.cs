@@ -15,12 +15,12 @@ namespace FaPA.Core
         /// <summary>
         /// anagrafica fornitore
         /// </summary>
-        public virtual Fornitore AnagraficaCedenteDB { get; set; }
+        public virtual Anagrafica AnagraficaCedenteDB { get; set; }
 
         /// <summary>
         /// Anagrafica del committente
         /// </summary>
-        public virtual Committente AnagraficaCommittenteDB { get; set; }
+        public virtual Anagrafica AnagraficaCommittenteDB { get; set; }
 
         public virtual DateTime DataCaricamentoDB { get; set; }
 
@@ -360,7 +360,7 @@ namespace FaPA.Core
         //    DatiGeneraliDocumento.Divisa = "EUR";
         //    DatiGeneraliDocumento.Numero = NumeroFatturaDB;
         //    DatiGeneraliDocumento.Data = DataFatturaDB;
-        //    DatiGeneraliDocumento.ImportoTotaleDocumento = decimal.Parse( string.Format( "{0:###0.00}", TotaleFatturaDB ) );
+        //    DatiGeneraliDocumento.ImportoTotaleDocumento = decimal.Parse( string.Format( "##.000", TotaleFatturaDB ) );
         //    //Causale = new string[] { "causale" } ,
         //}
 

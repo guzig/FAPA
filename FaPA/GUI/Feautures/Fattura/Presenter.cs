@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
-using FaPA.Core;
 using FaPA.DomainServices.Utils;
 using FaPA.GUI.Controls.MyTabControl;
 using FaPA.GUI.Utils;
@@ -39,8 +38,8 @@ namespace FaPA.GUI.Feautures.Fattura
             //.Cacheable().CacheMode(CacheMode.Normal)
         }
 
-        private IList<Fornitore> _fornitori;
-        public IList<Fornitore> Fornitori
+        private IList<Core.Anagrafica> _fornitori;
+        public IList<Core.Anagrafica> Fornitori
         {
             get { return _fornitori; }
             set
@@ -50,8 +49,8 @@ namespace FaPA.GUI.Feautures.Fattura
             }
         }
 
-        private IList<Committente> _committenti;
-        public IList<Committente> Committenti
+        private IList<Core.Anagrafica> _committenti;
+        public IList<Core.Anagrafica> Committenti
         {
             get { return _committenti; }
             set
@@ -90,11 +89,10 @@ namespace FaPA.GUI.Feautures.Fattura
 
             var anagrafiche = new ReferenceDataFactory().GetReferenceCollection<Core.Anagrafica>(); 
 
-            Fornitori = anagrafiche.Where(a => a is Fornitore).Cast<Fornitore>().
+            Fornitori = anagrafiche.Where(a => !string.IsNullOrWhiteSpace( a.PIva ) ).
                 OrderBy(f=>f.Denominazione + f.Cognome + f.Nome ).ToList();
 
-            Committenti = anagrafiche.Where(a => a is Committente).Cast<Committente>().
-                OrderBy(f => f.Denominazione + f.Cognome + f.Nome).ToList();
+            Committenti = anagrafiche.OrderBy(f => f.Denominazione + f.Cognome + f.Nome).ToList();
         }
 
         public override void CreateNewModel(DetachedCriteria queryByExample)

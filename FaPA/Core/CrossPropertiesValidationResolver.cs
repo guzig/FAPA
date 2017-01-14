@@ -9,7 +9,7 @@ namespace FaPA.Core
         private readonly Dictionary<Type, HashSet<HashSet<string>>> _crossPropetiesContexts = 
             new Dictionary<Type, HashSet<HashSet<string>>>();
 
-        public void AddCrossCoupledPropValidation<TEntity>( ICrossPropertiesValidationContext<TEntity> crossPropContext )
+        public void AddCrossCoupledPropValidationContext<TEntity>( ICrossPropertiesValidationContext<TEntity> crossPropContext )
         {
             if ( _crossPropetiesContexts.ContainsKey( crossPropContext.ContextType ) )
             {

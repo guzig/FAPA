@@ -4,6 +4,7 @@ using FaPA.Core.FaPa;
 
 namespace FaPA.AppServices.CoreValidation
 {
+
     public class AltriDatiGestionaliValidator : BaseCoreValidator
     {
         public override IDictionary<string, IEnumerable<string>> GetValidationErrors(object instance)

@@ -2,21 +2,20 @@ p.iva codfiscale validazione
 
 DataGridHelpers.DataGridKeyUpEventHandler( e, FattureGridSearch );
 
-serialization
+
 --riepilogo per ogni dettaglio iva
 
-archivio comuni e provincie
+archivio comuni e provincie codifica - accenti lista comuni
 verificare standard iso ..nazione etc
 
 validazione persona fisica giuridica
 ricerca immediata
-accenti lista comuni
+
 dati fattura pa: id trasmittente et all
 
 
 pec, email, tel, fax GUI
 
-cig 6 char
 
 ultima fattura
 

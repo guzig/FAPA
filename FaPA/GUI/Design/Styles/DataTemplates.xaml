@@ -39,6 +39,10 @@
         </Border>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type a:ScontoMaggiorazioneViewModel}">
+        <t1:ScontoMaggiorazione />
+    </DataTemplate>
+
     <DataTemplate DataType="{x:Type a:AltriDatiViewModel}">
         <t1:AltriDatiGrid />
     </DataTemplate>    

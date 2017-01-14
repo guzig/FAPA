@@ -89,8 +89,8 @@
 
                     <!--<RibbonSplitButton Label="Nuovo" 
                                        LargeImageSource="\GUI/Design/Styles/Images\1343547225_file_add.png">
-                        <RibbonMenuItem Header="Fornitore" />
-                        <RibbonMenuItem Header="Committente" />
+                        <RibbonMenuItem Header="Anagrafica" />
+                        <RibbonMenuItem Header="Anagrafica" />
                     </RibbonSplitButton>-->
                 </RibbonGroup>
 

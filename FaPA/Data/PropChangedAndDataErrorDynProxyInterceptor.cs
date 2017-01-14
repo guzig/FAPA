@@ -13,7 +13,8 @@ namespace FaPA.Data
         private PropertyChangedEventHandler _changed = delegate { };
         private readonly Type _proxyType;
         private event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
-        private readonly CrossPropertiesValidationResolver _crossPropsValidationResolver = new CustomCrossPropertiesValidationResolver();
+        private readonly CrossPropertiesValidationResolver _crossPropsValidationResolver = 
+            new CustomCrossPropertiesValidationResolver();
 
         public PropChangedAndDataErrorDynProxyInterceptor(){}
 
@@ -126,9 +127,9 @@ namespace FaPA.Data
             }
         }
 
-        public virtual void AddCrossCoupledPropValidation<TEntity>( ICrossPropertiesValidationContext<TEntity> crossPropContext )
+        public virtual void AddCrossCoupledPropValidationContext<TEntity>( ICrossPropertiesValidationContext<TEntity> crossPropContext )
         {
-            _crossPropsValidationResolver.AddCrossCoupledPropValidation( crossPropContext );
+            _crossPropsValidationResolver.AddCrossCoupledPropValidationContext( crossPropContext );
         }
 
         public virtual HashSet<string> TryGetCrossCoupledPropValidation( Type type, string propName )

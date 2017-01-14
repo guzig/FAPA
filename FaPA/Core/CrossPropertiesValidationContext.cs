@@ -7,16 +7,14 @@ namespace FaPA.Core
 {
     public class CrossPropertiesValidationContext<TEntity> : ICrossPropertiesValidationContext<TEntity>
     {
-        private readonly HashSet<string> _crossPropertiesContext = new HashSet<string>();
-        
         public Type ContextType => typeof(TEntity);
 
         public ICrossPropertiesValidationContext<TEntity> AddCrossCoupledPropValidation<TProp>( Expression<Func<TEntity, TProp>> property )
         {
-            _crossPropertiesContext.Add( ReflHelpers.GetPropertyName( property ) );
+            CrossPropertiesContext.Add( ReflHelpers.GetPropertyName( property ) );
             return this;
         }
 
-        public HashSet<string> CrossPropertiesContext => _crossPropertiesContext;
+        public HashSet<string> CrossPropertiesContext { get; } = new HashSet<string>();
     }
 }

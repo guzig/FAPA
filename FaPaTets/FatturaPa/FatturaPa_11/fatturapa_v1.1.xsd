@@ -510,7 +510,7 @@
       <xs:length value="2" />
       <xs:enumeration value="CC">
         <xs:annotation>
-          <xs:documentation>Cessionario / Committente</xs:documentation>
+          <xs:documentation>Cessionario / Anagrafica</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="TZ">
@@ -712,7 +712,7 @@
   <xs:complexType name="CessionarioCommittenteType">
     <xs:annotation>
       <xs:documentation>
-				Blocco relativo ai dati del Cessionario / Committente
+				Blocco relativo ai dati del Cessionario / Anagrafica
 			</xs:documentation>
     </xs:annotation>
     <xs:sequence>

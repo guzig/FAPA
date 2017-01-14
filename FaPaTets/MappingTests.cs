@@ -9,26 +9,26 @@ namespace FaPaTets
         public void MapAnagraficaTest()
         {
 
-            //Mapper.CreateMap<FaPA.Core.Fornitore, AnagraficaDto>().
+            //Mapper.CreateMap<FaPA.Core.Anagrafica, AnagraficaDto>().
             //    ForMember(l => l.Comune, opt => opt.ResolveUsing<CustomResolver>());
             
             ConfigAnagraficaMap();
 
-            var source = new Fornitore()
+            var source = new Anagrafica()
             {
                 Comune = "Cropani"
             };
 
-            //var toDto = Mapper.Map<Fornitore, Anagrafica>(source);
+            //var toDto = Mapper.Map<Anagrafica, Anagrafica>(source);
 
             //Assert.AreEqual("Cropani", toDto.Comune.Denominazione);
 
             //var dto = new AnagraficaDto() { Comune = new Comune() { Denominazione = "Cropani" } };
 
-            //var toForn = Mapper.Map<AnagraficaDto, Fornitore>( dto );
+            //var toForn = Mapper.Map<AnagraficaDto, Anagrafica>( dto );
             //Assert.AreEqual("Cropani", toForn.Comune);
 
-            //var toComm = Mapper.Map<AnagraficaDto, Committente>(dto);
+            //var toComm = Mapper.Map<AnagraficaDto, Anagrafica>(dto);
             //Assert.AreEqual("Cropani", toComm.Comune);
 
         }
@@ -38,21 +38,21 @@ namespace FaPaTets
             //var _comuni = new ReferenceDataFactory().GetReferenceCollection<Comune>().DistinctBy(c => c.Denominazione).
             //    ToDictionary(k => k.Denominazione, v => v);
 
-            //Mapper.CreateMap<Fornitore, AnagraficaDto>().
+            //Mapper.CreateMap<Anagrafica, AnagraficaDto>().
             //    ForMember(x => x.IsNotifying, opts => opts.Ignore()).
             //    ForMember(x => x.Comune, opts => opts.MapFrom(src => _comuni[src.Comune]));
 
-            //Mapper.CreateMap<Committente, AnagraficaDto>().
+            //Mapper.CreateMap<Anagrafica, AnagraficaDto>().
             //    ForMember(x => x.IsNotifying, opts => opts.Ignore()).
             //    ForMember(x => x.Comune, opts => opts.MapFrom(src => _comuni[src.Comune]));
 
-            //Mapper.CreateMap<AnagraficaDto, Fornitore>().
+            //Mapper.CreateMap<AnagraficaDto, Anagrafica>().
             //    ForMember(x => x.Fatture, opts => opts.Ignore()).
             //    ForMember(x => x.Cap, opts => opts.Ignore()).
             //    ForMember(x => x.Comune, opts => opts.MapFrom(src => src.Comune.Denominazione)).
             //    ForMember(x => x.Provincia, opts => opts.MapFrom(src => src.Comune.DenominazioneProvincia));
 
-            //Mapper.CreateMap<AnagraficaDto, Committente>().
+            //Mapper.CreateMap<AnagraficaDto, Anagrafica>().
             //    ForMember(x => x.Fatture, opts => opts.Ignore()).
             //    ForMember(x => x.Cap, opts => opts.Ignore()).
             //    ForMember(x => x.Comune, opts => opts.MapFrom(src => src.Comune.Denominazione)).
@@ -96,12 +96,12 @@ namespace FaPaTets
 
         //    ConfigureAutomapperFattura();
 
-        //    Anagrafica fornitore = new Fornitore() {};
-        //    Anagrafica committente = new Committente();
+        //    Anagrafica fornitore = new Anagrafica() {};
+        //    Anagrafica committente = new Anagrafica();
         //    var toCore = new Fattura()
         //    {
-        //        AnagraficaCommittenteDB = (Committente) committente,
-        //        AnagraficaCedenteDB = (Fornitore) fornitore,
+        //        AnagraficaCommittenteDB = (Anagrafica) committente,
+        //        AnagraficaCedenteDB = (Anagrafica) fornitore,
         //        DataFatturaDB = new DateTime(2016,1,1)
         //    };
         //    toCore.Init();
@@ -136,7 +136,7 @@ namespace FaPaTets
         //    var s = session.QueryOver<Anagrafica>().List<Anagrafica>();
 
         //    var s1 = session.QueryOver<Anagrafica>().Where(a => a.Id == 32768).Cacheable().
-        //        SingleOrDefault<Fornitore>();
+        //        SingleOrDefault<Anagrafica>();
 
         //    var toCore = QueryOver.Of<Fattura>().
         //            Fetch(f => f.AnagraficaCedenteDB).Eager.Fetch(f => f.AnagraficaCommittenteDB).Eager.

@@ -23,7 +23,6 @@ namespace FaPA.GUI.Feautures.Fattura
             get { return _dettagliFatturaViewModel; }
             set
             {
-                if ( Equals( value, _dettagliFatturaViewModel ) ) return;
                 _dettagliFatturaViewModel = value;
                 NotifyOfPropertyChange( () => DettagliFatturaViewModel );
             }

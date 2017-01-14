@@ -71,7 +71,7 @@ namespace FaPA.Data
                 } );
             } );
 
-            Property( x => x.CodUfficio, d =>
+            Property( x => x.CodUfficioPa, d =>
             {
                 d.Column( c =>
                 {
@@ -144,6 +144,16 @@ namespace FaPA.Data
                     c.NotNullable(true);
                 });
             });
+
+            Set( x => x.Fatture, s =>
+            {
+                s.Inverse( true ); // Is collection inverse?
+                s.Fetch( CollectionFetchMode.Join ); // or CollectionFetchMode.Select, CollectionFetchMode.Subselect
+                s.BatchSize( 20 );
+                s.Lazy( CollectionLazy.Lazy );
+                s.Cascade( Cascade.None ); //set cascade strategy
+                //s.Key(k => k.Column(col => col.Name("FatturaId"))); //foreign key in Comment table
+            }, a => a.OneToMany() );
 
         }
     }

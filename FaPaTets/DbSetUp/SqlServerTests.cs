@@ -175,13 +175,13 @@ namespace FaPaTets.DbSetUp
             using (ISession session1 = sessionfactory.OpenSession())
             using (ITransaction tx = session1.BeginTransaction())
             {
-                var committente = new Committente()
+                var committente = new Anagrafica()
                 {
                     CodUfficioPa = "EZ8816",
                     Denominazione = "Comune di Crucoli",
                     CodiceFiscale = "00297210791",
                     PIva = "00297210791",
-                    Comune = "Comune di Crucoli",
+                    Comune = "Crucoli",
                     Cap = "88812",
                     Civico = "01",
                     Provincia = "KR",
@@ -189,7 +189,7 @@ namespace FaPaTets.DbSetUp
                     Indirizzo = "Via Roma 1"
                 };
 
-                var anagraficaCedente = new Committente()
+                var anagraficaCedente = new Anagrafica()
                 {
                     Denominazione = "Comune di Isola di Capo Rizzuto",
                     CodiceFiscale = "81004130795",
@@ -202,7 +202,7 @@ namespace FaPaTets.DbSetUp
                     Indirizzo = "Piazza Falcone e Borsellino"
                 };
 
-                var anagraficaCommittente = new Fornitore()
+                var anagraficaCommittente = new Anagrafica()
                 {
                     Denominazione = "PA·WARE",
                     CodiceFiscale = "GZZMRA65R50D181Y",

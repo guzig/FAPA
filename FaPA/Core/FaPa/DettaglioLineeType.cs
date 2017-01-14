@@ -28,11 +28,11 @@ namespace FaPA.Core.FaPa
 
         private DateTime dataInizioPeriodoField;
 
-        private bool dataInizioPeriodoFieldSpecified;
+        private bool dataInizioPeriodoFieldSpecified=true;
 
         private DateTime dataFinePeriodoField;
 
-        private bool dataFinePeriodoFieldSpecified;
+        private bool dataFinePeriodoFieldSpecified=true;
 
         private decimal prezzoUnitarioField;
 
@@ -169,6 +169,7 @@ namespace FaPA.Core.FaPa
             set
             {
                 dataInizioPeriodoField = value;
+                DataInizioPeriodoSpecified = dataInizioPeriodoField != DateTime.MinValue && dataInizioPeriodoField != DateTime.MaxValue;
             }
         }
 
@@ -195,6 +196,7 @@ namespace FaPA.Core.FaPa
             set
             {
                 dataFinePeriodoField = value;
+                DataFinePeriodoSpecified = dataFinePeriodoField != DateTime.MinValue && dataFinePeriodoField != DateTime.MaxValue;
             }
         }
 
@@ -269,6 +271,7 @@ namespace FaPA.Core.FaPa
             set
             {
                 ritenutaField = value;
+                RitenutaSpecified = ritenutaField == RitenutaType.SI;
             }
         }
 

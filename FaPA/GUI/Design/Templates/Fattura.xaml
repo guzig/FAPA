@@ -10,10 +10,10 @@
     <Border Margin="2,2,2,2" Padding="4,4,4,4" Style="{StaticResource MainBorderStyle}">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40" />
-            <RowDefinition Height="40" />
-            <RowDefinition Height="40" />
-            <RowDefinition Height="20" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="2" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
@@ -23,10 +23,13 @@
                 <ColumnDefinition Width="120"/>
                 <ColumnDefinition Width="120"/>
                 <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="120"/>
                 <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-            <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" x:Name="CrossCoupledPropsGrid">
+            <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="8" x:Name="CrossCoupledPropsGrid">
 
                 <Grid.BindingGroup >
                     <BindingGroup >
@@ -38,6 +41,9 @@
                 </Grid.BindingGroup>
 
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="120"/>
                     <ColumnDefinition Width="120"/>
                     <ColumnDefinition Width="120"/>
                     <ColumnDefinition Width="120"/>
@@ -55,14 +61,23 @@
                         ComboBox.SelectionChanged="OnCommitBindingGroup"/>
                 </StackPanel>
 
-                <StackPanel  Margin="2,0,2,0" Grid.Row="0" Grid.Column="3">
+                <StackPanel Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" >
+                    <TextBlock Text="Committente" />
+                    <ComboBox   Margin="0,0,2,0" HorizontalAlignment="Stretch" Tag="EnterAsTab" 
+                        ItemsSource="{Binding  Path=Presenter.Committenti, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                        SelectedItem="{Binding CurrentEntity.AnagraficaCommittenteDB, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" 
+                        DisplayMemberPath="Denom" />
+                </StackPanel>
+
+                <StackPanel  Margin="2,0,2,0" Grid.Row="0" Grid.Column="7">
                     <TextBlock Text="Data fattura" />
                     <TextBox   Text="{Binding CurrentEntity.DataFatturaDB, Mode=TwoWay, StringFormat='{}{0:d}', ValidatesOnDataErrors=True, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, NotifyOnValidationError=True}" 
                                LostFocus="UIElement_OnLostFocus"
+                               MaxLength="10"
                                HorizontalAlignment="Stretch"/>
                 </StackPanel>
 
-                <StackPanel Grid.Row="0" Grid.Column="4" Margin="2,0,2,0">
+                <StackPanel Grid.Row="0" Grid.Column="6" Margin="2,0,2,0">
                     <TextBlock Text="Numero " />
                     <TextBox   Text="{Binding CurrentEntity.NumeroFatturaDB, Mode=TwoWay,ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True}" 
                                LostFocus="OnCommitBindingGroup"
@@ -70,18 +85,28 @@
                 </StackPanel>
             
             </Grid>
-        
-            <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" >
-                <TextBlock Text="Committente" />
-                <ComboBox   Margin="0,0,2,0" HorizontalAlignment="Stretch" Tag="EnterAsTab" 
-                        ItemsSource="{Binding  Path=Presenter.Committenti, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-                        SelectedItem="{Binding CurrentEntity.AnagraficaCommittenteDB, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" 
-                        DisplayMemberPath="Denom" />
-            </StackPanel>
-        
-            <StackPanel Grid.Row="1" Grid.Column="3"  Margin="2,0,2,0">
+               
+            <StackPanel Grid.Row="1" Grid.Column="0"  Margin="2,0,2,0">
                 <TextBlock Text="Totale" />
                 <TextBox   Text="{Binding CurrentEntity.TotaleFatturaDB, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnValidationError=True}" HorizontalAlignment="Stretch" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Grid.Column="1"  Margin="2,0,2,0">
+                <TextBlock Text="CIG" />
+                <TextBox   Text="{Binding CurrentEntity.CigDB, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnValidationError=True}" 
+                           HorizontalAlignment="Stretch" MaxLength="15"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Grid.Column="2"  Margin="2,0,2,0">
+                <TextBlock Text="CUP" />
+                <TextBox   Text="{Binding CurrentEntity.CupDB, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnValidationError=True}" 
+                           HorizontalAlignment="Stretch" MaxLength="15" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Grid.Column="3"  Margin="2,0,2,0">
+                <TextBlock Text="Ufficio" />
+                <TextBox   Text="{Binding CurrentEntity.CodUfficioDB, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnValidationError=True}" 
+                           HorizontalAlignment="Stretch" MaxLength="6"/>
             </StackPanel>
 
             <StackPanel Grid.Row="1" Grid.Column="4"  Margin="2,0,2,0">
@@ -96,90 +121,35 @@
 						    ItemsSource="{Binding Source={utils:Enumeration {x:Type enums:RegimeFiscaleType}}}"
                             SelectedValue="{Binding CurrentEntity.RegimeFiscale,  Mode=TwoWay, 
                                                     UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                            DisplayMemberPath="Value" />                
+                            DisplayMemberPath="Value" />
             </StackPanel>
 
-            <StackPanel Grid.Row="2" Grid.Column="0"  Margin="2,0,2,0">
-                <TextBlock Text="CIG" />
-                <TextBox   Text="{Binding CurrentEntity.CigDB, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnValidationError=True}" HorizontalAlignment="Stretch" />
-            </StackPanel>
-
-            <StackPanel Grid.Row="2" Grid.Column="1"  Margin="2,0,2,0">
-                <TextBlock Text="CUP" />
-                <TextBox   Text="{Binding CurrentEntity.CupDB, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnValidationError=True}" HorizontalAlignment="Stretch" />
-            </StackPanel>
-
-            <StackPanel Grid.Row="2" Grid.Column="2"  Margin="2,0,2,0">
-                <TextBlock Text="Ufficio" />
-                <TextBox   Text="{Binding CurrentEntity.CodUfficioDB, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnValidationError=True}" HorizontalAlignment="Stretch" />
-            </StackPanel>
-
-            <StackPanel Grid.Row="2" Grid.Column="3" Margin="2,0,2,0">
+            <StackPanel Grid.Row="1" Grid.Column="5" Margin="2,0,2,0">
                 <TextBlock Text="Id" />
                 <TextBox  Text="{Binding CurrentEntity.Id, Mode=OneWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}"
                           HorizontalAlignment="Stretch" Margin="2,0,2,0"
                           IsEnabled="False"/>
             </StackPanel>
-
-            <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="6" >
+        
+            <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="6"  Margin="2,0,2,0">
+                <TextBlock Text="Note" />
+                <TextBox   Text="{Binding CurrentEntity.Note, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnValidationError=True}" 
+                           HorizontalAlignment="Stretch" MaxLength="1000" TextWrapping="Wrap"/>
+            </StackPanel>
+                       
+            <GroupBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="8" Header="Dettagli fattura"  Margin="2,2,2,2" Padding="4,4,4,4"
+                      HorizontalAlignment="Stretch" Width="Auto" Height="Auto">
                 
-            <Border Style="{StaticResource MainBorderStyle}" Margin="2,2,2,2" Padding="4,4,4,4"
-                    HorizontalAlignment="Stretch" Width="Auto" Height="Auto">
-
                     <templates:DettagliFattura  />
             
-            </Border>
+            </GroupBox>
+
+            <Border Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2" Grid.Column="6" CornerRadius="3"  
+                    BorderBrush="CadetBlue" BorderThickness="1" VerticalAlignment="Stretch">
                 
-        </StackPanel>
-            <Border Grid.Row="0" Grid.RowSpan="4" Grid.Column="5" CornerRadius="3" 
-                    BorderBrush="CadetBlue" BorderThickness="2">
+                <ToolBar DockPanel.Dock="Left"  Margin="0,0,0,0"
+                             VerticalAlignment="Bottom" MaxHeight="35">
 
-                <RibbonGroup Header="Toolbar" 
-                             IsEnabled="{Binding Path=IsInEditing, Converter={StaticResource InverseBooleanConverter}}">>
-
-                    <RibbonButton LargeImageSource="\GUI/Design/Styles/Images\Flow Chart-48.png"
-                                  Label="Visualizza" Command="{Binding Presenter.EditFatturaViewModel.ShowXmlIntoTreeViewCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-                                  ToolTipTitle="Archivio anagrafiche fornitori e committenti"
-                                  ToolTipDescription="Visualizza l'archivio anagrafiche fornitori e committenti"/>
-
-                    <RibbonButton LargeImageSource="\GUI/Design/Styles/Images\Send File-48.png"
-                                  Label="Genera FatturaPA" Command="{Binding Presenter.EditFatturaViewModel.GenerateXmlStreamCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" 
-                                  ToolTipTitle="Archivio anagrafiche fornitori e committenti"
-                                  ToolTipDescription="Visualizza l'archivio anagrafiche fornitori e committenti"/>
-
-                    <RibbonSplitButton LargeImageSource="\GUI/Design/Styles/Images\1343547225_file_add.png"
-                                       Label="Aggiungi" 
-                                       ToolTipTitle="Aggiungi una scheda"
-                                       ToolTipDescription="Aggiungi una scheda">
-
-                        <RibbonMenuItem Header="Ritenuta" 
-                                        Command="{Binding Presenter.EditFatturaViewModel.AddRitenutaCommand,  RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
-                        
-                        <RibbonMenuItem Header="Ordini" 
-                                        Command="{Binding Presenter.EditFatturaViewModel.AddOrdineCommand,  RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
-
-                        <RibbonMenuItem Header="Contratto" 
-                                        Command="{Binding Presenter.EditFatturaViewModel.AddContrattoCommand,  RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
-
-                        <RibbonMenuItem Header="Convenzione" 
-                                        Command="{Binding Presenter.EditFatturaViewModel.AddConvenzioneCommand,  RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
-
-
-                    </RibbonSplitButton>
-                    
-                    
-                </RibbonGroup>                 
-
-                <!--<ToolBarTray DockPanel.Dock="Left" Orientation="Horizontal" Margin="2,0,2,0"
-                             VerticalAlignment="Stretch">
-
-                    <ToolBar  >
-
-                        <Button Name="Ritenuta" Command="{Binding AddRitenutaCommand}" VerticalAlignment="Stretch"
-                                ToolTip="Aggiungi una scheda ritenuta"  >
-
-                        <Image Source="/GUI/Design/Styles/Images/Files-New-File-icon.png" />
-                        </Button>
 
                     <Button Name="ViewXmlIntoTreeView" Command="{Binding ShowXmlIntoTreeViewCommand}"
                             ToolTip="Visualizzazione albero fattura pa" VerticalAlignment="Stretch"
@@ -196,10 +166,33 @@
 
                     </Button>
 
+                        <Button Name="Ritenuta" Command="{Binding AddRitenutaCommand}" VerticalAlignment="Stretch"
+                                ToolTip="Aggiungi una scheda ritenuta"  >
+
+                            <Image Source="/GUI/Design/Styles/Images/Files-New-File-icon.png" />
+                        </Button>
+
+                        <Button Name="Ordini" Command="{Binding AddOrdineCommand}" VerticalAlignment="Stretch"
+                                ToolTip="Aggiungi una scheda ordini"  >
+
+                            <Image Source="/GUI/Design/Styles/Images/Files-New-File-icon.png" />
+                        </Button>
+
+                        <Button Name="Contratto" Command="{Binding AddContrattoCommand}" VerticalAlignment="Stretch"
+                                ToolTip="Aggiungi una scheda contratto"  >
+
+                            <Image Source="/GUI/Design/Styles/Images/Files-New-File-icon.png" />
+                        </Button>
+
+                        <Button Name="Convenzione" Command="{Binding AddConvenzioneCommand}" VerticalAlignment="Stretch"
+                                ToolTip="Aggiungi una scheda convenzione"  >
+
+                            <Image Source="/GUI/Design/Styles/Images/Files-New-File-icon.png" />
+                        </Button>
+                    
                 </ToolBar>
-                
-                </ToolBarTray>-->
             </Border>
-        </Grid>
+        
+    </Grid>
     </Border>
 </controls:BaseCustomControl>

@@ -23,11 +23,20 @@ namespace FaPA.Data.ValidationMaps
                     isValid = false;
                 }
 
-                if (fattura.AnagraficaCedenteDB == null)
+                if ( fattura.AnagraficaCedenteDB == null )
                 {
-                    context.AddInvalid<Fattura, Fornitore>("Specificare un fornitore ",
-                        p => p.AnagraficaCedenteDB);
+                    context.AddInvalid<Fattura, Anagrafica>( "Specificare un fornitore ",
+                        p => p.AnagraficaCedenteDB );
                     isValid = false;
+                }
+                else
+                {
+                    if ( string.IsNullOrWhiteSpace( fattura.AnagraficaCedenteDB.PIva) )
+                    {
+                        context.AddInvalid<Fattura, Anagrafica>( "Il foritore non ha una p.iva ",
+                            p => p.AnagraficaCedenteDB );
+                        isValid = false;
+                    }
                 }
 
                 if ( !isValid || IsUniqueFattura( fattura ) ) return isValid;
@@ -35,13 +44,15 @@ namespace FaPA.Data.ValidationMaps
                 const string error = "Numero, data, e, fornitore, fattura non sono unici";
                 context.AddInvalid<Fattura, string>(error, p => p.NumeroFatturaDB);
                 context.AddInvalid<Fattura, DateTime>(error, p => p.DataFatturaDB);
-                context.AddInvalid<Fattura, Fornitore>(error, p => p.AnagraficaCedenteDB);
+                context.AddInvalid<Fattura, Anagrafica>(error, p => p.AnagraficaCedenteDB);
 
                 return false;
             });
 
             //Define(l => l.DettagliFattura).HasValidElements();
             //Define(l => l.DataCaricamento).Satisfy(d => d != DateTime.MinValue && d != DateTime.MaxValue).WithMessage("Data caricamento fattura è un campo richiesto"); ;
+            Define( l => l.CigDB ).MaxLength(15).WithMessage( "Lunghezza massima 15 caratteri" );
+            Define( l => l.CupDB ).MaxLength( 15 ).WithMessage( "Lunghezza massima 15 caratteri" );
             Define(l => l.CodUfficioDB).NotNullableAndNotEmpty().WithMessage("Specificare un codice ufficio PA");
             Define(l => l.NumeroFatturaDB).NotNullableAndNotEmpty().WithMessage("Specificare un numero fattura");
             Define(f => f.AnagraficaCedenteDB).NotNullable().WithMessage("Specificare un fornitore");

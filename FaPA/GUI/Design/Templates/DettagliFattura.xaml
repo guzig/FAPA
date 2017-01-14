@@ -7,11 +7,11 @@
     xmlns:controls="clr-namespace:FaPA.GUI.Controls"
     xmlns:m1="clr-namespace:FaPA.GUI.Controls.MyRecordNavigator"
     xmlns:enums="clr-namespace:FaPA.Core.FaPa"
-    xmlns:utils="clr-namespace:FaPA.GUI.Utils"
+    xmlns:u="clr-namespace:FaPA.GUI.Utils"
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     xmlns:f="clr-namespace:FaPA.Infrastructure.Finder"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-    mc:Ignorable="d" d:DesignWidth="500">
+    mc:Ignorable="d" d:DesignWidth="1000">
 
     <controls:BaseListViewControl.Resources>
         <ResourceDictionary>
@@ -78,7 +78,7 @@
                                              RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
                         IsSynchronizedWithCurrentItem="True"
                         PreviewKeyDown="DettagliFatturaGridControl_OnPreviewKeyDown"
-
+                        FontSize="14"
                         SelectionMode="Single"
                         CanUserAddRows="False" 
                         CanUserDeleteRows="False"
@@ -87,7 +87,7 @@
                         CanUserSortColumns="True"
                         AutoGenerateColumns="False"
                         RowHeaderWidth="19" 
-                        RowHeight="21"
+                        RowHeight="24"
                         HorizontalAlignment="Left"
                         RowStyle="{StaticResource RowStyle}"
                         HorizontalScrollBarVisibility="Auto"
@@ -112,11 +112,10 @@
                 </DataGrid.RowValidationRules>
 
                 <DataGrid.Columns >
-                    
-                    <DataGridTextColumn Header="Num" Width="Auto" 
+
+                    <DataGridTextColumn Header="Num" Width="Auto" u:TextBoxBehavior.MaxLength="4"
                                         Binding="{Binding NumeroLinea, Mode=TwoWay, UpdateSourceTrigger =LostFocus}"
                                         ElementStyle="{StaticResource CellErrorInfoStyle}">
-
                     </DataGridTextColumn>
 
                     <!--<DataGridTextColumn Header="TipoCessione" Width="Auto" 
@@ -125,7 +124,7 @@
 
                     </DataGridTextColumn>-->
 
-                    <DataGridTextColumn Header="Descrizione"
+                    <DataGridTextColumn Header="Descrizione" u:TextBoxBehavior.MaxLength="1000"
                                         Width="Auto" 
                                         Binding="{Binding Descrizione, Mode=TwoWay, ValidatesOnDataErrors =True, 
                                                                                     NotifyOnSourceUpdated=True,
@@ -135,15 +134,14 @@
 
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn Header="Quantita"
+                    <DataGridTextColumn Header="Quantità" u:TextBoxBehavior.MaxLength="21"
                                         Width="Auto" 
                                         Binding="{Binding Quantita, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus,  NotifyOnValidationError=True}"
                                         ElementStyle="{StaticResource CellErrorInfoStyle}">
 
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn Header="UnitaMisura"
-                                        Width="Auto" 
+                    <DataGridTextColumn Header="Unità" Width="Auto" u:TextBoxBehavior.MaxLength="10"
                                         Binding="{Binding UnitaMisura, ValidatesOnDataErrors =True, UpdateSourceTrigger =LostFocus}"
                                         ElementStyle="{StaticResource CellErrorInfoStyle}">
 
@@ -165,7 +163,7 @@
 
                     <DataGridTextColumn Header="Prezzo unità"
                                         Width="Auto"
-                                        Binding="{Binding PrezzoUnitario, StringFormat=0.00000, ValidatesOnDataErrors=True,
+                                        Binding="{Binding PrezzoUnitario, StringFormat=0.00, ValidatesOnDataErrors=True,
                                                           UpdateSourceTrigger=LostFocus}"
                                         ElementStyle="{StaticResource CellErrorInfoStyle}">
 
@@ -173,50 +171,50 @@
 
                     <DataGridTextColumn Header="Prezzo totale"
                                         Width="Auto"
-                                        Binding="{Binding PrezzoTotale, StringFormat=0.00000, ValidatesOnDataErrors=True,
+                                        Binding="{Binding PrezzoTotale, StringFormat=0.00, ValidatesOnDataErrors=True,
                                                           UpdateSourceTrigger=LostFocus}"
                                         ElementStyle="{StaticResource CellErrorInfoStyle}">
 
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn Header="Aliquota IVA"
+                    <DataGridTextColumn Header="Aliq. IVA"
                                         Width="Auto"
-                                        Binding="{Binding AliquotaIVA, StringFormat=0.00000, ValidatesOnDataErrors=True,
+                                        Binding="{Binding AliquotaIVA, StringFormat=0.00, ValidatesOnDataErrors=True,
                                                           UpdateSourceTrigger=LostFocus}"
                                         ElementStyle="{StaticResource CellErrorInfoStyle}">
 
                     </DataGridTextColumn>
 
                     <DataGridComboBoxColumn Header="Ritenuta" 
-                                            ItemsSource="{Binding Source={utils:Enumeration {x:Type enums:RitenutaType}}, UpdateSourceTrigger=PropertyChanged}"  
+                                            ItemsSource="{Binding Source={u:Enumeration {x:Type enums:RitenutaType}}, UpdateSourceTrigger=PropertyChanged}"  
                                             DisplayMemberPath="Description" SelectedValuePath="Value" 
                                             SelectedValueBinding="{Binding Ritenuta, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus}">
 
                         <DataGridComboBoxColumn.ElementStyle>
                             <Style TargetType="ComboBox">
-                                <Setter Property="ItemsSource" Value="{Binding Source={utils:Enumeration {x:Type enums:RitenutaType}}, UpdateSourceTrigger=PropertyChanged}"/>
+                                <Setter Property="ItemsSource" Value="{Binding Source={u:Enumeration {x:Type enums:RitenutaType}}, UpdateSourceTrigger=PropertyChanged}"/>
                             </Style>
                         </DataGridComboBoxColumn.ElementStyle>
                         <DataGridComboBoxColumn.EditingElementStyle>
                             <Style TargetType="ComboBox">
-                                <Setter Property="ItemsSource" Value="{Binding Source={utils:Enumeration {x:Type enums:RitenutaType}}, UpdateSourceTrigger=PropertyChanged}"/>
+                                <Setter Property="ItemsSource" Value="{Binding Source={u:Enumeration {x:Type enums:RitenutaType}}, UpdateSourceTrigger=PropertyChanged}"/>
                             </Style>
                         </DataGridComboBoxColumn.EditingElementStyle>
                     </DataGridComboBoxColumn>
 
                     <DataGridComboBoxColumn Header="Natura" 
-                                            ItemsSource="{Binding Source={utils:Enumeration {x:Type enums:NaturaType}}, UpdateSourceTrigger=PropertyChanged}"  
+                                            ItemsSource="{Binding Source={u:Enumeration {x:Type enums:NaturaType}}, UpdateSourceTrigger=PropertyChanged}"  
                                             DisplayMemberPath="Description" SelectedValuePath="Value" 
                                             SelectedValueBinding="{Binding Natura, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus}">
 
                         <DataGridComboBoxColumn.ElementStyle>
                             <Style TargetType="ComboBox">
-                                <Setter Property="ItemsSource" Value="{Binding Source={utils:Enumeration {x:Type enums:NaturaType}}, UpdateSourceTrigger=PropertyChanged}"/>
+                                <Setter Property="ItemsSource" Value="{Binding Source={u:Enumeration {x:Type enums:NaturaType}}, UpdateSourceTrigger=PropertyChanged}"/>
                             </Style>
                         </DataGridComboBoxColumn.ElementStyle>
                         <DataGridComboBoxColumn.EditingElementStyle>
                             <Style TargetType="ComboBox">
-                                <Setter Property="ItemsSource" Value="{Binding Source={utils:Enumeration {x:Type enums:NaturaType}}, UpdateSourceTrigger=PropertyChanged}"/>
+                                <Setter Property="ItemsSource" Value="{Binding Source={u:Enumeration {x:Type enums:NaturaType}}, UpdateSourceTrigger=PropertyChanged}"/>
                             </Style>
                         </DataGridComboBoxColumn.EditingElementStyle>
                     </DataGridComboBoxColumn>
@@ -228,43 +226,72 @@
 
                     </DataGridTextColumn>
 
-                    <!--<DataGridComboBoxColumn Header="Causale IVA" 
-                                            ItemsSource="{Binding Source={finder:Enumeration {x:Type enums:CausaleIvaEnum}}, UpdateSourceTrigger=PropertyChanged}"  
-                                            DisplayMemberPath="Description" 
-                                            SelectedValuePath="Value" 
-                                            SelectedValueBinding="{Binding CausaleIva, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus}">
+                    <DataGridTemplateColumn Header="Sconto/Magg." Width="Auto" >
 
-                        <DataGridComboBoxColumn.ElementStyle>
-                            <Style TargetType="ComboBox">
-                                <Setter Property="ItemsSource" Value="{Binding Source={finder:Enumeration {x:Type enums:CausaleIvaEnum}}, UpdateSourceTrigger=PropertyChanged}"/>
-                            </Style>
-                        </DataGridComboBoxColumn.ElementStyle>
-                        <DataGridComboBoxColumn.EditingElementStyle>
-                            <Style TargetType="ComboBox">
-                                <Setter Property="ItemsSource" Value="{Binding Source={finder:Enumeration {x:Type enums:CausaleIvaEnum}}, UpdateSourceTrigger=PropertyChanged}"/>
-                            </Style>
-                        </DataGridComboBoxColumn.EditingElementStyle>
-                    </DataGridComboBoxColumn>-->
+                        <DataGridTemplateColumn.CellTemplate>
 
-                    <!--<DataGridComboBoxColumn Header="Unità misura quantità" 
-                                            ItemsSource="{Binding Source={finder:Enumeration {x:Type enums:UnitàMisuraEnums}}, UpdateSourceTrigger=PropertyChanged}"  
-                                            DisplayMemberPath="Description" 
-                                            SelectedValuePath="Value" 
-                                            SelectedValueBinding="{Binding UnitàMisura, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus}">
+                            <DataTemplate>
+                                <AdornerDecorator>
+                                    <xctk:DropDownButton Width="Auto" Height="Auto" x:Name="DropCa" 
+                                                     IsOpen="{Binding Data.DettagliFatturaViewModel.ScontoMaggiorazioneViewModel.IsDropDownOpen, 
+                                                                      Source={StaticResource proxyFVM}, Mode=OneWayToSource}" >
 
-                        <DataGridComboBoxColumn.ElementStyle>
-                            <Style TargetType="ComboBox">
-                                <Setter Property="ItemsSource" Value="{Binding Source={finder:Enumeration {x:Type enums:UnitàMisuraEnums}}, UpdateSourceTrigger=PropertyChanged}"/>
-                            </Style>
-                        </DataGridComboBoxColumn.ElementStyle>
-                        <DataGridComboBoxColumn.EditingElementStyle>
-                            <Style TargetType="ComboBox">
-                                <Setter Property="ItemsSource" Value="{Binding Source={finder:Enumeration {x:Type enums:UnitàMisuraEnums}}, UpdateSourceTrigger=PropertyChanged}"/>
-                            </Style>
-                        </DataGridComboBoxColumn.EditingElementStyle>
-                    </DataGridComboBoxColumn>-->
+                                        <Image Source="/GUI/Design/Styles/Images/Calendar_64.png"></Image>
 
-                    <DataGridTemplateColumn Header="AltriDati" Width="Auto" >
+                                        <xctk:DropDownButton.Resources>
+                                            <f:BindingProxy x:Key="proxyDD" Data="{Binding ElementName=DropCa}" />
+                                        </xctk:DropDownButton.Resources>
+
+                                        <xctk:DropDownButton.DropDownContent >
+
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+
+                                                <Border Style="{StaticResource MainBorderStyle}" Margin="5 5 5 5" Height="Auto" Width="Auto">
+
+
+                                                    <ContentControl Content="{Binding Path=Data.DettagliFatturaViewModel.ScontoMaggiorazioneViewModel, 
+                                                                                      NotifyOnSourceUpdated=True, 
+                                                                                      NotifyOnValidationError=True,
+                                                                                      NotifyOnTargetUpdated=True, 
+                                                                                      Source={StaticResource proxyFVM}}"/>
+                                                </Border >
+
+                                                <Border Grid.Row="1" Margin="5 5 5 5" Height="Auto" Width="Auto" >
+                                                    <Button Content="Chiudi">
+                                                        <i:Interaction.Triggers>
+                                                            <i:EventTrigger EventName="Click">
+                                                                <i:InvokeCommandAction  Command="{Binding Data.DettagliFatturaViewModel.ScontoMaggiorazioneViewModel.OnDropDownButtonClosed, 
+                                                                                                          Source={StaticResource proxyFVM}}"
+                                                                                        CommandParameter="{Binding Data, Source={StaticResource proxyDD}}"/>
+                                                            </i:EventTrigger>
+                                                        </i:Interaction.Triggers>
+
+
+                                                    </Button>
+
+                                                </Border>
+
+
+                                            </Grid>
+
+                                        </xctk:DropDownButton.DropDownContent>
+
+                                    </xctk:DropDownButton>
+                                </AdornerDecorator>
+                            </DataTemplate>
+
+                        </DataGridTemplateColumn.CellTemplate>
+
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Altri dati" Width="Auto" >
                         
                         <DataGridTemplateColumn.CellTemplate>
                            
@@ -276,24 +303,23 @@
 
                                     <Image Source="/GUI/Design/Styles/Images/Calendar_64.png"></Image>
 
-                                    <!--<xctk:DropDownButton.Resources>
+                                    <xctk:DropDownButton.Resources>
                                         <f:BindingProxy x:Key="proxyDD" Data="{Binding ElementName=DropCa}" />
-                                    </xctk:DropDownButton.Resources>-->
+                                    </xctk:DropDownButton.Resources>
 
                                     <xctk:DropDownButton.DropDownContent >
 
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
 
-                                            <Border Style="{StaticResource MainBorderStyle}" Margin="5 5 5 5" Height="Auto" Width="Auto">
+                                                <Border Style="{StaticResource MainBorderStyle}" Margin="5 5 5 5" Height="Auto" Width="Auto">
 
-                                                <!--<t:AltriDatiGrid GridItemSource="{Binding AltriDatiGestionaliView}"/>-->
 
                                                     <ContentControl Content="{Binding Path=Data.DettagliFatturaViewModel.AltridatiViewModel, 
                                                                                       NotifyOnSourceUpdated=True, 
@@ -301,7 +327,7 @@
                                                                                       NotifyOnTargetUpdated=True, 
                                                                                       Source={StaticResource proxyFVM}}"/>
 
-                                                <!--<ContentControl>
+                                                    <!--<ContentControl>
                                                     <Binding Path="Data.DettagliFatturaViewModel.AltridatiViewModel" 
                                                              Source="{StaticResource proxyFVM}">
                                                         <Binding.ValidationRules>
@@ -310,25 +336,25 @@
                                                         </Binding.ValidationRules>
                                                     </Binding>
                                                 </ContentControl>-->
-                                            </Border >
+                                                </Border >
 
-                                            <Border Grid.Row="1" Margin="5 5 5 5" Height="Auto" Width="Auto" >
-                                                <Button Content="Chiudi">
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="Click">
-                                                            <i:InvokeCommandAction  Command="{Binding Data.DettagliFatturaViewModel.AltridatiViewModel.OnDropDownButtonClosed, Source={StaticResource proxyFVM}}"/>
+                                                <Border Grid.Row="1" Margin="5 5 5 5" Height="Auto" Width="Auto" >
+                                                    <Button Content="Chiudi">
+                                                        <i:Interaction.Triggers>
+                                                            <i:EventTrigger EventName="Click">
+                                                                <!--<i:InvokeCommandAction  Command="{Binding Data.DettagliFatturaViewModel.AltridatiViewModel.OnDropDownButtonClosed, Source={StaticResource proxyFVM}}"/>-->
 
-                                                            <!--<i:InvokeCommandAction  Command="{Binding Data.OnDropDownButtonClosed, Source={StaticResource proxyFVM}}"
-                                                                                    CommandParameter="{Binding Data, Source={StaticResource proxyDD}}"/>-->
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
+                                                                <i:InvokeCommandAction  Command="{Binding Data.DettagliFatturaViewModel.AltridatiViewModel.OnDropDownButtonClosed, Source={StaticResource proxyFVM}}"
+                                                                                    CommandParameter="{Binding Data, Source={StaticResource proxyDD}}"/>
+                                                            </i:EventTrigger>
+                                                        </i:Interaction.Triggers>
 
 
-                                                </Button>
+                                                    </Button>
 
-                                            </Border>
+                                                </Border>
 
-                                            <!--<DockPanel Grid.Row="1" Height="28"  x:Name="AltriDatiToolBar" Margin="1 3 1 3" Background="Gainsboro">
+                                                <!--<DockPanel Grid.Row="1" Height="28"  x:Name="AltriDatiToolBar" Margin="1 3 1 3" Background="Gainsboro">
 
                                                 <Button VerticalAlignment="Center" 
                                                         Command="{Binding Path=Data.DettagliFatturaViewModel.AltridatiViewModel.AddItemCommand, Source={StaticResource proxyFVM}}"
@@ -345,7 +371,7 @@
                                                 </Button>
 
                                             </DockPanel>-->
-                                        </Grid>
+                                            </Grid>
 
                                     </xctk:DropDownButton.DropDownContent>
 
