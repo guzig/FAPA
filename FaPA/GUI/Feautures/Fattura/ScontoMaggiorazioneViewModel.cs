@@ -72,7 +72,6 @@ namespace FaPA.GUI.Feautures.Fattura
             RemoveFromFixedArray();
         }
 
-
     }
 
 

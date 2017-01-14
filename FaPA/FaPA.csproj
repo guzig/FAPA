@@ -172,6 +172,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="GUI\Design\Templates\DatiGeneraliDocumento.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GUI\Design\Templates\ScontoMaggiorazione.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -284,6 +288,9 @@
     <Compile Include="Core\Anagrafica.cs" />
     <Compile Include="Core\BaseEntity.cs" />
     <Compile Include="Core\BaseEntityFpa.cs" />
+    <Compile Include="Core\PasswordHasher.cs" />
+    <Compile Include="Core\UserData.cs" />
+    <Compile Include="Core\TipoUtenteEnums.cs" />
     <Compile Include="Core\Comune.cs" />
     <Compile Include="Core\CrossPropertiesValidationContext.cs" />
     <Compile Include="Core\CrossPropertiesValidationResolver.cs" />
@@ -405,11 +412,16 @@
     <Compile Include="GUI\Design\Converters\NullToBooleanConverter.cs" />
     <Compile Include="GUI\Design\Converters\NullToInverseVisibiltyConverter.cs" />
     <Compile Include="GUI\Design\Converters\NullToVisibiltyConverter.cs" />
+    <Compile Include="GUI\Design\Templates\DatiGeneraliDocumento.xaml.cs">
+      <DependentUpon>DatiGeneraliDocumento.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Design\Templates\ScontoMaggiorazione.xaml.cs">
       <DependentUpon>ScontoMaggiorazione.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\Feautures\Anagrafica\AnagraficaListViewModel.cs" />
     <Compile Include="GUI\Feautures\Anagrafica\EditAnagraficaViewModel.cs" />
+    <Compile Include="GUI\Feautures\Fattura\DatiGeneraliDocumentoViewModel.cs" />
+    <Compile Include="GUI\Feautures\Fattura\ScontoMaggiorazioneGeneraleViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\ScontoMaggiorazioneViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\DatiContrattoTabViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\DatiConvenzioneTabViewModel.cs" />

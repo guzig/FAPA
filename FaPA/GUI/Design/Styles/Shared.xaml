@@ -11,7 +11,6 @@
     <c1:NullToVisibiltyConverter x:Key="NullToVisibiltyConverter"/>
     <c1:NullToInverseVisibiltyConverter x:Key="NullToInverseVisibiltyConverter"/>
     <c1:InvertVisibilityConverter x:Key="InvertVisibilityConverter"/>
-    
 
     <Style x:Key="GroupHeaderStyle" TargetType="{x:Type GroupItem}">
         <Setter Property="Template">
@@ -141,7 +140,9 @@
     </Style>
 
     <Style x:Key="{x:Type TextBox}" TargetType="{x:Type TextBox}">
+        <Setter Property="Height" Value="22"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="0,1,0,0"/>
 
         <Style.Triggers>
             <Trigger Property="Validation.HasError" Value="True">

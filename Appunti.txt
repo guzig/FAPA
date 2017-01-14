@@ -1,7 +1,8 @@
+remove getLazyInstnce
+
 la validazione non avviene solo dopo un input sotto UI
 
 entity level validation
-
 
 lunghezza campi in validation
 
@@ -14,10 +15,14 @@ SoggettoEmittente (SOLO SE TERZO EMITTENTE) (scheda vuota valorizzata solo se...
 descrizione enums
 
 
-DatiBolloType
-ContattiType
-DatiDdtType
-DatiTrasportoType
+<Dati Generali><DatiGeneraliDocumento>
+<Dati Generali><FatturaPrincipale>
+<Dati Generali><DatiGeneraliDocumento><DatiBollo>
+<DatiGenerali><DatiSAL>
+<CedentePrestatore><Contatti>
+<Dati Generali><DatiDDT>
+
+<DatiGenerali><DatiTrasporto><DatiAnagraficiVettore><IdFiscaleIVA>
 
 NumeroFatturaPrincipale
 DatiFattureCollegate

@@ -9,6 +9,10 @@
 
     <Border Margin="2,2,2,2" Padding="4,4,4,4" Style="{StaticResource MainBorderStyle}">
     <Grid>
+            <Grid.BitmapEffect>
+                <DropShadowBitmapEffect Color="LightSteelBlue" Direction="280"/>
+            </Grid.BitmapEffect>
+        
         <Grid.RowDefinitions>
                 <RowDefinition Height="40" />
                 <RowDefinition Height="40" />

@@ -18,9 +18,9 @@ namespace FaPA.GUI.Design.Templates
         }
 
 
-        private void DgRowEditEnding( object sender, DataGridRowEditEndingEventArgs e )
+        private void DgRowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
         {
-            WpfHelpers.DataGridEditEnding( sender, e, ScontoMaggiorazioneGridControl );
+            WpfHelpers.DataGridEditEnding(sender, e, ScontoMaggiorazioneGridControl);
         }
 
     }

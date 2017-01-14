@@ -5,6 +5,8 @@ using FaPA.Core.FaPa;
 using System.Linq;
 using System.Xml;
 using FaPA.AppServices.CoreValidation;
+using FaPA.Core;
+using FaPA.GUI.Design.Templates;
 
 namespace FaPA.Core
 {
@@ -80,31 +82,29 @@ namespace FaPA.Core
         {
             get
             {
-                if (FatturaPa.FatturaElettronicaBody == null)
-                {
-                    FatturaPa.FatturaElettronicaBody = new FatturaElettronicaBodyType();
-                }
-
-                if (FatturaPa.FatturaElettronicaBody.DatiGenerali == null)
-                {
-                    FatturaPa.FatturaElettronicaBody.DatiGenerali = new DatiGeneraliType();
-                }
-
                 return FatturaPa.FatturaElettronicaBody.DatiGenerali;
             }
+            set { FatturaPa.FatturaElettronicaBody.DatiGenerali = value; }
+        }
+
+        public virtual ScontoMaggiorazioneType[] ScontoMaggiorazione
+        {
+            get
+            {
+                return DatiGeneraliDocumento.ScontoMaggiorazione;
+            }
+
+            set { DatiGeneraliDocumento.ScontoMaggiorazione = value; }
         }
 
         public virtual DatiGeneraliDocumentoType DatiGeneraliDocumento
         {
             get
             {
-                if ( DatiGenerali.DatiGeneraliDocumento == null)
-                {
-                    FatturaPa.FatturaElettronicaBody.DatiGenerali.DatiGeneraliDocumento = new DatiGeneraliDocumentoType();
-                }
-
                 return FatturaPa.FatturaElettronicaBody.DatiGenerali.DatiGeneraliDocumento;
             }
+
+            set { FatturaPa.FatturaElettronicaBody.DatiGenerali.DatiGeneraliDocumento = value; }
         }
 
         public virtual DatiDocumentiCorrelatiType[] DatiConvenzione
@@ -274,11 +274,21 @@ namespace FaPA.Core
         public virtual void Init()
         {
             DataCaricamentoDB = DateTime.Now;
-            FatturaPa = new FatturaElettronicaType();
-            object getLazyInstnce = DatiGeneraliDocumento;
+            FatturaPa = new FatturaElettronicaType
+            {
+                FatturaElettronicaBody = new FatturaElettronicaBodyType
+                {
+                    DatiGenerali = new DatiGeneraliType
+                    {
+                        DatiGeneraliDocumento = new DatiGeneraliDocumentoType()
+                    }
+                }
+            };
+            
             DatiGeneraliDocumento.Divisa = "EUR";
+
             //getLazyInstnce = fattura.DatiRiepilogo;
-            getLazyInstnce = DettaglioLinee;
+            object getLazyInstnce = DettaglioLinee;
             getLazyInstnce = AnagraficaCedenteFornitore;
             getLazyInstnce = AnagraficaCessionarioCommittente;
         }
