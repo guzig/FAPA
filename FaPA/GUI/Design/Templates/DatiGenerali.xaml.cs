@@ -6,9 +6,9 @@ namespace FaPA.GUI.Design.Templates
     /// <summary>
     /// Interaction logic for DatiGeneraliDocumento.xaml
     /// </summary>
-    public partial class DatiGeneraliDocumento : UserControl
+    public partial class DatiGenerali : UserControl
     {
-        public DatiGeneraliDocumento()
+        public DatiGenerali()
         {
             InitializeComponent();
         }

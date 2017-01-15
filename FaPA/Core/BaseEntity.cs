@@ -22,6 +22,10 @@ namespace FaPA.Core
         {
         }
 
+        public virtual void HandleValidationResults( string propName, object target )
+        {
+        }
+
         public abstract DomainResult Validate();
 
         public abstract DomainResult ValidatePropertyValue( string prop );

@@ -8,9 +8,8 @@ namespace FaPA.Core.FaPa
     public class FatturaPrincipaleType : BaseEntityFpa
     {
 
-        private string numeroFatturaPrincipaleField;
-
-        private DateTime dataFatturaPrincipaleField;
+        private string _numeroFatturaPrincipaleField;
+        private DateTime _dataFatturaPrincipaleField;
 
         
         [XmlElement( Form = XmlSchemaForm.Unqualified, DataType = "normalizedString" )]
@@ -18,11 +17,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return numeroFatturaPrincipaleField;
+                return _numeroFatturaPrincipaleField;
             }
             set
             {
-                numeroFatturaPrincipaleField = value;
+                _numeroFatturaPrincipaleField = value;
             }
         }
 
@@ -32,11 +31,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return dataFatturaPrincipaleField;
+                return _dataFatturaPrincipaleField;
             }
             set
             {
-                dataFatturaPrincipaleField = value;
+                _dataFatturaPrincipaleField = value;
             }
         }
     }

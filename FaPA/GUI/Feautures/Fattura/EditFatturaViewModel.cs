@@ -17,15 +17,27 @@ namespace FaPA.GUI.Feautures.Fattura
 {
     public class EditFatturaViewModel : EditViewModel<Core.Fattura>
     {
-        private DatiGeneraliDocumentoViewModel _datiGeneraliDocumentoViewModel;
-        public DatiGeneraliDocumentoViewModel DatiGeneraliDocumentoViewModel
+        private DatiGeneraliViewModel _datiGeneraliViewModel;
+        public DatiGeneraliViewModel DatiGeneraliViewModel
         {
-            get { return _datiGeneraliDocumentoViewModel; }
+            get { return _datiGeneraliViewModel; }
             set
             {
-                if (Equals(value, _datiGeneraliDocumentoViewModel)) return;
-                _datiGeneraliDocumentoViewModel = value;
-                NotifyOfPropertyChange(() => DatiGeneraliDocumentoViewModel);
+                if ( Equals( value, _datiGeneraliViewModel ) ) return;
+                _datiGeneraliViewModel = value;
+                NotifyOfPropertyChange( () => DatiGeneraliViewModel );
+            }
+        }
+
+        private DatiDocumentoViewModel _datiDocumentoViewModel;
+        public DatiDocumentoViewModel DatiDocumentoViewModel
+        {
+            get { return _datiDocumentoViewModel; }
+            set
+            {
+                if (Equals(value, _datiDocumentoViewModel)) return;
+                _datiDocumentoViewModel = value;
+                NotifyOfPropertyChange(() => DatiDocumentoViewModel);
             }
         }
 
@@ -134,10 +146,15 @@ namespace FaPA.GUI.Feautures.Fattura
             DettagliFatturaViewModel.Init();
             DettagliFatturaViewModel.CurrentEntityChanged += OnDettaglioFatturaPropertyChanged;
 
-            DatiGeneraliDocumentoViewModel = new DatiGeneraliDocumentoViewModel(this, fattura);
-            DatiGeneraliDocumentoViewModel.Init();
-            DatiGeneraliDocumentoViewModel.CurrentEntityChanged += OnDatiGeneraliDocumentoPropertyChanged;
-            AddTabViewModel<DatiGeneraliDocumentoViewModel>(DatiGeneraliDocumentoViewModel);
+            DatiGeneraliViewModel = new DatiGeneraliViewModel( this, fattura );
+            DatiGeneraliViewModel.Init();
+            DatiGeneraliViewModel.CurrentEntityChanged += OnDatiGeneraliPropertyChanged;
+            AddTabViewModel<DatiGeneraliViewModel>( DatiGeneraliViewModel );
+
+            DatiDocumentoViewModel = new DatiDocumentoViewModel(this, fattura);
+            DatiDocumentoViewModel.Init();
+            DatiDocumentoViewModel.CurrentEntityChanged += OnDatiGeneraliDocumentoPropertyChanged;
+            AddTabViewModel<DatiDocumentoViewModel>(DatiDocumentoViewModel);
 
             TrasmittenteViewModel = new TrasmittenteTabViewModel(this, fattura);
             TrasmittenteViewModel.Init();
@@ -167,6 +184,11 @@ namespace FaPA.GUI.Feautures.Fattura
                 AddTabConvenzione();
             }
 
+        }
+
+        private void OnDatiGeneraliPropertyChanged( object sender, PropertyChangedEventArgs eventarg )
+        {
+            OnChildChanged();
         }
 
         private void OnDatiGeneraliDocumentoPropertyChanged(object sender, PropertyChangedEventArgs eventarg)

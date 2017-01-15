@@ -7,21 +7,21 @@ namespace FaPA.Core.FaPa
     [Serializable]
     public class DatiAnagraficiVettoreType : BaseEntityFpa
     {
-        private IdFiscaleType idFiscaleIVAField;
-        private string codiceFiscaleField;
-        private AnagraficaType anagraficaField;
-        private string numeroLicenzaGuidaField;
+        private IdFiscaleType _idFiscaleIvaField;
+        private string _codiceFiscaleField;
+        private AnagraficaType _anagraficaField;
+        private string _numeroLicenzaGuidaField;
 
         [XmlElement( Form = XmlSchemaForm.Unqualified )]
         public virtual IdFiscaleType IdFiscaleIVA
         {
             get
             {
-                return idFiscaleIVAField;
+                return _idFiscaleIvaField;
             }
             set
             {
-                idFiscaleIVAField = value;
+                _idFiscaleIvaField = value;
             }
         }
 
@@ -30,11 +30,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return codiceFiscaleField;
+                return _codiceFiscaleField;
             }
             set
             {
-                codiceFiscaleField = value;
+                _codiceFiscaleField = value;
             }
         }
         
@@ -43,11 +43,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return anagraficaField;
+                return _anagraficaField;
             }
             set
             {
-                anagraficaField = value;
+                _anagraficaField = value;
             }
         }
         
@@ -56,11 +56,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return numeroLicenzaGuidaField;
+                return _numeroLicenzaGuidaField;
             }
             set
             {
-                numeroLicenzaGuidaField = value;
+                _numeroLicenzaGuidaField = value;
             }
         }
     }

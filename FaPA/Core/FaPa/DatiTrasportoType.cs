@@ -25,6 +25,9 @@ namespace FaPA.Core.FaPa
         private IndirizzoType _indirizzoResaField;
         private DateTime _dataOraConsegnaField;
         private bool _dataOraConsegnaFieldSpecified;
+
+        [XmlIgnore]
+        public bool DatiAnagraficiVettoreSpecified { get; set; }
         
         public virtual DatiAnagraficiVettoreType DatiAnagraficiVettore
         {
@@ -131,6 +134,7 @@ namespace FaPA.Core.FaPa
             set
             {
                 _pesoNettoField = value;
+                PesoNettoSpecified = _pesoNettoField > 0;
             }
         }
         
@@ -156,6 +160,7 @@ namespace FaPA.Core.FaPa
             set
             {
                 _dataOraRitiroField = value;
+                DataOraRitiroSpecified = _dataOraRitiroField != DateTime.MinValue;
             }
         }
        
@@ -182,6 +187,7 @@ namespace FaPA.Core.FaPa
             set
             {
                 _dataInizioTrasportoField = value;
+                DataInizioTrasportoSpecified = _dataInizioTrasportoField != DateTime.MinValue;
             }
         }
         
@@ -231,6 +237,7 @@ namespace FaPA.Core.FaPa
             set
             {
                 _dataOraConsegnaField = value;
+                DataOraConsegnaSpecified = _dataOraConsegnaField != DateTime.MinValue;
             }
         }
         

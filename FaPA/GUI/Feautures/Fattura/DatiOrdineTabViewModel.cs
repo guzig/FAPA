@@ -1,29 +1,17 @@
-using FaPA.Core.FaPa;
-using FaPA.GUI.Controls;
 using FaPA.Infrastructure;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
-    public class DatiOrdineTabViewModel : BaseTabsViewModel<Core.Fattura, DatiDocumentiCorrelatiType[]>
+    public class DatiOrdineTabViewModel : BaseDatiCorrelatiViewModel
     {
         //ctor
         public DatiOrdineTabViewModel( IRepository repository, Core.Fattura instance ) :
-            base( (Core.Fattura f) => f.DatiOrdineAcquisto, repository, instance, "Ordini", true )
+            base( (Core.Fattura f) => f.DatiOrdineAcquisto, repository, instance, "Dati ordini acquisto", true )
         { }
 
-        protected override void AddItemToUserCollection()
-        {
-            AddToArray();
-        }
-
-        protected override void RemoveItemFromUserCollection()
-        {
-            RemoveFromFixedArray();
-        }
-
-        protected override void OnRequestClose()
-        {
-            CloseIfNotEmpty();
-        }
+        //protected override void OnRequestClose()
+        //{
+        //    CloseIfNotEmpty();
+        //}
     }
 }

@@ -1,7 +1,7 @@
 using System;
 using System.Windows;
 
-namespace FaPA.GUI.Feautures.Fattura
+namespace FaPA.GUI.Utils
 {
     public static class WindowsUtil
     {

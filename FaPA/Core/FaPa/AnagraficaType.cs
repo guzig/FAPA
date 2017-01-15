@@ -8,8 +8,14 @@ namespace FaPA.Core.FaPa
     {
         private string titoloField;
         private string codEORIField;
+        private string _cognome;
 
-        public string Cognome { get; set; }
+        public string Cognome
+        {
+            get { return _cognome; }
+            set { _cognome = value; }
+        }
+
         public string Nome { get; set; }
         public string Denominazione { get; set; }
 

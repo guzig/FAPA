@@ -7,9 +7,13 @@
 
     <Grid utils:FocusAdvancement.AdvancesByEnterKey="True">
         <Grid.RowDefinitions >
-            <RowDefinition Height="265" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+
+        <Grid.Effect>
+            <DropShadowEffect Color="LightSteelBlue" Direction="280"/>
+        </Grid.Effect>
 
         <Border Margin="2,2,2,2" Padding="2,2,2,2" Visibility="{Binding IsEmpty, Mode=OneWay, Converter={StaticResource BoolToOppositeVisibilityConverter}}">
             <Grid Margin="2,2,2,2">
@@ -22,13 +26,9 @@
                     <Grid Margin="2,2,2,2">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
@@ -47,32 +47,30 @@
                                         HorizontalAlignment="Stretch" />
                         </StackPanel>
 
-                        <StackPanel Grid.Row="0" Grid.Column="1" Margin="2,0,2,0" Width="25">
+                        <StackPanel Grid.Row="0" Grid.Column="1" Margin="2,0,2,0">
+                            <TextBlock Text="NumItem" />
+                            <TextBox   Text="{Binding NumItem, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="0" Grid.Column="2" Margin="2,0,2,0" Width="25">
                             <TextBlock Text="CIG" />
                             <TextBox   Text="{Binding CurrentPoco.CodiceCig, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True, ValidatesOnNotifyDataErrors=True}" HorizontalAlignment="Stretch" />
                         </StackPanel>
 
-                        <StackPanel Grid.Row="0" Grid.Column="2" Margin="2,0,2,0" Width="25">
+                        <StackPanel Grid.Row="0" Grid.Column="3" Margin="2,0,2,0" Width="25">
                             <TextBlock Text="CUP" />
                             <TextBox   Text="{Binding CurrentPoco.CodiceCup, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True, ValidatesOnNotifyDataErrors=True}" HorizontalAlignment="Stretch" />
                         </StackPanel>
 
-                        <StackPanel Grid.Row="0" Grid.Column="3" Margin="2,0,2,0" MinWidth="25">
+                        <StackPanel Grid.Row="0" Grid.Column="4" Margin="2,0,2,0" MinWidth="25">
                             <TextBlock Text="Codice Commessa" />
                             <TextBox   Text="{Binding CurrentPoco.CodiceCommessaConvenzione, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True, ValidatesOnNotifyDataErrors=True}" HorizontalAlignment="Stretch" />
                         </StackPanel>
 
-                        <!--
-
-                        <StackPanel Grid.Row="1" Grid.Column="1" Margin="2,0,2,0">
-                            <TextBlock Text="Data documento" />
+                        <StackPanel Grid.Row="0" Grid.Column="5" Margin="2,0,2,0">
+                            <TextBlock Text="Data" />
                             <TextBox   Text="{Binding Data, Mode=TwoWay, StringFormat='{}{0:d}', ValidatesOnDataErrors=True, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" HorizontalAlignment="Stretch"/>
                         </StackPanel>
-
-                        <StackPanel Grid.Row="1" Grid.Column="2" Margin="2,0,2,0">
-                            <TextBlock Text="NumItem" />
-                            <TextBox   Text="{Binding CodiceCommessaConvenzione, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
-                        </StackPanel>-->
 
                     </Grid>
 

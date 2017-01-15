@@ -1,3 +1,6 @@
+
+totale fattura <-> totale documento
+
 remove getLazyInstnce
 
 la validazione non avviene solo dopo un input sotto UI
@@ -15,11 +18,10 @@ SoggettoEmittente (SOLO SE TERZO EMITTENTE) (scheda vuota valorizzata solo se...
 descrizione enums
 
 
-<Dati Generali><DatiGeneraliDocumento>
+DatiVeicoli
+
 <Dati Generali><FatturaPrincipale>
-<Dati Generali><DatiGeneraliDocumento><DatiBollo>
 <DatiGenerali><DatiSAL>
-<CedentePrestatore><Contatti>
 <Dati Generali><DatiDDT>
 
 <DatiGenerali><DatiTrasporto><DatiAnagraficiVettore><IdFiscaleIVA>

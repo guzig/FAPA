@@ -274,10 +274,10 @@ namespace FaPA.GUI.Controls
 
         protected virtual void HookOnChanged( object poco )
         {
-            Hook(poco);
+            HookChanged(poco);
         }
 
-        protected virtual void Hook(object poco)
+        protected virtual void HookChanged(object poco)
         {
             var notifyPropertyChanged = poco as INotifyPropertyChanged;
             if (notifyPropertyChanged == null) return;

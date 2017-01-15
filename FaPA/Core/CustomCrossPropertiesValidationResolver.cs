@@ -1,4 +1,6 @@
-﻿namespace FaPA.Core
+﻿using FaPA.Core.FaPa;
+
+namespace FaPA.Core
 {
     public class CustomCrossPropertiesValidationResolver : CrossPropertiesValidationResolver
     {
@@ -21,6 +23,13 @@
                 AddCrossCoupledPropValidation( c => c.AnagraficaCedenteDB );
 
             AddCrossCoupledPropValidationContext( fattCt  );
+
+            var anag = new CrossPropertiesValidationContext<AnagraficaType>().
+                AddCrossCoupledPropValidation( c => c.Denominazione ).
+                AddCrossCoupledPropValidation( c => c.Cognome ).
+                AddCrossCoupledPropValidation( c => c.Nome );
+
+            AddCrossCoupledPropValidationContext( anag );
         }
     }
 }

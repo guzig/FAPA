@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using FaPA.Core;
 using NHibernate.Proxy.DynamicProxy;
 
@@ -61,9 +62,24 @@ namespace FaPA.Data
                     if (validatr?.DomainResult == null) return null;
                     var propName = (string) info.Arguments[0];
                     return validatr.DomainResult.PropErrors(propName);
-                case "HandleValidationResults":
-                    RaiseErrors( info.Target );
+            }
+
+            if ( info.TargetMethod.Name == "HandleValidationResults" )
+            {
+                var intercptr = info.Target as IProxy;
+                if ( intercptr?.Interceptor is PropChangedAndDataErrorDynProxyInterceptor && 
+                    ReferenceEquals( this, intercptr.Interceptor ) )
+                {
+                    if ( info.Arguments != null && info.Arguments.Any() )
+                    {
+                        ShowPropValidationError( ( string ) info.Arguments[0], info.Arguments[1] );
+                    }
+                    else
+                    {
+                        RaiseErrors( info.Target );
+                    }
                     return null;
+                }
             }
 
             var returnValue = info.TargetMethod.Invoke( Proxy, info.Arguments );
@@ -91,22 +107,6 @@ namespace FaPA.Data
             return returnValue;
         }
 
-        private void ShowPropValidationError( string propertyName, object target )
-        {
-            var crossProperties = _crossPropsValidationResolver.TryGetCrossCoupledPropValidation( _proxyType, propertyName );
-            if ( crossProperties == null)
-            {
-                ErrorsChanged?.Invoke( target, new DataErrorsChangedEventArgs( propertyName ) );
-            }
-            else
-            {
-                foreach ( var propName in crossProperties )
-                {
-                    ErrorsChanged?.Invoke( target, new DataErrorsChangedEventArgs( propName ) );
-                }
-            }
-        }
-
         private static void ValidatePropValue( string propertyName, BaseEntity entity )
         {
             if ( entity != null && entity.IsValidating )
@@ -127,7 +127,24 @@ namespace FaPA.Data
             }
         }
 
-        public virtual void AddCrossCoupledPropValidationContext<TEntity>( ICrossPropertiesValidationContext<TEntity> crossPropContext )
+        private void ShowPropValidationError( string propertyName, object target )
+        {
+            var crossProperties = _crossPropsValidationResolver.TryGetCrossCoupledPropValidation( _proxyType, propertyName );
+            if ( crossProperties == null)
+            {
+                ErrorsChanged?.Invoke( target, new DataErrorsChangedEventArgs( propertyName ) );
+            }
+            else
+            {
+                foreach ( var propName in crossProperties )
+                {
+                    ErrorsChanged?.Invoke( target, new DataErrorsChangedEventArgs( propName ) );
+                }
+            }
+        }
+
+        public virtual void AddCrossCoupledPropValidationContext<TEntity>( 
+            ICrossPropertiesValidationContext<TEntity> crossPropContext )
         {
             _crossPropsValidationResolver.AddCrossCoupledPropValidationContext( crossPropContext );
         }

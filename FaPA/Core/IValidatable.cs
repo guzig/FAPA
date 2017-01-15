@@ -6,6 +6,7 @@ namespace FaPA.Core
         DomainResult ValidatePropertyValue(string prop);
         DomainResult DomainResult { get; }
         void HandleValidationResults();
+        void HandleValidationResults( string propName, object target );
     }
 
    

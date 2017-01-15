@@ -4,27 +4,12 @@ using FaPA.Infrastructure;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
-    public class DatiConvenzioneTabViewModel : BaseTabsViewModel<Core.Fattura, DatiDocumentiCorrelatiType[]>
+    public class DatiConvenzioneTabViewModel : BaseDatiCorrelatiViewModel
     {
         //ctor
         public DatiConvenzioneTabViewModel(IRepository repository, Core.Fattura instance) :
             base((Core.Fattura f) => f.DatiConvenzione, repository, instance, "Convenzione", true)
         { }
-
-        protected override void AddItemToUserCollection()
-        {
-            AddToArray();
-        }
-
-        protected override void RemoveItemFromUserCollection()
-        {
-            RemoveFromFixedArray();
-        }
-
-        protected override void OnRequestClose()
-        {
-            CloseIfNotEmpty();
-        }
 
     }
 }

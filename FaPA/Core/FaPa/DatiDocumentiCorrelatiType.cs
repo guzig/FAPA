@@ -52,6 +52,7 @@ namespace FaPA.Core.FaPa
             set
             {
                 _dataField = value;
+                DataSpecified = Data != DateTime.MinValue;
             }
         }
         

@@ -37,8 +37,12 @@
         </Border>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type a:DatiGeneraliDocumentoViewModel}">
-        <t1:DatiGeneraliDocumento />
+    <DataTemplate DataType="{x:Type a:DatiDocumentoViewModel}">
+        <t1:DatiDocumento />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type a:DatiGeneraliViewModel}">
+        <t1:DatiGenerali />
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type a:ScontoMaggiorazioneViewModel}">
@@ -300,6 +304,14 @@
     </DataTemplate>    
     
     <DataTemplate DataType="{x:Type a:DatiOrdineTabViewModel}">
+        <t1:DatiDocumentiCorrelati/>
+    </DataTemplate>
+    
+    <DataTemplate DataType="{x:Type a:DatiRicezioneTabViewModel}">
+        <t1:DatiDocumentiCorrelati/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type a:DatiFattureCollegateTabViewModel}">
         <t1:DatiDocumentiCorrelati/>
     </DataTemplate>
 

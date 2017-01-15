@@ -12,7 +12,8 @@ namespace FaPA.Core
 {
     public class Fattura : BaseEntity, IFlyFetch
     {
-        public virtual int ProgFile { get; set; }
+
+        #region DB props
 
         /// <summary>
         /// anagrafica fornitore
@@ -40,8 +41,12 @@ namespace FaPA.Core
 
         public virtual string NoteDB { get; set; }
 
+        public virtual int ProgFile { get; set; }
+
         public virtual FatturaElettronicaType FatturaPa { get; set; }
 
+        #endregion
+        
         public virtual FatturaElettronicaHeaderType FatturaElettronicaHeader
         {
             get
@@ -49,16 +54,6 @@ namespace FaPA.Core
                 return FatturaPa.FatturaElettronicaHeader;
             }
             set { FatturaPa.FatturaElettronicaHeader = value; }
-        }
-
-        public virtual FatturaElettronicaBodyType FatturaElettronicaBody
-        {
-            get
-            {
-                return FatturaPa.FatturaElettronicaBody;
-            }
-
-            set { FatturaPa.FatturaElettronicaBody = value; }
         }
 
         public virtual DatiTrasmissioneType DatiTrasmissione
@@ -78,6 +73,52 @@ namespace FaPA.Core
             }
         }
 
+
+        public virtual FatturaElettronicaBodyType FatturaElettronicaBody
+        {
+            get
+            {
+                return FatturaPa.FatturaElettronicaBody;
+            }
+
+            set { FatturaPa.FatturaElettronicaBody = value; }
+        }
+
+        public virtual DatiPagamentoType[] DatiPagamento
+        {
+            get
+            {
+                return FatturaElettronicaBody.DatiPagamento;
+            }
+            set { FatturaElettronicaBody.DatiPagamento = value; }
+        }
+
+        public virtual DatiBeniServiziType DatiBeniServizi
+        {
+            get
+            {
+                if ( FatturaElettronicaBody.DatiBeniServizi == null )
+                {
+                    FatturaElettronicaBody.DatiBeniServizi = new DatiBeniServiziType();
+                }
+
+                return FatturaElettronicaBody.DatiBeniServizi;
+            }
+        }
+
+        public virtual DettaglioLineeType[] DettaglioLinee
+        {
+            get
+            {
+                return DatiBeniServizi.DettaglioLinee;
+            }
+            set
+            {
+                DatiBeniServizi.DettaglioLinee = value;
+            }
+        }
+
+
         public virtual DatiGeneraliType DatiGenerali
         {
             get
@@ -86,27 +127,7 @@ namespace FaPA.Core
             }
             set { FatturaPa.FatturaElettronicaBody.DatiGenerali = value; }
         }
-
-        public virtual ScontoMaggiorazioneType[] ScontoMaggiorazione
-        {
-            get
-            {
-                return DatiGeneraliDocumento.ScontoMaggiorazione;
-            }
-
-            set { DatiGeneraliDocumento.ScontoMaggiorazione = value; }
-        }
-
-        public virtual DatiGeneraliDocumentoType DatiGeneraliDocumento
-        {
-            get
-            {
-                return FatturaPa.FatturaElettronicaBody.DatiGenerali.DatiGeneraliDocumento;
-            }
-
-            set { FatturaPa.FatturaElettronicaBody.DatiGenerali.DatiGeneraliDocumento = value; }
-        }
-
+        
         public virtual DatiDocumentiCorrelatiType[] DatiConvenzione
         {
             get
@@ -134,6 +155,84 @@ namespace FaPA.Core
             set { DatiGenerali.DatiOrdineAcquisto = value; }
         }
 
+        public virtual DatiDocumentiCorrelatiType[] DatiRicezione
+        {
+            get
+            {
+                return DatiGenerali.DatiRicezione;
+            }
+            set
+            {
+                DatiGenerali.DatiRicezione = value;
+            }
+        }
+
+        public virtual DatiDocumentiCorrelatiType[] DatiFattureCollegate
+        {
+            get
+            {
+                return DatiGenerali.DatiFattureCollegate;
+            }
+            set
+            {
+                DatiGenerali.DatiFattureCollegate = value;
+            }
+        }
+
+        public virtual DatiSALType[] DatiSAL
+        {
+            get { return DatiGenerali.DatiSAL; } 
+            set { DatiGenerali.DatiSAL=value;}
+        }
+
+        public virtual DatiDdtType[] DatiDDT
+        {
+            get
+            {
+                return DatiGenerali.DatiDDT;
+            }
+            set
+            {
+                DatiGenerali.DatiDDT = value;
+            }
+        }
+
+        public virtual DatiTrasportoType DatiTrasporto
+        {
+            get
+            {
+                return DatiGenerali.DatiTrasporto;
+            }
+            set
+            {
+                DatiGenerali.DatiTrasporto = value;
+            }
+        }
+
+        public virtual FatturaPrincipaleType FatturaPrincipale
+        {
+            get
+            {
+                return DatiGenerali.FatturaPrincipale;
+            }
+            set
+            {
+                DatiGenerali.FatturaPrincipale = value;
+            }
+        }
+
+
+
+        public virtual DatiGeneraliDocumentoType DatiGeneraliDocumento
+        {
+            get
+            {
+                return FatturaPa.FatturaElettronicaBody.DatiGenerali.DatiGeneraliDocumento;
+            }
+
+            set { FatturaPa.FatturaElettronicaBody.DatiGenerali.DatiGeneraliDocumento = value; }
+        }
+
         public virtual DatiRitenutaType Ritenuta
         {
             get
@@ -147,10 +246,14 @@ namespace FaPA.Core
             }
         }
 
-        public virtual RegimeFiscaleType RegimeFiscale
+        public virtual ScontoMaggiorazioneType[] ScontoMaggiorazione
         {
-            get { return CedenteFornitore.DatiAnagrafici.RegimeFiscale; }
-            set { CedenteFornitore.DatiAnagrafici.RegimeFiscale = value; }
+            get
+            {
+                return DatiGeneraliDocumento.ScontoMaggiorazione;
+            }
+
+            set { DatiGeneraliDocumento.ScontoMaggiorazione = value; }
         }
 
         public virtual DatiCassaPrevidenzialeType CassaPrevidenziale
@@ -166,39 +269,9 @@ namespace FaPA.Core
             }
         }
 
-        public virtual DatiPagamentoType[] DatiPagamento
-        {
-            get
-            {
-                return FatturaElettronicaBody.DatiPagamento;
-            }
-            set { FatturaElettronicaBody.DatiPagamento = value; }
-        }
 
-        public virtual DatiBeniServiziType DatiBeniServizi
-        {
-            get
-            {
-                if ( FatturaElettronicaBody.DatiBeniServizi == null)
-                {
-                    FatturaElettronicaBody.DatiBeniServizi = new DatiBeniServiziType();
-                }
 
-                return FatturaElettronicaBody.DatiBeniServizi;
-            }
-        }
 
-        public virtual DettaglioLineeType[] DettaglioLinee
-        {
-            get
-            {
-                return DatiBeniServizi.DettaglioLinee;
-            }
-            set
-            {
-                DatiBeniServizi.DettaglioLinee = value;
-            }
-        }
 
         public virtual CedentePrestatoreType CedenteFornitore
         {
@@ -236,6 +309,14 @@ namespace FaPA.Core
                 return CedenteFornitore.DatiAnagrafici.Anagrafica;
             }
         }
+
+        public virtual RegimeFiscaleType RegimeFiscale
+        {
+            get { return CedenteFornitore.DatiAnagrafici.RegimeFiscale; }
+            set { CedenteFornitore.DatiAnagrafici.RegimeFiscale = value; }
+        }
+
+
 
         public virtual CessionarioCommittenteType CessionarioCommittente
         {

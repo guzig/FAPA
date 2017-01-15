@@ -40,5 +40,13 @@ namespace FaPA.AppServices.CoreValidation
             }
         }
 
+        protected static bool TryAddNotNullError( string propName, string propValue, Dictionary<string, IEnumerable<string>> errors )
+        {
+            if ( !string.IsNullOrWhiteSpace( propValue ) ) return false;
+            var errorMsg = $"Il campo {propName} ritenuta deve essere valorizzato";
+            errors.Add( propName, new List<string> { errorMsg } );
+            return true;
+        }
+
     }
 }
