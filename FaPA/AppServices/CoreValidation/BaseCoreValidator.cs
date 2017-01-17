@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using FaPA.Annotations;
 
 namespace FaPA.AppServices.CoreValidation
 {
@@ -22,14 +23,16 @@ namespace FaPA.AppServices.CoreValidation
         protected static void TryGetLengthErrors( string propName, string field, Dictionary<string, IEnumerable<string>> errors,
             int maxLength, int minLength = 0 )
         {
+            if ( string.IsNullOrWhiteSpace(field) ) return;
+
             var propErrors = new List<string>();
 
-            if ( minLength > 0 && !string.IsNullOrWhiteSpace( field ) && field.Length < minLength )
+            if ( minLength > 0 && field.Length < minLength )
             {
                 propErrors.Add( $" il campo {propName} deve avere una lunghezza minima di {minLength} caratteri" );
             }
 
-            if ( !string.IsNullOrWhiteSpace( field ) && field.Length > maxLength )
+            if ( field.Length > maxLength )
             {
                 propErrors.Add( $" il campo {propName} deve avere una lunghezza massima di {maxLength} caratteri" );
             }

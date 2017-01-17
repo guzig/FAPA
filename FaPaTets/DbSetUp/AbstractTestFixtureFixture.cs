@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using FaPA.Core;
+using FaPA.Core.FaPa;
 using FaPA.Infrastructure;
 using NHibernate;
 using NHibernate.Cfg;
@@ -40,7 +41,8 @@ namespace FaPaTets.DbSetUp
                 eventWasCalled = true; sender = s; propertyName = e.PropertyName;
             };
 
-            entity.Id = 99999;
+            //entity.Id = 99999;
+
 
             Assert.That(eventWasCalled);
             Assert.That(propertyName, Is.EqualTo("Id"));

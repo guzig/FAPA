@@ -6,28 +6,39 @@ namespace FaPA.Core.FaPa
     //[XmlType( Namespace = "http://www.fatturapa.gov.it/sdi/fatturapa/v1.1" )]
     public class AnagraficaType : BaseEntityFpa
     {
-        private string titoloField;
-        private string codEORIField;
+        private string _titoloField;
+        private string _codEoriField;
         private string _cognome;
+        private string _nome;
+        private string _denominazione;
 
-        public string Cognome
+        public virtual string Cognome
         {
             get { return _cognome; }
             set { _cognome = value; }
         }
 
-        public string Nome { get; set; }
-        public string Denominazione { get; set; }
+        public virtual string Nome
+        {
+            get { return _nome; }
+            set { _nome = value; }
+        }
+
+        public virtual string Denominazione
+        {
+            get { return _denominazione; }
+            set { _denominazione = value; }
+        }
 
         public virtual string Titolo
         {
             get
             {
-                return titoloField;
+                return _titoloField;
             }
             set
             {
-                titoloField = value;
+                _titoloField = value;
             }
         }
 
@@ -35,11 +46,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return codEORIField;
+                return _codEoriField;
             }
             set
             {
-                codEORIField = value;
+                _codEoriField = value;
             }
         }
     }

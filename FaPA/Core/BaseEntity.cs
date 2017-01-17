@@ -22,7 +22,7 @@ namespace FaPA.Core
         {
         }
 
-        public virtual void HandleValidationResults( string propName, object target )
+        public virtual void HandleValidationResults( string propName )
         {
         }
 

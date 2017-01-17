@@ -149,11 +149,6 @@ namespace FaPA.GUI.Feautures.Fattura
 
             HookChanged( ( ( DatiAnagraficiVettoreType ) instance ).IdFiscaleIVA );
             HookChanged( ( ( DatiAnagraficiVettoreType ) instance ).Anagrafica );
-
-            var anagraficaType = ( ( DatiGeneraliType ) CurrentPoco ).DatiTrasporto.DatiAnagraficiVettore.Anagrafica;
-            var anagraficaType1 = ( ( DatiGeneraliType ) CurrentPoco ).DatiTrasporto.DatiAnagraficiVettore.IdFiscaleIVA;
-            anagraficaType.Denominazione = "fgf";
-            anagraficaType1.IdCodice = "l";
         }
 
         private ICommand _addIndirizzoResaCommand;
@@ -214,26 +209,26 @@ namespace FaPA.GUI.Feautures.Fattura
 
         private void OnCurrentFatturaChanged( object sender, PropertyChangedEventArgs eventarg )
         {
-            if ( sender is DatiTrasportoType )
-            {
-                var anagraficaType = ( ( DatiGeneraliType ) CurrentPoco ).DatiTrasporto.DatiAnagraficiVettore.Anagrafica;
-                var bggg = anagraficaType is IProxy;
-                var jjj = sender is IProxy;
-                anagraficaType.Denominazione = "";
-            }
 
             if ( sender is IndirizzoType )
             {
                 var datiTraporto = ( ( DatiGeneraliType ) CurrentPoco ).DatiTrasporto;
                 datiTraporto.Validate();
-                ( ( IValidatable ) datiTraporto ).HandleValidationResults( "IndirizzoResa", datiTraporto );
+                ( ( IValidatable ) datiTraporto ).HandleValidationResults( "IndirizzoResa" );
             }
 
             if ( sender is IdFiscaleType || sender is AnagraficaType )
             {
-                var datiTraporto = ( ( DatiGeneraliType ) CurrentPoco ).DatiTrasporto.DatiAnagraficiVettore;
+                var datiTraporto = ( ( DatiGeneraliType ) CurrentPoco ).DatiTrasporto;
                 datiTraporto.Validate();
-                ( ( IValidatable ) datiTraporto ).HandleValidationResults( "DatiAnagraficiVettore", datiTraporto );
+                ( ( IValidatable ) datiTraporto ).HandleValidationResults( "DatiAnagraficiVettore" );
+
+                ((IValidatable)datiTraporto.DatiAnagraficiVettore).
+                    HandleValidationResults("IdFiscaleIVA");
+
+                ((IValidatable)datiTraporto.DatiAnagraficiVettore).
+                    HandleValidationResults("Anagrafica");
+
             }
         }
 

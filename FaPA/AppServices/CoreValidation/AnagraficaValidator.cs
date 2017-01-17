@@ -13,15 +13,23 @@ namespace FaPA.AppServices.CoreValidation
 
             if ( instnce == null ) return errors;
 
-            if ( !string.IsNullOrWhiteSpace( instnce.Denominazione ) ) return errors;
-
-            if ( string.IsNullOrWhiteSpace( instnce.Denominazione + instnce.Cognome ) )
+            if ( !TryAddNotNullError(nameof(instnce.Denominazione), instnce.Denominazione, errors))
             {
-                TryAddNotNullError( nameof( instnce.Denominazione ), instnce.Denominazione, errors );
+                TryGetLengthErrors(nameof(instnce.Denominazione), instnce.Denominazione, errors, 2, 2);
+                TryGetLengthErrors(nameof(instnce.Nome), instnce.Nome, errors, 60);
+                TryGetLengthErrors(nameof(instnce.Cognome), instnce.Cognome, errors, 60);
+                return errors;
             }
 
-            TryAddNotNullError( nameof( instnce.Cognome ), instnce.Cognome, errors );
-            TryAddNotNullError( nameof( instnce.Nome ), instnce.Nome, errors );
+            if (TryAddNotNullError(nameof(instnce.Nome), instnce.Nome, errors))
+            {
+                TryGetLengthErrors(nameof(instnce.Nome), instnce.Nome, errors, 60);
+            }
+
+            if (TryAddNotNullError(nameof(instnce.Cognome), instnce.Cognome, errors ) )
+            {
+                TryGetLengthErrors(nameof(instnce.Cognome), instnce.Cognome, errors, 60 );
+            }
 
             return errors;
         }

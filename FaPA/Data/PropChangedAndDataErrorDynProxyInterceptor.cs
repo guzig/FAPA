@@ -39,7 +39,6 @@ namespace FaPA.Data
                     _changed += info.Arguments[0] as PropertyChangedEventHandler;
                     return null;
                 case "remove_PropertyChanged":
-
                     var propertyChangedEventHandler = info.Arguments[0] as PropertyChangedEventHandler;
                     _changed -= propertyChangedEventHandler;
 
@@ -72,7 +71,7 @@ namespace FaPA.Data
                 {
                     if ( info.Arguments != null && info.Arguments.Any() )
                     {
-                        ShowPropValidationError( ( string ) info.Arguments[0], info.Arguments[1] );
+                        ShowPropValidationError( ( string ) info.Arguments[0], info.Target);
                     }
                     else
                     {

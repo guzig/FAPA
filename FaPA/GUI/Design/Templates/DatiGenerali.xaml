@@ -130,12 +130,15 @@
 
                                             <StackPanel  Grid.Row="0" Grid.Column="0" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
                                                 <TextBlock Text="Id Paese" />
-                                                <TextBox   Text="{Binding IdFiscaleIVA.IdPaese, UpdateSourceTrigger=LostFocus}" HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
+                                                <TextBox   Text="{Binding IdFiscaleIVA.IdPaese, UpdateSourceTrigger=LostFocus}" 
+                                                           MaxLength="2"  Margin="2,0,2,0"/>
                                             </StackPanel>
 
                                             <StackPanel  Grid.Row="0" Grid.Column="1" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
                                                 <TextBlock Text="Id codice" />
-                                                <TextBox   Text="{Binding IdFiscaleIVA.IdCodice, UpdateSourceTrigger=LostFocus}" HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
+                                                <TextBox   Text="{Binding IdFiscaleIVA.IdCodice, UpdateSourceTrigger=LostFocus}" 
+                                                           MaxLength="28"
+                                                           Margin="2,0,2,0"/>
                                             </StackPanel>
 
                                             <StackPanel  Grid.Row="0" Grid.Column="2" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
@@ -146,24 +149,27 @@
                                             <StackPanel  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
                                                 <TextBlock Text="Denominazione" />
                                                 <TextBox   Text="{Binding Anagrafica.Denominazione,
-                                                                          UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, 
-                                                                          NotifyOnTargetUpdated=True, ValidatesOnNotifyDataErrors=True, Mode=TwoWay}" 
+                                                                          UpdateSourceTrigger=LostFocus}" 
+                                                           MaxLength="80"
                                                            HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
                                             </StackPanel>
 
                                             <StackPanel  Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
                                                 <TextBlock Text="Cognome" />
-                                                <TextBox   Text="{Binding Anagrafica.Cognome, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
+                                                <TextBox   Text="{Binding Anagrafica.Cognome, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
+                                                           MaxLength="60" Margin="2,0,2,0"/>
                                             </StackPanel>
 
                                             <StackPanel  Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="1" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
                                                 <TextBlock Text="Nome" />
-                                                <TextBox   Text="{Binding Anagrafica.Nome, UpdateSourceTrigger=LostFocus}" HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
+                                                <TextBox   Text="{Binding Anagrafica.Nome, UpdateSourceTrigger=LostFocus}" 
+                                                           MaxLength="60" Margin="2,0,2,0"/>
                                             </StackPanel>
 
                                             <StackPanel  Grid.Row="3" Grid.Column="0" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
                                                 <TextBlock Text="NumeroLicenzaGuida" />
-                                                <TextBox   Text="{Binding NumeroLicenzaGuida, UpdateSourceTrigger=LostFocus}" HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
+                                                <TextBox   Text="{Binding NumeroLicenzaGuida, UpdateSourceTrigger=LostFocus}"
+                                                           MaxLength="20" Margin="2,0,2,0"/>
                                             </StackPanel>
 
                                         </Grid>
@@ -176,44 +182,44 @@
                             <StackPanel  Grid.Row="1" Grid.Column="0" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Left" MinWidth="200">
                                 <TextBlock Text="Mezzo trasporto" />
                                 <TextBox   Text="{Binding CurrentPoco.DatiTrasporto.MezzoTrasporto, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
-                                       HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
+                                           MaxLength="80" Margin="2,0,2,0"/>
                             </StackPanel>
 
                             <StackPanel  Grid.Row="1" Grid.Column="1" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Left" MinWidth="200">
                                 <TextBlock Text="Causale trasporto" />
                                 <TextBox   Text="{Binding CurrentPoco.DatiTrasporto.CausaleTrasporto, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
-                                       HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
+                                           MaxLength="100" Margin="2,0,2,0"/>
                             </StackPanel>
 
                             <StackPanel  Grid.Row="1" Grid.Column="2" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Left" MinWidth="200">
                                 <TextBlock Text="Numero colli" />
                                 <TextBox   Text="{Binding CurrentPoco.DatiTrasporto.NumeroColli, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
-                                       HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
+                                           MaxLength="04" Margin="2,0,2,0"/>
                             </StackPanel>
 
                             <StackPanel  Grid.Row="2" Grid.Column="0" Margin="2,0,2,0" Width="Auto"  
                                      HorizontalAlignment="Stretch" MinWidth="200" Grid.ColumnSpan="4">
                                 <TextBlock Text="Descrizione" />
                                 <TextBox   Text="{Binding CurrentPoco.DatiTrasporto.Descrizione, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
-                                       HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
+                                           MaxLength="100" Margin="2,0,2,0"/>
                             </StackPanel>
 
                             <StackPanel  Grid.Row="3" Grid.Column="0" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Left" MinWidth="200">
                                 <TextBlock Text="Unita misura peso" />
                                 <TextBox   Text="{Binding CurrentPoco.DatiTrasporto.UnitaMisuraPeso, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
-                                       HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
+                                           MaxLength="10" Margin="2,0,2,0"/>
                             </StackPanel>
 
                             <StackPanel  Grid.Row="3" Grid.Column="1" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Left" MinWidth="200">
                                 <TextBlock Text="Peso lordo" />
                                 <TextBox   Text="{Binding CurrentPoco.DatiTrasporto.PesoLordo, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
-                                       HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
+                                           MaxLength="7" Margin="2,0,2,0"/>
                             </StackPanel>
 
                             <StackPanel  Grid.Row="3" Grid.Column="2" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Left" MinWidth="200">
                                 <TextBlock Text="Peso netto" />
                                 <TextBox   Text="{Binding CurrentPoco.DatiTrasporto.PesoNetto, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
-                                       HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
+                                           MaxLength="7" Margin="2,0,2,0"/>
                             </StackPanel>
 
                             <StackPanel  Grid.Row="4" Grid.Column="0" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Left" MinWidth="200">
@@ -231,14 +237,14 @@
                             <StackPanel  Grid.Row="4" Grid.Column="2" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Left" MinWidth="200">
                                 <TextBlock Text="Data ora consegna" />
                                 <TextBox   Text="{Binding CurrentPoco.DatiTrasporto.DataOraConsegna, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
-                                       HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
+                                           Margin="2,0,2,0"/>
                             </StackPanel>
 
                             <StackPanel  Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4" Margin="2,0,2,0" Width="Auto" 
                                          HorizontalAlignment="Stretch" MinWidth="200">
                                 <TextBlock Text="Tipo resa" />
                                 <TextBox   Text="{Binding CurrentPoco.DatiTrasporto.TipoResa, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
-                                       HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
+                                           MaxLength="3" Margin="2,0,2,0"/>
                             </StackPanel>
 
                             <Expander Header="Indirizzo resa" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4"
@@ -331,7 +337,7 @@
                 </TabItem>
 
                 <TabItem Header="Dati SAL" Style="{StaticResource SubTabItemStyle}">
-                    <!--<Grid Margin="2,2,2,2">
+                    <Grid Margin="2,2,2,2">
                         <Grid.Effect>
                             <DropShadowEffect Color="LightSteelBlue" Direction="270"/>
                         </Grid.Effect>
@@ -341,39 +347,20 @@
                         </Grid.RowDefinitions>
 
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
                         <StackPanel Grid.Row="0" Grid.Column="1" Margin="2,0,2,0">
-                            <TextBlock Text="Tipo" />
-                            <TextBox   Text="{Binding CurrentPoco.DatiRitenuta.TipoRitenuta, UpdateSourceTrigger=LostFocus, 
-                                                                        ValidatesOnDataErrors=True, 
-                                                                        NotifyOnTargetUpdated=True,
-                                                                        NotifyOnValidationError=True}" 
-                               HorizontalAlignment="Stretch"/>
+                            <TextBlock Text="Riferimento fase" />
+                            <TextBox   Text="{Binding CurrentPoco.DatiTrasporto.DatiSAL.RiferimentoFase, UpdateSourceTrigger=LostFocus }" 
+                                       MaxLength="3"/>
                         </StackPanel>
 
-                        <StackPanel Grid.Row="0" Grid.Column="0" Margin="2,0,2,0">
-                            <TextBlock Text="Importo" />
-                            <TextBox   Text="{Binding CurrentPoco.DatiRitenuta.ImportoRitenuta, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" HorizontalAlignment="Stretch" />
-                        </StackPanel>
-
-                        <StackPanel Grid.Row="1" Grid.Column="0" Margin="2,0,2,0">
-                            <TextBlock Text="Aliquota" />
-                            <TextBox   Text="{Binding CurrentPoco.DatiRitenuta.AliquotaRitenuta, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
-                        </StackPanel>
-
-                        <StackPanel Grid.Row="1" Grid.Column="1" Margin="2,0,2,0">
-                            <TextBlock Text="Causale pagamento" />
-                            <TextBox   Text="{Binding CurrentPoco.DatiRitenuta.CausalePagamento, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
-                        </StackPanel>
-
-                    </Grid>-->
+                    </Grid>
                 </TabItem>
 
                 <TabItem Header="Dati DDT" Style="{StaticResource SubTabItemStyle}">
-                    <!--<Grid Margin="2,2,2,2">
+                    <Grid Margin="2,2,2,2">
                         <Grid.Effect>
                             <DropShadowEffect Color="LightSteelBlue" Direction="270"/>
                         </Grid.Effect>
@@ -384,35 +371,29 @@
                         </Grid.RowDefinitions>
 
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
                         <StackPanel  Grid.Row="0" Grid.Column="0" Margin="2,0,2,0">
-                            <TextBlock Text="Tipo" />
-                            <TextBox   Text="{Binding CurrentPoco.DatiCassaPrevidenziale.TipoCassa, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
+                            <TextBlock Text="Numero" />
+                            <TextBox   Text="{Binding  CurrentPoco.DatiTrasporto.DatiSAL.NumeroDDT, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
+                                       MaxLength="20" Margin="2,0,2,0"/>
                         </StackPanel>
 
                         <StackPanel  Grid.Row="0" Grid.Column="1" Margin="2,0,2,0">
-                            <TextBlock Text="Aliquota" />
-                            <TextBox   Text="{Binding CurrentPoco.DatiCassaPrevidenziale.AlCassa, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch"/>
+                            <TextBlock Text="Data" />
+                            <TextBox   Text="{Binding CurrentPoco.DatiTrasporto.DatiSAL.DataDDT, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch"/>
                         </StackPanel>
 
-                        <StackPanel Grid.Row="1" Grid.Column="0" Margin="2,0,2,0">
-                            <TextBlock Text="Contributo" />
-                            <TextBox   Text="{Binding CurrentPoco.DatiCassaPrevidenziale.ImportoContributoCassa, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
+                        <StackPanel Grid.Row="0" Grid.Column="2" Margin="2,0,2,0">
+                            <TextBlock Text="Rif. num. linea" />
+                            <TextBox   Text="{Binding CurrentPoco.DatiTrasporto.DatiSAL.RiferimentoNumeroLinea, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True}" 
+                                       MaxLength="4" />
                         </StackPanel>
 
-                        <StackPanel Grid.Row="1" Grid.Column="1" Margin="2,0,2,0">
-                            <TextBlock Text="Imponibile" />
-                            <TextBox   Text="{Binding CurrentPoco.DatiCassaPrevidenziale.ImponibileCassa, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
-                        </StackPanel>
-
-                        <StackPanel Grid.Row="2" Grid.Column="0" Margin="2,0,2,0">
-                            <TextBlock Text="Aliquota" />
-                            <TextBox   Text="{Binding CurrentPoco.DatiCassaPrevidenziale.AliquotaIVA, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
-                        </StackPanel>
-                    </Grid>-->
+                    </Grid>
                 </TabItem>
 
                 <TabItem Header="Dati fatture collegate" Style="{StaticResource SubTabItemStyle}">

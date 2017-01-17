@@ -31,6 +31,15 @@ namespace FaPA.AppServices.CoreValidation
                 }
             }
 
+            TryGetLengthErrors(nameof(instnce.MezzoTrasporto), instnce.MezzoTrasporto, errors, 80);
+            TryGetLengthErrors(nameof(instnce.CausaleTrasporto), instnce.CausaleTrasporto, errors, 100);
+            TryGetLengthErrors(nameof(instnce.NumeroColli), instnce.NumeroColli, errors, 4);
+            TryGetLengthErrors(nameof(instnce.Descrizione), instnce.NumeroColli, errors, 100);
+            TryGetLengthErrors(nameof(instnce.UnitaMisuraPeso), instnce.NumeroColli, errors, 10);
+            TryGetLengthErrors(nameof(instnce.PesoLordo), instnce.NumeroColli, errors, 7,4);
+            TryGetLengthErrors(nameof(instnce.PesoNetto), instnce.NumeroColli, errors, 7, 4);
+            TryGetLengthErrors(nameof(instnce.TipoResa), instnce.TipoResa, errors, 3);
+
             return errors;
         }
     }

@@ -24,15 +24,15 @@ namespace FaPA.AppServices.CoreValidation
                 errors.Add( "IdFiscaleIVA", new List<string>(1) {"IdFiscale deve essere valorizzato"} );
             }
 
-            if ( instnce.Anagrafica != null )
+            if (instnce.Anagrafica != null)
             {
                 var anagResult = instnce.Anagrafica.Validate();
-                if ( !anagResult.Success )
-                    errors.Add( "Anagrafica", anagResult.Errors.Values.SelectMany( s => s ) );
+                if (!anagResult.Success)
+                    errors.Add("Anagrafica", anagResult.Errors.Values.SelectMany(s => s));
             }
             else
             {
-                errors.Add( "Anagrafica", new List<string>( 1 ) { "Anagrafica deve essere valorizzato" } );
+                errors.Add("Anagrafica", new List<string>(1) { "Anagrafica deve essere valorizzato" });
             }
 
             return errors;
