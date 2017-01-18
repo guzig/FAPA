@@ -13,5 +13,6 @@ namespace FaPA.GUI.Design.Templates
             InitializeComponent();
         }
 
+
     }
 }

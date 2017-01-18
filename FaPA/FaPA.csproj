@@ -180,6 +180,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="GUI\Design\Templates\InstanceNullManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GUI\Design\Templates\ScontoMaggiorazione.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -426,6 +430,9 @@
     </Compile>
     <Compile Include="GUI\Design\Templates\DatiGenerali.xaml.cs">
       <DependentUpon>DatiGenerali.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Design\Templates\InstanceNullManager.xaml.cs">
+      <DependentUpon>InstanceNullManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\Design\Templates\ScontoMaggiorazione.xaml.cs">
       <DependentUpon>ScontoMaggiorazione.xaml</DependentUpon>

@@ -86,7 +86,6 @@ namespace FaPA.GUI.Feautures.Fattura
         #region Commands
 
         private ICommand _addTrasportoCommand;
-
         public ICommand AddTrasportoCommand
         {
             get
@@ -183,6 +182,51 @@ namespace FaPA.GUI.Feautures.Fattura
         }
 
         #endregion
+
+        private ICommand _addSchedaCommand;
+        public ICommand AddSchedaCommand
+        {
+            get
+            {
+                if (_addSchedaCommand != null) return _addSchedaCommand;
+                _addSchedaCommand = new RelayCommand( AddDatiScheda, param => true );
+                return _addSchedaCommand;
+            }
+        }
+
+        private void AddDatiScheda(object parm)
+        {
+            var current = CurrentPoco as DatiGeneraliType;
+            if (current == null) return;
+            string param = (string) parm;
+            switch (param)
+            {
+                case "FatturaPrincipale":
+                    GetInstance<FatturaPrincipaleType>(v => current.FatturaPrincipale = v);
+                    break;
+
+                case "DatiSAL":
+                    GetInstance<DatiSALType[]>(v => current.DatiSAL = v);
+                    break;
+
+
+            }
+        }
+
+
+        private void GetInstance<T>(Action<T> prop)
+        {
+            object instance = Activator.CreateInstance<T>();
+            LockMessage = EditViewModel<BaseEntity>.OnEditingLockMessage;
+
+            ((IValidatable)instance).Validate();
+
+            ObjectExplorer.TryProxiedAllInstances<BaseEntity>(ref instance, "FaPA.Core");
+
+            HookChanged(instance);
+
+            prop((T) instance);
+        }
 
         //ctor
         public DatiGeneraliViewModel( IRepository repository, Core.Fattura instance ) :
