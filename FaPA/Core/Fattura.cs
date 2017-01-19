@@ -5,8 +5,6 @@ using FaPA.Core.FaPa;
 using System.Linq;
 using System.Xml;
 using FaPA.AppServices.CoreValidation;
-using FaPA.Core;
-using FaPA.GUI.Design.Templates;
 
 namespace FaPA.Core
 {
@@ -185,7 +183,7 @@ namespace FaPA.Core
             set { DatiGenerali.DatiSAL=value;}
         }
 
-        public virtual DatiDdtType[] DatiDDT
+        public virtual DatiDDTType[] DatiDDT
         {
             get
             {

@@ -7,7 +7,6 @@ using System.Windows.Input;
 using FaPA.AppServices.CoreValidation;
 using FaPA.Core;
 using FaPA.GUI.Controls.MyTabControl;
-using FaPA.GUI.Feautures.Fattura;
 using FaPA.GUI.Utils;
 using FaPA.Infrastructure;
 using Action = System.Action;

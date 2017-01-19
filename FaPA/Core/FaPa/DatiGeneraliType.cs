@@ -14,7 +14,7 @@ namespace FaPA.Core.FaPa
         private DatiDocumentiCorrelatiType[] _datiRicezioneField;
         private DatiDocumentiCorrelatiType[] _datiFattureCollegateField;
         private DatiSALType[] _datiSalField;
-        private DatiDdtType[] _datiDdtField;
+        private DatiDDTType[] _datiDdtField;
         private DatiTrasportoType _datiTrasportoField;
         private FatturaPrincipaleType _fatturaPrincipaleField;
         
@@ -110,7 +110,7 @@ namespace FaPA.Core.FaPa
         }
         
         [XmlElement( "DatiDDT", Form = XmlSchemaForm.Unqualified )]
-        public virtual DatiDdtType[] DatiDDT
+        public virtual DatiDDTType[] DatiDDT
         {
             get
             {

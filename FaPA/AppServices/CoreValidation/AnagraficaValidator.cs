@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using FaPA.Core;
 using FaPA.Core.FaPa;
 
 namespace FaPA.AppServices.CoreValidation
@@ -15,7 +14,7 @@ namespace FaPA.AppServices.CoreValidation
 
             if ( !TryAddNotNullError(nameof(instnce.Denominazione), instnce.Denominazione, errors))
             {
-                TryGetLengthErrors(nameof(instnce.Denominazione), instnce.Denominazione, errors, 2, 2);
+                TryGetLengthErrors(nameof(instnce.Denominazione), instnce.Denominazione, errors, 80);
                 TryGetLengthErrors(nameof(instnce.Nome), instnce.Nome, errors, 60);
                 TryGetLengthErrors(nameof(instnce.Cognome), instnce.Cognome, errors, 60);
                 return errors;

@@ -2,7 +2,7 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:t="clr-namespace:FaPA.GUI.Design.Templates"
-             xmlns:myRecordNavigator="clr-namespace:FaPA.GUI.Controls.MyRecordNavigator"
+             xmlns:m="clr-namespace:FaPA.GUI.Controls.MyRecordNavigator"
              xmlns:utils="clr-namespace:FaPA.GUI.Utils">
     
     <Grid Margin="2,2,2,2">
@@ -18,9 +18,6 @@
 
                 <TabItem Header="Fattura principale" Style="{StaticResource SubTabItemStyle}">
                     <Grid Margin="2,2,2,2" >
-                         <Grid.Effect>
-                            <DropShadowEffect Color="LightSteelBlue" Direction="280"/>
-                        </Grid.Effect>       
                         
                         <t:InstanceNullManager Grid.Row="0" Grid.ColumnSpan="2"
                                                BindedInstance="{Binding CurrentPoco.FatturaPrincipale}"
@@ -30,28 +27,30 @@
                                                ActionCommandParam="FatturaPrincipale"/>
 
                         <Grid Visibility="{Binding CurrentPoco.FatturaPrincipale, Converter={StaticResource NullToVisibiltyConverter}}">
-
+                            <Grid.Effect>
+                                <DropShadowEffect Color="LightSteelBlue" Direction="280"/>
+                            </Grid.Effect>
+                            
                             <Grid.RowDefinitions>
                             <RowDefinition Height="45" />
                         </Grid.RowDefinitions>
 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
 
-                        <StackPanel Grid.Row="0" Grid.Column="0" Margin="2,0,2,0">
-                            <TextBlock Text="Numero" />
-                            <TextBox   Text="{Binding CurrentPoco.FatturaPrincipale.NumeroFatturaPrincipale, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch"  />
-                        </StackPanel>
+                            <StackPanel Grid.Row="0" Grid.Column="0" Margin="2,0,2,0">
+                                <TextBlock Text="Numero" />
+                                <TextBox   Text="{Binding CurrentPoco.FatturaPrincipale.NumeroFatturaPrincipale, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch"  />
+                            </StackPanel>
 
-                        <StackPanel Grid.Row="0" Grid.Column="1" Margin="2,0,2,0">
-                            <TextBlock Text="Data" />
-                            <DatePicker SelectedDate="{Binding CurrentPoco.FatturaPrincipale.DataFatturaPrincipale}"/>
-                        </StackPanel>
+                            <StackPanel Grid.Row="0" Grid.Column="1" Margin="2,0,2,0">
+                                <TextBlock Text="Data" />
+                                <DatePicker SelectedDate="{Binding CurrentPoco.FatturaPrincipale.DataFatturaPrincipale}"/>
+                            </StackPanel>
                         
-
-                    </Grid>
+                        </Grid>
                     </Grid>
                 </TabItem>
 
@@ -60,28 +59,23 @@
                     <ScrollViewer>
                     
                     <Grid Margin="2,2,2,2" >
-                        <Grid.Effect>
-                            <DropShadowEffect Color="LightSteelBlue" Direction="270"/>
-                        </Grid.Effect>
 
-                        <StackPanel Width="Auto" HorizontalAlignment="Stretch"  Grid.Row="0" Orientation="Vertical"
-                                    Visibility="{Binding CurrentPoco.DatiTrasporto, Converter={StaticResource NullToInverseVisibiltyConverter}}">
+                            <t:InstanceNullManager Grid.Row="0" Grid.ColumnSpan="2"
+                                               BindedInstance="{Binding CurrentPoco.DatiTrasporto, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                               EmptyMessage="Nessuna scheda dati trasporto è stata aggiunta"
+                                               ActionCommandMessage="Aggiungi una scheda dati trasporto"
+                                               OnNullCommand="{Binding AddSchedaCommand}"
+                                               ActionCommandParam="DatiTrasporto"/>
 
-                            <TextBlock Text="Nessuna scheda dati trasporto è stata aggiunta" FontSize="14" Foreground="Red" 
-                               Height="Auto" Margin="10,25,15,15" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-
-                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,15,0,15"> 
-                                        <Hyperlink FontSize="14"  Command="{Binding AddTrasportoCommand}">
-                                            <Run Text="Aggiungi una scheda dati trasporto" />
-                                        </Hyperlink>
-                            </TextBlock>
-
-                        </StackPanel>
 
                         <Grid Margin="2,2,2,2"  Grid.Row="0"
                               Visibility="{Binding CurrentPoco.DatiTrasporto, Converter={StaticResource NullToVisibiltyConverter}}">
-
-                            <Grid.RowDefinitions>
+                            
+                                <Grid.Effect>
+                                    <DropShadowEffect Color="LightSteelBlue" Direction="270"/>
+                                </Grid.Effect>
+                            
+                                <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="45" />
                                 <RowDefinition Height="45" />
@@ -101,21 +95,14 @@
                             <Expander Grid.Row="0" Header="Anagrafica vettore" IsExpanded="False" Grid.ColumnSpan="4" Margin="2,2,2,2" Padding="2,2,2,2">
                                 <GroupBox BorderThickness="1" Margin="2,2,2,2" Padding="2,2,2,2" >
                                     <Grid>
-                                        
-                                        <StackPanel Grid.Row="0" Width="Auto" HorizontalAlignment="Stretch"  Orientation="Vertical"
-                                                    Visibility="{Binding CurrentPoco.DatiTrasporto.DatiAnagraficiVettore, Converter={StaticResource NullToInverseVisibiltyConverter}}">
 
-                                            <TextBlock Text="Nessuna scheda dati anagrafici vettore è stata aggiunta" FontSize="14" Foreground="Red" 
-                                                       Height="Auto" Margin="10,25,15,15" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                                            <t:InstanceNullManager Grid.Row="0" Grid.ColumnSpan="4"
+                                               BindedInstance="{Binding CurrentPoco.DatiTrasporto.DatiAnagraficiVettore, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                               EmptyMessage="Nessuna scheda dati anagrafici vettore è stata aggiunta"
+                                               ActionCommandMessage="Aggiungi una scheda dati anagrafici vettore"
+                                               OnNullCommand="{Binding AddSchedaCommand}"
+                                               ActionCommandParam="DatiVettore"/>
 
-                                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,15,0,15"> 
-                                                        <Hyperlink FontSize="14"  Command="{Binding AddVettoreCommand}">
-                                                            <Run Text="Aggiungi una scheda dati anagrafici vettore" />
-                                                        </Hyperlink>
-                                            </TextBlock>
-
-                                        </StackPanel>
-                                        
                                         <Grid Grid.Row="0" Grid.ColumnSpan="5"
                                               DataContext="{Binding CurrentPoco.DatiTrasporto.DatiAnagraficiVettore, 
                                                                         NotifyOnSourceUpdated=True, 
@@ -263,19 +250,12 @@
                                     <GroupBox BorderThickness="1" Margin="2,2,2,2" Padding="2,2,2,2">
                                         <Grid>
 
-                                            <StackPanel Grid.Row="0" Width="Auto" HorizontalAlignment="Stretch"  Orientation="Vertical"
-                                                    Visibility="{Binding CurrentPoco.DatiTrasporto.IndirizzoResa, Converter={StaticResource NullToInverseVisibiltyConverter}}">
-
-                                                <TextBlock Text="Nessuna scheda dati indirizzo è stata aggiunta" FontSize="14" Foreground="Red" 
-                                                            Height="Auto" Margin="10,25,15,15" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-
-                                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,15,0,15"> 
-                                                            <Hyperlink FontSize="14"  Command="{Binding AddIndirizzoResaCommand}">
-                                                                <Run Text="Aggiungi una scheda dati indirizzo" />
-                                                            </Hyperlink>
-                                                </TextBlock>
-
-                                            </StackPanel>
+                                            <t:InstanceNullManager Grid.Row="0" 
+                                                                   BindedInstance="{Binding CurrentPoco.DatiTrasporto.IndirizzoResa, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                                                   EmptyMessage="Nessuna scheda dati indirizzo è stata aggiunta"
+                                                                   ActionCommandMessage="Aggiungi una scheda dati indirizzo"
+                                                                   OnNullCommand="{Binding AddSchedaCommand}"
+                                                                   ActionCommandParam="IndirizzoResa"/>
 
                                             <Grid Grid.Row="0" Visibility="{Binding ., 
                                                   Converter={StaticResource NullToVisibiltyConverter}}"
@@ -346,38 +326,32 @@
                 </TabItem>
 
                 <TabItem Header="Dati SAL" Style="{StaticResource SubTabItemStyle}">
-                    
-                    <Grid>
+
+                    <Grid DataContext="{Binding DatiSalViewModel}" >
+                        
                         <t:InstanceNullManager Grid.Row="0" Grid.ColumnSpan="2"
-                                               BindedInstance="{Binding CurrentPoco.DatiSAL}"
+                                               BindedInstance="{Binding CurrentPoco}"
                                                EmptyMessage="Nessuna scheda dati SAL aggiunta"
                                                ActionCommandMessage="Aggiungi una scheda dati SAL"
-                                               OnNullCommand="{Binding AddSchedaCommand}" 
+                                               OnNullCommand="{Binding AddItemCommand}" 
                                                ActionCommandParam="DatiSAL"/>
-
-                        <Grid >
+                        <Grid HorizontalAlignment="Stretch">
 
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
-
-                            <DockPanel Grid.Row="0" 
-                                       Visibility="{Binding Path=IsEmpty, Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
-
-                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,15,0,0"> 
-                                        <Hyperlink FontSize="14" Command="{Binding AddItemCommand}">
-                                            <Run Text="Inserisci un nuovo elemento" />
-                                        </Hyperlink>
-                                </TextBlock>
-
-                            </DockPanel>
+                            
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
                             <DockPanel Grid.Row="1">
                                 <DataGrid x:Name="DatiSALGridControl" ItemsSource="{Binding UserCollectionView, NotifyOnSourceUpdated=True}"
                                           Visibility="{Binding IsEmpty, Converter={StaticResource BoolToOppositeVisibilityConverter},Mode=OneWay}"
                                           IsSynchronizedWithCurrentItem="True" 
+                                          HorizontalContentAlignment="Stretch"
                                           HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" 
                                           SelectionMode="Extended"
                                           CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" 
@@ -410,8 +384,140 @@
 
                                     <DataGrid.Columns >
 
-                                        <DataGridTextColumn Header="Riferimento fase" Width="Auto" 
+                                        <DataGridTextColumn Header="Riferimento fase" Width="*" 
                                                             Binding="{Binding RiferimentoFase, ValidatesOnDataErrors =True,
+                                                                                        NotifyOnSourceUpdated=True,
+                                                                                        NotifyOnValidationError=True,
+                                                                                        UpdateSourceTrigger =LostFocus}"
+                                                            ElementStyle="{StaticResource errorStyle}">
+                                            
+                                        </DataGridTextColumn>
+
+                                    </DataGrid.Columns>
+
+                                    <DataGrid.GroupStyle>
+                                        <GroupStyle ContainerStyle="{StaticResource GroupHeaderStyle}" >
+                                            <GroupStyle.Panel>
+                                                <ItemsPanelTemplate>
+                                                    <DataGridRowsPresenter/>
+                                                </ItemsPanelTemplate>
+                                            </GroupStyle.Panel>
+                                        </GroupStyle>
+                                    </DataGrid.GroupStyle>
+
+                                </DataGrid>
+
+                            </DockPanel>
+
+                            <DockPanel Width="Auto" Grid.Row="2" Height="25" 
+                                       Visibility="{Binding IsEmpty, Converter={StaticResource BoolToOppositeVisibilityConverter},Mode=OneWay}"
+                                       Margin="0 05 0 0" Background="{StaticResource Brush_ToolBar}">
+
+                                        <m:MyRecordNavigator ItemsSource="{Binding Path=UserCollectionView}"
+                                                             GridSource="{Binding ElementName=DatiSALGridControl}"
+                                                             Height="25"/>
+
+                                <Button Command="{Binding AddItemCommand}" ToolTip="Aggiunge nuovo record" >
+                                    <Image Source="/GUI/Design/Styles/Images/Add_24.png" Width="Auto"/>
+                                </Button>
+
+                                <Button Command="{Binding DeleteEntityCommand}"   ToolTip="Elimina record" 
+                                        Width="25" HorizontalAlignment="Left">
+                                    <Image Source="/GUI/Design/Styles/Images/delete(1).png" Width="25"/>
+                                </Button>
+
+                            </DockPanel>
+
+                        </Grid>
+
+                    </Grid>
+
+                </TabItem>
+
+                <TabItem Header="Dati DDT" Style="{StaticResource SubTabItemStyle}">
+                    <Grid DataContext="{Binding DatiDdtViewModel}" >
+
+                        <t:InstanceNullManager Grid.Row="0" Grid.ColumnSpan="2"
+                                               BindedInstance="{Binding CurrentPoco, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                               EmptyMessage="Nessuna scheda dati DDT aggiunta"
+                                               ActionCommandMessage="Aggiungi una scheda dati DDT"
+                                               OnNullCommand="{Binding AddItemCommand}" />
+
+                        <Grid HorizontalAlignment="Stretch" 
+                              Visibility="{Binding CurrentPoco, Converter={StaticResource NullToVisibiltyConverter}}">
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <DockPanel Grid.Row="1">
+                                <DataGrid x:Name="DatiDdtGridControl" 
+                                          ItemsSource="{Binding UserCollectionView, NotifyOnSourceUpdated=True}"
+                                          Visibility="{Binding IsEmpty, Converter={StaticResource BoolToOppositeVisibilityConverter},Mode=OneWay}"
+                                          IsSynchronizedWithCurrentItem="True" 
+                                          HorizontalContentAlignment="Stretch"
+                                          HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" 
+                                          SelectionMode="Extended"
+                                          CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" 
+                                          CanUserSortColumns="True" AutoGenerateColumns="False"
+                                          RowHeaderWidth="17" RowHeight="26" HorizontalAlignment="Left" 
+                                          FontSize="16"
+                                          ScrollViewer.CanContentScroll="True"
+                                          EnableRowVirtualization="True" EnableColumnVirtualization="False"
+                                          VirtualizingStackPanel.IsVirtualizing="True"
+                                          VirtualizingStackPanel.VirtualizationMode="Standard">
+
+                                    <DataGrid.Resources>
+                                        <Style x:Key="errorStyle" TargetType="{x:Type TextBlock}">
+                                            <Style.Triggers>
+                                                <Trigger Property="Validation.HasError" Value="True">
+                                                    <!--<Setter Property="Background" Value="Red"/>-->
+                                                    <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, 
+                                                           Path=(Validation.Errors)[0].ErrorContent}"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+
+                                    </DataGrid.Resources>
+
+                                    <!--<DataGrid.RowValidationRules>
+
+                                        <DataErrorValidationRule  ValidationStep="CommittedValue"  ValidatesOnTargetUpdated="True" />
+
+                                    </DataGrid.RowValidationRules>-->
+
+                                    <DataGrid.Columns >
+
+                                        <DataGridTextColumn Header="Numero DDT" Width="Auto" 
+                                                            Binding="{Binding NumeroDDT, ValidatesOnDataErrors =True,
+                                                                                        NotifyOnSourceUpdated=True,
+                                                                                        NotifyOnValidationError=True,
+                                                                                        UpdateSourceTrigger =LostFocus}"
+                                                            ElementStyle="{StaticResource errorStyle}">
+
+                                        </DataGridTextColumn>
+
+                                        <DataGridTemplateColumn Header="Data DDT" Width="Auto" >
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding DataDDT, StringFormat='{}{0:d}'}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                            <DataGridTemplateColumn.CellEditingTemplate>
+                                                <DataTemplate>
+                                                    <DatePicker Height="26" SelectedDate="{Binding DataDDT,ValidatesOnDataErrors =True, NotifyOnSourceUpdated=True, ValidatesOnExceptions=True, UpdateSourceTrigger =LostFocus}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellEditingTemplate>
+                                        </DataGridTemplateColumn>
+
+                                        <DataGridTextColumn Header="Riferimento numero linee" Width="*" 
+                                                            Binding="{Binding RiferimentoNumeroLinea, ValidatesOnDataErrors =True,
                                                                                         NotifyOnSourceUpdated=True,
                                                                                         NotifyOnValidationError=True,
                                                                                         UpdateSourceTrigger =LostFocus}"
@@ -437,85 +543,24 @@
 
                             <DockPanel Width="Auto" Grid.Row="2" Height="25" 
                                        Visibility="{Binding IsEmpty, Converter={StaticResource BoolToOppositeVisibilityConverter},Mode=OneWay}"
-                                       Margin="0 05 0 0" 
-                                       Background="{StaticResource Brush_ToolBar}">
+                                       Margin="0 05 0 0" Background="{StaticResource Brush_ToolBar}">
 
-                                                    <myRecordNavigator:MyRecordNavigator ItemsSource="{Binding Path=UserCollectionView}"
-                                                                     GridSource="{Binding ElementName=ScontoMaggiorazioneGridControl}"
-                                                                     Height="25"/>
+                                <m:MyRecordNavigator ItemsSource="{Binding Path=UserCollectionView}"
+                                                     GridSource="{Binding ElementName=DatiDdtGridControl}"
+                                                     Height="25"/>
 
                                 <Button Command="{Binding AddItemCommand}" ToolTip="Aggiunge nuovo record" >
-
                                     <Image Source="/GUI/Design/Styles/Images/Add_24.png" Width="Auto"/>
                                 </Button>
 
-                                <Button Command="{Binding DeleteEntityCommand}"   ToolTip="Elimina record" >
-
+                                <Button Command="{Binding DeleteEntityCommand}" ToolTip="Elimina record" 
+                                        Width="25" HorizontalAlignment="Left">
                                     <Image Source="/GUI/Design/Styles/Images/delete(1).png" Width="25"/>
                                 </Button>
 
                             </DockPanel>
 
                         </Grid>
-
-                        <!--<Grid Margin="2,2,2,2">
-                            
-                            <Grid.Effect>
-                                <DropShadowEffect Color="LightSteelBlue" Direction="270"/>
-                            </Grid.Effect>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="45" />
-                                <RowDefinition Height="45" />
-                            </Grid.RowDefinitions>
-
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-
-                            <StackPanel Grid.Row="0" Grid.Column="1" Margin="2,0,2,0">
-                                <TextBlock Text="Riferimento fase" />
-                                <TextBox   Text="{Binding CurrentPoco.DatiTrasporto.DatiSAL.RiferimentoFase, UpdateSourceTrigger=LostFocus }" 
-                                       MaxLength="3"/>
-                            </StackPanel>
-
-                        </Grid>-->
-                    </Grid>
-
-                </TabItem>
-
-                <TabItem Header="Dati DDT" Style="{StaticResource SubTabItemStyle}">
-                    <Grid Margin="2,2,2,2">
-                        <Grid.Effect>
-                            <DropShadowEffect Color="LightSteelBlue" Direction="270"/>
-                        </Grid.Effect>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="45" />
-                            <RowDefinition Height="45" />
-                            <RowDefinition Height="45" />
-                        </Grid.RowDefinitions>
-
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-
-                        <StackPanel  Grid.Row="0" Grid.Column="0" Margin="2,0,2,0">
-                            <TextBlock Text="Numero" />
-                            <TextBox   Text="{Binding  CurrentPoco.DatiTrasporto.DatiSAL.NumeroDDT, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
-                                       MaxLength="20" Margin="2,0,2,0"/>
-                        </StackPanel>
-
-                        <StackPanel  Grid.Row="0" Grid.Column="1" Margin="2,0,2,0">
-                            <TextBlock Text="Data" />
-                            <TextBox   Text="{Binding CurrentPoco.DatiTrasporto.DatiSAL.DataDDT, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch"/>
-                        </StackPanel>
-
-                        <StackPanel Grid.Row="0" Grid.Column="2" Margin="2,0,2,0">
-                            <TextBlock Text="Rif. num. linea" />
-                            <TextBox   Text="{Binding CurrentPoco.DatiTrasporto.DatiSAL.RiferimentoNumeroLinea, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True}" 
-                                       MaxLength="4" />
-                        </StackPanel>
 
                     </Grid>
                 </TabItem>
@@ -540,7 +585,6 @@
                     <ContentControl Content="{Binding DatiRicezione, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"/>
                 </TabItem>
 
-
             </TabControl>
 
         </GroupBox>
@@ -550,9 +594,8 @@
 
             <DockPanel Height="25" Margin="2,2,2,2" Background="{StaticResource Brush_ToolBar}">
 
-                <Button Name="Delete"
-                    Command="{Binding DeleteEntityCommand}"                        
-                    ToolTip="Elimina definitivamente l'oggetto dal database" >
+                <Button Name="Delete" Command="{Binding DeleteEntityCommand}" 
+                        ToolTip="Elimina definitivamente l'oggetto dal database" >
 
                     <Image Source="/GUI/Design/Styles/Images/delete(1).png" Width="25"/>
                 </Button>

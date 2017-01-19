@@ -440,10 +440,12 @@
     <Compile Include="GUI\Feautures\Anagrafica\AnagraficaListViewModel.cs" />
     <Compile Include="GUI\Feautures\Anagrafica\EditAnagraficaViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\BaseDatiCorrelatiViewModel.cs" />
+    <Compile Include="GUI\Feautures\Fattura\DatiDdtTabViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\DatiDocumentoViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\DatiFattureCollegateTabViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\DatiGeneraliViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\DatiRicezioneTabViewModel.cs" />
+    <Compile Include="GUI\Feautures\Fattura\DatiSalTabViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\ScontoMaggiorazioneGeneraleViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\ScontoMaggiorazioneViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\DatiContrattoTabViewModel.cs" />

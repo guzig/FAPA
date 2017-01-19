@@ -9,14 +9,14 @@ using FaPA.GUI.Controls;
 using FaPA.GUI.Controls.MyTabControl;
 using FaPA.GUI.Utils;
 using FaPA.Infrastructure;
-using NHibernate.Proxy.DynamicProxy;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
     public class DatiGeneraliViewModel : EditWorkSpaceViewModel<Core.Fattura, DatiGeneraliType>
     {
         #region fields
-
+        private DatiSalTabViewModel _datiSalViewModel;
+        private DatiDdtTabViewModel _datiDdtViewModel;
         private DatiOrdineTabViewModel _datiOrdini;
         private DatiContrattoTabViewModel _datiContratto;
         private DatiConvenzioneTabViewModel _datiConvenzione;
@@ -26,6 +26,28 @@ namespace FaPA.GUI.Feautures.Fattura
         #endregion
 
         #region props
+
+        public DatiDdtTabViewModel DatiDdtViewModel
+        {
+            get { return _datiDdtViewModel; }
+            set
+            {
+                if (Equals(value, _datiDdtViewModel)) return;
+                _datiDdtViewModel = value;
+                NotifyOfPropertyChange(() => DatiDdtViewModel);
+            }
+        }
+
+        public DatiSalTabViewModel DatiSalViewModel
+        {
+            get { return _datiSalViewModel; }
+            set
+            {
+                if (Equals(value, _datiSalViewModel)) return;
+                _datiSalViewModel = value;
+                NotifyOfPropertyChange(() => DatiSalViewModel);
+            }
+        }
 
         public DatiConvenzioneTabViewModel DatiConvenzione
         {
@@ -85,49 +107,16 @@ namespace FaPA.GUI.Feautures.Fattura
 
         #region Commands
 
-        private ICommand _addTrasportoCommand;
-        public ICommand AddTrasportoCommand
+        private ICommand _addSchedaCommand;
+        public ICommand AddSchedaCommand
         {
             get
             {
-                if ( _addTrasportoCommand != null ) return _addTrasportoCommand;
-                _addTrasportoCommand = new RelayCommand( param => AddDatiTrasporto(),
-                    ( e ) => Instance != null && Instance.DatiGenerali.DatiTrasporto == null );
-                return _addTrasportoCommand;
+                if (_addSchedaCommand != null) return _addSchedaCommand;
+                _addSchedaCommand = new RelayCommand( AddDatiScheda, param => true );
+                return _addSchedaCommand;
             }
         }
-
-        private void AddDatiTrasporto()
-        {
-            var current = CurrentPoco as DatiGeneraliType;
-            if ( current == null ) return;
-
-            object instance = new DatiTrasportoType();
-            LockMessage = EditViewModel<BaseEntity>.OnEditingLockMessage;
-
-            ( ( IValidatable ) instance ).Validate();
-
-            ObjectExplorer.TryProxiedAllInstances<BaseEntity>( ref instance, "FaPA.Core" );
-
-            current.DatiTrasporto = ( DatiTrasportoType ) instance;
-
-            HookChanged( instance );
-        }
-
-        private ICommand _addVettoreCommand;
-
-        public ICommand AddVettoreCommand
-        {
-            get
-            {
-                if ( _addVettoreCommand != null ) return _addVettoreCommand;
-                _addVettoreCommand = new RelayCommand( param => AddDatiVettore(),
-                    ( e ) => Instance?.DatiGenerali.DatiTrasporto != null &&
-                             Instance.DatiGenerali.DatiTrasporto.DatiAnagraficiVettore == null );
-                return _addVettoreCommand;
-            }
-        }
-
         private void AddDatiVettore()
         {
             var current = CurrentPoco as DatiGeneraliType;
@@ -150,20 +139,6 @@ namespace FaPA.GUI.Feautures.Fattura
             HookChanged( ( ( DatiAnagraficiVettoreType ) instance ).Anagrafica );
         }
 
-        private ICommand _addIndirizzoResaCommand;
-
-        public ICommand AddIndirizzoResaCommand
-        {
-            get
-            {
-                if ( _addIndirizzoResaCommand != null ) return _addIndirizzoResaCommand;
-                _addIndirizzoResaCommand = new RelayCommand( param => AddDatiIndirizzoResa(),
-                    ( e ) => Instance?.DatiGenerali.DatiTrasporto != null &&
-                             Instance.DatiGenerali.DatiTrasporto.IndirizzoResa == null );
-                return _addIndirizzoResaCommand;
-            }
-        }
-
         private void AddDatiIndirizzoResa()
         {
             var current = CurrentPoco as DatiGeneraliType;
@@ -183,16 +158,6 @@ namespace FaPA.GUI.Feautures.Fattura
 
         #endregion
 
-        private ICommand _addSchedaCommand;
-        public ICommand AddSchedaCommand
-        {
-            get
-            {
-                if (_addSchedaCommand != null) return _addSchedaCommand;
-                _addSchedaCommand = new RelayCommand( AddDatiScheda, param => true );
-                return _addSchedaCommand;
-            }
-        }
 
         private void AddDatiScheda(object parm)
         {
@@ -205,15 +170,20 @@ namespace FaPA.GUI.Feautures.Fattura
                     GetInstance<FatturaPrincipaleType>(v => current.FatturaPrincipale = v);
                     break;
 
-                case "DatiSAL":
-                    GetInstance<DatiSALType[]>(v => current.DatiSAL = v);
+                case "DatiTrasporto":
+                    GetInstance<DatiTrasportoType>(v => current.DatiTrasporto = v);
                     break;
 
+                case "DatiVettore":
+                    AddDatiVettore();
+                    break;
 
+                case "IndirizzoResa":
+                    AddDatiIndirizzoResa();
+                    break;
             }
         }
-
-
+        
         private void GetInstance<T>(Action<T> prop)
         {
             object instance = Activator.CreateInstance<T>();
@@ -232,23 +202,39 @@ namespace FaPA.GUI.Feautures.Fattura
         public DatiGeneraliViewModel( IRepository repository, Core.Fattura instance ) :
             base( repository, instance, ( Core.Fattura f ) => f.DatiGenerali, "Dati generali", false )
         {
-
-            DatiOrdini = new DatiOrdineTabViewModel( this, instance );
-            DatiOrdini.Init();
-
-            DatiContratto = new DatiContrattoTabViewModel( this, instance );
-            DatiContratto.Init();
-
-            DatiConvenzione = new DatiConvenzioneTabViewModel( this, instance );
-            DatiConvenzione.Init();
-
-            DatiFattureCollegate = new DatiFattureCollegateTabViewModel( this, instance );
-            DatiFattureCollegate.Init();
-
-            DatiRicezione = new DatiRicezioneTabViewModel( this, instance );
-            DatiRicezione.Init();
+            InitChildViewModels(instance);
 
             CurrentEntityChanged += OnCurrentFatturaChanged;
+        }
+
+        protected override void OnCancelDelegateExecute()
+        {
+            base.OnCancelDelegateExecute();
+            InitChildViewModels(Instance);
+        }
+
+        private void InitChildViewModels(Core.Fattura instance)
+        {
+            DatiDdtViewModel = new DatiDdtTabViewModel(this, instance);
+            DatiDdtViewModel.Init();
+
+            DatiSalViewModel = new DatiSalTabViewModel(this, instance);
+            DatiSalViewModel.Init();
+
+            DatiOrdini = new DatiOrdineTabViewModel(this, instance);
+            DatiOrdini.Init();
+
+            DatiContratto = new DatiContrattoTabViewModel(this, instance);
+            DatiContratto.Init();
+
+            DatiConvenzione = new DatiConvenzioneTabViewModel(this, instance);
+            DatiConvenzione.Init();
+
+            DatiFattureCollegate = new DatiFattureCollegateTabViewModel(this, instance);
+            DatiFattureCollegate.Init();
+
+            DatiRicezione = new DatiRicezioneTabViewModel(this, instance);
+            DatiRicezione.Init();
         }
 
         private void OnCurrentFatturaChanged( object sender, PropertyChangedEventArgs eventarg )

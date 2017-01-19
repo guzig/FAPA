@@ -1,4 +1,3 @@
-using System.ComponentModel;
 using FaPA.Core.FaPa;
 using FaPA.GUI.Controls;
 using FaPA.Infrastructure;

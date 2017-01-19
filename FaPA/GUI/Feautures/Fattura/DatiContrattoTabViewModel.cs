@@ -1,5 +1,3 @@
-using FaPA.Core.FaPa;
-using FaPA.GUI.Controls;
 using FaPA.Infrastructure;
 
 namespace FaPA.GUI.Feautures.Fattura

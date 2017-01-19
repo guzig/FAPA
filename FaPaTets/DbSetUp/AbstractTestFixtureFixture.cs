@@ -1,6 +1,5 @@
 using System.ComponentModel;
 using FaPA.Core;
-using FaPA.Core.FaPa;
 using FaPA.Infrastructure;
 using NHibernate;
 using NHibernate.Cfg;

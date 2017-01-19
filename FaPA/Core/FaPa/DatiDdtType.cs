@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 namespace FaPA.Core.FaPa
 {
     [Serializable]
-    public class DatiDdtType : BaseEntityFpa
+    public class DatiDDTType : BaseEntityFpa
     {
         private string _numeroDdtField;
         private DateTime _dataDdtField;
