@@ -6,10 +6,10 @@ using FaPA.Infrastructure;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
-    public class BaseDatiCorrelatiViewModel : BaseTabsViewModel<Core.Fattura, DatiDocumentiCorrelatiType[]>
+    public class BaseDatiCorrelatiViewModel : BaseTabsViewModel<DatiGeneraliType, DatiDocumentiCorrelatiType[]>
     {
-        protected BaseDatiCorrelatiViewModel( Expression<Func<Core.Fattura, DatiDocumentiCorrelatiType[]>> getter, 
-            IRepository repository, Core.Fattura instance, string dispName, bool isClosable ) : 
+        protected BaseDatiCorrelatiViewModel( Expression<Func<DatiGeneraliType, DatiDocumentiCorrelatiType[]>> getter, 
+            IRepository repository, DatiGeneraliType instance, string dispName, bool isClosable ) : 
                 base( getter, repository, instance, dispName, isClosable )
         {
         }

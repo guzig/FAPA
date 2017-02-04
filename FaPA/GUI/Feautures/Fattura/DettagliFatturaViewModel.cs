@@ -9,7 +9,7 @@ using FaPA.Infrastructure;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
-    public class DettagliFatturaViewModel : BaseTabsViewModel<Core.Fattura, DettaglioLineeType[]>
+    public class DettagliFatturaViewModel : BaseTabsViewModel<DatiBeniServiziType, DettaglioLineeType[]>
     {
         
         private bool _isOnInit;
@@ -37,8 +37,8 @@ namespace FaPA.GUI.Feautures.Fattura
             }
         }
 
-        public DettagliFatturaViewModel( IRepository repository, Core.Fattura instance ) :
-            base( ( Core.Fattura f ) => f.DettaglioLinee, repository, instance, "", false )
+        public DettagliFatturaViewModel( IRepository repository, DatiBeniServiziType instance ) :
+            base( f => f.DettaglioLinee, repository, instance, "", false )
         {}
 
         public override void Init()

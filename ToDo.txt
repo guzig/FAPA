@@ -1,3 +1,8 @@
+Art73 SI, NO ..specified
+
+Dati di riepilogo
+
+
 p.iva codfiscale validazione
 
 DataGridHelpers.DataGridKeyUpEventHandler( e, FattureGridSearch );

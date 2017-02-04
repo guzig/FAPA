@@ -1,12 +1,32 @@
+using System;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows;
+using System.Windows.Input;
+using FaPA.AppServices.CoreValidation;
+using FaPA.Core;
 using FaPA.Core.FaPa;
 using FaPA.GUI.Controls;
+using FaPA.GUI.Controls.MyTabControl;
+using FaPA.GUI.Utils;
 using FaPA.Infrastructure;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
-    public class DatiDocumentoViewModel : EditWorkSpaceViewModel<Core.Fattura, DatiGeneraliDocumentoType>
+    public class DatiDocumentoViewModel : EditWorkSpaceViewModel<DatiGeneraliType, DatiGeneraliDocumentoType>
     {
+        private DatiRitenutaViewModel _ritenutaTabViewModel;
+        public DatiRitenutaViewModel DatiRitenutaViewModel
+        {
+            get { return _ritenutaTabViewModel; }
+            set
+            {
+                if ( Equals( value, _ritenutaTabViewModel ) ) return;
+                _ritenutaTabViewModel = value;
+                NotifyOfPropertyChange( () => DatiRitenutaViewModel );
+            }
+        }
+
         private ScontoMaggiorazioneGeneraleViewModel _scontoMaggiorazioneGeneraleView;
         public ScontoMaggiorazioneGeneraleViewModel ScontoMaggiorazioneGeneraleView
         {
@@ -20,14 +40,28 @@ namespace FaPA.GUI.Feautures.Fattura
         }
 
         //ctor
-        public DatiDocumentoViewModel(IRepository repository, Core.Fattura instance) :
-            base(repository, instance, (Core.Fattura f) => f.DatiGeneraliDocumento, "Dati documento", false)
+        public DatiDocumentoViewModel(IRepository repository, DatiGeneraliType instance ) :
+            base(repository, instance, f => f.DatiGeneraliDocumento, "Dati documento", false)
         {
             ScontoMaggiorazioneGeneraleView = new ScontoMaggiorazioneGeneraleViewModel(repository, 
                 instance.DatiGeneraliDocumento);
+
             ScontoMaggiorazioneGeneraleView.Init();
+
+            DatiRitenutaViewModel = new DatiRitenutaViewModel( repository, instance.DatiGeneraliDocumento );
+            DatiRitenutaViewModel.CurrentEntityChanged += OnDatiRitenutaPropertyChanged;
         }
 
+        private void OnDatiRitenutaPropertyChanged( object sender, PropertyChangedEventArgs eventarg )
+        {
+            LockMessage = EditViewModel<BaseEntity>.OnEditingLockMessage;
+            AllowSave = DatiRitenutaViewModel.IsValid;
+        }
+
+        protected override bool CanDeleteEntity( object obj )
+        {
+            return false;
+        }
 
 
         protected override void HookOnChanged(object poco)
@@ -73,6 +107,14 @@ namespace FaPA.GUI.Feautures.Fattura
             }
 
             base.OnRequestClose();
+        }
+
+        public override object Read()
+        {
+            var root = Repository.Read();
+            Instance = ( ( Core.Fattura ) root ).DatiGenerali;
+            var userProp = GetterProp( Instance );
+            return userProp;
         }
 
     }

@@ -56,7 +56,7 @@ namespace FaPA.GUI.Feautures.Fattura
 
         public DatiPagamentoTabViewModel DatiPagamentoViewModel { get; set; }
 
-        public RitenutaTabViewModel RitenutaTabViewModel { get; set; }
+        public DatiRitenutaViewModel DatiRitenutaViewModel { get; set; }
 
         //ctor
         public EditFatturaViewModel(IBasePresenter baseCrudPresenter, IList userEntities, 
@@ -142,16 +142,16 @@ namespace FaPA.GUI.Feautures.Fattura
         {
             var fattura = CurrentEntity;
 
-            DettagliFatturaViewModel = new DettagliFatturaViewModel(this, fattura);
+            DettagliFatturaViewModel = new DettagliFatturaViewModel(this, fattura.DatiBeniServizi );
             DettagliFatturaViewModel.Init();
             DettagliFatturaViewModel.CurrentEntityChanged += OnDettaglioFatturaPropertyChanged;
 
-            DatiGeneraliViewModel = new DatiGeneraliViewModel( this, fattura );
+            DatiGeneraliViewModel = new DatiGeneraliViewModel( this, fattura.FatturaElettronicaBody );
             DatiGeneraliViewModel.Init();
             DatiGeneraliViewModel.CurrentEntityChanged += OnDatiGeneraliPropertyChanged;
             AddTabViewModel<DatiGeneraliViewModel>( DatiGeneraliViewModel );
 
-            DatiDocumentoViewModel = new DatiDocumentoViewModel(this, fattura);
+            DatiDocumentoViewModel = new DatiDocumentoViewModel(this, fattura.DatiGenerali );
             DatiDocumentoViewModel.Init();
             DatiDocumentoViewModel.CurrentEntityChanged += OnDatiGeneraliDocumentoPropertyChanged;
             AddTabViewModel<DatiDocumentoViewModel>(DatiDocumentoViewModel);
@@ -256,7 +256,7 @@ namespace FaPA.GUI.Feautures.Fattura
 
         private DatiConvenzioneTabViewModel AddTabConvenzione()
         {
-            var datiOrdine = new DatiConvenzioneTabViewModel(this, CurrentEntity);
+            var datiOrdine = new DatiConvenzioneTabViewModel(this, CurrentEntity.DatiGenerali);
             datiOrdine.Init();
             AddTabViewModel<DatiConvenzioneTabViewModel>(datiOrdine);
             return datiOrdine;
@@ -282,7 +282,7 @@ namespace FaPA.GUI.Feautures.Fattura
 
         private DatiContrattoTabViewModel AddTabContratto()
         {
-            var datiOrdine = new DatiContrattoTabViewModel(this, CurrentEntity);
+            var datiOrdine = new DatiContrattoTabViewModel(this, CurrentEntity.DatiGenerali );
             datiOrdine.Init();
             AddTabViewModel<DatiContrattoTabViewModel>(datiOrdine);
             return datiOrdine;
@@ -301,7 +301,7 @@ namespace FaPA.GUI.Feautures.Fattura
 
         private DatiOrdineTabViewModel AddTabOrdine()
         {
-            var datiOrdine = new DatiOrdineTabViewModel( this, CurrentEntity );
+            var datiOrdine = new DatiOrdineTabViewModel( this, CurrentEntity.DatiGenerali );
             datiOrdine.Init();
             AddTabViewModel<DatiOrdineTabViewModel>( datiOrdine );
             return datiOrdine;
@@ -318,39 +318,39 @@ namespace FaPA.GUI.Feautures.Fattura
             BasePresenter.SetActiveWorkSpace( BasePresenter.Workspaces.IndexOf( ordineTabViewModel ) );
         }
 
-        private ICommand _addRitenutaCommand;
-        public ICommand AddRitenutaCommand
-        {
-            get
-            {
-                if ( _addRitenutaCommand != null) return _addRitenutaCommand;
-                _addRitenutaCommand = new RelayCommand(param => AddRitenuta(), CanAddRitenuta);
-                return _addRitenutaCommand;
-            } 
-        }
+        //private ICommand _addRitenutaCommand;
+        //public ICommand AddRitenutaCommand
+        //{
+        //    get
+        //    {
+        //        if ( _addRitenutaCommand != null) return _addRitenutaCommand;
+        //        _addRitenutaCommand = new RelayCommand(param => AddRitenuta(), CanAddRitenuta);
+        //        return _addRitenutaCommand;
+        //    } 
+        //}
 
-        private void AddRitenuta()
-        {
-            if ( CurrentEntity == null ) return;
+        //private void AddRitenuta()
+        //{
+        //    if ( CurrentEntity == null ) return;
             
-            var currentViewModel = BasePresenter.Workspaces.FirstOrDefault(t => t is RitenutaTabViewModel);
-            if (currentViewModel != null)
-            {
-                BasePresenter.SetActiveWorkSpace(BasePresenter.Workspaces.IndexOf( currentViewModel ) );
-                return;
-            }
+        //    var currentViewModel = BasePresenter.Workspaces.FirstOrDefault(t => t is DatiRitenutaViewModel);
+        //    if (currentViewModel != null)
+        //    {
+        //        BasePresenter.SetActiveWorkSpace(BasePresenter.Workspaces.IndexOf( currentViewModel ) );
+        //        return;
+        //    }
 
-            var ritenutaTabViewModel = AddTabRitenuta();
-            BasePresenter.SetActiveWorkSpace( BasePresenter.Workspaces.IndexOf( ritenutaTabViewModel ) );
-        }
+        //    var ritenutaTabViewModel = AddTabRitenuta();
+        //    BasePresenter.SetActiveWorkSpace( BasePresenter.Workspaces.IndexOf( ritenutaTabViewModel ) );
+        //}
 
-        private RitenutaTabViewModel AddTabRitenuta()
-        {
-            RitenutaTabViewModel = new RitenutaTabViewModel( this, CurrentEntity);
-            RitenutaTabViewModel.Init();
-            AddTabViewModel<RitenutaTabViewModel>(RitenutaTabViewModel);
-            return RitenutaTabViewModel;
-        }
+        //private DatiRitenutaViewModel AddTabRitenuta()
+        //{
+        //    DatiRitenutaViewModel = new DatiRitenutaViewModel( this, CurrentEntity );
+        //    DatiRitenutaViewModel.Init();
+        //    AddTabViewModel<DatiRitenutaViewModel>(DatiRitenutaViewModel);
+        //    return DatiRitenutaViewModel;
+        //}
         
         private void AddTabViewModel<TV>(WorkspaceViewModel tabViewModel )
         {

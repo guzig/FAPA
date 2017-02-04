@@ -12,7 +12,7 @@ using FaPA.Infrastructure;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
-    public class DatiGeneraliViewModel : EditWorkSpaceViewModel<Core.Fattura, DatiGeneraliType>
+    public class DatiGeneraliViewModel : EditWorkSpaceViewModel<FatturaElettronicaBodyType, DatiGeneraliType>
     {
         #region fields
         private DatiSalTabViewModel _datiSalViewModel;
@@ -117,6 +117,7 @@ namespace FaPA.GUI.Feautures.Fattura
                 return _addSchedaCommand;
             }
         }
+
         private void AddDatiVettore()
         {
             var current = CurrentPoco as DatiGeneraliType;
@@ -199,9 +200,10 @@ namespace FaPA.GUI.Feautures.Fattura
         }
 
         //ctor
-        public DatiGeneraliViewModel( IRepository repository, Core.Fattura instance ) :
-            base( repository, instance, ( Core.Fattura f ) => f.DatiGenerali, "Dati generali", false )
+        public DatiGeneraliViewModel( IRepository repository, FatturaElettronicaBodyType instance ) :
+            base( repository, instance, f => f.DatiGenerali, "Dati generali", false )
         {
+
             InitChildViewModels(instance);
 
             CurrentEntityChanged += OnCurrentFatturaChanged;
@@ -213,27 +215,27 @@ namespace FaPA.GUI.Feautures.Fattura
             InitChildViewModels(Instance);
         }
 
-        private void InitChildViewModels(Core.Fattura instance)
+        private void InitChildViewModels( FatturaElettronicaBodyType instance )
         {
-            DatiDdtViewModel = new DatiDdtTabViewModel(this, instance);
+            DatiDdtViewModel = new DatiDdtTabViewModel(this, instance.DatiGenerali);
             DatiDdtViewModel.Init();
 
-            DatiSalViewModel = new DatiSalTabViewModel(this, instance);
+            DatiSalViewModel = new DatiSalTabViewModel(this, instance.DatiGenerali);
             DatiSalViewModel.Init();
 
-            DatiOrdini = new DatiOrdineTabViewModel(this, instance);
+            DatiOrdini = new DatiOrdineTabViewModel(this, instance.DatiGenerali );
             DatiOrdini.Init();
 
-            DatiContratto = new DatiContrattoTabViewModel(this, instance);
+            DatiContratto = new DatiContrattoTabViewModel(this, instance.DatiGenerali );
             DatiContratto.Init();
 
-            DatiConvenzione = new DatiConvenzioneTabViewModel(this, instance);
+            DatiConvenzione = new DatiConvenzioneTabViewModel(this, instance.DatiGenerali );
             DatiConvenzione.Init();
 
-            DatiFattureCollegate = new DatiFattureCollegateTabViewModel(this, instance);
+            DatiFattureCollegate = new DatiFattureCollegateTabViewModel(this, instance.DatiGenerali );
             DatiFattureCollegate.Init();
 
-            DatiRicezione = new DatiRicezioneTabViewModel(this, instance);
+            DatiRicezione = new DatiRicezioneTabViewModel(this, instance.DatiGenerali );
             DatiRicezione.Init();
         }
 
@@ -343,5 +345,13 @@ namespace FaPA.GUI.Feautures.Fattura
             base.OnRequestClose();
         }
 
+
+        public override object Read()
+        {
+            var root = Repository.Read();
+            Instance = ( ( Core.Fattura ) root).FatturaElettronicaBody;
+            var userProp = GetterProp( Instance );
+            return userProp;
+        }
     }
 }

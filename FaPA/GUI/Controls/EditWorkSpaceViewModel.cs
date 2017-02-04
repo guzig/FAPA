@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 using FaPA.AppServices.CoreValidation;
 using FaPA.Core;
@@ -63,7 +64,7 @@ namespace FaPA.GUI.Controls
             }
         }
 
-        public bool AllowInsertNew { get; set; }
+        public bool AllowInsertNew { get; set; } = true;
 
         private bool _allowSave;
         public bool AllowSave
@@ -168,6 +169,7 @@ namespace FaPA.GUI.Controls
 
         protected virtual void AddEntity()
         {
+
             LockMessage = EditViewModel<BaseEntity>.OnEditingLockMessage;
 
             var userProperty = (object)Activator.CreateInstance<TProperty>();
@@ -183,7 +185,9 @@ namespace FaPA.GUI.Controls
             IsEditing = true;
             AllowDelete = true;
             AllowInsertNew = false;
-        }       
+        }
+
+
         #endregion
 
         public virtual void Init()
@@ -195,7 +199,7 @@ namespace FaPA.GUI.Controls
             CurrentPoco = UserProperty;
             HookOnChanged( UserProperty );
         }
-        
+
         protected virtual void Validate()
         {
             if (CurrentPoco == null)
@@ -228,8 +232,7 @@ namespace FaPA.GUI.Controls
             CurrentPoco = null;
             IsEditing = false;
             PersitEntity();
-            var instance = (T)Repository.Read();
-            UserProperty = GetterProp(instance);
+            UserProperty = ( TProperty ) Read();
             Debug.Assert(UserProperty==null);
             Init();
             AllowInsertNew = true;
@@ -324,9 +327,7 @@ namespace FaPA.GUI.Controls
 
             if (Repository == null) return;
 
-            var instance = ( T ) Repository.Read();
-
-            UserProperty =  GetterProp( instance ) ;
+            UserProperty = ( TProperty ) Read();
 
             CurrentPoco = UserProperty;
         }

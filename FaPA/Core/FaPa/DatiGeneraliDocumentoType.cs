@@ -11,35 +11,35 @@ namespace FaPA.Core.FaPa
 
         #region
 
-        private TipoDocumentoType tipoDocumentoField;
+        private TipoDocumentoType _tipoDocumentoField;
 
-        private string divisaField;
+        private string _divisaField;
 
-        private DateTime dataField;
+        private DateTime _dataField;
 
-        private string numeroField;
+        private string _numeroField;
 
-        private DatiRitenutaType datiRitenutaField = new DatiRitenutaType();
+        private DatiRitenutaType _datiRitenutaField;
 
-        private DatiBolloType datiBolloField = new DatiBolloType();
+        private DatiBolloType _datiBolloField;
 
-        private DatiCassaPrevidenzialeType datiCassaPrevidenzialeField = new DatiCassaPrevidenzialeType();
+        private DatiCassaPrevidenzialeType _datiCassaPrevidenzialeField;
 
-        private ScontoMaggiorazioneType[] scontoMaggiorazioneField;
+        private ScontoMaggiorazioneType[] _scontoMaggiorazioneField;
 
-        private decimal importoTotaleDocumentoField;
+        private decimal _importoTotaleDocumentoField;
 
-        private bool importoTotaleDocumentoFieldSpecified;
+        private bool _importoTotaleDocumentoFieldSpecified;
 
-        private decimal arrotondamentoField;
+        private decimal _arrotondamentoField;
 
-        private bool arrotondamentoFieldSpecified;
+        private bool _arrotondamentoFieldSpecified;
 
-        private string[] causaleField;
+        private string[] _causaleField;
 
-        private Art73Type art73Field;
+        private Art73Type _art73Field;
 
-        private bool art73FieldSpecified;
+        private bool _art73FieldSpecified;
 
 
         #endregion
@@ -48,11 +48,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return tipoDocumentoField;
+                return _tipoDocumentoField;
             }
             set
             {
-                tipoDocumentoField = value;
+                _tipoDocumentoField = value;
             }
         }
 
@@ -60,11 +60,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return divisaField;
+                return _divisaField;
             }
             set
             {
-                divisaField = value;
+                _divisaField = value;
             }
         }
 
@@ -73,11 +73,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return dataField;
+                return _dataField;
             }
             set
             {
-                dataField = value;
+                _dataField = value;
             }
         }
 
@@ -85,11 +85,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return numeroField;
+                return _numeroField;
             }
             set
             {
-                numeroField = value;
+                _numeroField = value;
             }
         }
 
@@ -100,12 +100,12 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return datiRitenutaField;
+                return _datiRitenutaField;
             }
             set
             {
-                datiRitenutaField = value;
-                DatiRitenutaSpecified = DatiRitenuta.AliquotaRitenuta != 0 || DatiRitenuta.ImportoRitenuta != 0;
+                _datiRitenutaField = value;
+                //DatiRitenutaSpecified = DatiRitenuta.AliquotaRitenuta != 0 || DatiRitenuta.ImportoRitenuta != 0;
             }
         }
 
@@ -116,11 +116,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return datiBolloField;
+                return _datiBolloField;
             }
             set
             {
-                datiBolloField = value;
+                _datiBolloField = value;
                 DatiBolloSpecified = DatiBollo.ImportoBollo > 0;
             }
         }
@@ -132,12 +132,12 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return datiCassaPrevidenzialeField;
+                return _datiCassaPrevidenzialeField;
             }
             set
             {
-                datiCassaPrevidenzialeField = value;
-                DatiCassaPrevidenzialeSpecified = datiCassaPrevidenzialeField.ImportoContributoCassa != 0;
+                _datiCassaPrevidenzialeField = value;
+                DatiCassaPrevidenzialeSpecified = _datiCassaPrevidenzialeField.ImportoContributoCassa != 0;
             }
         }
 
@@ -145,11 +145,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return scontoMaggiorazioneField;
+                return _scontoMaggiorazioneField;
             }
             set
             {
-                scontoMaggiorazioneField = value;
+                _scontoMaggiorazioneField = value;
             }
         }
 
@@ -157,11 +157,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return importoTotaleDocumentoField;
+                return _importoTotaleDocumentoField;
             }
             set
             {
-                importoTotaleDocumentoField = value;
+                _importoTotaleDocumentoField = value;
             }
         }
 
@@ -183,11 +183,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return arrotondamentoField;
+                return _arrotondamentoField;
             }
             set
             {
-                arrotondamentoField = value;
+                _arrotondamentoField = value;
             }
         }
 
@@ -208,11 +208,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return causaleField;
+                return _causaleField;
             }
             set
             {
-                causaleField = value;
+                _causaleField = value;
             }
         }
 
@@ -220,11 +220,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return art73Field;
+                return _art73Field;
             }
             set
             {
-                art73Field = value;
+                _art73Field = value;
             }
         }
 
@@ -233,11 +233,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return art73FieldSpecified;
+                return _art73FieldSpecified;
             }
             set
             {
-                art73FieldSpecified = value;
+                _art73FieldSpecified = value;
             }
         }
     }

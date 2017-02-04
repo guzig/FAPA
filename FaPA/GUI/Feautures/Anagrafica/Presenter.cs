@@ -157,8 +157,6 @@ namespace FaPA.GUI.Feautures.Anagrafica
         #endregion
 
         private ICommand _entityChoosenCommand;
-        
-
         public ICommand EntityChoosenCommand
         {
             get

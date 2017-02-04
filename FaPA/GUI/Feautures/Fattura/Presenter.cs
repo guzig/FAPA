@@ -284,6 +284,8 @@ namespace FaPA.GUI.Feautures.Fattura
             return editFatturaViewModel != null && editFatturaViewModel.AllowFastSearch;
         }
 
+
+
         #endregion
 
         #region Utils Members

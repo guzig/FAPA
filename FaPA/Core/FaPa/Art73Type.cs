@@ -5,6 +5,7 @@ namespace FaPA.Core.FaPa
     [Serializable]
     public enum Art73Type
     {
-        SI
+        SI,
+        NO
     }
 }

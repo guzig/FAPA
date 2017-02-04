@@ -4,11 +4,11 @@ using FaPA.Infrastructure;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
-    public class DatiDdtTabViewModel : BaseTabsViewModel<Core.Fattura, DatiDDTType[]>
+    public class DatiDdtTabViewModel : BaseTabsViewModel<DatiGeneraliType, DatiDDTType[]>
     {
         //ctor
-        public DatiDdtTabViewModel(IRepository repository, Core.Fattura instance) :
-            base((Core.Fattura f) => f.DatiDDT, repository, instance, "Dati DDT", true)
+        public DatiDdtTabViewModel(IRepository repository, DatiGeneraliType instance ) :
+            base( f => f.DatiDDT, repository, instance, "Dati DDT", true)
         { }
 
         protected override void AddItemToUserCollection()
@@ -19,6 +19,21 @@ namespace FaPA.GUI.Feautures.Fattura
         protected override void RemoveItemFromUserCollection()
         {
             RemoveFromFixedArray();
+        }
+
+        protected override void HookOnChanged( object poco )
+        {
+            var entity = poco as DatiGeneraliType;
+            if ( entity == null ) return;
+
+            HookChanged( entity );
+
+            if ( entity.DatiDDT == null ) return;
+
+            foreach ( var dettaglio in entity.DatiDDT )
+            {
+                HookChanged( dettaglio );
+            }
         }
 
     }

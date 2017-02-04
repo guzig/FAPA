@@ -10,7 +10,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D9D00A17-1793-4386-BCF6-E9E3A5E1C759}"
 	ProjectSection(SolutionItems) = preProject
 		Appunti.txt = Appunti.txt
+		Bugs.txt = Bugs.txt
 		Links.txt = Links.txt
+		Next_V.txt = Next_V.txt
 		Snip.txt = Snip.txt
 		ToDo.txt = ToDo.txt
 	EndProjectSection

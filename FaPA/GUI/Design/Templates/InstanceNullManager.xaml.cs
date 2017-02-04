@@ -60,7 +60,7 @@ namespace FaPA.GUI.Design.Templates
 
         #endregion
 
-        #region 
+        #region OnNullCommandProperty
 
         public static readonly DependencyProperty OnNullCommandProperty = DependencyProperty.RegisterAttached(
             "OnNullCommand", typeof (ICommand), typeof (InstanceNullManager), new PropertyMetadata(default(ICommand)));
@@ -77,7 +77,7 @@ namespace FaPA.GUI.Design.Templates
 
         #endregion
 
-        #region 
+        #region ActionCommandParamProperty
 
         public static readonly DependencyProperty ActionCommandParamProperty = DependencyProperty.RegisterAttached(
             "ActionCommandParam", typeof (object), typeof (InstanceNullManager), new PropertyMetadata(default(object)));

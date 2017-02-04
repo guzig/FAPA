@@ -18,24 +18,17 @@ SoggettoEmittente (SOLO SE TERZO EMITTENTE) (scheda vuota valorizzata solo se...
 descrizione enums
 
 
-DatiVeicoli
-
-<Dati Generali><FatturaPrincipale>
-<DatiGenerali><DatiSAL>
-<Dati Generali><DatiDDT>
-
-<DatiGenerali><DatiTrasporto><DatiAnagraficiVettore><IdFiscaleIVA>
-
-NumeroFatturaPrincipale
-DatiFattureCollegate
-
-
-
-
 PROGRESSIVO INVIO
 RIEPILOGO IVA .. ALTRI DATI SE NATURA
 
 DatiTrasmissione by settings 
+
+ContattiTrasmittente
+
+FatturaElettronicaHeader
+	RappresentanteFiscale[]
+	TerzoIntermediarioSoggettoEmittente[]
+	SoggettoEmittente
 		
 FatturaElettronicaBody
 	DatiGenerali
@@ -54,15 +47,9 @@ FatturaElettronicaBody
 
 		DettaglioLinee
 		Allegati
-		DatiTrasportoType
-		FatturaPrincipaleType
-
-		next
-		DatiDdtType
-		DatiTrasportoType
 
 altri dati gestionali in dettaglio 
-(valorizzati come ritenuta se blank o tramite specified)
+
 RiferimentoAmministrazione
 
 valorizza da ultima fattura utente

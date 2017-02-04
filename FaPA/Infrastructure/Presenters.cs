@@ -4,7 +4,9 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using FaPA.GUI.Design.Commands;
+using FaPA.GUI.Design.Templates;
 using FaPA.GUI.Utils;
 using FaPA.Infrastructure.Helpers;
 
@@ -45,11 +47,12 @@ namespace FaPA.Infrastructure
 
 			WireEvents(instance);
 			WireButtons(instance);
+            //WireCommands( instance );
             //WireSplitButtons(instance);
             //WireDataGridsDoubleClick(instance);
-		    //WireDataGridsSelectionChanged(instance);
+            //WireDataGridsSelectionChanged(instance);
 
-			if (args != null && args.Length > 0)
+            if (args != null && args.Length > 0)
 			{
 				var init = type.GetMethod("Initialize");
 
@@ -61,63 +64,84 @@ namespace FaPA.Infrastructure
 			return instance;
 		}
 
-		//private static void WireDataGridsDoubleClick(IPresenter presenter)
-		//{
-		//	var presenterType = presenter.GetType();
-		//	var methodsAndDataGrids = from method in GetActionMethods(presenterType)
-		//	                          where method.Name.EndsWith("Choosen")
-		//							  where method.GetParameters().Length == 1
-		//	                          let elementName = method.Name.Substring(2, method.Name.Length - 2 /*On*/- 7 /*Choosen*/)
-  //                                    let matchingDataGrid = presenter.View.TryFindChild<PodGrid>(t => t.Name == "PoDsGrid")
-		//							  where matchingDataGrid != null
-		//	                          select new {method, matchingDataGrid};
+        //private static void WireDataGridsDoubleClick(IPresenter presenter)
+        //{
+        //	var presenterType = presenter.GetType();
+        //	var methodsAndDataGrids = from method in GetActionMethods(presenterType)
+        //	                          where method.Name.EndsWith("Choosen")
+        //							  where method.GetParameters().Length == 1
+        //	                          let elementName = method.Name.Substring(2, method.Name.Length - 2 /*On*/- 7 /*Choosen*/)
+        //                                    let matchingDataGrid = presenter.View.TryFindChild<PodGrid>(t => t.Name == "PoDsGrid")
+        //							  where matchingDataGrid != null
+        //	                          select new {method, matchingDataGrid};
 
-		//	foreach (var methodAndEvent in methodsAndDataGrids)
-		//	{
-		//		var parameterType = methodAndEvent.method.GetParameters()[0].ParameterType;
-		//		var action = Delegate.CreateDelegate(typeof(Action<>).MakeGenericType(parameterType),
-		//		                                     presenter, methodAndEvent.method);
+        //	foreach (var methodAndEvent in methodsAndDataGrids)
+        //	{
+        //		var parameterType = methodAndEvent.method.GetParameters()[0].ParameterType;
+        //		var action = Delegate.CreateDelegate(typeof(Action<>).MakeGenericType(parameterType),
+        //		                                     presenter, methodAndEvent.method);
 
-  //              methodAndEvent.matchingDataGrid.PoDGridControl.MouseDoubleClick += (sender, args) =>
-		//		{
+        //              methodAndEvent.matchingDataGrid.PoDGridControl.MouseDoubleClick += (sender, args) =>
+        //		{
 
-  //                  var item1 = ((DataGrid)sender).CurrentItem;
-		//			if(item1 == null)
-		//				return;
-		//			action.DynamicInvoke(item1);
-		//		};
-		//	}	
-		//}
+        //                  var item1 = ((DataGrid)sender).CurrentItem;
+        //			if(item1 == null)
+        //				return;
+        //			action.DynamicInvoke(item1);
+        //		};
+        //	}	
+        //}
 
-  //      private static void WireDataGridsSelectionChanged(IPresenter presenter)
-  //      {
+        //      private static void WireDataGridsSelectionChanged(IPresenter presenter)
+        //      {
 
-  //          var presenterType = presenter.GetType();
-  //          var methodsAndDataGrids = from method in GetActionMethods(presenterType)
-  //                                    where method.Name.EndsWith("Selected")
-  //                                    where method.GetParameters().Length == 1
-  //                                    let elementName = method.Name.Substring(2, method.Name.Length - 2 /*On*/- 8 /*Selected*/)
-  //                                    let matchingDataGrid = presenter.View.TryFindChild<PodGrid>(t => t.Name == "PoDsGrid")
-  //                                    where matchingDataGrid != null
-  //                                    select new { method, matchingDataGrid };
+        //          var presenterType = presenter.GetType();
+        //          var methodsAndDataGrids = from method in GetActionMethods(presenterType)
+        //                                    where method.Name.EndsWith("Selected")
+        //                                    where method.GetParameters().Length == 1
+        //                                    let elementName = method.Name.Substring(2, method.Name.Length - 2 /*On*/- 8 /*Selected*/)
+        //                                    let matchingDataGrid = presenter.View.TryFindChild<PodGrid>(t => t.Name == "PoDsGrid")
+        //                                    where matchingDataGrid != null
+        //                                    select new { method, matchingDataGrid };
 
-  //          foreach (var methodAndEvent in methodsAndDataGrids)
-  //          {
-  //              var parameterType = methodAndEvent.method.GetParameters()[0].ParameterType;
-  //              var action = Delegate.CreateDelegate(typeof(Action<>).MakeGenericType(parameterType),
-  //                                                   presenter, methodAndEvent.method);
+        //          foreach (var methodAndEvent in methodsAndDataGrids)
+        //          {
+        //              var parameterType = methodAndEvent.method.GetParameters()[0].ParameterType;
+        //              var action = Delegate.CreateDelegate(typeof(Action<>).MakeGenericType(parameterType),
+        //                                                   presenter, methodAndEvent.method);
 
-  //              methodAndEvent.matchingDataGrid.PoDGridControl.SelectionChanged += (sender, args) =>
-  //              {
-  //                  var item1 = ((DataGrid)sender).SelectedItem;
-  //                  if (item1 == null)
-  //                      return;
-  //                  action.DynamicInvoke(item1);
-  //              };
-  //          }
-  //      }
+        //              methodAndEvent.matchingDataGrid.PoDGridControl.SelectionChanged += (sender, args) =>
+        //              {
+        //                  var item1 = ((DataGrid)sender).SelectedItem;
+        //                  if (item1 == null)
+        //                      return;
+        //                  action.DynamicInvoke(item1);
+        //              };
+        //          }
+        //      }
 
-		private static void WireButtons(IPresenter presenter)
+        //private static void WireCommands( IPresenter presenter )
+        //{
+        //    var presenterType = presenter.GetType();
+        //    var methodsAndButtons =
+        //            from method in GetParameterlessActionMethods( presenterType )
+        //            let elementName = method.Name.Substring( 2 )
+        //            let matchingControl = presenter.View.TryFindChild<InstanceNullManager>( t => t.Name == elementName )
+        //            let fact = presenterType.GetProperty( "Can" + elementName )
+        //            where matchingControl != null
+        //            select new { method, fact, button = matchingControl };
+
+        //    foreach ( var matching in methodsAndButtons )
+        //    {
+        //        var action = ( Action ) Delegate.CreateDelegate( typeof( Action ), presenter, matching.method );
+        //        Fact fact = null;
+        //        if ( matching.fact != null )
+        //            fact = ( Fact ) matching.fact.GetValue( presenter, null );
+        //        matching.button.ActionLinked.Command = new DelegatingCommand( action, fact );
+        //    }
+        //}
+
+        private static void WireButtons(IPresenter presenter)
 		{
 			var presenterType = presenter.GetType();
 			var methodsAndButtons =
@@ -178,8 +202,7 @@ namespace FaPA.Infrastructure
 
 			foreach (var methodAndEvent in methodsAndEvents)
 			{
-				var action = (Action)Delegate.CreateDelegate(typeof(Action),
-															  presenter, methodAndEvent.method);
+				var action = (Action)Delegate.CreateDelegate(typeof(Action), presenter, methodAndEvent.method);
 
 				var handler = (RoutedEventHandler)((sender, args) => action());
 				methodAndEvent.matchingEvent.AddEventHandler(presenter.View, handler);

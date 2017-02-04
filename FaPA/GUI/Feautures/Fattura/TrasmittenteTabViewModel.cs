@@ -9,22 +9,10 @@ namespace FaPA.GUI.Feautures.Fattura
 
         //ctor
         public TrasmittenteTabViewModel( IRepository repository, Core.Fattura instance ) :
-            base( repository, instance, (Core.Fattura f) => f.DatiTrasmissione, "Trasmittente", false )
+            base( repository, instance, f => f.DatiTrasmissione, "Trasmittente", false )
         {
             IsCloseable = false;
         }
 
-        //protected override void MapToDto()
-        //{
-        //    var dto = new DatiTrasmissioneDto();
-        //    var poco = UserProperty as DatiTrasmissioneType;
-        //    if ( poco != null && poco.IdTrasmittente == null )
-        //    {
-        //        Instance.SetTrasmittente();
-        //    }
-        //    Mapper.Map(UserProperty, dto);
-        //    Dto = dto;
-        //    BeginEdit();
-        //}
     }
 }

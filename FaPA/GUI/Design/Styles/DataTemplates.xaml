@@ -57,7 +57,7 @@
         <ctrls:CRUDVM/>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type a:RitenutaTabViewModel}">
+    <DataTemplate DataType="{x:Type a:DatiRitenutaViewModel}">
         <t1:Ritenuta/>
     </DataTemplate>
 

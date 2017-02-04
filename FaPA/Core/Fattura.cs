@@ -360,10 +360,12 @@ namespace FaPA.Core
                     DatiGenerali = new DatiGeneraliType
                     {
                         DatiGeneraliDocumento = new DatiGeneraliDocumentoType()
+                        
                     }
                 }
             };
-            
+
+
             DatiGeneraliDocumento.Divisa = "EUR";
 
             //getLazyInstnce = fattura.DatiRiepilogo;

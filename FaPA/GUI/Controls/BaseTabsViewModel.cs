@@ -46,7 +46,7 @@ namespace FaPA.GUI.Controls
         //overrides
         public override void Init()
         {
-            if (UserProperty != null)
+            if ( Instance != null && UserProperty != null )
             {
                 AllowDelete = true;
                 InitCollectionView();
@@ -87,7 +87,11 @@ namespace FaPA.GUI.Controls
 
             Persist( Instance );
 
-            UserProperty = ( TProperty ) base.Read();
+            Instance = ( T ) Repository.Read();
+
+            UserProperty = GetterProp( Instance );
+
+            CurrentPoco = UserProperty;
 
             Init();
 
@@ -193,7 +197,8 @@ namespace FaPA.GUI.Controls
             CurrentPoco = UserCollectionView.CurrentItem;
             if ( CurrentPoco == null) return;
             Validate();
-            AllowDelete = IsValid;
+            AllowSave = IsValid;
+            AllowDelete = true;
             HookOnChanged( CurrentPoco );
         }
 

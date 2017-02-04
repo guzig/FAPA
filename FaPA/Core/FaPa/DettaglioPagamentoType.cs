@@ -34,6 +34,10 @@ namespace FaPA.Core.FaPa
             get { return _importoPagamento; }
             set
             {
+                if ( value == 0 )
+                    _importoPagamento = value;
+                else
+
                 _importoPagamento = decimal.Parse( string.Format( "##.000", value ) ); ;
             }
         }
