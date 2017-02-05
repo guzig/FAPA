@@ -8,6 +8,8 @@ namespace FaPA.Core.FaPa
     public class DatiTrasportoType : BaseEntityFpa
     {
         private DatiAnagraficiVettoreType _datiAnagraficiVettoreField;
+        private IndirizzoType _indirizzoResaField;
+
         private string _mezzoTrasportoField;
         private string _causaleTrasportoField;
         private string _numeroColliField;
@@ -22,12 +24,11 @@ namespace FaPA.Core.FaPa
         private DateTime _dataInizioTrasportoField;
         private bool _dataInizioTrasportoFieldSpecified;
         private string _tipoResaField;
-        private IndirizzoType _indirizzoResaField;
         private DateTime _dataOraConsegnaField;
         private bool _dataOraConsegnaFieldSpecified;
 
-        [XmlIgnore]
-        public bool DatiAnagraficiVettoreSpecified { get; set; }
+        //[XmlIgnore]
+        //public bool DatiAnagraficiVettoreSpecified { get; set; }
         
         public virtual DatiAnagraficiVettoreType DatiAnagraficiVettore
         {
@@ -110,6 +111,7 @@ namespace FaPA.Core.FaPa
             set
             {
                 _pesoLordoField = value;
+                PesoLordoSpecified = _pesoLordoField != 0;
             }
         }
 
@@ -134,7 +136,7 @@ namespace FaPA.Core.FaPa
             set
             {
                 _pesoNettoField = value;
-                PesoNettoSpecified = _pesoNettoField > 0;
+                PesoNettoSpecified = _pesoNettoField != 0;
             }
         }
         

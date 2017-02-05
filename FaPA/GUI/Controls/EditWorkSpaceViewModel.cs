@@ -170,7 +170,7 @@ namespace FaPA.GUI.Controls
         {
             LockMessage = EditViewModel<BaseEntity>.OnEditingLockMessage;
 
-            var userProperty = (object)Activator.CreateInstance<TProperty>();
+            var userProperty = CreateInstance();
 
             ( ( IValidatable ) userProperty ).Validate();
 
@@ -186,6 +186,10 @@ namespace FaPA.GUI.Controls
             AllowInsertNew = false;
         }
 
+        protected virtual object CreateInstance()
+        {
+            return Activator.CreateInstance<TProperty>();
+        }
 
         #endregion
 
@@ -260,9 +264,16 @@ namespace FaPA.GUI.Controls
 
         protected void OnPropChanged(object sender, PropertyChangedEventArgs eventArg)
         {
-            if ( !( sender is BaseEntity ) ) return;
+            if ( ProcessChangedEvent( sender ) ) return;
 
-            var validatable = (IValidatable)sender;
+            OnCurrentChanged(sender, eventArg);
+        }
+
+        protected bool ProcessChangedEvent( object sender )
+        {
+            if ( !( sender is BaseEntity ) ) return true;
+
+            var validatable = ( IValidatable ) sender;
 
             IsEditing = true;
             IsCloseable = false;
@@ -271,7 +282,7 @@ namespace FaPA.GUI.Controls
 
             IsValid = validatable.DomainResult.Success;
             AllowSave = IsValid;
-            OnCurrentChanged(sender, eventArg);
+            return false;
         }
 
         protected virtual void HookOnChanged( object poco )

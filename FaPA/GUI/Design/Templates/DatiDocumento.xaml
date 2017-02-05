@@ -3,9 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:utils="clr-namespace:FaPA.GUI.Utils"
              xmlns:enums="clr-namespace:FaPA.Core.FaPa"
-             xmlns:myRecordNavigator="clr-namespace:FaPA.GUI.Controls.MyRecordNavigator"
-             xmlns:t="clr-namespace:FaPA.GUI.Design.Templates"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity">
+             xmlns:t="clr-namespace:FaPA.GUI.Design.Templates">
     
     <Grid Margin="2,2,2,2">
         <Grid.RowDefinitions>

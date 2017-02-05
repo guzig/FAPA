@@ -10,7 +10,7 @@
         </Grid.RowDefinitions>
 
         <GroupBox Grid.Row="0" Header="Dati generali" Padding="4,4,4,4" Margin="4,4,4,4"
-                  FontSize="12" FontWeight="Bold" MaxWidth="800">
+                  FontSize="12" FontWeight="Bold" >
 
             <TabControl TabStripPlacement="Top" Style="{StaticResource SubTabControlStyle}" >
 
@@ -22,7 +22,7 @@
                                                BindedInstance="{Binding CurrentPoco}"
                                                EmptyMessage="Nessuna scheda fattura principale aggiunta"
                                                ActionCommandMessage="Aggiungi una scheda fattura principale aggiunta"
-                                               OnNullCommand="{Binding AddSchedaCommand}" 
+                                               OnNullCommand="{Binding AddItemCommand}" 
                                                ActionCommandParam="FatturaPrincipale"/>
 
                         <Grid Visibility="{Binding CurrentPoco, Converter={StaticResource NullToVisibiltyConverter}}">
@@ -55,40 +55,40 @@
                                                        DeleteEntityCommand="{Binding DeleteEntityCommand}"
                                                        SaveCommand="{Binding SaveEntity}"
                                                        PerformCancelCommand="{Binding PerformCancel}"/>
-
                         </Grid>
                     </Grid>
                 </TabItem>
 
-                <!--<TabItem Header="Dati trasporto" Style="{StaticResource SubTabItemStyle}">
+                <TabItem Header="Dati trasporto" Style="{StaticResource SubTabItemStyle}"
+                         DataContext="{Binding DatiTrasportoViewModel}">
 
                     <ScrollViewer>
                     
                     <Grid Margin="2,2,2,2" >
 
                             <t:InstanceNullManager Grid.Row="0" Grid.ColumnSpan="2"
-                                               BindedInstance="{Binding CurrentPoco.DatiTrasporto, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                               BindedInstance="{Binding CurrentPoco, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
                                                EmptyMessage="Nessuna scheda dati trasporto è stata aggiunta"
                                                ActionCommandMessage="Aggiungi una scheda dati trasporto"
-                                               OnNullCommand="{Binding AddSchedaCommand}"
+                                               OnNullCommand="{Binding AddItemCommand}"
                                                ActionCommandParam="DatiTrasporto"/>
 
-
-                        <Grid Margin="2,2,2,2"  Grid.Row="0"
-                              Visibility="{Binding CurrentPoco.DatiTrasporto, Converter={StaticResource NullToVisibiltyConverter}}">
+                            <Grid Margin="2,2,2,2"  Grid.Row="0"
+                                  Visibility="{Binding CurrentPoco, Converter={StaticResource NullToVisibiltyConverter}}">
                             
                                 <Grid.Effect>
                                     <DropShadowEffect Color="LightSteelBlue" Direction="270"/>
                                 </Grid.Effect>
                             
                                 <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="45" />
-                                <RowDefinition Height="45" />
-                                <RowDefinition Height="45" />
-                                <RowDefinition Height="45" />
-                                <RowDefinition Height="45" />
-                                <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="45" />
+                                    <RowDefinition Height="45" />
+                                    <RowDefinition Height="45" />
+                                    <RowDefinition Height="45" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
                             <Grid.ColumnDefinitions>
@@ -98,240 +98,255 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
-                            <Expander Grid.Row="0" Header="Anagrafica vettore" IsExpanded="False" Grid.ColumnSpan="4" Margin="2,2,2,2" Padding="2,2,2,2">
-                                <GroupBox BorderThickness="1" Margin="2,2,2,2" Padding="2,2,2,2" >
-                                    <Grid>
-
-                                            <t:InstanceNullManager Grid.Row="0" Grid.ColumnSpan="4"
-                                               BindedInstance="{Binding CurrentPoco.DatiTrasporto.DatiAnagraficiVettore, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
-                                               EmptyMessage="Nessuna scheda dati anagrafici vettore è stata aggiunta"
-                                               ActionCommandMessage="Aggiungi una scheda dati anagrafici vettore"
-                                               OnNullCommand="{Binding AddSchedaCommand}"
-                                               ActionCommandParam="DatiVettore"/>
-
-                                        <Grid Grid.Row="0" Grid.ColumnSpan="5"
-                                              DataContext="{Binding CurrentPoco.DatiTrasporto.DatiAnagraficiVettore, 
-                                                                        NotifyOnSourceUpdated=True, 
-                                                                        NotifyOnTargetUpdated=True, 
-                                                                        ValidatesOnNotifyDataErrors=True}"
-                                              Visibility="{Binding ., Converter={StaticResource NullToVisibiltyConverter}}">
-                                            
-                                            
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="45" />
-                                                <RowDefinition Height="45" />
-                                                <RowDefinition Height="45" />
-                                                <RowDefinition Height="45" />
-                                            </Grid.RowDefinitions>
-
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                            </Grid.ColumnDefinitions>
-
-                                            <StackPanel  Grid.Row="0" Grid.Column="0" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
-                                                <TextBlock Text="Id Paese" />
-                                                <TextBox   Text="{Binding IdFiscaleIVA.IdPaese, UpdateSourceTrigger=LostFocus}" 
-                                                           MaxLength="2"  Margin="2,0,2,0"/>
-                                            </StackPanel>
-
-                                            <StackPanel  Grid.Row="0" Grid.Column="1" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
-                                                <TextBlock Text="Id codice" />
-                                                <TextBox   Text="{Binding IdFiscaleIVA.IdCodice, UpdateSourceTrigger=LostFocus}" 
-                                                           MaxLength="28"
-                                                           Margin="2,0,2,0"/>
-                                            </StackPanel>
-
-                                            <StackPanel  Grid.Row="0" Grid.Column="2" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
-                                                <TextBlock Text="Codice Fiscale" />
-                                                <TextBox   Text="{Binding CodiceFiscale, UpdateSourceTrigger=LostFocus}" HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
-                                            </StackPanel>
-
-                                            <StackPanel  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
-                                                <TextBlock Text="Denominazione" />
-                                                <TextBox   Text="{Binding Anagrafica.Denominazione,
-                                                                          UpdateSourceTrigger=LostFocus}" 
-                                                           MaxLength="80"
-                                                           HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
-                                            </StackPanel>
-
-                                            <StackPanel  Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
-                                                <TextBlock Text="Cognome" />
-                                                <TextBox   Text="{Binding Anagrafica.Cognome, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
-                                                           MaxLength="60" Margin="2,0,2,0"/>
-                                            </StackPanel>
-
-                                            <StackPanel  Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="1" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
-                                                <TextBlock Text="Nome" />
-                                                <TextBox   Text="{Binding Anagrafica.Nome, UpdateSourceTrigger=LostFocus}" 
-                                                           MaxLength="60" Margin="2,0,2,0"/>
-                                            </StackPanel>
-
-                                            <StackPanel  Grid.Row="3" Grid.Column="0" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
-                                                <TextBlock Text="NumeroLicenzaGuida" />
-                                                <TextBox   Text="{Binding NumeroLicenzaGuida, UpdateSourceTrigger=LostFocus}"
-                                                           MaxLength="20" Margin="2,0,2,0"/>
-                                            </StackPanel>
-
-                                        </Grid>
-                                    
-                                    </Grid>
-
-                                </GroupBox>
-                            </Expander>
-
-                            <StackPanel  Grid.Row="1" Grid.Column="0" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Left" MinWidth="200">
+                            <StackPanel  Grid.Row="0" Grid.Column="0" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Left" MinWidth="200">
                                 <TextBlock Text="Mezzo trasporto" />
-                                <TextBox   Text="{Binding CurrentPoco.DatiTrasporto.MezzoTrasporto, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
+                                <TextBox   Text="{Binding CurrentPoco.MezzoTrasporto, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
                                            MaxLength="80" Margin="2,0,2,0"/>
                             </StackPanel>
 
-                            <StackPanel  Grid.Row="1" Grid.Column="1" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Left" MinWidth="200">
+                            <StackPanel  Grid.Row="0" Grid.Column="1" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Left" MinWidth="200">
                                 <TextBlock Text="Causale trasporto" />
-                                <TextBox   Text="{Binding CurrentPoco.DatiTrasporto.CausaleTrasporto, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
+                                <TextBox   Text="{Binding CurrentPoco.CausaleTrasporto, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
                                            MaxLength="100" Margin="2,0,2,0"/>
                             </StackPanel>
 
-                            <StackPanel  Grid.Row="1" Grid.Column="2" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Left" MinWidth="200">
+                            <StackPanel  Grid.Row="0" Grid.Column="3" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Left" MinWidth="200">
                                 <TextBlock Text="Numero colli" />
-                                <TextBox   Text="{Binding CurrentPoco.DatiTrasporto.NumeroColli, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
+                                <TextBox   Text="{Binding CurrentPoco.NumeroColli, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
                                            MaxLength="04" Margin="2,0,2,0"/>
                             </StackPanel>
 
-                            <StackPanel  Grid.Row="2" Grid.Column="0" Margin="2,0,2,0" Width="Auto"  
+                            <StackPanel  Grid.Row="1" Grid.Column="0" Margin="2,0,2,0" Width="Auto"  
                                      HorizontalAlignment="Stretch" MinWidth="200" Grid.ColumnSpan="4">
                                 <TextBlock Text="Descrizione" />
-                                <TextBox   Text="{Binding CurrentPoco.DatiTrasporto.Descrizione, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
+                                <TextBox   Text="{Binding CurrentPoco.Descrizione, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
                                            MaxLength="100" Margin="2,0,2,0"/>
                             </StackPanel>
 
-                            <StackPanel  Grid.Row="3" Grid.Column="0" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Left" MinWidth="200">
+                            <StackPanel  Grid.Row="2" Grid.Column="0" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Left" MinWidth="200">
                                 <TextBlock Text="Unita misura peso" />
-                                <TextBox   Text="{Binding CurrentPoco.DatiTrasporto.UnitaMisuraPeso, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
+                                <TextBox   Text="{Binding CurrentPoco.UnitaMisuraPeso, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
                                            MaxLength="10" Margin="2,0,2,0"/>
                             </StackPanel>
 
-                            <StackPanel  Grid.Row="3" Grid.Column="1" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Left" MinWidth="200">
+                            <StackPanel  Grid.Row="2" Grid.Column="1" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Left" MinWidth="200">
                                 <TextBlock Text="Peso lordo" />
-                                <TextBox   Text="{Binding CurrentPoco.DatiTrasporto.PesoLordo, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
+                                <TextBox   Text="{Binding CurrentPoco.PesoLordo, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
                                            MaxLength="7" Margin="2,0,2,0"/>
+                            </StackPanel>
+
+                            <StackPanel  Grid.Row="2" Grid.Column="2" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Left" MinWidth="200">
+                                <TextBlock Text="Peso netto" />
+                                <TextBox   Text="{Binding CurrentPoco.PesoNetto, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
+                                           MaxLength="7" Margin="2,0,2,0"/>
+                            </StackPanel>
+
+                            <StackPanel  Grid.Row="3" Grid.Column="0" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Left" MinWidth="200">
+                                <TextBlock Text="Data ora ritiro" />
+                                <TextBox   Text="{Binding CurrentPoco.DataOraRitiro, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
+                                       HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
+                            </StackPanel>
+
+                            <StackPanel  Grid.Row="3" Grid.Column="1" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Left" MinWidth="200">
+                                <TextBlock Text="Data inizio trasporto" />
+                                <TextBox   Text="{Binding CurrentPoco.DataInizioTrasporto, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
+                                       HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
                             </StackPanel>
 
                             <StackPanel  Grid.Row="3" Grid.Column="2" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Left" MinWidth="200">
-                                <TextBlock Text="Peso netto" />
-                                <TextBox   Text="{Binding CurrentPoco.DatiTrasporto.PesoNetto, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
-                                           MaxLength="7" Margin="2,0,2,0"/>
-                            </StackPanel>
-
-                            <StackPanel  Grid.Row="4" Grid.Column="0" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Left" MinWidth="200">
-                                <TextBlock Text="Data ora ritiro" />
-                                <TextBox   Text="{Binding CurrentPoco.DatiTrasporto.DataOraRitiro, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
-                                       HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
-                            </StackPanel>
-
-                            <StackPanel  Grid.Row="4" Grid.Column="1" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Left" MinWidth="200">
-                                <TextBlock Text="Data inizio trasporto" />
-                                <TextBox   Text="{Binding CurrentPoco.DatiTrasporto.DataInizioTrasporto, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
-                                       HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
-                            </StackPanel>
-
-                            <StackPanel  Grid.Row="4" Grid.Column="2" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Left" MinWidth="200">
                                 <TextBlock Text="Data ora consegna" />
-                                <TextBox   Text="{Binding CurrentPoco.DatiTrasporto.DataOraConsegna, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
+                                <TextBox   Text="{Binding CurrentPoco.DataOraConsegna, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
                                            Margin="2,0,2,0"/>
                             </StackPanel>
 
-                            <StackPanel  Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4" Margin="2,0,2,0" Width="Auto" 
+                            <StackPanel  Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" Margin="2,0,2,0" Width="Auto" 
                                          HorizontalAlignment="Stretch" MinWidth="200">
                                 <TextBlock Text="Tipo resa" />
-                                <TextBox   Text="{Binding CurrentPoco.DatiTrasporto.TipoResa, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
+                                <TextBox   Text="{Binding CurrentPoco.TipoResa, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
                                            MaxLength="3" Margin="2,0,2,0"/>
                             </StackPanel>
 
-                            <Expander Header="Indirizzo resa" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4"
-                                      Margin="2,2,2,2" Padding="2,2,2,2" Width="Auto"  
-                                      HorizontalAlignment="Stretch" MinWidth="200">
+                                <GroupBox Header="Anagrafica vettore" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4" Margin="2,2,2,2" Padding="2,2,2,2">
+                                    <Expander  Header="Anagrafica vettore" IsExpanded="False" >
 
-                                    <GroupBox BorderThickness="1" Margin="2,2,2,2" Padding="2,2,2,2">
-                                        <Grid>
+                                        <Border BorderThickness="1" Margin="2,2,2,2" Padding="2,2,2,2" >
 
-                                            <t:InstanceNullManager Grid.Row="0" 
-                                                                   BindedInstance="{Binding CurrentPoco.DatiTrasporto.IndirizzoResa, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
-                                                                   EmptyMessage="Nessuna scheda dati indirizzo è stata aggiunta"
-                                                                   ActionCommandMessage="Aggiungi una scheda dati indirizzo"
-                                                                   OnNullCommand="{Binding AddSchedaCommand}"
-                                                                   ActionCommandParam="IndirizzoResa"/>
+                                            <Grid DataContext="{Binding DatiAnagraficiViewModel}">
 
-                                            <Grid Grid.Row="0" Visibility="{Binding ., 
-                                                  Converter={StaticResource NullToVisibiltyConverter}}"
-                                                  DataContext="{Binding CurrentPoco.DatiTrasporto.IndirizzoResa, 
-                                                                        NotifyOnSourceUpdated=True, 
-                                                                        NotifyOnTargetUpdated=True, 
-                                                                        ValidatesOnNotifyDataErrors=True}"
-                                                  Margin="2,2,2,2" >
-                                                
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="45" />
-                                                    <RowDefinition Height="45" />
-                                                </Grid.RowDefinitions>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                </Grid.ColumnDefinitions>
+                                                <t:InstanceNullManager Grid.Row="0" Grid.ColumnSpan="4"
+                                                                   BindedInstance="{Binding CurrentPoco, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                                                   EmptyMessage="Nessuna scheda dati anagrafici vettore è stata aggiunta"
+                                                                   ActionCommandMessage="Aggiungi una scheda dati anagrafici vettore"
+                                                                   OnNullCommand="{Binding AddItemCommand}"
+                                                                   ActionCommandParam="DatiVettore"/>
 
-                                                <StackPanel  Grid.Row="0" Grid.Column="0" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
-                                                    <TextBlock Text="Nazione" />
-                                                    <TextBox   Text="{Binding Nazione, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
-                                                               HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
-                                                </StackPanel>
+                                                <Grid Grid.Row="0" Grid.ColumnSpan="5" 
+                                                      Visibility="{Binding CurrentPoco, Converter={StaticResource NullToVisibiltyConverter}}">
 
-                                                <StackPanel  Grid.Row="0" Grid.Column="1" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
-                                                    <TextBlock Text="Provincia" />
-                                                    <TextBox   Text="{Binding Provincia, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
-                                                               HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
-                                                </StackPanel>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="45" />
+                                                        <RowDefinition Height="45" />
+                                                        <RowDefinition Height="45" />
+                                                        <RowDefinition Height="45" />
+                                                        <RowDefinition Height="Auto" />
+                                                    </Grid.RowDefinitions>
 
-                                                <StackPanel  Grid.Row="0" Grid.Column="2" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
-                                                    <TextBlock Text="Comune" />
-                                                    <TextBox   Text="{Binding Comune, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
-                                                               HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
-                                                </StackPanel>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
 
-                                                <StackPanel  Grid.Row="0" Grid.Column="3" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
-                                                    <TextBlock Text="CAP" />
-                                                    <TextBox   Text="{Binding CAP, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
-                                                               HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
-                                                </StackPanel>
+                                                    <StackPanel  Grid.Row="0" Grid.Column="0" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
+                                                        <TextBlock Text="Id Paese" />
+                                                        <TextBox   Text="{Binding CurrentPoco.IdFiscaleIVA.IdPaese, UpdateSourceTrigger=LostFocus}" 
+                                                           MaxLength="2"  Margin="2,0,2,0"/>
+                                                    </StackPanel>
 
-                                                <StackPanel  Grid.Row="1" Grid.Column="0" Margin="2,0,2,0" Grid.ColumnSpan="3" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
-                                                    <TextBlock Text="Indirizzo" />
-                                                    <TextBox   Text="{Binding Indirizzo, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
-                                                               HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
-                                                </StackPanel>
+                                                    <StackPanel  Grid.Row="0" Grid.Column="1" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
+                                                        <TextBlock Text="Id codice" />
+                                                        <TextBox   Text="{Binding CurrentPoco.IdFiscaleIVA.IdCodice, UpdateSourceTrigger=LostFocus}" 
+                                                           MaxLength="28"
+                                                           Margin="2,0,2,0"/>
+                                                    </StackPanel>
 
-                                                <StackPanel  Grid.Row="1" Grid.Column="3" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
-                                                    <TextBlock Text="NumeroCivico" />
-                                                    <TextBox   Text="{Binding NumeroCivico, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
-                                                               HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
-                                                </StackPanel>
+                                                    <StackPanel  Grid.Row="0" Grid.Column="2" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
+                                                        <TextBlock Text="Codice Fiscale" />
+                                                        <TextBox   Text="{Binding CurrentPoco.CodiceFiscale, UpdateSourceTrigger=LostFocus}" HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
+                                                    </StackPanel>
+
+                                                    <StackPanel  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
+                                                        <TextBlock Text="Denominazione" />
+                                                        <TextBox   Text="{Binding CurrentPoco.Anagrafica.Denominazione, UpdateSourceTrigger=LostFocus}" 
+                                                               MaxLength="80" HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
+                                                    </StackPanel>
+
+                                                    <StackPanel  Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
+                                                        <TextBlock Text="Cognome" />
+                                                        <TextBox   Text="{Binding CurrentPoco.Anagrafica.Cognome, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
+                                                           MaxLength="60" Margin="2,0,2,0"/>
+                                                    </StackPanel>
+
+                                                    <StackPanel  Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="1" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
+                                                        <TextBlock Text="Nome" />
+                                                        <TextBox   Text="{Binding CurrentPoco.Anagrafica.Nome, UpdateSourceTrigger=LostFocus}" 
+                                                           MaxLength="60" Margin="2,0,2,0"/>
+                                                    </StackPanel>
+
+                                                    <StackPanel  Grid.Row="3" Grid.Column="0" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
+                                                        <TextBlock Text="NumeroLicenzaGuida" />
+                                                        <TextBox   Text="{Binding CurrentPoco.NumeroLicenzaGuida, UpdateSourceTrigger=LostFocus}"
+                                                           MaxLength="20" Margin="2,0,2,0"/>
+                                                    </StackPanel>
+
+                                                    <t:SaveCancelRemoveButtons Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left"
+                                                                           Visibility="{Binding CurrentPoco, Converter={StaticResource NullToVisibiltyConverter}}"
+                                                                           DeleteEntityCommand="{Binding DeleteEntityCommand}"
+                                                                           PerformCancelCommand="{Binding PerformCancel}"/>
+
+                                                </Grid>
 
                                             </Grid>
+                                            
+                                        </Border>
+                                    </Expander>
 
-                                        </Grid>
-                                    </GroupBox>
+                                </GroupBox>
+
+                                <GroupBox Header="Indirizzo resa" 
+                                          Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" 
+                                          Margin="2,5,2,2" Padding="2,2,2,2" Width="Auto">
+
+                                    <Expander Header="Indirizzo resa" MinWidth="200">
+
+                                            <GroupBox BorderThickness="1" Margin="2,2,2,2" Padding="2,2,2,2">
+                                                <Grid DataContext="{Binding DatiIndirizzoViewModel}">
+
+                                                    <t:InstanceNullManager Grid.Row="0" 
+                                                                           BindedInstance="{Binding CurrentPoco, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                                                           EmptyMessage="Nessuna scheda dati indirizzo è stata aggiunta"
+                                                                           ActionCommandMessage="Aggiungi una scheda dati indirizzo"
+                                                                           OnNullCommand="{Binding AddItemCommand}"
+                                                                           ActionCommandParam="IndirizzoResa"/>
+
+                                                    <Grid Grid.Row="0" Visibility="{Binding CurrentPoco, Converter={StaticResource NullToVisibiltyConverter}}"
+                                                          Margin="2,2,2,2" >
+                                                
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="45" />
+                                                            <RowDefinition Height="45" />
+                                                            <RowDefinition Height="Auto" />
+                                                        </Grid.RowDefinitions>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <StackPanel  Grid.Row="0" Grid.Column="0" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
+                                                            <TextBlock Text="Nazione" />
+                                                            <TextBox   Text="{Binding CurrentPoco.Nazione, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
+                                                                       HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
+                                                        </StackPanel>
+
+                                                        <StackPanel  Grid.Row="0" Grid.Column="1" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
+                                                            <TextBlock Text="Provincia" />
+                                                            <TextBox   Text="{Binding CurrentPoco.Provincia, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
+                                                                       HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
+                                                        </StackPanel>
+
+                                                        <StackPanel  Grid.Row="0" Grid.Column="2" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
+                                                            <TextBlock Text="Comune" />
+                                                            <TextBox   Text="{Binding CurrentPoco.Comune, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
+                                                                       HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
+                                                        </StackPanel>
+
+                                                        <StackPanel  Grid.Row="0" Grid.Column="3" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
+                                                            <TextBlock Text="CAP" />
+                                                            <TextBox   Text="{Binding CurrentPoco.CAP, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
+                                                                       HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
+                                                        </StackPanel>
+
+                                                        <StackPanel  Grid.Row="1" Grid.Column="0" Margin="2,0,2,0" Grid.ColumnSpan="3" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
+                                                            <TextBlock Text="Indirizzo" />
+                                                            <TextBox   Text="{Binding CurrentPoco.Indirizzo, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
+                                                                       HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
+                                                        </StackPanel>
+
+                                                        <StackPanel  Grid.Row="1" Grid.Column="3" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
+                                                            <TextBlock Text="NumeroCivico" />
+                                                            <TextBox   Text="{Binding CurrentPoco.NumeroCivico, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
+                                                                       HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
+                                                        </StackPanel>
+
+                                                        <t:SaveCancelRemoveButtons Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Left"
+                                                                                   Visibility="{Binding CurrentPoco, Converter={StaticResource NullToVisibiltyConverter}}"
+                                                                                   DeleteEntityCommand="{Binding DeleteEntityCommand}"
+                                                                                   PerformCancelCommand="{Binding PerformCancel}"/>
+
+                                                    </Grid>
+
+                                                </Grid>
+                                            </GroupBox>
                  
-                            </Expander >
-                        </Grid>
+                                    </Expander >
+
+                                </GroupBox>
+
+                                <t:SaveCancelRemoveButtons Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Left"
+                                                    Visibility="{Binding CurrentPoco, Converter={StaticResource NullToVisibiltyConverter}}"
+                                                    DeleteEntityCommand="{Binding DeleteEntityCommand}"
+                                                    SaveCommand="{Binding SaveEntity}"
+                                                    PerformCancelCommand="{Binding PerformCancel}"/>
+                            </Grid>
                     </Grid>
                         
                     </ScrollViewer>
            
                 </TabItem>
 
-                <TabItem Header="Dati SAL" Style="{StaticResource SubTabItemStyle}">
+                <!--<TabItem Header="Dati SAL" Style="{StaticResource SubTabItemStyle}">
 
                     <Grid DataContext="{Binding DatiSalViewModel}" >
                         
@@ -373,7 +388,7 @@
                                         <Style x:Key="errorStyle" TargetType="{x:Type TextBlock}">
                                             <Style.Triggers>
                                                 <Trigger Property="Validation.HasError" Value="True">
-                                                    --><!--<Setter Property="Background" Value="Red"/>--><!--
+                                                    <Setter Property="Background" Value="Red"/>
                                                     <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, 
                                                            Path=(Validation.Errors)[0].ErrorContent}"/>
                                                 </Trigger>
@@ -382,11 +397,11 @@
 
                                     </DataGrid.Resources>
 
-                                    --><!--<DataGrid.RowValidationRules>
+                                    <DataGrid.RowValidationRules>
 
                                         <DataErrorValidationRule  ValidationStep="CommittedValue"  ValidatesOnTargetUpdated="True" />
 
-                                    </DataGrid.RowValidationRules>--><!--
+                                    </DataGrid.RowValidationRules>
 
                                     <DataGrid.Columns >
 
@@ -438,9 +453,9 @@
 
                     </Grid>
 
-                </TabItem>
+                </TabItem>-->
 
-                <TabItem Header="Dati DDT" Style="{StaticResource SubTabItemStyle}">
+                <!--<TabItem Header="Dati DDT" Style="{StaticResource SubTabItemStyle}">
                     <Grid DataContext="{Binding DatiDdtViewModel}" >
 
                         <t:InstanceNullManager Grid.Row="0" Grid.ColumnSpan="2"
@@ -483,7 +498,7 @@
                                         <Style x:Key="errorStyle" TargetType="{x:Type TextBlock}">
                                             <Style.Triggers>
                                                 <Trigger Property="Validation.HasError" Value="True">
-                                                    --><!--<Setter Property="Background" Value="Red"/>--><!--
+                                                    <Setter Property="Background" Value="Red"/>
                                                     <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, 
                                                            Path=(Validation.Errors)[0].ErrorContent}"/>
                                                 </Trigger>
@@ -492,11 +507,11 @@
 
                                     </DataGrid.Resources>
 
-                                    --><!--<DataGrid.RowValidationRules>
+                                    <DataGrid.RowValidationRules>
 
                                         <DataErrorValidationRule  ValidationStep="CommittedValue"  ValidatesOnTargetUpdated="True" />
 
-                                    </DataGrid.RowValidationRules>--><!--
+                                    </DataGrid.RowValidationRules>
 
                                     <DataGrid.Columns >
 
@@ -569,7 +584,7 @@
                         </Grid>
 
                     </Grid>
-                </TabItem>
+                </TabItem>-->
 
                 <TabItem Header="Dati fatture collegate" Style="{StaticResource SubTabItemStyle}">
                     <ContentControl Content="{Binding DatiFattureCollegate, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
@@ -589,7 +604,7 @@
 
                 <TabItem Header="Dati ricezione" Style="{StaticResource SubTabItemStyle}">
                     <ContentControl Content="{Binding DatiRicezione, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"/>
-                </TabItem>-->
+                </TabItem>
 
             </TabControl>
 

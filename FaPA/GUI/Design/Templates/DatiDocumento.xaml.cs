@@ -1,7 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using FaPA.GUI.Controls.MyTabControl;
 using FaPA.GUI.Utils;
 
 namespace FaPA.GUI.Design.Templates
