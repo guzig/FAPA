@@ -1,21 +1,21 @@
-using System;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Windows;
-using System.Windows.Input;
-using FaPA.AppServices.CoreValidation;
-using FaPA.Core;
 using FaPA.Core.FaPa;
-using FaPA.GUI.Controls;
 using FaPA.GUI.Controls.MyTabControl;
-using FaPA.GUI.Utils;
 using FaPA.Infrastructure;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
-    public class DatiDocumentoViewModel : EditWorkSpaceViewModel<DatiGeneraliType, DatiGeneraliDocumentoType>
+    public class DatiDocumentoViewModel : WorkspaceViewModel
     {
+        #region fields
+
+        private DatiBolloViewModel _datiBolloViewModel;
         private DatiRitenutaViewModel _ritenutaTabViewModel;
+        private ScontoMaggiorazioneGeneraleViewModel _scontoMaggiorazioneGeneraleView;
+        private DatiGeneraliDocumentoViewModel _datiGeneraliDocumentoViewModel;
+        private DatiCassaPrevViewModel _datiCassaPrevViewModel;
+
+        #endregion
+        
         public DatiRitenutaViewModel DatiRitenutaViewModel
         {
             get { return _ritenutaTabViewModel; }
@@ -26,8 +26,28 @@ namespace FaPA.GUI.Feautures.Fattura
                 NotifyOfPropertyChange( () => DatiRitenutaViewModel );
             }
         }
+        
+        public DatiBolloViewModel DatiBolloViewModel
+        {
+            get { return _datiBolloViewModel; }
+            set
+            {
+                _datiBolloViewModel = value;
+                NotifyOfPropertyChange( () => DatiBolloViewModel );
+            }
+        }
 
-        private ScontoMaggiorazioneGeneraleViewModel _scontoMaggiorazioneGeneraleView;
+        public DatiCassaPrevViewModel DatiCassaPrevViewModel
+        {
+            get { return _datiCassaPrevViewModel; }
+            set
+            {
+                if ( Equals( value, _datiCassaPrevViewModel ) ) return;
+                _datiCassaPrevViewModel = value;
+                NotifyOfPropertyChange( () => DatiCassaPrevViewModel );
+            }
+        }
+
         public ScontoMaggiorazioneGeneraleViewModel ScontoMaggiorazioneGeneraleView
         {
             get { return _scontoMaggiorazioneGeneraleView; }
@@ -39,82 +59,40 @@ namespace FaPA.GUI.Feautures.Fattura
             }
         }
 
-        //ctor
-        public DatiDocumentoViewModel(IRepository repository, DatiGeneraliType instance ) :
-            base(repository, instance, f => f.DatiGeneraliDocumento, "Dati documento", false)
+        public DatiGeneraliDocumentoViewModel DatiGeneraliDocumentoViewModel
         {
+            get { return _datiGeneraliDocumentoViewModel; }
+            set
+            {
+                if ( Equals( value, _datiGeneraliDocumentoViewModel ) ) return;
+                _datiGeneraliDocumentoViewModel = value;
+                NotifyOfPropertyChange( () => DatiGeneraliDocumentoViewModel );
+            }
+        }
+
+        //ctor
+        public DatiDocumentoViewModel(IRepository repository, DatiGeneraliType instance ) 
+        {
+            DisplayName = "Dati documento";
+            IsCloseable = false;
+
             ScontoMaggiorazioneGeneraleView = new ScontoMaggiorazioneGeneraleViewModel(repository, 
                 instance.DatiGeneraliDocumento);
 
             ScontoMaggiorazioneGeneraleView.Init();
 
             DatiRitenutaViewModel = new DatiRitenutaViewModel( repository, instance.DatiGeneraliDocumento );
-            DatiRitenutaViewModel.CurrentEntityChanged += OnDatiRitenutaPropertyChanged;
-        }
+            DatiRitenutaViewModel.Init();
 
-        private void OnDatiRitenutaPropertyChanged( object sender, PropertyChangedEventArgs eventarg )
-        {
-            LockMessage = EditViewModel<BaseEntity>.OnEditingLockMessage;
-            AllowSave = DatiRitenutaViewModel.IsValid;
-        }
+            DatiGeneraliDocumentoViewModel = new DatiGeneraliDocumentoViewModel( repository, instance );
+            DatiGeneraliDocumentoViewModel.Init();
 
-        protected override bool CanDeleteEntity( object obj )
-        {
-            return false;
-        }
+            DatiBolloViewModel = new DatiBolloViewModel( repository, instance.DatiGeneraliDocumento );
+            DatiBolloViewModel.Init();
 
+            DatiCassaPrevViewModel = new DatiCassaPrevViewModel( repository, instance.DatiGeneraliDocumento );
+            DatiCassaPrevViewModel.Init();
 
-        protected override void HookOnChanged(object poco)
-        {
-            var entity = poco as DatiGeneraliDocumentoType;
-            if (entity == null) return;
-
-            HookChanged(entity);
-
-            if (entity.DatiRitenuta != null)
-            {
-                HookChanged( entity.DatiRitenuta );
-            }
-
-            if (entity.DatiBollo != null)
-            {
-                HookChanged(entity.DatiBollo);
-            }
-
-            if (entity.DatiCassaPrevidenziale != null)
-            {
-                HookChanged(entity.DatiCassaPrevidenziale);
-            }
-
-            if (entity.ScontoMaggiorazione != null)
-            {
-                foreach (var dettaglio in entity.ScontoMaggiorazione)
-                {
-                    HookChanged(dettaglio);
-                }
-            }
-
-
-        }
-
-        protected override void OnRequestClose()
-        {
-            if (UserProperty != null)
-            {
-                const string lockMessage = "Non è possibile chiudere una scheda contenente dati.";
-                MessageBox.Show(lockMessage, "Scheda bloccata", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                return;
-            }
-
-            base.OnRequestClose();
-        }
-
-        public override object Read()
-        {
-            var root = Repository.Read();
-            Instance = ( ( Core.Fattura ) root ).DatiGenerali;
-            var userProp = GetterProp( Instance );
-            return userProp;
         }
 
     }

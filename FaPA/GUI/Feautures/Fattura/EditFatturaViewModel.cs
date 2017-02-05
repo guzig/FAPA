@@ -147,13 +147,13 @@ namespace FaPA.GUI.Feautures.Fattura
             DettagliFatturaViewModel.CurrentEntityChanged += OnDettaglioFatturaPropertyChanged;
 
             DatiGeneraliViewModel = new DatiGeneraliViewModel( this, fattura.FatturaElettronicaBody );
-            DatiGeneraliViewModel.Init();
-            DatiGeneraliViewModel.CurrentEntityChanged += OnDatiGeneraliPropertyChanged;
+            //DatiGeneraliViewModel.Init();
+            //DatiGeneraliViewModel.CurrentEntityChanged += OnDatiGeneraliPropertyChanged;
             AddTabViewModel<DatiGeneraliViewModel>( DatiGeneraliViewModel );
 
             DatiDocumentoViewModel = new DatiDocumentoViewModel(this, fattura.DatiGenerali );
-            DatiDocumentoViewModel.Init();
-            DatiDocumentoViewModel.CurrentEntityChanged += OnDatiGeneraliDocumentoPropertyChanged;
+            //DatiDocumentoViewModel.Init();
+            //DatiDocumentoViewModel.CurrentEntityChanged += OnDatiGeneraliDocumentoPropertyChanged;
             AddTabViewModel<DatiDocumentoViewModel>(DatiDocumentoViewModel);
 
             TrasmittenteViewModel = new TrasmittenteTabViewModel(this, fattura);
@@ -191,10 +191,6 @@ namespace FaPA.GUI.Feautures.Fattura
             OnChildChanged();
         }
 
-        private void OnDatiGeneraliDocumentoPropertyChanged(object sender, PropertyChangedEventArgs eventarg)
-        {
-            OnChildChanged();
-        }
 
         private void OnDettaglioFatturaPropertyChanged(object sender, PropertyChangedEventArgs e)
         {

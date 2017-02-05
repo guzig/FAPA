@@ -93,8 +93,8 @@ namespace FaPA.Core.FaPa
             }
         }
 
-        [XmlIgnore]
-        public virtual bool DatiRitenutaSpecified { get; set; }  
+        //[XmlIgnore]
+        //public virtual bool DatiRitenutaSpecified { get; set; }  
         
         public virtual DatiRitenutaType DatiRitenuta
         {
@@ -105,12 +105,8 @@ namespace FaPA.Core.FaPa
             set
             {
                 _datiRitenutaField = value;
-                //DatiRitenutaSpecified = DatiRitenuta.AliquotaRitenuta != 0 || DatiRitenuta.ImportoRitenuta != 0;
             }
         }
-
-        [XmlIgnore]
-        public bool DatiBolloSpecified { get; set; }
 
         public virtual DatiBolloType DatiBollo
         {
@@ -121,7 +117,6 @@ namespace FaPA.Core.FaPa
             set
             {
                 _datiBolloField = value;
-                DatiBolloSpecified = DatiBollo.ImportoBollo > 0;
             }
         }
 

@@ -19,9 +19,5 @@ namespace FaPA.GUI.Design.Templates
         }
 
 
-        private void UIElement_OnLostFocus(object sender, RoutedEventArgs e)
-        {
-            CrossCoupledPropsGrid.BindingGroup.CommitEdit();
-        }
     }
 }

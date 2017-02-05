@@ -1,4 +1,8 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using FaPA.GUI.Controls.MyTabControl;
+using FaPA.GUI.Utils;
 
 namespace FaPA.GUI.Design.Templates
 {
@@ -11,6 +15,14 @@ namespace FaPA.GUI.Design.Templates
         {
             InitializeComponent();
         }
+
+        private void UIElement_OnPreviewMouseLeftButtonDown( object sender, RoutedEventArgs e )
+        {
+            WpfHelpers.TabItem_OnPreviewMouseLeftButtonDown( sender, e, TabControl );
+        }
+
+
+
 
     }
 }

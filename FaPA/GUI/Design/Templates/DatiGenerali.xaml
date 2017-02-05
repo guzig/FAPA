@@ -1,9 +1,7 @@
 ﻿<UserControl x:Class="FaPA.GUI.Design.Templates.DatiGenerali"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:t="clr-namespace:FaPA.GUI.Design.Templates"
-             xmlns:m="clr-namespace:FaPA.GUI.Controls.MyRecordNavigator"
-             xmlns:utils="clr-namespace:FaPA.GUI.Utils">
+             xmlns:t="clr-namespace:FaPA.GUI.Design.Templates">
     
     <Grid Margin="2,2,2,2">
         <Grid.RowDefinitions>
@@ -16,23 +14,25 @@
 
             <TabControl TabStripPlacement="Top" Style="{StaticResource SubTabControlStyle}" >
 
-                <TabItem Header="Fattura principale" Style="{StaticResource SubTabItemStyle}">
+                <TabItem Header="Fattura principale" Style="{StaticResource SubTabItemStyle}"
+                         DataContext="{Binding DatiFatturaPrincipaleViewModel}">
                     <Grid Margin="2,2,2,2" >
                         
                         <t:InstanceNullManager Grid.Row="0" Grid.ColumnSpan="2"
-                                               BindedInstance="{Binding CurrentPoco.FatturaPrincipale}"
+                                               BindedInstance="{Binding CurrentPoco}"
                                                EmptyMessage="Nessuna scheda fattura principale aggiunta"
                                                ActionCommandMessage="Aggiungi una scheda fattura principale aggiunta"
                                                OnNullCommand="{Binding AddSchedaCommand}" 
                                                ActionCommandParam="FatturaPrincipale"/>
 
-                        <Grid Visibility="{Binding CurrentPoco.FatturaPrincipale, Converter={StaticResource NullToVisibiltyConverter}}">
+                        <Grid Visibility="{Binding CurrentPoco, Converter={StaticResource NullToVisibiltyConverter}}">
                             <Grid.Effect>
                                 <DropShadowEffect Color="LightSteelBlue" Direction="280"/>
                             </Grid.Effect>
                             
                             <Grid.RowDefinitions>
                             <RowDefinition Height="45" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
                             <Grid.ColumnDefinitions>
@@ -42,19 +42,25 @@
 
                             <StackPanel Grid.Row="0" Grid.Column="0" Margin="2,0,2,0">
                                 <TextBlock Text="Numero" />
-                                <TextBox   Text="{Binding CurrentPoco.FatturaPrincipale.NumeroFatturaPrincipale, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch"  />
+                                <TextBox   Text="{Binding CurrentPoco.NumeroFatturaPrincipale, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch"  />
                             </StackPanel>
 
                             <StackPanel Grid.Row="0" Grid.Column="1" Margin="2,0,2,0">
                                 <TextBlock Text="Data" />
-                                <DatePicker SelectedDate="{Binding CurrentPoco.FatturaPrincipale.DataFatturaPrincipale}"/>
+                                <DatePicker SelectedDate="{Binding CurrentPoco.DataFatturaPrincipale}"/>
                             </StackPanel>
-                        
+
+                            <t:SaveCancelRemoveButtons Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left"
+                                                       Visibility="{Binding CurrentPoco, Converter={StaticResource NullToVisibiltyConverter}}"
+                                                       DeleteEntityCommand="{Binding DeleteEntityCommand}"
+                                                       SaveCommand="{Binding SaveEntity}"
+                                                       PerformCancelCommand="{Binding PerformCancel}"/>
+
                         </Grid>
                     </Grid>
                 </TabItem>
 
-                <TabItem Header="Dati trasporto" Style="{StaticResource SubTabItemStyle}">
+                <!--<TabItem Header="Dati trasporto" Style="{StaticResource SubTabItemStyle}">
 
                     <ScrollViewer>
                     
@@ -367,7 +373,7 @@
                                         <Style x:Key="errorStyle" TargetType="{x:Type TextBlock}">
                                             <Style.Triggers>
                                                 <Trigger Property="Validation.HasError" Value="True">
-                                                    <!--<Setter Property="Background" Value="Red"/>-->
+                                                    --><!--<Setter Property="Background" Value="Red"/>--><!--
                                                     <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, 
                                                            Path=(Validation.Errors)[0].ErrorContent}"/>
                                                 </Trigger>
@@ -376,11 +382,11 @@
 
                                     </DataGrid.Resources>
 
-                                    <!--<DataGrid.RowValidationRules>
+                                    --><!--<DataGrid.RowValidationRules>
 
                                         <DataErrorValidationRule  ValidationStep="CommittedValue"  ValidatesOnTargetUpdated="True" />
 
-                                    </DataGrid.RowValidationRules>-->
+                                    </DataGrid.RowValidationRules>--><!--
 
                                     <DataGrid.Columns >
 
@@ -477,7 +483,7 @@
                                         <Style x:Key="errorStyle" TargetType="{x:Type TextBlock}">
                                             <Style.Triggers>
                                                 <Trigger Property="Validation.HasError" Value="True">
-                                                    <!--<Setter Property="Background" Value="Red"/>-->
+                                                    --><!--<Setter Property="Background" Value="Red"/>--><!--
                                                     <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, 
                                                            Path=(Validation.Errors)[0].ErrorContent}"/>
                                                 </Trigger>
@@ -486,11 +492,11 @@
 
                                     </DataGrid.Resources>
 
-                                    <!--<DataGrid.RowValidationRules>
+                                    --><!--<DataGrid.RowValidationRules>
 
                                         <DataErrorValidationRule  ValidationStep="CommittedValue"  ValidatesOnTargetUpdated="True" />
 
-                                    </DataGrid.RowValidationRules>-->
+                                    </DataGrid.RowValidationRules>--><!--
 
                                     <DataGrid.Columns >
 
@@ -583,40 +589,12 @@
 
                 <TabItem Header="Dati ricezione" Style="{StaticResource SubTabItemStyle}">
                     <ContentControl Content="{Binding DatiRicezione, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"/>
-                </TabItem>
+                </TabItem>-->
 
             </TabControl>
 
         </GroupBox>
         
-
-        <StackPanel Orientation="Vertical" Grid.Row="1" Height="Auto"  Margin="2,2,2,2" >
-
-            <DockPanel Height="25" Margin="2,2,2,2" Background="{StaticResource Brush_ToolBar}">
-
-                <Button Name="Delete" Command="{Binding DeleteEntityCommand}" 
-                        ToolTip="Elimina definitivamente l'oggetto dal database" >
-
-                    <Image Source="/GUI/Design/Styles/Images/delete(1).png" Width="25"/>
-                </Button>
-
-
-                <Button Name="Save" Command="{Binding SaveEntity}" Width="Auto"
-                        ToolTip="Salva le modifiche apportate all'oggetto">
-
-                    <Image Source="/GUI/Design/Styles/Images/save(1).png" Width="25"/>
-                </Button>
-
-                <Button Name="Cancel" Command="{Binding PerformCancel}"   Width="25" HorizontalAlignment="Left"                
-                        ToolTip="Annulla le modifiche apportate"  >
-
-                    <Image Source="/GUI/Design/Styles/Images/cancel.png" Width="25"/>
-
-                </Button>
-
-            </DockPanel>
-
-        </StackPanel>
 
     </Grid>
 

@@ -60,16 +60,16 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Caliburn.Micro, Version=3.0.2.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Caliburn.Micro.Core.3.0.2\lib\net45\Caliburn.Micro.dll</HintPath>
+    <Reference Include="Caliburn.Micro, Version=3.0.3.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Caliburn.Micro.Core.3.0.3\lib\net45\Caliburn.Micro.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Caliburn.Micro.Platform, Version=3.0.2.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Caliburn.Micro.3.0.2\lib\net45\Caliburn.Micro.Platform.dll</HintPath>
+    <Reference Include="Caliburn.Micro.Platform, Version=3.0.3.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Caliburn.Micro.3.0.3\lib\net45\Caliburn.Micro.Platform.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Caliburn.Micro.Platform.Core, Version=3.0.2.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Caliburn.Micro.3.0.2\lib\net45\Caliburn.Micro.Platform.Core.dll</HintPath>
+    <Reference Include="Caliburn.Micro.Platform.Core, Version=3.0.3.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Caliburn.Micro.3.0.3\lib\net45\Caliburn.Micro.Platform.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
@@ -81,7 +81,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="NHibernate, Version=4.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <HintPath>..\packages\NHibernate.4.1.0.4000\lib\net40\NHibernate.dll</HintPath>
+      <HintPath>..\packages\NHibernate.4.1.1.4000\lib\net40\NHibernate.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="NHibernate.Validator">
@@ -111,7 +111,7 @@
     </Reference>
     <Reference Include="System.Windows.Controls.Ribbon" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Caliburn.Micro.3.0.2\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\packages\Caliburn.Micro.3.0.3\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml" />
@@ -181,6 +181,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\Design\Templates\InstanceNullManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Design\Templates\SaveCancelRemoveButtons.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -434,15 +438,22 @@
     <Compile Include="GUI\Design\Templates\InstanceNullManager.xaml.cs">
       <DependentUpon>InstanceNullManager.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Design\Templates\SaveCancelRemoveButtons.xaml.cs">
+      <DependentUpon>SaveCancelRemoveButtons.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Design\Templates\ScontoMaggiorazione.xaml.cs">
       <DependentUpon>ScontoMaggiorazione.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\Feautures\Anagrafica\AnagraficaListViewModel.cs" />
     <Compile Include="GUI\Feautures\Anagrafica\EditAnagraficaViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\BaseDatiCorrelatiViewModel.cs" />
+    <Compile Include="GUI\Feautures\Fattura\DatiBolloViewModel.cs" />
+    <Compile Include="GUI\Feautures\Fattura\DatiCassaPrevViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\DatiDdtTabViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\DatiDocumentoViewModel.cs" />
+    <Compile Include="GUI\Feautures\Fattura\DatiFatturaPrincipaleViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\DatiFattureCollegateTabViewModel.cs" />
+    <Compile Include="GUI\Feautures\Fattura\DatiGeneraliDocumentoViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\DatiGeneraliViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\DatiRicezioneTabViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\DatiSalTabViewModel.cs" />
@@ -523,7 +534,7 @@
     <Compile Include="GUI\Feautures\Fattura\DettagliFatturaViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\TrasmittenteTabViewModel.cs" />
     <Compile Include="GUI\Controls\EditWorkSpaceViewModel.cs" />
-    <Compile Include="GUI\Feautures\Fattura\RitenutaTabViewModel.cs" />
+    <Compile Include="GUI\Feautures\Fattura\DatiRitenutaViewModel.cs" />
     <Compile Include="GUI\Feautures\Anagrafica\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>

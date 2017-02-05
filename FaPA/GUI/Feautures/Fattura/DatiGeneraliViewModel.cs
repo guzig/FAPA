@@ -12,7 +12,7 @@ using FaPA.Infrastructure;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
-    public class DatiGeneraliViewModel : EditWorkSpaceViewModel<FatturaElettronicaBodyType, DatiGeneraliType>
+    public class DatiGeneraliViewModel : WorkspaceViewModel
     {
         #region fields
         private DatiSalTabViewModel _datiSalViewModel;
@@ -35,6 +35,17 @@ namespace FaPA.GUI.Feautures.Fattura
                 if (Equals(value, _datiDdtViewModel)) return;
                 _datiDdtViewModel = value;
                 NotifyOfPropertyChange(() => DatiDdtViewModel);
+            }
+        }
+
+        public DatiFatturaPrincipaleViewModel DatiFatturaPrincipaleViewModel
+        {
+            get { return _datiFatturaPrincipaleViewModel; }
+            set
+            {
+                if ( Equals( value, _datiFatturaPrincipaleViewModel ) ) return;
+                _datiFatturaPrincipaleViewModel = value;
+                NotifyOfPropertyChange( () => DatiFatturaPrincipaleViewModel );
             }
         }
 
@@ -108,250 +119,255 @@ namespace FaPA.GUI.Feautures.Fattura
         #region Commands
 
         private ICommand _addSchedaCommand;
-        public ICommand AddSchedaCommand
-        {
-            get
-            {
-                if (_addSchedaCommand != null) return _addSchedaCommand;
-                _addSchedaCommand = new RelayCommand( AddDatiScheda, param => true );
-                return _addSchedaCommand;
-            }
-        }
+        private DatiFatturaPrincipaleViewModel _datiFatturaPrincipaleViewModel;
 
-        private void AddDatiVettore()
-        {
-            var current = CurrentPoco as DatiGeneraliType;
-            if ( current == null ) return;
+        //public ICommand AddSchedaCommand
+        //{
+        //    get
+        //    {
+        //        if (_addSchedaCommand != null) return _addSchedaCommand;
+        //        _addSchedaCommand = new RelayCommand( AddDatiScheda, param => true );
+        //        return _addSchedaCommand;
+        //    }
+        //}
 
-            object instance = new DatiAnagraficiVettoreType();
-            ( ( DatiAnagraficiVettoreType ) instance ).Anagrafica = new AnagraficaType();
-            ( ( DatiAnagraficiVettoreType ) instance ).IdFiscaleIVA = new IdFiscaleType();
-            LockMessage = EditViewModel<BaseEntity>.OnEditingLockMessage;
+        //private void AddDatiVettore()
+        //{
+        //    var current = CurrentPoco as DatiGeneraliType;
+        //    if ( current == null ) return;
 
-            ( ( IValidatable ) instance ).Validate();
+        //    object instance = new DatiAnagraficiVettoreType();
+        //    ( ( DatiAnagraficiVettoreType ) instance ).Anagrafica = new AnagraficaType();
+        //    ( ( DatiAnagraficiVettoreType ) instance ).IdFiscaleIVA = new IdFiscaleType();
+        //    LockMessage = EditViewModel<BaseEntity>.OnEditingLockMessage;
 
-            ObjectExplorer.TryProxiedAllInstances<BaseEntity>( ref instance, "FaPA.Core" );
+        //    ( ( IValidatable ) instance ).Validate();
 
-            current.DatiTrasporto.DatiAnagraficiVettore = ( DatiAnagraficiVettoreType ) instance;
+        //    ObjectExplorer.TryProxiedAllInstances<BaseEntity>( ref instance, "FaPA.Core" );
 
-            HookChanged( instance );
+        //    current.DatiTrasporto.DatiAnagraficiVettore = ( DatiAnagraficiVettoreType ) instance;
 
-            HookChanged( ( ( DatiAnagraficiVettoreType ) instance ).IdFiscaleIVA );
-            HookChanged( ( ( DatiAnagraficiVettoreType ) instance ).Anagrafica );
-        }
+        //    HookChanged( instance );
 
-        private void AddDatiIndirizzoResa()
-        {
-            var current = CurrentPoco as DatiGeneraliType;
-            if ( current == null ) return;
+        //    HookChanged( ( ( DatiAnagraficiVettoreType ) instance ).IdFiscaleIVA );
+        //    HookChanged( ( ( DatiAnagraficiVettoreType ) instance ).Anagrafica );
+        //}
 
-            object instance = new IndirizzoType();
-            LockMessage = EditViewModel<BaseEntity>.OnEditingLockMessage;
+        //private void AddDatiIndirizzoResa()
+        //{
+        //    var current = CurrentPoco as DatiGeneraliType;
+        //    if ( current == null ) return;
 
-            ( ( IValidatable ) instance ).Validate();
+        //    object instance = new IndirizzoType();
+        //    LockMessage = EditViewModel<BaseEntity>.OnEditingLockMessage;
 
-            ObjectExplorer.TryProxiedAllInstances<BaseEntity>( ref instance, "FaPA.Core" );
+        //    ( ( IValidatable ) instance ).Validate();
 
-            current.DatiTrasporto.IndirizzoResa = ( IndirizzoType ) instance;
+        //    ObjectExplorer.TryProxiedAllInstances<BaseEntity>( ref instance, "FaPA.Core" );
 
-            HookChanged( instance );
-        }
+        //    current.DatiTrasporto.IndirizzoResa = ( IndirizzoType ) instance;
+
+        //    HookChanged( instance );
+        //}
 
         #endregion
 
 
-        private void AddDatiScheda(object parm)
-        {
-            var current = CurrentPoco as DatiGeneraliType;
-            if (current == null) return;
-            string param = (string) parm;
-            switch (param)
-            {
-                case "FatturaPrincipale":
-                    GetInstance<FatturaPrincipaleType>(v => current.FatturaPrincipale = v);
-                    break;
+        //private void AddDatiScheda(object parm)
+        //{
+        //    var current = CurrentPoco as DatiGeneraliType;
+        //    if (current == null) return;
+        //    string param = (string) parm;
+        //    switch (param)
+        //    {
+        //        case "FatturaPrincipale":
+        //            GetInstance<FatturaPrincipaleType>(v => current.FatturaPrincipale = v);
+        //            break;
 
-                case "DatiTrasporto":
-                    GetInstance<DatiTrasportoType>(v => current.DatiTrasporto = v);
-                    break;
+        //        case "DatiTrasporto":
+        //            GetInstance<DatiTrasportoType>(v => current.DatiTrasporto = v);
+        //            break;
 
-                case "DatiVettore":
-                    AddDatiVettore();
-                    break;
+        //        case "DatiVettore":
+        //            AddDatiVettore();
+        //            break;
 
-                case "IndirizzoResa":
-                    AddDatiIndirizzoResa();
-                    break;
-            }
-        }
+        //        case "IndirizzoResa":
+        //            AddDatiIndirizzoResa();
+        //            break;
+        //    }
+        //}
         
-        private void GetInstance<T>(Action<T> prop)
-        {
-            object instance = Activator.CreateInstance<T>();
-            LockMessage = EditViewModel<BaseEntity>.OnEditingLockMessage;
+        //private void GetInstance<T>(Action<T> prop)
+        //{
+        //    object instance = Activator.CreateInstance<T>();
+        //    LockMessage = EditViewModel<BaseEntity>.OnEditingLockMessage;
 
-            ((IValidatable)instance).Validate();
+        //    ((IValidatable)instance).Validate();
 
-            ObjectExplorer.TryProxiedAllInstances<BaseEntity>(ref instance, "FaPA.Core");
+        //    ObjectExplorer.TryProxiedAllInstances<BaseEntity>(ref instance, "FaPA.Core");
 
-            HookChanged(instance);
+        //    HookChanged(instance);
 
-            prop((T) instance);
-        }
+        //    prop((T) instance);
+        //}
 
         //ctor
-        public DatiGeneraliViewModel( IRepository repository, FatturaElettronicaBodyType instance ) :
-            base( repository, instance, f => f.DatiGenerali, "Dati generali", false )
+        public DatiGeneraliViewModel( IRepository repository, FatturaElettronicaBodyType instance ) 
         {
+            DisplayName = "Dati generali";
+            IsCloseable = false;
+            InitChildViewModels(instance, repository);
 
-            InitChildViewModels(instance);
-
-            CurrentEntityChanged += OnCurrentFatturaChanged;
+            //CurrentEntityChanged += OnCurrentFatturaChanged;
         }
 
-        protected override void OnCancelDelegateExecute()
-        {
-            base.OnCancelDelegateExecute();
-            InitChildViewModels(Instance);
-        }
+        //protected override void OnCancelDelegateExecute()
+        //{
+        //    base.OnCancelDelegateExecute();
+        //    InitChildViewModels(Instance);
+        //}
 
-        private void InitChildViewModels( FatturaElettronicaBodyType instance )
+        private void InitChildViewModels( FatturaElettronicaBodyType instance, IRepository repository )
         {
-            DatiDdtViewModel = new DatiDdtTabViewModel(this, instance.DatiGenerali);
+            DatiFatturaPrincipaleViewModel = new DatiFatturaPrincipaleViewModel( repository, instance.DatiGenerali );
+            DatiFatturaPrincipaleViewModel.Init();
+
+            DatiDdtViewModel = new DatiDdtTabViewModel( repository, instance.DatiGenerali);
             DatiDdtViewModel.Init();
 
-            DatiSalViewModel = new DatiSalTabViewModel(this, instance.DatiGenerali);
+            DatiSalViewModel = new DatiSalTabViewModel( repository, instance.DatiGenerali);
             DatiSalViewModel.Init();
 
-            DatiOrdini = new DatiOrdineTabViewModel(this, instance.DatiGenerali );
+            DatiOrdini = new DatiOrdineTabViewModel( repository, instance.DatiGenerali );
             DatiOrdini.Init();
 
-            DatiContratto = new DatiContrattoTabViewModel(this, instance.DatiGenerali );
+            DatiContratto = new DatiContrattoTabViewModel( repository, instance.DatiGenerali );
             DatiContratto.Init();
 
-            DatiConvenzione = new DatiConvenzioneTabViewModel(this, instance.DatiGenerali );
+            DatiConvenzione = new DatiConvenzioneTabViewModel( repository, instance.DatiGenerali );
             DatiConvenzione.Init();
 
-            DatiFattureCollegate = new DatiFattureCollegateTabViewModel(this, instance.DatiGenerali );
+            DatiFattureCollegate = new DatiFattureCollegateTabViewModel( repository, instance.DatiGenerali );
             DatiFattureCollegate.Init();
 
-            DatiRicezione = new DatiRicezioneTabViewModel(this, instance.DatiGenerali );
+            DatiRicezione = new DatiRicezioneTabViewModel( repository, instance.DatiGenerali );
             DatiRicezione.Init();
         }
 
-        private void OnCurrentFatturaChanged( object sender, PropertyChangedEventArgs eventarg )
-        {
+        //private void OnCurrentFatturaChanged( object sender, PropertyChangedEventArgs eventarg )
+        //{
 
-            if ( sender is IndirizzoType )
-            {
-                var datiTraporto = ( ( DatiGeneraliType ) CurrentPoco ).DatiTrasporto;
-                datiTraporto.Validate();
-                ( ( IValidatable ) datiTraporto ).HandleValidationResults( "IndirizzoResa" );
-            }
+        //    if ( sender is IndirizzoType )
+        //    {
+        //        var datiTraporto = ( ( DatiGeneraliType ) CurrentPoco ).DatiTrasporto;
+        //        datiTraporto.Validate();
+        //        ( ( IValidatable ) datiTraporto ).HandleValidationResults( "IndirizzoResa" );
+        //    }
 
-            if ( sender is IdFiscaleType || sender is AnagraficaType )
-            {
-                var datiTraporto = ( ( DatiGeneraliType ) CurrentPoco ).DatiTrasporto;
-                datiTraporto.Validate();
-                ( ( IValidatable ) datiTraporto ).HandleValidationResults( "DatiAnagraficiVettore" );
+        //    if ( sender is IdFiscaleType || sender is AnagraficaType )
+        //    {
+        //        var datiTraporto = ( ( DatiGeneraliType ) CurrentPoco ).DatiTrasporto;
+        //        datiTraporto.Validate();
+        //        ( ( IValidatable ) datiTraporto ).HandleValidationResults( "DatiAnagraficiVettore" );
 
-                ((IValidatable)datiTraporto.DatiAnagraficiVettore).
-                    HandleValidationResults("IdFiscaleIVA");
+        //        ((IValidatable)datiTraporto.DatiAnagraficiVettore).
+        //            HandleValidationResults("IdFiscaleIVA");
 
-                ((IValidatable)datiTraporto.DatiAnagraficiVettore).
-                    HandleValidationResults("Anagrafica");
+        //        ((IValidatable)datiTraporto.DatiAnagraficiVettore).
+        //            HandleValidationResults("Anagrafica");
 
-            }
-        }
-
-
-        protected override void HookOnChanged( object poco )
-        {
-            var entity = poco as DatiGeneraliType;
-            if ( entity == null ) return;
-
-            HookChanged( entity );
-
-            if ( entity.FatturaPrincipale != null )
-            {
-                HookChanged( entity.FatturaPrincipale );
-            }
-
-            if ( entity.DatiDDT != null )
-            {
-                HookChanged( entity.DatiDDT );
-            }
-
-            if ( entity.DatiSAL != null )
-            {
-                HookChanged( entity.DatiSAL );
-            }
-
-            if ( entity.DatiTrasporto != null )
-            {
-                HookChanged( entity.DatiTrasporto );
-            }
-
-            if ( entity.DatiFattureCollegate != null )
-            {
-                foreach ( var dettaglio in entity.DatiFattureCollegate )
-                {
-                    HookChanged( dettaglio );
-                }
-            }
-
-            if ( entity.DatiContratto != null )
-            {
-                foreach ( var dettaglio in entity.DatiContratto )
-                {
-                    HookChanged( dettaglio );
-                }
-            }
-
-            if ( entity.DatiConvenzione != null )
-            {
-                foreach ( var dettaglio in entity.DatiConvenzione )
-                {
-                    HookChanged( dettaglio );
-                }
-            }
-
-            if ( entity.DatiOrdineAcquisto != null )
-            {
-                foreach ( var dettaglio in entity.DatiOrdineAcquisto )
-                {
-                    HookChanged( dettaglio );
-                }
-            }
-
-            if ( entity.DatiRicezione != null )
-            {
-                foreach ( var dettaglio in entity.DatiRicezione )
-                {
-                    HookChanged( dettaglio );
-                }
-            }
-        }
-
-        protected override void OnRequestClose()
-        {
-            if ( UserProperty != null )
-            {
-                const string lockMessage = "Non è possibile chiudere una scheda contenente dati.";
-                MessageBox.Show( lockMessage, "Scheda bloccata", MessageBoxButton.OK, MessageBoxImage.Exclamation );
-                return;
-            }
-
-            base.OnRequestClose();
-        }
+        //    }
+        //}
 
 
-        public override object Read()
-        {
-            var root = Repository.Read();
-            Instance = ( ( Core.Fattura ) root).FatturaElettronicaBody;
-            var userProp = GetterProp( Instance );
-            return userProp;
-        }
+        //protected override void HookOnChanged( object poco )
+        //{
+        //    var entity = poco as DatiGeneraliType;
+        //    if ( entity == null ) return;
+
+        //    HookChanged( entity );
+
+        //    if ( entity.FatturaPrincipale != null )
+        //    {
+        //        HookChanged( entity.FatturaPrincipale );
+        //    }
+
+        //    if ( entity.DatiDDT != null )
+        //    {
+        //        HookChanged( entity.DatiDDT );
+        //    }
+
+        //    if ( entity.DatiSAL != null )
+        //    {
+        //        HookChanged( entity.DatiSAL );
+        //    }
+
+        //    if ( entity.DatiTrasporto != null )
+        //    {
+        //        HookChanged( entity.DatiTrasporto );
+        //    }
+
+        //    if ( entity.DatiFattureCollegate != null )
+        //    {
+        //        foreach ( var dettaglio in entity.DatiFattureCollegate )
+        //        {
+        //            HookChanged( dettaglio );
+        //        }
+        //    }
+
+        //    if ( entity.DatiContratto != null )
+        //    {
+        //        foreach ( var dettaglio in entity.DatiContratto )
+        //        {
+        //            HookChanged( dettaglio );
+        //        }
+        //    }
+
+        //    if ( entity.DatiConvenzione != null )
+        //    {
+        //        foreach ( var dettaglio in entity.DatiConvenzione )
+        //        {
+        //            HookChanged( dettaglio );
+        //        }
+        //    }
+
+        //    if ( entity.DatiOrdineAcquisto != null )
+        //    {
+        //        foreach ( var dettaglio in entity.DatiOrdineAcquisto )
+        //        {
+        //            HookChanged( dettaglio );
+        //        }
+        //    }
+
+        //    if ( entity.DatiRicezione != null )
+        //    {
+        //        foreach ( var dettaglio in entity.DatiRicezione )
+        //        {
+        //            HookChanged( dettaglio );
+        //        }
+        //    }
+        //}
+
+        //protected override void OnRequestClose()
+        //{
+        //    if ( UserProperty != null )
+        //    {
+        //        const string lockMessage = "Non è possibile chiudere una scheda contenente dati.";
+        //        MessageBox.Show( lockMessage, "Scheda bloccata", MessageBoxButton.OK, MessageBoxImage.Exclamation );
+        //        return;
+        //    }
+
+        //    base.OnRequestClose();
+        //}
+
+
+        //public override object Read()
+        //{
+        //    var root = Repository.Read();
+        //    Instance = ( ( Core.Fattura ) root).FatturaElettronicaBody;
+        //    var userProp = GetterProp( Instance );
+        //    return userProp;
+        //}
     }
 }

@@ -4,9 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using FaPA.GUI.Design.Commands;
-using FaPA.GUI.Design.Templates;
 using FaPA.GUI.Utils;
 using FaPA.Infrastructure.Helpers;
 

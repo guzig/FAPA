@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Windows;
-using System.Windows.Data;
 using System.Windows.Input;
 using FaPA.AppServices.CoreValidation;
 using FaPA.Core;
@@ -169,7 +168,6 @@ namespace FaPA.GUI.Controls
 
         protected virtual void AddEntity()
         {
-
             LockMessage = EditViewModel<BaseEntity>.OnEditingLockMessage;
 
             var userProperty = (object)Activator.CreateInstance<TProperty>();
@@ -184,6 +182,7 @@ namespace FaPA.GUI.Controls
 
             IsEditing = true;
             AllowDelete = true;
+            AllowSave = ( ( IValidatable ) userProperty ).IsValid();
             AllowInsertNew = false;
         }
 
@@ -265,8 +264,9 @@ namespace FaPA.GUI.Controls
 
             var validatable = (IValidatable)sender;
 
-             IsEditing = true;
-            
+            IsEditing = true;
+            IsCloseable = false;
+
             LockMessage = EditViewModel<BaseEntity>.OnEditingLockMessage;
 
             IsValid = validatable.DomainResult.Success;

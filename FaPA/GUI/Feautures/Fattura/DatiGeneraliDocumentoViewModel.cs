@@ -1,81 +1,28 @@
-using System;
-using System.Windows;
-using System.Windows.Data;
 using FaPA.Core.FaPa;
 using FaPA.GUI.Controls;
 using FaPA.Infrastructure;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
-    public class DatiGeneraliDocumentoViewModel : EditWorkSpaceViewModel<Core.Fattura, DatiGeneraliDocumentoType>
+    public class DatiGeneraliDocumentoViewModel : EditWorkSpaceViewModel<DatiGeneraliType, DatiGeneraliDocumentoType>
     {
-        private ScontoMaggiorazioneGeneraleViewModel _scontoMaggiorazioneGeneraleView;
-        public ScontoMaggiorazioneGeneraleViewModel ScontoMaggiorazioneGeneraleView
-        {
-            get { return _scontoMaggiorazioneGeneraleView; }
-            set
-            {
-                if (Equals(value, _scontoMaggiorazioneGeneraleView)) return;
-                _scontoMaggiorazioneGeneraleView = value;
-                NotifyOfPropertyChange(() => ScontoMaggiorazioneGeneraleView);
-            }
-        }
-
         //ctor
-        public DatiGeneraliDocumentoViewModel(IRepository repository, Core.Fattura instance) :
-            base(repository, instance, (Core.Fattura f) => f.DatiGeneraliDocumento, "DatiGenerali", false)
+        public DatiGeneraliDocumentoViewModel( IRepository repository, DatiGeneraliType instance ) :
+            base( repository, instance, f => f.DatiGeneraliDocumento, "Dati documento", true )
+        { }
+
+        public override object Read()
         {
-            ScontoMaggiorazioneGeneraleView = new ScontoMaggiorazioneGeneraleViewModel(repository, 
-                instance.DatiGeneraliDocumento);
-            ScontoMaggiorazioneGeneraleView.Init();
+            var root = Repository.Read();
+            Instance = ( ( Core.Fattura ) root ).DatiGenerali;
+            var userProp = GetterProp( Instance );
+            return userProp;
         }
 
-
-
-        protected override void HookOnChanged(object poco)
+        protected override bool CanDeleteEntity( object obj )
         {
-            var entity = poco as DatiGeneraliDocumentoType;
-            if (entity == null) return;
-
-            Hook(entity);
-
-            if (entity.DatiRitenuta != null)
-            {
-                Hook( entity.DatiRitenuta );
-            }
-
-            if (entity.DatiBollo != null)
-            {
-                Hook(entity.DatiBollo);
-            }
-
-            if (entity.DatiCassaPrevidenziale != null)
-            {
-                Hook(entity.DatiCassaPrevidenziale);
-            }
-
-            if (entity.ScontoMaggiorazione != null)
-            {
-                foreach (var dettaglio in entity.ScontoMaggiorazione)
-                {
-                    Hook(dettaglio);
-                }
-            }
-
-
+            return false;
         }
-
-        protected override void OnRequestClose()
-        {
-            if (UserProperty != null)
-            {
-                const string lockMessage = "Non è possibile chiudere una scheda contenente dati.";
-                MessageBox.Show(lockMessage, "Scheda bloccata", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                return;
-            }
-
-            base.OnRequestClose();
-        }
-
     }
+
 }
