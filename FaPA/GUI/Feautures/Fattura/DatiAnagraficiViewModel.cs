@@ -14,10 +14,8 @@ namespace FaPA.GUI.Feautures.Fattura
 
         public override object Read()
         {
-            var root = Repository.Read();
-            Instance = ( ( Core.Fattura ) root ).DatiTrasporto;
-            var userProp = GetterProp( Instance );
-            return userProp;
+           var root = Repository.Read();
+           return ( ( Core.Fattura ) root ).DatiTrasporto;
         }
 
         protected override object CreateInstance()

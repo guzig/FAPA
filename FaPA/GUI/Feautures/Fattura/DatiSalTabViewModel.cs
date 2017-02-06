@@ -36,5 +36,11 @@ namespace FaPA.GUI.Feautures.Fattura
             }
         }
 
+        public override object Read()
+        {
+            var root = Repository.Read();
+            return ( ( Core.Fattura ) root ).DatiGenerali;
+        }
+
     }
 }

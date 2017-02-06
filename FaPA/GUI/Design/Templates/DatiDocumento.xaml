@@ -144,7 +144,7 @@
                     </Grid>
                 </TabItem>
 
-                <TabItem Header="Dati bollo" Style="{StaticResource SubTabItemStyle}" 
+                <TabItem Header="Bollo" Style="{StaticResource SubTabItemStyle}" 
                          DataContext="{Binding DatiBolloViewModel}"
                          PreviewMouseLeftButtonDown="UIElement_OnPreviewMouseLeftButtonDown" >
 
@@ -196,7 +196,7 @@
                     </Grid>
                 </TabItem>
 
-                <TabItem Header="Dati ritenuta" Style="{StaticResource SubTabItemStyle}"
+                <TabItem Header="Ritenuta" Style="{StaticResource SubTabItemStyle}"
                          PreviewMouseLeftButtonDown="UIElement_OnPreviewMouseLeftButtonDown">
 
                     <Grid DataContext="{Binding DatiRitenutaViewModel}">
@@ -257,7 +257,7 @@
 
                 </TabItem>
 
-                <TabItem Header="Dati cassa prev." Style="{StaticResource SubTabItemStyle}"
+                <TabItem Header="Cassa prev." Style="{StaticResource SubTabItemStyle}"
                          DataContext="{Binding DatiCassaPrevViewModel}"
                          PreviewMouseLeftButtonDown="UIElement_OnPreviewMouseLeftButtonDown">
                     <Grid>

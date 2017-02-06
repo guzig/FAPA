@@ -87,10 +87,8 @@ namespace FaPA.GUI.Controls
 
             Persist( Instance );
 
-            Instance = ( T ) Repository.Read();
-
-            UserProperty = GetterProp( Instance );
-
+            Instance = (T) Read();
+            UserProperty = GetterProp(Instance); 
             CurrentPoco = UserProperty;
 
             Init();

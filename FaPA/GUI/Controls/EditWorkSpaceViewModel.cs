@@ -235,7 +235,10 @@ namespace FaPA.GUI.Controls
             CurrentPoco = null;
             IsEditing = false;
             PersitEntity();
-            UserProperty = ( TProperty ) Read();
+
+            Instance = (T)Read();
+            UserProperty = GetterProp(Instance);
+
             Debug.Assert(UserProperty==null);
             Init();
             AllowInsertNew = true;
@@ -338,8 +341,8 @@ namespace FaPA.GUI.Controls
 
             if (Repository == null) return;
 
-            UserProperty = ( TProperty ) Read();
-
+            Instance = (T)Read();
+            UserProperty = GetterProp(Instance);
             CurrentPoco = UserProperty;
         }
 
