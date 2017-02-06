@@ -315,10 +315,6 @@ namespace FaPaTets.DbSetUp
                         var fields = line.Split(';').ToArray();
                         var siglaProv = fields[13];
 
-                        if ( !_provincie.ContainsKey(siglaProv))
-                        {
-                            var f = 1;
-                        }
                         var denomProv = _provincie[siglaProv];
 
                         var comune = new Comune

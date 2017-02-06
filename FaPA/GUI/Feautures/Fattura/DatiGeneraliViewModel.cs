@@ -1,13 +1,5 @@
-using System;
-using System.ComponentModel;
-using System.Windows;
-using System.Windows.Input;
-using FaPA.AppServices.CoreValidation;
-using FaPA.Core;
 using FaPA.Core.FaPa;
-using FaPA.GUI.Controls;
 using FaPA.GUI.Controls.MyTabControl;
-using FaPA.GUI.Utils;
 using FaPA.Infrastructure;
 
 namespace FaPA.GUI.Feautures.Fattura

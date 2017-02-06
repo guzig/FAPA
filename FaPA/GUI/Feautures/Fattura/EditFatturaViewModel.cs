@@ -56,7 +56,18 @@ namespace FaPA.GUI.Feautures.Fattura
 
         public DatiPagamentoTabViewModel DatiPagamentoViewModel { get; set; }
 
-        public DatiRitenutaViewModel DatiRitenutaViewModel { get; set; }
+        public AllegatiViewModel AllegatiViewModel
+        {
+            get { return _allegatiViewModel; }
+            set
+            {
+                if (Equals(value, _allegatiViewModel)) return;
+                _allegatiViewModel = value;
+                NotifyOfPropertyChange(() => AllegatiViewModel);
+            }
+        }
+
+        //public DatiRitenutaViewModel DatiRitenutaViewModel { get; set; }
 
         //ctor
         public EditFatturaViewModel(IBasePresenter baseCrudPresenter, IList userEntities, 
@@ -147,13 +158,9 @@ namespace FaPA.GUI.Feautures.Fattura
             DettagliFatturaViewModel.CurrentEntityChanged += OnDettaglioFatturaPropertyChanged;
 
             DatiGeneraliViewModel = new DatiGeneraliViewModel( this, fattura.FatturaElettronicaBody );
-            //DatiGeneraliViewModel.Init();
-            //DatiGeneraliViewModel.CurrentEntityChanged += OnDatiGeneraliPropertyChanged;
             AddTabViewModel<DatiGeneraliViewModel>( DatiGeneraliViewModel );
 
             DatiDocumentoViewModel = new DatiDocumentoViewModel(this, fattura.DatiGenerali );
-            //DatiDocumentoViewModel.Init();
-            //DatiDocumentoViewModel.CurrentEntityChanged += OnDatiGeneraliDocumentoPropertyChanged;
             AddTabViewModel<DatiDocumentoViewModel>(DatiDocumentoViewModel);
 
             TrasmittenteViewModel = new TrasmittenteTabViewModel(this, fattura);
@@ -163,33 +170,37 @@ namespace FaPA.GUI.Feautures.Fattura
             DatiPagamentoViewModel = new DatiPagamentoTabViewModel( this, fattura );
             DatiPagamentoViewModel.Init();
             AddTabViewModel<DatiPagamentoTabViewModel>( DatiPagamentoViewModel );
-            
+
+            AllegatiViewModel = new AllegatiViewModel( this, fattura.FatturaElettronicaBody);
+            AllegatiViewModel.Init();
+            AddTabViewModel<AllegatiViewModel>( AllegatiViewModel );
+
             //if (fattura?.Ritenuta != null)
             //{
             //    AddTabRitenuta();
             //}
 
-            if ( fattura?.DatiOrdineAcquisto != null )
-            {
-                AddTabOrdine();
-            }
+            //if ( fattura?.DatiOrdineAcquisto != null )
+            //{
+            //    AddTabOrdine();
+            //}
 
-            if (fattura?.DatiContratto != null)
-            {
-                AddTabContratto();
-            }
+            //if (fattura?.DatiContratto != null)
+            //{
+            //    AddTabContratto();
+            //}
 
-            if (fattura?.DatiConvenzione != null)
-            {
-                AddTabConvenzione();
-            }
+            //if (fattura?.DatiConvenzione != null)
+            //{
+            //    AddTabConvenzione();
+            //}
 
         }
 
-        private void OnDatiGeneraliPropertyChanged( object sender, PropertyChangedEventArgs eventarg )
-        {
-            OnChildChanged();
-        }
+        //private void OnDatiGeneraliPropertyChanged( object sender, PropertyChangedEventArgs eventarg )
+        //{
+        //    OnChildChanged();
+        //}
 
 
         private void OnDettaglioFatturaPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -461,6 +472,8 @@ namespace FaPA.GUI.Feautures.Fattura
         }
 
         private Visibility _dettagliFatturaVisibility;
+        private AllegatiViewModel _allegatiViewModel;
+
         public Visibility DettagliFatturaVisibility
         {
             get { return _dettagliFatturaVisibility; }

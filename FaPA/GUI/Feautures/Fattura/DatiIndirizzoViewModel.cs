@@ -11,7 +11,7 @@ namespace FaPA.GUI.Feautures.Fattura
             base( repository, instance, f => f.IndirizzoResa, "Indirizzo", true )
         { }
 
-        public override object Read()
+        public override DatiTrasportoType ReadInstance()
         {
             var root = Repository.Read();
             return ( ( Core.Fattura ) root ).DatiTrasporto;

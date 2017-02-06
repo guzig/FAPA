@@ -35,7 +35,7 @@ namespace FaPA.AppServices.CoreValidation
 
                 return errors;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return null;
             }

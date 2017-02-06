@@ -48,3 +48,10 @@ tab control
 
 http://blog.dancoder.com/2015/05/wizard-style-tabcontrol/
 http://www.wpfhelper.com/index.php/23-modern-ui-for-wpf/android-ui-for-wpf/30-wpf-tabcontrol-style-inspired-by-android
+
+pdf vievwer
+
+https://code.msdn.microsoft.com/windowsdesktop/PDF-File-Reader-WPF-Ribbon-139b6fef
+http://stackoverflow.com/questions/37413861/add-a-pdf-viewer-to-a-wpf-application
+
+http://chindaara.blogspot.it/2010/10/displaying-pdf-file-within-wpf.html

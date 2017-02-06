@@ -11,7 +11,7 @@ namespace FaPA.GUI.Feautures.Fattura
             base( repository, instance, f => f.FatturaPrincipale, "Fattura principale", true )
         { }
 
-        public override object Read()
+        public override DatiGeneraliType ReadInstance()
         {
             var root = Repository.Read();
             return ( ( Core.Fattura ) root ).DatiGenerali;

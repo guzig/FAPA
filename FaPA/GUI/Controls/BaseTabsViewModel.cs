@@ -88,7 +88,7 @@ namespace FaPA.GUI.Controls
 
             Persist( Instance );
 
-            Instance = (T) Read();
+            Instance = ReadInstance();
             UserProperty = GetterProp(Instance); 
             CurrentPoco = UserProperty;
 
@@ -218,7 +218,7 @@ namespace FaPA.GUI.Controls
         {
             var sourcePocoList = UserProperty as ICollection<object>;
             if (sourcePocoList == null) return;
-            var index = 0;
+
             IsValid = true;
             foreach (var poco in sourcePocoList)
             {
@@ -279,7 +279,7 @@ namespace FaPA.GUI.Controls
 
             if ( Repository != null )
             {
-                Instance = ( T ) Repository.Read();
+                Instance = ReadInstance();
                 UserProperty = Instance != null ? GetterProp( Instance ) : default( TProperty );
             }
 

@@ -11,7 +11,7 @@ namespace FaPA.GUI.Feautures.Fattura
             base( repository, instance, f => f.DatiBollo, "Bollo", true )
         { }
 
-        public override object Read()
+        public override DatiGeneraliDocumentoType ReadInstance()
         {
             var root = Repository.Read();
             return ( ( Core.Fattura ) root ).DatiGeneraliDocumento;

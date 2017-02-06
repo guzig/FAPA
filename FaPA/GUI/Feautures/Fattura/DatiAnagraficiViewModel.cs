@@ -12,7 +12,7 @@ namespace FaPA.GUI.Feautures.Fattura
         {
         }
 
-        public override object Read()
+        public override DatiTrasportoType ReadInstance()
         {
            var root = Repository.Read();
            return ( ( Core.Fattura ) root ).DatiTrasporto;

@@ -236,7 +236,7 @@ namespace FaPA.GUI.Controls
             IsEditing = false;
             PersitEntity();
 
-            Instance = (T)Read();
+            Instance = ReadInstance();
             UserProperty = GetterProp(Instance);
 
             Debug.Assert(UserProperty==null);
@@ -341,16 +341,21 @@ namespace FaPA.GUI.Controls
 
             if (Repository == null) return;
 
-            Instance = (T)Read();
+            Instance = ReadInstance();
             UserProperty = GetterProp(Instance);
             CurrentPoco = UserProperty;
         }
 
         #endregion
 
+        public virtual T ReadInstance()
+        {
+            return ( T ) Read();
+        }
+
         #region IRepository
 
-        public virtual object Read()
+        public object Read()
         {
             return Repository.Read();
         }

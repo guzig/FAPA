@@ -83,7 +83,7 @@ namespace FaPA.GUI.Feautures.Fattura
             ProcessChangedEvent( CurrentPoco );
         }
 
-        public override object Read()
+        public override DatiGeneraliType ReadInstance()
         {
             var root = Repository.Read();
             return ( ( Core.Fattura ) root ).DatiGenerali;

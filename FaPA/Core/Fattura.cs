@@ -116,6 +116,18 @@ namespace FaPA.Core
             }
         }
 
+        public virtual AllegatiType[] Allegati
+        {
+            get
+            {
+                return FatturaElettronicaBody.Allegati;
+            }
+            set
+            {
+                FatturaElettronicaBody.Allegati = value;
+            }
+        }
+
 
         public virtual DatiGeneraliType DatiGenerali
         {

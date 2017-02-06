@@ -1,8 +1,10 @@
+using System.Linq;
 using System.Windows.Input;
 using FaPA.Core.FaPa;
 using FaPA.GUI.Controls;
 using FaPA.GUI.Utils;
 using FaPA.Infrastructure;
+using FaPA.Infrastructure.Helpers;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
@@ -49,25 +51,23 @@ namespace FaPA.GUI.Feautures.Fattura
         {}
 
         //persist change in the main tab view model
-        protected override void PersitEntity()
-        {
-            //base.PersitEntity();
-        }
+        //protected override void PersitEntity()
+        //{
+        //    //base.PersitEntity();
+        //}
 
         //persist change in the main tab view model
-        protected override void MakeTransient()
-        {
-            //if ( !GetDeleteConfirmation() ) return;
+        //protected override void MakeTransient()
+        //{
+        //    //if ( !GetDeleteConfirmation() ) return;
 
-            RemoveItem();
+        //    RemoveItem();
 
-            Init();
+        //    Init();
 
-            //Persist( Instance );
-            //Read();
 
-            AllowDelete = UserCollectionView != null && !UserCollectionView.IsEmpty;
-        }
+        //    AllowDelete = UserCollectionView != null && !UserCollectionView.IsEmpty;
+        //}
 
         protected override void AddItemToUserCollection()
         {
@@ -79,22 +79,15 @@ namespace FaPA.GUI.Feautures.Fattura
             RemoveFromFixedArray();
         }
 
-        //protected override bool CanAddEntity( object obj )
-        //{
-            //var viewModel = MainViewModel as EditFatturaViewModel;
-            //var hasParentErrors = false;
-            //if (viewModel?.CurrentEntity?.DettaglioLinee == null) return !HasError; 
-            //foreach (var poco in viewModel.CurrentEntity.DettaglioLinee)
-            //{
-            //    if (!CoreValidatorService.HasErrors(poco)) continue;
-            //    hasParentErrors = true;
-            //    break;
-            //}
-
-            //return !HasError && !hasParentErrors;
-
-            //return true;
-       // }
+        public override DettaglioLineeType ReadInstance()
+        {
+            var root = Repository.Read();
+            var list = ( ( Core.Fattura ) root ).DatiBeniServizi.DettaglioLinee;
+            if (list == null || !list.Any())
+                return null;
+            var current = list.FirstOrDefault(r => r.Unproxy() == CurrentPoco.Unproxy());
+            return current;
+        }
 
     }
 

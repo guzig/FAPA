@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using FaPA.Core.FaPa;
 using FaPA.Data;
 using NHibernate;
 using NHibernate.Cfg;
