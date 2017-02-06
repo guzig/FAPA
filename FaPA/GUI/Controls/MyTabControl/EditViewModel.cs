@@ -553,7 +553,7 @@ namespace FaPA.GUI.Controls.MyTabControl
             if ( CurrentEntity == null )
                 entity = Activator.CreateInstance<T>();
             else
-                entity = (T) Activator.CreateInstance( CurrentEntity.NhUnproxy() );
+                entity = (T) Activator.CreateInstance( CurrentEntity.NhUnproxyType() );
 
             return entity;
         }

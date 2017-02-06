@@ -10,6 +10,7 @@ using FaPA.GUI.Controls.MyTabControl;
 using FaPA.Infrastructure;
 using Remotion.Linq.Collections;
 using FaPA.Core;
+using FaPA.Infrastructure.Helpers;
 using NHibernate.Util;
 
 namespace FaPA.GUI.Controls
@@ -139,7 +140,7 @@ namespace FaPA.GUI.Controls
         //helpers
         protected void RemoveFromFixedArray()
         {
-            var current = UserCollectionView.CurrentItem;
+            var current = ((BaseEntity) UserCollectionView.CurrentItem).Unproxy();
             if (current == null) return;
 
             var source = UserProperty as object[];
@@ -159,7 +160,7 @@ namespace FaPA.GUI.Controls
             var newArray=Array.CreateInstance(typeof(TProperty).GetElementType(), arrayLength);
 
             var index = 0;
-            foreach (var element in source.Where(e=>e!=current))
+            foreach (var element in source.Where(e=>e.Unproxy()!=current))
             {
                 newArray.SetValue(element,index++);
             }

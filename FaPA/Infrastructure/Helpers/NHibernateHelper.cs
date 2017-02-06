@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using FaPA.Core.FaPa;
 using FaPA.Data;
 using NHibernate;
 using NHibernate.Cfg;
@@ -86,11 +87,19 @@ namespace FaPA.Infrastructure.Helpers
             return mapper.CompileMappingForAllExplicitlyAddedEntities();
         }
 
-        public static Type NhUnproxy( this object input )
+        public static Type NhUnproxyType( this object input )
         {
             if ( !( input is IProxy ) ) return input.GetType();
             var proxyInspector = new NhProxyInspector();
             return proxyInspector.GuessType( input );
+        }
+
+        public static object Unproxy(this object input)
+        {
+            if (!(input is IProxy)) return input;
+            var interceptor = ( ( IProxy ) input ).Interceptor as PropChangedAndDataErrorDynProxyInterceptor;
+            if (interceptor == null) return input;
+            return interceptor.Proxy;
         }
     }
 }

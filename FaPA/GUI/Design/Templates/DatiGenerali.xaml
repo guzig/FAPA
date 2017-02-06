@@ -59,7 +59,7 @@
                     </Grid>
                 </TabItem>
 
-                <TabItem Header="Dati trasporto" Style="{StaticResource SubTabItemStyle}"
+                <TabItem Header="Trasporto" Style="{StaticResource SubTabItemStyle}"
                          DataContext="{Binding DatiTrasportoViewModel}">
 
                     <ScrollViewer>
@@ -346,7 +346,7 @@
            
                 </TabItem>
 
-                <TabItem Header="Dati SAL" Style="{StaticResource SubTabItemStyle}">
+                <TabItem Header="SAL" Style="{StaticResource SubTabItemStyle}">
 
                     <Grid DataContext="{Binding DatiSalViewModel}" >
                         
@@ -444,7 +444,7 @@
 
                 </TabItem>
 
-                <TabItem Header="Dati DDT" Style="{StaticResource SubTabItemStyle}">
+                <TabItem Header="DDT" Style="{StaticResource SubTabItemStyle}">
                     <Grid DataContext="{Binding DatiDdtViewModel}" >
 
                         <t:InstanceNullManager Grid.Row="0" Grid.ColumnSpan="2"

@@ -12,31 +12,10 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <!--<StackPanel x:Name="infoPanel" Width="Auto" HorizontalAlignment="Stretch"  Grid.Row="0" Orientation="Vertical"
-                   Visibility="{Binding CurrentPoco, Converter={StaticResource NullToInverseVisibiltyConverter}}">
-
-            <TextBlock Text="Nessuna scheda dati generali è stata aggiunta" FontSize="14" Foreground="Red" 
-                           Height="Auto" Margin="10,25,15,15" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,15,0,15"> 
-                    <Hyperlink FontSize="14"  Command="{Binding AddItemCommand}">
-                        <Run Text="Aggiungi una scheda dati generali" />
-                    </Hyperlink>
-            </TextBlock>
-
-        </StackPanel>-->
-
         <GroupBox Grid.Row="0" Header="Dati generali documento " Padding="4,4,4,4" Margin="4,4,4,4"
                   FontSize="12" FontWeight="Bold">
 
             <TabControl TabStripPlacement="Top" Style="{StaticResource SubTabControlStyle}" x:Name="TabControl">
-
-                <!--<TabControl.Background>
-                    <RadialGradientBrush Center="-0.047,0.553" GradientOrigin="-0.047,0.553" RadiusY="1.231" RadiusX="0.8">
-                        <GradientStop Offset="1" Color="#06FFFFFF"/>
-                        <GradientStop Color="#14FFFFFF"/>
-                    </RadialGradientBrush>
-                </TabControl.Background>-->
 
                 <TabItem Header="Dati generali" Style="{StaticResource SubTabItemStyle}"
                          DataContext="{Binding DatiGeneraliDocumentoViewModel}"

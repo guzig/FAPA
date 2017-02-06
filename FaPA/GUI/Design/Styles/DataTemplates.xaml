@@ -7,7 +7,6 @@
                     xmlns:t1="clr-namespace:FaPA.GUI.Design.Templates"
                     xmlns:ctrls="clr-namespace:FaPA.GUI.Controls"
                     xmlns:u="clr-namespace:FaPA.GUI.Utils"
-                    xmlns:mr="clr-namespace:FaPA.GUI.Controls.MyRecordNavigator"
                     xmlns:l="clr-namespace:FaPA.GUI.Feautures.Anagrafica"
                     xmlns:fp="clr-namespace:FaPA.Core.FaPa">
     
@@ -69,29 +68,31 @@
 
         <Grid>
 
+            <Grid.Effect>
+                <DropShadowEffect Color="LightSteelBlue" Direction="280"/>
+            </Grid.Effect>
+
             <Grid.RowDefinitions >
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <StackPanel Width="Auto" HorizontalAlignment="Stretch"  Grid.Row="0" Orientation="Vertical"
-                   Visibility="{Binding IsEmpty, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
-
-                <TextBlock Text="Nessun dettaglio condizioni di pagamento è stato aggiunto " FontSize="14" Foreground="Red" 
-                           Height="Auto" Margin="10,25,15,15" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,15,0,15"> 
-                    <Hyperlink FontSize="14"  Command="{Binding AddItemCommand}">
-                        <Run Text="Aggiungi un dettaglio condizioni di pagamento" />
-                    </Hyperlink>
-                </TextBlock>
-
-            </StackPanel>
+            <t1:InstanceNullManager Grid.Row="0" Grid.ColumnSpan="2"
+                                    BindedInstance="{Binding CurrentPoco, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                    EmptyMessage="Nessuna scheda dati trasporto è stata aggiunta"
+                                    ActionCommandMessage="Aggiungi una scheda dati trasporto"
+                                    OnNullCommand="{Binding AddItemCommand}"
+                                    ActionCommandParam="DatiTrasporto"/>
 
             <Grid u:FocusAdvancement.AdvancesByEnterKey="True" Grid.Row="1" 
                   Visibility="{Binding IsEmpty, Mode=OneWay, Converter={StaticResource BoolToOppositeVisibilityConverter}}">
+                
+                <Grid.Effect>
+                    <DropShadowEffect Color="LightSteelBlue" Direction="280"/>
+                </Grid.Effect>
+                
                 <Grid.RowDefinitions >
-                    <RowDefinition Height="265" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
@@ -244,53 +245,15 @@
                     </Grid>
                 </Border>
 
-                <StackPanel Orientation="Horizontal" Grid.Row="1" Height="Auto"  Margin="2,2,2,2" >
-
-                    <!--<StackPanel.InputBindings>
-                        <KeyBinding Key="Enter" Modifiers="Ctrl" Command="{Binding EnterKey}" />
-                        <KeyBinding Key="F9"  Command="{Binding SearchOnSite}" />
-                    </StackPanel.InputBindings>-->
-
-                    <Border Margin="2,2,2,2" Padding="2,5,4,4" Height="32">
-                        <mr:MyRecordNavigator ItemsSource="{Binding UserCollectionView}"/>
-                    </Border>
-
-                    <DockPanel Height="25" Margin="2,2,2,2" Background="{StaticResource Brush_ToolBar}">
-
-                        <Button Name="Add"
-                Command="{Binding AddItemCommand}"                        
-                ToolTip="Aggiunge una sheda dati pagamento" >
-
-                            <Image Source="/GUI/Design/Styles/Images/Add_24.png" Width="Auto"/>
-                        </Button>
-
-                        <Button Name="Delete"
-                Command="{Binding DeleteEntityCommand}"                        
-                ToolTip="Elimina definitivamente l'oggetto dal database" >
-
-                            <Image Source="/GUI/Design/Styles/Images/delete(1).png" Width="25"/>
-                        </Button>
-
-
-                        <Button Name="Save" Command="{Binding SaveEntity}" Width="Auto"
-                    ToolTip="Salva le modifiche apportate all'oggetto">
-
-                            <Image Source="/GUI/Design/Styles/Images/save(1).png" Width="25"/>
-                        </Button>
-
-                        <Button Name="Cancel" Command="{Binding PerformCancel}"   Width="25" HorizontalAlignment="Left"                
-                    ToolTip="Annulla le modifiche apportate"  >
-
-                            <Image Source="/GUI/Design/Styles/Images/cancel.png" Width="25"/>
-
-                        </Button>
-
-                    </DockPanel>
-
-                </StackPanel>
+                <t1:SaveCancelRemoveButtons Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left"
+                                            Visibility="{Binding CurrentPoco, Converter={StaticResource NullToVisibiltyConverter}}"
+                                            UserCollectionView="{Binding UserCollectionView}"
+                                            DeleteEntityCommand="{Binding DeleteEntityCommand}"
+                                            SaveCommand="{Binding SaveEntity}"
+                                            AddItemCommand="{Binding AddItemCommand}"
+                                            PerformCancelCommand="{Binding PerformCancel}"/>
 
             </Grid>
-
 
         </Grid>
     </DataTemplate>

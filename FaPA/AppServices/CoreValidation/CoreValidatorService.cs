@@ -47,14 +47,14 @@ namespace FaPA.AppServices.CoreValidation
         public static IDictionary<string, IEnumerable<string>> GetValidationErrors( object instance )
         {
             if ( instance == null ) return null;
-            var validator = TryGetValidator( instance.NhUnproxy() );
+            var validator = TryGetValidator( instance.NhUnproxyType() );
             return validator?.GetValidationErrors( instance );
         }
 
         public static IDictionary<string, IEnumerable<string>> GetValidationErrors( string columnName, object instance )
         {
             if ( instance == null ) return null;
-            var validator = TryGetValidator( instance.NhUnproxy() );
+            var validator = TryGetValidator( instance.NhUnproxyType() );
             return validator?.GetValidationErrors( columnName, instance );
         }
 

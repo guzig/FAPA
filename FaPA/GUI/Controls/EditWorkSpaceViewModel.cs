@@ -352,10 +352,7 @@ namespace FaPA.GUI.Controls
 
         public virtual object Read()
         {
-            var read = Repository.Read();
-            Instance = (T) read;
-            var userProp = GetterProp( Instance );
-            return userProp;
+            return Repository.Read();
         }
 
         public virtual bool Persist(object entity)

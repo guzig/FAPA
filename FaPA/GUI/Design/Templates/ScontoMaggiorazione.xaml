@@ -4,9 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="clr-namespace:FaPA.GUI.Controls"
-        xmlns:myRecordNavigator="clr-namespace:FaPA.GUI.Controls.MyRecordNavigator"
         xmlns:utils="clr-namespace:FaPA.GUI.Utils"
         xmlns:enums="clr-namespace:FaPA.Core.FaPa"
+        xmlns:t="clr-namespace:FaPA.GUI.Design.Templates"
         mc:Ignorable="d">
     <Grid >
 
@@ -16,16 +16,12 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <DockPanel Grid.Row="0"
-                   Visibility="{Binding Path=IsEmpty, Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
-
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,15,0,0"> 
-                    <Hyperlink FontSize="14" Command="{Binding AddItemCommand}">
-                        <Run Text="Inserisci un nuovo elemento" />
-                    </Hyperlink>
-            </TextBlock>
-
-        </DockPanel>
+        <t:InstanceNullManager  Grid.Row="0" Grid.Column="0" 
+                                BindedInstance="{Binding CurrentPoco}"
+                                EmptyMessage="Nessuna scheda fattura principale aggiunta"
+                                ActionCommandMessage="Aggiungi una scheda fattura principale aggiunta"
+                                OnNullCommand="{Binding AddItemCommand}" 
+                                ActionCommandParam="FatturaPrincipale"/>
 
         <DockPanel Grid.Row="1">
             <DataGrid x:Name="ScontoMaggiorazioneGridControl" ItemsSource="{Binding UserCollectionView, NotifyOnSourceUpdated=True}"
@@ -113,39 +109,15 @@
                 </DataGrid.GroupStyle>
 
             </DataGrid>
-
         </DockPanel>
 
-        <DockPanel Width="Auto" Grid.Row="2" Height="25" 
-                   Visibility="{Binding IsEmpty, Converter={StaticResource BoolToOppositeVisibilityConverter},Mode=OneWay}"
-                   Margin="0 05 0 0" 
-                   Background="{StaticResource Brush_ToolBar}">
-
-            <myRecordNavigator:MyRecordNavigator ItemsSource="{Binding Path=UserCollectionView}"
-                                                 GridSource="{Binding ElementName=ScontoMaggiorazioneGridControl}"
-                                                 Height="25"/>
-            
-            <Button Command="{Binding AddItemCommand}"                        
-                    ToolTip="Aggiunge nuovo record" >
-
-                <Image Source="/GUI/Design/Styles/Images/Add_24.png" Width="Auto"/>
-            </Button>
-
-            <Button Command="{Binding DeleteEntityCommand}"                        
-                    ToolTip="Elimina record" >
-
-                <Image Source="/GUI/Design/Styles/Images/delete(1).png" Width="25"/>
-            </Button>
-
-            <!--<Button Command="{Binding PerformCancel}"   Width="25" HorizontalAlignment="Left"                
-                        ToolTip="Annulla le modifiche apportate"  >
-
-                <Image Source="/GUI/Design/Styles/Images/cancel.png" Width="25"/>
-
-            </Button>-->
-
-        </DockPanel>
-
+        <t:SaveCancelRemoveButtons  Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left"
+                                    Visibility="{Binding IsEmpty, Mode=OneWay, Converter={StaticResource BoolToOppositeVisibilityConverter}}"
+                                    UserCollectionView="{Binding UserCollectionView}"
+                                    DeleteEntityCommand="{Binding DeleteEntityCommand}"
+                                    SaveCommand="{Binding SaveEntity}"
+                                    PerformCancelCommand="{Binding PerformCancel}"
+                                    AddItemCommand="{Binding AddItemCommand}"/>
     </Grid>
 
 </controls:BaseListViewControl>

@@ -8,7 +8,12 @@
     
     <Grid Margin="2,5,5,5" Background="Gainsboro" x:Name="LayoutRoot" >
 
-        <Grid.ColumnDefinitions>
+        <!--<StackPanel.InputBindings>
+                        <KeyBinding Key="Enter" Modifiers="Ctrl" Command="{Binding EnterKey}" />
+                        <KeyBinding Key="F9"  Command="{Binding SearchOnSite}" />
+                    </StackPanel.InputBindings>-->
+
+     <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition MaxWidth="32"/>
             <ColumnDefinition MaxWidth="32"/>
@@ -18,7 +23,7 @@
 
         <Border Margin="1,1,1,1" Padding="2,5,4,4" Height="32" Grid.Column="0" Width="Auto"
                 Visibility="{Binding UserCollectionView, Converter={StaticResource NullToVisibiltyConverter}}"
-                IsEnabled="{Binding UserCollectionView.IsEmpty, Mode=OneWay,  Converter={StaticResource BoolToOppositeVisibilityConverter}}">
+                IsEnabled="{Binding UserCollectionView.IsEmpty, Mode=OneWay, Converter={StaticResource InverseBooleanConverter}}">
 
             <myRecordNavigator:MyRecordNavigator ItemsSource="{Binding UserCollectionView}"/>
         </Border>
