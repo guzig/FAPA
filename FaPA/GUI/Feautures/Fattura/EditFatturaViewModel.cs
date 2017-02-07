@@ -12,7 +12,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using FaPA.AppServices.CoreValidation;
 using FaPA.Core;
+using FaPA.Core.FaPa;
+using FaPA.Data;
 using FaPA.Infrastructure;
+using FaPA.Infrastructure.Helpers;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
@@ -68,9 +71,6 @@ namespace FaPA.GUI.Feautures.Fattura
             }
         }
 
-        //public DatiRitenutaViewModel DatiRitenutaViewModel { get; set; }
-
-        //ctor
         public EditFatturaViewModel(IBasePresenter baseCrudPresenter, IList userEntities, 
             ICollectionView userCollectionView, ISession session): base(baseCrudPresenter, userEntities, userCollectionView)
         {           
@@ -95,18 +95,35 @@ namespace FaPA.GUI.Feautures.Fattura
 
         public override void CreateNewEntity()
         {
-            CurrentEntity = CreateInstance();
-          
+
+            if ( IsCopyMode )
+            {
+                object copy = CurrentEntity.Copy();
+                
+                ( ( Core.Fattura ) copy ).DataFatturaDB = DateTime.Now;
+                ( ( Core.Fattura ) copy ).NumeroFatturaDB = CurrentEntity.NumeroFatturaDB + " ? ";
+
+                ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntity>( ref copy, "FaPA.Core" );
+
+                CurrentEntity = ( Core.Fattura ) copy;
+            }
+            else
+            {
+                CurrentEntity = CreateInstance();
+            }
+
             InitFatturaTabs();
 
         }
+
+        public bool IsCopyMode { get; set; } = true;
 
 
         protected override void DefaultCancelOnEditAction()
         {
             base.DefaultCancelOnEditAction();
             InitFatturaTabs();
-            DettagliFatturaViewModel.UserCollectionView.Refresh();
+            DettagliFatturaViewModel.UserCollectionView?.Refresh();
         }
 
         protected override bool TrySaveCurrentEntity()
@@ -197,12 +214,6 @@ namespace FaPA.GUI.Feautures.Fattura
             //}
 
         }
-
-        //private void OnDatiGeneraliPropertyChanged( object sender, PropertyChangedEventArgs eventarg )
-        //{
-        //    OnChildChanged();
-        //}
-
 
         private void OnDettaglioFatturaPropertyChanged(object sender, PropertyChangedEventArgs e)
         {

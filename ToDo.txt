@@ -1,4 +1,10 @@
 
+filter in datagrid
+
+button clone
+
+fix quick search
+
 Validator DatiCassa and other
 
 Dati di riepilogo

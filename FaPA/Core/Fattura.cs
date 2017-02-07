@@ -607,5 +607,25 @@ namespace FaPA.Core
         }
 
 
+        public virtual Fattura Copy()
+        {
+            var other = ( Fattura ) this.MemberwiseClone();
+            other.Id = 0;
+
+            var fatturaElettronicaType = ObjectExplorer.UnProxiedDeep( FatturaPa );
+            var xmlStream = SerializerHelpers.ObjectToXml( ( FatturaElettronicaType ) fatturaElettronicaType );
+            other.FatturaPa = SerializerHelpers.XmlToObject( xmlStream );
+
+            other.DomainResult = new DomainResult( DomainResult.Success, DomainResult.Errors );
+            other.NumeroFatturaDB = string.Copy( NumeroFatturaDB );
+            other.CigDB = CigDB == null ? null : string.Copy( CigDB );
+            other.CupDB = CupDB == null ? null : string.Copy( CupDB );
+            other.CodUfficioDB = CodUfficioDB == null ? null : string.Copy( CodUfficioDB );
+            other.NoteDB = NoteDB == null ? null : string.Copy( NoteDB );
+            other.ProgFile = ProgFile++;
+            other.Version = 0;
+            return other;
+        }
+
     }
 }

@@ -91,24 +91,24 @@
                
             <StackPanel Grid.Row="1" Grid.Column="0"  Margin="2,0,2,0">
                 <TextBlock Text="Totale" />
-                <TextBox   Text="{Binding CurrentEntity.TotaleFatturaDB, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnValidationError=True}" HorizontalAlignment="Stretch" />
+                <TextBox   Text="{Binding CurrentEntity.TotaleFatturaDB, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus, NotifyOnSourceUpdated=True, NotifyOnValidationError=True}" HorizontalAlignment="Stretch" />
             </StackPanel>
 
             <StackPanel Grid.Row="1" Grid.Column="1"  Margin="2,0,2,0">
                 <TextBlock Text="CIG" />
-                <TextBox   Text="{Binding CurrentEntity.CigDB, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnValidationError=True}" 
+                <TextBox   Text="{Binding CurrentEntity.CigDB, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus, NotifyOnSourceUpdated=True, NotifyOnValidationError=True}" 
                            HorizontalAlignment="Stretch" MaxLength="15"/>
             </StackPanel>
 
             <StackPanel Grid.Row="1" Grid.Column="2"  Margin="2,0,2,0">
                 <TextBlock Text="CUP" />
-                <TextBox   Text="{Binding CurrentEntity.CupDB, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnValidationError=True}" 
+                <TextBox   Text="{Binding CurrentEntity.CupDB, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus, NotifyOnSourceUpdated=True, NotifyOnValidationError=True}" 
                            HorizontalAlignment="Stretch" MaxLength="15" />
             </StackPanel>
 
             <StackPanel Grid.Row="1" Grid.Column="3"  Margin="2,0,2,0">
                 <TextBlock Text="Ufficio" />
-                <TextBox   Text="{Binding CurrentEntity.CodUfficioDB, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnValidationError=True}" 
+                <TextBox   Text="{Binding CurrentEntity.CodUfficioDB, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus, NotifyOnSourceUpdated=True, NotifyOnValidationError=True}" 
                            HorizontalAlignment="Stretch" MaxLength="6"/>
             </StackPanel>
 
@@ -123,20 +123,20 @@
                             SelectedValuePath="Value"
 						    ItemsSource="{Binding Source={utils:Enumeration {x:Type enums:RegimeFiscaleType}}}"
                             SelectedValue="{Binding CurrentEntity.RegimeFiscale,  Mode=TwoWay, 
-                                                    UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                                    UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}"
                             DisplayMemberPath="Value" />
             </StackPanel>
 
             <StackPanel Grid.Row="1" Grid.Column="5" Margin="2,0,2,0">
                 <TextBlock Text="Id" />
-                <TextBox  Text="{Binding CurrentEntity.Id, Mode=OneWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}"
+                <TextBox  Text="{Binding CurrentEntity.Id, Mode=OneWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus, NotifyOnTargetUpdated=True}"
                           HorizontalAlignment="Stretch" Margin="2,0,2,0"
                           IsEnabled="False"/>
             </StackPanel>
         
             <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="6"  Margin="2,0,2,0">
                 <TextBlock Text="Note" />
-                <TextBox   Text="{Binding CurrentEntity.NoteDB, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnValidationError=True}" 
+                <TextBox   Text="{Binding CurrentEntity.NoteDB, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus, NotifyOnSourceUpdated=True, NotifyOnValidationError=True}" 
                            HorizontalAlignment="Stretch" MaxLength="1000" TextWrapping="Wrap"/>
             </StackPanel>
                        

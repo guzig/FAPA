@@ -76,6 +76,11 @@ namespace FaPA.Core
 
         #endregion
 
+        public virtual BaseEntity ShallowCopy()
+        {
+            return ( BaseEntity ) this.MemberwiseClone();
+        }
+
         public virtual int Version { get; set; }
 
         protected virtual bool IsTransient()

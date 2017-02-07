@@ -78,6 +78,18 @@
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
 
+                    <DataGridTextColumn Header="Fornitore" Width="Auto">
+                        <DataGridTextColumn.Binding>
+                            <Binding Path="AnagraficaCedenteDB.Denom"/>
+                        </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Committente" Width="Auto">
+                        <DataGridTextColumn.Binding>
+                            <Binding Path="AnagraficaCommittenteDB.Denom"/>
+                        </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+
                 </DataGrid.Columns>
 
             </DataGrid>
