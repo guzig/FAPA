@@ -4,6 +4,7 @@ using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.Validator.Cfg.Loquacious;
 using NHibernate.Validator.Engine;
+using NHibernate.Validator.Specific.It;
 
 namespace FaPA.Data.ValidationMaps
 {
@@ -21,6 +22,9 @@ namespace FaPA.Data.ValidationMaps
             Define( f => f.Indirizzo ).NotNullable().WithMessage( "Specificare indirizzo" );
             Define( f => f.Civico ).NotNullable().WithMessage( "Specificare il civico" );
             Define( f => f.Nazione ).NotNullable().WithMessage( "Specificare la naizone" );
+            Define(f => f.Email).IsEmail();
+            Define(f => f.CodiceFiscale).IsCodiceFiscale();
+            Define(f => f.PIva).IsPartitaIva();
 
         }
 

@@ -55,3 +55,8 @@ https://code.msdn.microsoft.com/windowsdesktop/PDF-File-Reader-WPF-Ribbon-139b6f
 http://stackoverflow.com/questions/37413861/add-a-pdf-viewer-to-a-wpf-application
 
 http://chindaara.blogspot.it/2010/10/displaying-pdf-file-within-wpf.html
+
+backup
+https://www.codeproject.com/Articles/360472/Postgres-Database-Backup-Restore-From-Csharp
+https://www.codeproject.com/kb/database/postgresqltasks.aspx
+https://www.cyberciti.biz/tips/postgres-allow-remote-access-tcp-connection.html#3a

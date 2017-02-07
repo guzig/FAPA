@@ -68,3 +68,44 @@ XmlSerializer s = new XmlSerializer(typeof(myObj));
         //#endregion
 
 serializer.Serialize(Console.Out,new PaymentSummaryRequest{Summary = new xPaymentSummary{}});
+
+            Task.Factory.StartNew(() =>
+            {
+                try
+                {
+                   return null;
+                }
+                catch (Exception )
+                {
+                    return "Errore inaspettato durante la generazione della fattura";
+                }
+            }).ContinueWith(obj =>
+            {
+                var result = (string)obj.Result;
+
+            }, TaskScheduler.FromCurrentSynchronizationContext());
+
+public Process launchBrowser(string url)
+{
+    string browserName = "iexplore.exe";
+    using (RegistryKey userChoiceKey = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http\UserChoice"))
+    {
+        if (userChoiceKey != null)
+        {
+            object progIdValue = userChoiceKey.GetValue("Progid");
+            if (progIdValue != null)
+            {
+                if(progIdValue.ToString().ToLower().Contains("chrome"))
+                    browserName = "chrome.exe";
+                else if(progIdValue.ToString().ToLower().Contains("firefox"))
+                    browserName = "firefox.exe";
+                else if (progIdValue.ToString().ToLower().Contains("safari"))
+                    browserName = "safari.exe";
+                else if (progIdValue.ToString().ToLower().Contains("opera"))
+                    browserName = "opera.exe";
+            }
+        }
+    }
+
+    return Process.Start(new ProcessStartInfo(browserName, url));
+}

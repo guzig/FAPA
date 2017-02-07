@@ -5,7 +5,16 @@
         xmlns:controls="clr-namespace:FaPA.GUI.Controls">
 
     <Grid>
+        
+        <Grid.Effect>
+            <DropShadowEffect Color="LightSteelBlue" Direction="280"/>
+        </Grid.Effect>
+        
         <Grid.RowDefinitions>
+            <RowDefinition Height="45" />
+            <RowDefinition Height="45" />
+            <RowDefinition Height="45" />
+            <RowDefinition Height="45" />
             <RowDefinition Height="45" />
             <RowDefinition Height="45" />
             <RowDefinition Height="45" />
@@ -82,7 +91,7 @@
             </ComboBox>
         </StackPanel>
 
-        <StackPanel Grid.Row="6" Grid.Column="1" Margin="2,0,2,0">
+        <StackPanel Grid.Row="6" Grid.Column="0" Margin="2,0,2,0" Grid.ColumnSpan="2">
             <TextBlock Text="Comune" />
             <ComboBox IsReadOnly="False" IsEditable="True" IsTextSearchEnabled="True"
                       TextSearch.TextPath="Denominazione" DisplayMemberPath="Denominazione"
@@ -92,6 +101,37 @@
             </ComboBox>            
         </StackPanel>
 
+        <StackPanel Grid.Row="7" Grid.Column="0" Margin="2,0,2,0" Grid.ColumnSpan="2">
+            <TextBlock Text="eMail" />
+            <TextBox   Text="{Binding CurrentEntity.Email, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="8" Grid.Column="0" Margin="2,0,2,0" Grid.ColumnSpan="2">
+            <TextBlock Text="PEC" />
+            <TextBox   Text="{Binding CurrentEntity.Pec, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <StackPanel Margin="2,0,2,0" MinWidth="100">
+                <TextBlock Text="Tel." />
+                <TextBox   Text="{Binding CurrentEntity.Tel, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
+            </StackPanel>
+
+            <StackPanel Margin="2,0,2,0" MinWidth="100">
+                <TextBlock Text="Fax" />
+                <TextBox   Text="{Binding CurrentEntity.Fax, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
+            </StackPanel>
+
+            <StackPanel Margin="2,0,2,0" MinWidth="50">
+                <TextBlock Text="Uff. PA" />
+                <TextBox   Text="{Binding CurrentEntity.CodUfficioPa, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Row="10" Grid.Column="0" Margin="2,0,2,0" Grid.ColumnSpan="2">
+            <TextBlock Text="Note" />
+            <TextBox   Text="{Binding CurrentEntity.Note, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
+        </StackPanel>
     </Grid>
     
 </controls:BaseCustomControl>

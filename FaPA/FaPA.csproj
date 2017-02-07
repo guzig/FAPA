@@ -392,6 +392,7 @@
     <Compile Include="Data\AnagraficaMap.cs" />
     <Compile Include="Data\AddPropChangedAndDataErrorInterceptorProxyFactory.cs" />
     <Compile Include="Data\AddPropertyChangedInterceptor.cs" />
+    <Compile Include="Data\ItLoquaciousExtensions.cs" />
     <Compile Include="Data\PropChangedAndDataErrorDynProxyInterceptor.cs" />
     <Compile Include="Data\NotifyPropChangedAndDataErrorInfoInterceptor.cs" />
     <Compile Include="Data\ComuneMap.cs" />
@@ -747,6 +748,9 @@
     <Resource Include="GUI\Design\Styles\Images\fpa.jpg" />
     <Resource Include="GUI\Design\Styles\Images\gnome_panel_force_quit.png" />
     <Resource Include="GUI\Design\Styles\Images\Send File-48.png" />
+    <Resource Include="fatturapa_v1.1.xsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Content Include="nhibernate.cfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -161,6 +161,13 @@
                         <Image Source="/GUI/Design/Styles/Images/Flow Chart-48.png" />
                     </Button>
 
+                    <Button Name="ViewXmlIntoBrowser" Command="{Binding ShowXmlIntoBrowserCommand}"
+                            ToolTip="Visualizzazione browser fattura pa" VerticalAlignment="Stretch"
+                           IsEnabled="{Binding Path=IsInEditing, Converter={StaticResource InverseBooleanConverter}}">
+
+                        <Image Source="/GUI/Design/Styles/Images/Flow Chart-48.png" />
+                    </Button>
+
                     <Button Name="GeneraXml" Command="{Binding GenerateXmlStreamCommand}" 
                             ToolTip="Genera fattura PA" VerticalAlignment="Stretch"
                             IsEnabled="{Binding Path=IsInEditing, Converter={StaticResource InverseBooleanConverter}}">

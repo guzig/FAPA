@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
@@ -243,137 +244,16 @@ namespace FaPA.GUI.Feautures.Fattura
 
         #region UI commands
 
-        private ICommand _addConvenzioneCommand;
-        public ICommand AddConvenzioneCommand
-        {
-            get
-            {
-                if (_addConvenzioneCommand != null) return _addConvenzioneCommand;
-                _addConvenzioneCommand = new RelayCommand(param => AddConvenzione(), r => true);
-                return _addConvenzioneCommand;
-            }
-        }
 
-        private void AddConvenzione()
-        {
-            if (CurrentEntity == null) return;
-            var ordineTabViewModel = AddTabConvenzione();
-            BasePresenter.SetActiveWorkSpace(BasePresenter.Workspaces.IndexOf(ordineTabViewModel));
-        }
-
-        private DatiConvenzioneTabViewModel AddTabConvenzione()
-        {
-            var datiOrdine = new DatiConvenzioneTabViewModel(this, CurrentEntity.DatiGenerali);
-            datiOrdine.Init();
-            AddTabViewModel<DatiConvenzioneTabViewModel>(datiOrdine);
-            return datiOrdine;
-        }
-
-        private ICommand _addContrattoCommand;
-        public ICommand AddContrattoCommand
-        {
-            get
-            {
-                if (_addContrattoCommand != null) return _addContrattoCommand;
-                _addContrattoCommand = new RelayCommand(param => AddContratto(), r => true);
-                return _addContrattoCommand;
-            }
-        }
-
-        private void AddContratto()
-        {
-            if (CurrentEntity == null) return;
-            var ordineTabViewModel = AddTabContratto();
-            BasePresenter.SetActiveWorkSpace(BasePresenter.Workspaces.IndexOf(ordineTabViewModel));
-        }
-
-        private DatiContrattoTabViewModel AddTabContratto()
-        {
-            var datiOrdine = new DatiContrattoTabViewModel(this, CurrentEntity.DatiGenerali );
-            datiOrdine.Init();
-            AddTabViewModel<DatiContrattoTabViewModel>(datiOrdine);
-            return datiOrdine;
-        }
-
-        private ICommand _addOrdineCommand;
-        public ICommand AddOrdineCommand
-        {
-            get
-            {
-                if ( _addOrdineCommand != null ) return _addOrdineCommand;
-                _addOrdineCommand = new RelayCommand( param => AddOrdine(), r=>true );
-                return _addOrdineCommand;
-            }
-        }
-
-        private DatiOrdineTabViewModel AddTabOrdine()
-        {
-            var datiOrdine = new DatiOrdineTabViewModel( this, CurrentEntity.DatiGenerali );
-            datiOrdine.Init();
-            AddTabViewModel<DatiOrdineTabViewModel>( datiOrdine );
-            return datiOrdine;
-        }
-
-        private void AddOrdine()
-        {
-            if ( CurrentEntity == null ) return;
-
-            var ordineTabViewModel = AddTabOrdine();
-            //ordineTabViewModel.IsEditing = false;
-            //ordineTabViewModel.LockMessage = OnEditingLockMessage;
-
-            BasePresenter.SetActiveWorkSpace( BasePresenter.Workspaces.IndexOf( ordineTabViewModel ) );
-        }
-
-        //private ICommand _addRitenutaCommand;
-        //public ICommand AddRitenutaCommand
-        //{
-        //    get
-        //    {
-        //        if ( _addRitenutaCommand != null) return _addRitenutaCommand;
-        //        _addRitenutaCommand = new RelayCommand(param => AddRitenuta(), CanAddRitenuta);
-        //        return _addRitenutaCommand;
-        //    } 
-        //}
-
-        //private void AddRitenuta()
-        //{
-        //    if ( CurrentEntity == null ) return;
-            
-        //    var currentViewModel = BasePresenter.Workspaces.FirstOrDefault(t => t is DatiRitenutaViewModel);
-        //    if (currentViewModel != null)
-        //    {
-        //        BasePresenter.SetActiveWorkSpace(BasePresenter.Workspaces.IndexOf( currentViewModel ) );
-        //        return;
-        //    }
-
-        //    var ritenutaTabViewModel = AddTabRitenuta();
-        //    BasePresenter.SetActiveWorkSpace( BasePresenter.Workspaces.IndexOf( ritenutaTabViewModel ) );
-        //}
-
-        //private DatiRitenutaViewModel AddTabRitenuta()
-        //{
-        //    DatiRitenutaViewModel = new DatiRitenutaViewModel( this, CurrentEntity );
-        //    DatiRitenutaViewModel.Init();
-        //    AddTabViewModel<DatiRitenutaViewModel>(DatiRitenutaViewModel);
-        //    return DatiRitenutaViewModel;
-        //}
-        
-        private void AddTabViewModel<TV>(WorkspaceViewModel tabViewModel )
+        private void AddTabViewModel<TV>(WorkspaceViewModel tabViewModel)
         {
             // Dispatcher.CurrentDispatcher.BeginInvoke(new System.Action(() =>
             //{
             //    BasePresenter.Workspaces.Add( _ritenutaViewModel = ritenutaViewModel );          
             //} ));
-            var vm = BasePresenter.Workspaces.FirstOrDefault( a => a is TV );
-            if ( vm == null )
-                BasePresenter.Workspaces.Add( tabViewModel );
-        }
-
-        private static bool CanAddRitenuta(object param)
-        {
-            return true;
-            //return CurrentEntity?.Ritenuta == null;
+            var vm = BasePresenter.Workspaces.FirstOrDefault(a => a is TV);
+            if (vm == null)
+                BasePresenter.Workspaces.Add(tabViewModel);
         }
 
         private ICommand _generateXmlStreamCommand;
@@ -392,9 +272,12 @@ namespace FaPA.GUI.Feautures.Fattura
         {
             //if ( fattura.FatturaElettronicaHeader.DatiTrasmissione == null )
             //{
-                //fattura.SetTrasmittente();
+            //fattura.SetTrasmittente();
             //}
-            FlushXml( fattura );
+
+            string path = null;
+            string error = null;
+            FlushXml( fattura, out path, out error );
         }
 
         private ICommand _showXmlIntoTreeViewCommand;
@@ -409,52 +292,77 @@ namespace FaPA.GUI.Feautures.Fattura
 
         }
 
+        private ICommand _showXmlIntoBrowserCommand;
+        public ICommand ShowXmlIntoBrowserCommand
+        {
+            get
+            {
+                if (_showXmlIntoBrowserCommand != null) return _showXmlIntoBrowserCommand;
+                _showXmlIntoBrowserCommand = new RelayCommand(param => OnOpenXmlToBrowser(), param => true);
+                return _showXmlIntoBrowserCommand;
+            }
+
+        }
+
+        private void OnOpenXmlToBrowser()
+        {
+            string path = null;
+            string error = null;
+            FlushXml(CurrentEntity, out path, out error);
+            var browser = "FireFox.exe";
+            try
+            {
+                Process.Start(browser, path);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Apertura file nel browser internet interrota", 
+                                "Errore durante l'apertura del file...", MessageBoxButton.OK);
+            }
+        }
+
         private void OnOpendXml()
         {
             if (CurrentEntity == null) return;
             Presenters.Show("ShowXmlToTreeView", CurrentEntity.GetXmlDocument());
         }
 
-        private void FlushXml( IValidatable fattura )
+        private bool FlushXml(IValidatable fattura, out string path, out string error)
         {
-            //ShowCursor.Show();
+            ShowCursor.Show();
+            if ( ValidateAndCreateXmlStream(fattura, out path, out error))
+            {
+                var msg = "Fattura validata." + Environment.NewLine + "Il file " + path + " è stato salvato sul desktop";
+                MessageBox.Show(msg, "Salvataggio completato", MessageBoxButton.OK);
+                return true;
+            }
+            else
+            {
+                MessageBox.Show( error, "Fattura non generata...", MessageBoxButton.OK);
+                return false;
+            }
+        }
+
+        private bool ValidateAndCreateXmlStream(IValidatable fattura, out string outPath, out string error)
+        {
+            error = null;
+
             var folderPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
             var nomeFile = CurrentEntity.FatturaPa.FatturaElettronicaHeader.DatiTrasmissione.IdTrasmittente.IdPaese +
                            CurrentEntity.AnagraficaCedenteDB.CodiceFiscale + "_" +
                            CurrentEntity.FatturaPa.FatturaElettronicaHeader.DatiTrasmissione.ProgressivoInvio + ".xml";
-            var outPath = Path.Combine( folderPath, nomeFile );
-                
-            Task.Factory.StartNew(() =>
-            {
-                try
-                {
-                    //ShowCursor.Show();
-                    var errors = fattura.Validate();
-                    if ( !errors.Success )
-                        return "Fattura non validata: " + Environment.NewLine + string.Join( "; ", errors );
-                    var xmlDoc = CurrentEntity.GetXmlDocument();
-                    xmlDoc.Save( outPath );
-                    return null;
-                }
-                catch (Exception )
-                {
-                    return "Errore inaspettato durante la generazione della fattura";
-                }
-            }).ContinueWith(obj =>
-            {
-                var result = (string)obj.Result;
-                if (string.IsNullOrWhiteSpace(result))
-                {
-                    var msg = "Fattura validata." + Environment.NewLine + "Il file " + nomeFile + " è stato salvato sul desktop";
-                    MessageBox.Show(msg, "Salvataggio completato", MessageBoxButton.OK);
-                }
-                else
-                {
-                    MessageBox.Show(result, "Fattura non generata...", MessageBoxButton.OK);
-                }
+            outPath = Path.Combine(folderPath, nomeFile);
 
-            }, TaskScheduler.FromCurrentSynchronizationContext());
-
+            //ShowCursor.Show();
+            var errors = fattura.Validate();
+            if (!errors.Success)
+            {
+                error = "Fattura non validata: " + Environment.NewLine + string.Join("; ", errors);
+                return false;
+            }
+            var xmlDoc = CurrentEntity.GetXmlDocument();
+            xmlDoc.Save(outPath);
+            return true;
         }
 
         private Visibility _emptyMesgVisibility = Visibility.Collapsed;

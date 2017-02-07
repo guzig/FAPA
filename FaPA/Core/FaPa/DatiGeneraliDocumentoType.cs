@@ -120,8 +120,8 @@ namespace FaPA.Core.FaPa
             }
         }
 
-        [XmlIgnore]
-        public virtual bool DatiCassaPrevidenzialeSpecified { get; set; }
+        //[XmlIgnore]
+        //public virtual bool DatiCassaPrevidenzialeSpecified { get; set; }
 
         public virtual DatiCassaPrevidenzialeType DatiCassaPrevidenziale
         {
@@ -132,7 +132,7 @@ namespace FaPA.Core.FaPa
             set
             {
                 _datiCassaPrevidenzialeField = value;
-                DatiCassaPrevidenzialeSpecified = _datiCassaPrevidenzialeField.ImportoContributoCassa != 0;
+                //DatiCassaPrevidenzialeSpecified = _datiCassaPrevidenzialeField.ImportoContributoCassa != 0;
             }
         }
 
@@ -157,21 +157,23 @@ namespace FaPA.Core.FaPa
             set
             {
                 _importoTotaleDocumentoField = value;
+                ImportoTotaleDocumentoSpecified = _importoTotaleDocumentoField > (decimal) 0.0 ||
+                    _importoTotaleDocumentoField < (decimal) 0.0;
             }
         }
 
-        //[XmlIgnore]
-        //public bool ImportoTotaleDocumentoSpecified
-        //{
-        //    get
-        //    {
-        //        return importoTotaleDocumentoFieldSpecified;
-        //    }
-        //    set
-        //    {
-        //        importoTotaleDocumentoFieldSpecified = value;
-        //    }
-        //}
+        [XmlIgnore]
+        public bool ImportoTotaleDocumentoSpecified
+        {
+            get
+            {
+                return _importoTotaleDocumentoFieldSpecified;
+            }
+            set
+            {
+                _importoTotaleDocumentoFieldSpecified = value;
+            }
+        }
 
         [XmlIgnore]
         public virtual decimal Arrotondamento
@@ -183,21 +185,22 @@ namespace FaPA.Core.FaPa
             set
             {
                 _arrotondamentoField = value;
+                ArrotondamentoSpecified = _arrotondamentoField > (decimal) 0.0;
             }
         }
 
-        //[XmlIgnore]
-        //public bool ArrotondamentoSpecified
-        //{
-        //    get
-        //    {
-        //        return arrotondamentoFieldSpecified;
-        //    }
-        //    set
-        //    {
-        //        arrotondamentoFieldSpecified = value;
-        //    }
-        //}
+        [XmlIgnore]
+        public bool ArrotondamentoSpecified
+        {
+            get
+            {
+                return _arrotondamentoFieldSpecified;
+            }
+            set
+            {
+               _arrotondamentoFieldSpecified = value;
+            }
+        }
 
         public virtual string[] Causale
         {
@@ -220,6 +223,7 @@ namespace FaPA.Core.FaPa
             set
             {
                 _art73Field = value;
+                Art73Specified = _art73Field == Art73Type.SI;
             }
         }
 

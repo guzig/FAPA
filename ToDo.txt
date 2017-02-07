@@ -1,9 +1,5 @@
-Show in browser
-
 
 Validator DatiCassa and other
-
-Art73 SI, NO ..specified
 
 Dati di riepilogo
 
@@ -18,13 +14,9 @@ DataGridHelpers.DataGridKeyUpEventHandler( e, FattureGridSearch );
 archivio comuni e provincie codifica - accenti lista comuni
 verificare standard iso ..nazione etc
 
-validazione persona fisica giuridica
 ricerca immediata
 
 dati fattura pa: id trasmittente et all
-
-
-pec, email, tel, fax GUI
 
 
 ultima fattura
