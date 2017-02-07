@@ -250,7 +250,7 @@ namespace FaPA.GUI.Controls
 
             if ( aray.Length > 1 && array != null )
             {
-                //copy old array items
+                //append old array items
                 int index = 0;
                 foreach ( var item in array )
                     aray[index++] = item;

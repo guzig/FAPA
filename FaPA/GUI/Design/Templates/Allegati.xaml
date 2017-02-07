@@ -3,57 +3,77 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:FaPA.GUI.Design.Templates"
-             xmlns:utils="clr-namespace:FaPA.GUI.Utils"
-             xmlns:fp="clr-namespace:FaPA.Core.FaPa"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             xmlns:l="clr-namespace:FaPA.GUI.Design.Templates"
+             mc:Ignorable="d" >
     <Grid>
 
         <Grid.Effect>
             <DropShadowEffect Color="LightSteelBlue" Direction="280"/>
         </Grid.Effect>
 
-        <!--<local:InstanceNullManager Grid.Row="0" Grid.ColumnSpan="2"
+        <l:InstanceNullManager Grid.Row="0" Grid.ColumnSpan="2"
                                     BindedInstance="{Binding CurrentPoco, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
-                                    EmptyMessage="Nessuna scheda dati trasporto è stata aggiunta"
-                                    ActionCommandMessage="Aggiungi una scheda dati trasporto"
+                                    EmptyMessage="Nessun allegato è stato aggiunto"
+                                    ActionCommandMessage="Aggiungi un allegato"
                                     OnNullCommand="{Binding AddItemCommand}"
-                                    ActionCommandParam="DatiTrasporto"/>-->
+                                    ActionCommandParam="DatiTrasporto"/>
 
-        <GroupBox Grid.Row="0" Header="Allegati fattura" Margin="4,4,4,4">
+        <GroupBox Grid.Row="0" Header="Allegati fattura" Margin="4,4,4,4" Padding="5,5,5,5"
+                  Visibility="{Binding CurrentPoco, Converter={StaticResource NullToVisibiltyConverter}}">
 
             <Grid Margin="2,2,2,2">
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Grid.Row="0" Grid.Column="0" Margin="2,0,0,0">
+                <StackPanel Grid.Row="0" Grid.Column="0" Margin="5,5,5,10" Grid.ColumnSpan="3" 
+                            Visibility="{Binding FilePath, Converter={StaticResource NullToVisibiltyConverter}}">
                     <TextBlock Text="File" />
-                    <ScrollViewer VerticalScrollBarVisibility="Hidden" MaxWidth="300">
-                        <TextBox Text="{Binding FilePath, Mode=OneWay}" HorizontalAlignment="Stretch" />
+                    <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Auto" MaxWidth="600">
+                        <TextBlock Text="{Binding FilePath, Mode=OneWay}" HorizontalAlignment="Stretch" Padding="5,5,5,5" />
                     </ScrollViewer>
-
-                    <StackPanel Orientation="Horizontal">
-
-                        <Button Content=" Carica " Command="{Binding LoadBytes}" Margin="4,4,4,4"/>
-
-                    </StackPanel>
 
                 </StackPanel>
 
-                <local:SaveCancelRemoveButtons Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left"
+                <Button Content=" Seleziona " Grid.Row="1" Grid.Column="0" Command="{Binding OpenPdf}" Margin="4,4,4,4"/>
+                <Button Content=" Carica " Grid.Row="1" Grid.Column="1" Command="{Binding LoadBytes}" Margin="4,4,4,4"/>
+
+                <StackPanel Grid.Row="2" Grid.Column="0" Margin="2,0,0,0">
+                    <TextBlock Text="Nome allegato" />
+                    <TextBox Text="{Binding CurrentPoco.NomeAttachment, Mode=OneWay}" 
+                             IsEnabled="False" HorizontalAlignment="Stretch" />
+                </StackPanel>
+
+                <StackPanel Grid.Row="2" Grid.Column="1" Margin="2,0,0,0" HorizontalAlignment="Left">
+                    <TextBlock Text="Formato" />
+                    <TextBox Text="{Binding CurrentPoco.FormatoAttachment, Mode=OneWay}"
+                             IsEnabled="False" HorizontalAlignment="Stretch" Width="40"/>
+                </StackPanel>
+
+                <StackPanel  Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal">
+                    
+                    <l:SaveCancelRemoveButtons HorizontalAlignment="Left"
                                                UserCollectionView="{Binding UserCollectionView}"
                                                DeleteEntityCommand="{Binding DeleteEntityCommand}"
                                                SaveCommand="{Binding SaveEntity}"
-                                               AddItemCommand="{Binding OpenPdf}"
+                                               AddItemCommand="{Binding AddItemCommand}"
                                                PerformCancelCommand="{Binding PerformCancel}"/>
+                    <Button Content=" Visualizza  " 
+                            VerticalAlignment="Stretch" 
+                            Command="{Binding ShowAttach}" Margin="0,5,0,5"/>
+
+                </StackPanel>
+
 
             </Grid>
         

@@ -6,24 +6,24 @@ namespace FaPA.Core.FaPa
 {
     [Serializable]
     //[XmlType( Namespace = "http://www.fatturapa.gov.it/sdi/fatturapa/v1.1" )]
-    public class AllegatiType
+    public class AllegatiType: BaseEntityFpa
     {
-        private string nomeAttachmentField;
-        private string algoritmoCompressioneField;
-        private string formatoAttachmentField;
-        private string descrizioneAttachmentField;
-        private byte[] attachmentField;
+        private string _nomeAttachmentField;
+        private string _algoritmoCompressioneField;
+        private string _formatoAttachmentField;
+        private string _descrizioneAttachmentField;
+        private byte[] _attachmentField;
         
         [XmlElement( Form = XmlSchemaForm.Unqualified, DataType = "normalizedString" )]
         public virtual string NomeAttachment
         {
             get
             {
-                return nomeAttachmentField;
+                return _nomeAttachmentField;
             }
             set
             {
-                nomeAttachmentField = value;
+                _nomeAttachmentField = value;
             }
         }
         
@@ -32,11 +32,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return algoritmoCompressioneField;
+                return _algoritmoCompressioneField;
             }
             set
             {
-                algoritmoCompressioneField = value;
+                _algoritmoCompressioneField = value;
             }
         }
         
@@ -45,11 +45,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return formatoAttachmentField;
+                return _formatoAttachmentField;
             }
             set
             {
-                formatoAttachmentField = value;
+                _formatoAttachmentField = value;
             }
         }
         
@@ -58,11 +58,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return descrizioneAttachmentField;
+                return _descrizioneAttachmentField;
             }
             set
             {
-                descrizioneAttachmentField = value;
+                _descrizioneAttachmentField = value;
             }
         }
         
@@ -71,11 +71,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return attachmentField;
+                return _attachmentField;
             }
             set
             {
-                attachmentField = value;
+                _attachmentField = value;
             }
         }
     }

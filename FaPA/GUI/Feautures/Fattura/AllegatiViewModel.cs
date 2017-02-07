@@ -2,11 +2,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Input;
-using FaPA.AppServices.CoreValidation;
-using FaPA.Core;
 using FaPA.Core.FaPa;
 using FaPA.GUI.Controls;
-using FaPA.GUI.Controls.MyTabControl;
 using FaPA.GUI.Utils;
 using FaPA.Infrastructure;
 using Microsoft.Win32;
@@ -16,6 +13,27 @@ namespace FaPA.GUI.Feautures.Fattura
     public class AllegatiViewModel : BaseTabsViewModel<FatturaElettronicaBodyType, AllegatiType[]>
     {
         private string _filePath;
+        public string FilePath
+        {
+            get { return _filePath; }
+            private set
+            {
+                if (value == _filePath) return;
+                _filePath = value;
+                NotifyOfPropertyChange(() => FilePath);
+            }
+        }
+
+        private ICommand _showAttach;
+        public ICommand ShowAttach
+        {
+            get
+            {
+                if (_showAttach != null) return _showAttach;
+                _showAttach = new RelayCommand(param => OnShowAttach(), param => CanSaveExecuted() );
+                return _showAttach;
+            }
+        }
 
         private ICommand _openPdf;
         public ICommand OpenPdf
@@ -23,9 +41,15 @@ namespace FaPA.GUI.Feautures.Fattura
             get
             {
                 if (_openPdf != null) return _openPdf;
-                _openPdf = new RelayCommand(param => OnOpendPdf(), param => true);
+                _openPdf = new RelayCommand(param => OnOpendPdf(), param => CanChooseFile() );
                 return _openPdf;
             }
+        }
+
+        private bool CanChooseFile()
+        {
+            var current = CurrentPoco as AllegatiType;
+            return current != null && current.Attachment == null;
         }
 
         private ICommand _loadBytes;
@@ -41,36 +65,17 @@ namespace FaPA.GUI.Feautures.Fattura
 
         private bool CanLoadFileBytes()
         {
-            return !string.IsNullOrWhiteSpace(FilePath);
+            return !string.IsNullOrWhiteSpace(FilePath) && IsEditing;
         }
-
-        //private void OnOpendPdf()
-        //{
-
-        //    var path = Path.GetTempFileName().Replace("tmp", "PDF");
-
-        //    //try
-        //    //{
-        //    //    using (var fs = File.Create(path))
-        //    //    {
-        //    //        fs.Write(stream.PdfStream, 0, stream.PdfStream.Length);
-        //    //    }
-        //    //    Process.Start(path);
-        //    //}
-        //    //catch
-        //    //{}
-        //    //finally
-        //    //{}
-        //}
-
+        
         private void OnOpendPdf()
         {
-            const string filter = "PDF File (*.pdf)|*.pdf"; 
+            const string filter = "Tutti i File (*.*)|*.*"; 
             var dlg = new OpenFileDialog
             {
                 //InitialDirectory = Settings.Default.LastImportPath,
                 Multiselect = false,
-                DefaultExt = ".pdf",
+                DefaultExt = ".PDF",
                 Filter = filter
             };
 
@@ -83,32 +88,42 @@ namespace FaPA.GUI.Feautures.Fattura
                 FilePath = dlg.FileName;
             }
 
-
         }
 
         private void LoadFileBytes()
         {
-            CurrentPoco = File.ReadAllBytes(FilePath);
+            var current = CurrentPoco as AllegatiType;
+            if (current != null)
+            {
+                current.Attachment = File.ReadAllBytes(FilePath);
+                current.FormatoAttachment = Path.GetExtension(FilePath);
+                current.NomeAttachment = Path.GetFileName(FilePath);
+            }
 
             IsEditing = true;
             AllowDelete = true;
 
         }
-
-        protected override bool CanSaveExecuted()
+        
+        private void OnShowAttach()
         {
-            return IsEditing && !string.IsNullOrWhiteSpace(FilePath);
-        }
+            var current = CurrentPoco as AllegatiType;
 
-        protected override void AddEntity()
-        {
-            FilePath = null;
-            base.AddEntity();
-        }
+            if ( current == null ) return;
 
-        public void OnApriFileLog()
-        {
-            //Process.Start("notepad.exe", _fileLog);
+            var path = Path.GetTempFileName().Replace("tmp", current.FormatoAttachment);
+
+            try
+            {
+                using (var fs = File.Create(path))
+                {
+                    fs.Write( current.Attachment, 0, current.Attachment.Length);
+                }
+
+                Process.Start(path);
+            }
+            catch
+            { }
         }
 
 
@@ -120,6 +135,8 @@ namespace FaPA.GUI.Feautures.Fattura
             IsCloseable = false;
         }
 
+
+        //overrides
         protected override void AddItemToUserCollection()
         {
             AddToArray();
@@ -136,15 +153,28 @@ namespace FaPA.GUI.Feautures.Fattura
             return ( ( Core.Fattura ) root ).FatturaElettronicaBody;
         }
 
-        public string FilePath
+        protected override bool CanSaveExecuted()
         {
-            get { return _filePath; }
-            private set
-            {
-                if (value == _filePath) return;
-                _filePath = value;
-                NotifyOfPropertyChange(() => FilePath);
-            }
+            var current = CurrentPoco as AllegatiType;
+            return current?.Attachment != null && IsEditing;
         }
+
+        protected override bool CanAddEntity(object obj)
+        {
+            return !IsEditing;
+        }
+
+        protected override void AddEntity()
+        {
+            FilePath = null;
+            base.AddEntity();
+        }
+
+        protected override void OnCancelDelegateExecute()
+        {
+            base.OnCancelDelegateExecute();
+            FilePath = null;
+        }
+
     }
 }

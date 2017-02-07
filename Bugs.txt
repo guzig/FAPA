@@ -1,8 +1,6 @@
 
 
-remove datisal/ddt
-add sal/ddt after first
-add pagamento with empty save
+
 
 in dettagliopagamento
 _importoPagamento = decimal.Parse( string.Format( "##.000", value ) ); -> exception when value is zero
