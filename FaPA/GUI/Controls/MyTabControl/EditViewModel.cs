@@ -488,16 +488,17 @@ namespace FaPA.GUI.Controls.MyTabControl
             {
                 using ( var tx = _session.BeginTransaction() )
                 {
-                    var typeName = ProxyInspector.GuessType(_currentEntity).FullName;
+                    var typeName = ProxyInspector.GuessType( CurrentEntity ).FullName;
                     var entity = _session.Get<T>( CurrentEntity.Id );
                     _session.Delete( typeName, entity );
                     _session.Flush();
                     tx.Commit();
                 }
             }
-            catch ( Exception )
+            catch ( Exception e)
             {
-                //WpfHelpers.ShowErrorDeletingMsg();
+                Debug.WriteLine( e.Message );
+                WpfHelpers.ShowErrorDeletingMsg();
                 return false;
             }
             return true;

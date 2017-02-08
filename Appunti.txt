@@ -1,3 +1,7 @@
+ProgFile
+Style
+bacckUp
+pulsante copy new
 
 totale fattura <-> totale documento
 

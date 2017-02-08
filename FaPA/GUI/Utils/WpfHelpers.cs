@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Threading;
+using Caliburn.Micro;
 using FaPA.GUI.Controls.MyTabControl;
 
 namespace FaPA.GUI.Utils
@@ -54,13 +55,13 @@ namespace FaPA.GUI.Utils
             MessageBox.Show(msg, caption, MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
 
-        //public static void ShowErrorDeletingMsg()
-        //{
-        //    const string msg = "L'operazione di eliminazione è fallita per un errore imprevisto!";
-        //    var caption = "Oggetto non eliminato";
-        //    Execute.OnUIThread(() => Xceed.Wpf.Toolkit.MessageBox.Show(msg, caption, MessageBoxButton.OK,
-        //           MessageBoxImage.Hand));
-        //}
+        public static void ShowErrorDeletingMsg()
+        {
+            const string msg = "L'operazione di eliminazione è fallita per un errore imprevisto!";
+            var caption = "Oggetto non eliminato";
+            Execute.OnUIThread(() => Xceed.Wpf.Toolkit.MessageBox.Show(msg, caption, MessageBoxButton.OK,
+                   MessageBoxImage.Hand));
+        }
 
         public static void TabItem_OnPreviewMouseLeftButtonDown( object sender, RoutedEventArgs e, TabControl tabControl )
         {

@@ -59,6 +59,12 @@
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
 
+                    <DataGridTextColumn Header="Prog." Width="Auto">
+                        <DataGridTextColumn.Binding>
+                            <Binding Path="ProgFile" />
+                        </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+
                     <DataGridTextColumn Header="Data" Width="Auto">
                         <DataGridTextColumn.Binding>
                             <Binding Path="DataFatturaDB" StringFormat='{}{0:d}'/>
@@ -99,8 +105,8 @@
                    Margin="0 05 0 0" Background="{StaticResource Brush_ToolBar}">
 
             <Button Name="CreateNew" 
-                        Command="{Binding Presenter.OnGridEmptyCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-                        ToolTip="Crea una nuova categoria">
+                    Command="{Binding Presenter.OnGridEmptyCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                    ToolTip="Crea una nuova oggetto">
 
                 <Image Source="/GUI/Design/Styles/Images/1343547225_file_add.png"
                        
@@ -109,7 +115,7 @@
 
             <Button Name="OpenEditingTab" 
                     Command="{Binding Presenter.ApriSchedaDettalio, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-                    ToolTip="Apre la scheda dettaglio categoria" 
+                    ToolTip="Apre la scheda dettaglio oggetto" 
                     Width="25">
 
                 <Image Source="/GUI/Design/Styles/Images/find(2).png"

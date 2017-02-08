@@ -622,7 +622,7 @@ namespace FaPA.Core
             other.CupDB = CupDB == null ? null : string.Copy( CupDB );
             other.CodUfficioDB = CodUfficioDB == null ? null : string.Copy( CodUfficioDB );
             other.NoteDB = NoteDB == null ? null : string.Copy( NoteDB );
-            other.ProgFile = ProgFile++;
+            other.ProgFile = 0;
             other.Version = 0;
             return other;
         }

@@ -103,6 +103,7 @@ namespace FaPA.GUI.Feautures.Fattura
         {
             object entity = Activator.CreateInstance( typeof( Core.Fattura ) );
 
+            ( ( Core.Fattura) entity ).DataFatturaDB = DateTime.Now;
             ( ( Core.Fattura ) entity ).Init();
 
             ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntity>( ref entity, "FaPA.Core" );
@@ -207,26 +208,6 @@ namespace FaPA.GUI.Feautures.Fattura
             AllegatiViewModel.Init();
             AddTabViewModel<AllegatiViewModel>( AllegatiViewModel );
 
-            //if (fattura?.Ritenuta != null)
-            //{
-            //    AddTabRitenuta();
-            //}
-
-            //if ( fattura?.DatiOrdineAcquisto != null )
-            //{
-            //    AddTabOrdine();
-            //}
-
-            //if (fattura?.DatiContratto != null)
-            //{
-            //    AddTabContratto();
-            //}
-
-            //if (fattura?.DatiConvenzione != null)
-            //{
-            //    AddTabConvenzione();
-            //}
-
         }
 
         private void OnDettaglioFatturaPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -300,9 +281,10 @@ namespace FaPA.GUI.Feautures.Fattura
             //fattura.SetTrasmittente();
             //}
 
-            string path = null;
             string error = null;
-            FlushXml( fattura, out path, out error );
+            var folderPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            var path = GetOutPath( folderPath );
+            FlushXml( fattura, path, out error );
         }
 
         private ICommand _showXmlIntoTreeViewCommand;
@@ -331,18 +313,26 @@ namespace FaPA.GUI.Feautures.Fattura
 
         private void OnOpenXmlToBrowser()
         {
-            string path = null;
             string error = null;
-            FlushXml(CurrentEntity, out path, out error);
-            var browser = "FireFox.exe";
+            const string path = "tempfatt.xml";
+
+            var isValid = ValidateAndCreateXmlStream( CurrentEntity, path, out error);
+
+            const string browser = "FireFox.exe";
             try
             {
                 Process.Start(browser, path);
             }
             catch (Exception)
             {
-                MessageBox.Show("Apertura file nel browser internet interrota", 
+                MessageBox.Show("Apertura file nel browser internet interrota",
                                 "Errore durante l'apertura del file...", MessageBoxButton.OK);
+            }
+
+            if ( !isValid )
+            {
+                const string caption = "Fattura non validata.";
+                MessageBox.Show(caption + Environment.NewLine + error, caption, MessageBoxButton.OK);
             }
         }
 
@@ -352,10 +342,10 @@ namespace FaPA.GUI.Feautures.Fattura
             Presenters.Show("ShowXmlToTreeView", CurrentEntity.GetXmlDocument());
         }
 
-        private bool FlushXml(IValidatable fattura, out string path, out string error)
+        private bool FlushXml(IValidatable fattura, string path, out string error)
         {
             ShowCursor.Show();
-            if ( ValidateAndCreateXmlStream(fattura, out path, out error))
+            if ( ValidateAndCreateXmlStream(fattura, path, out error))
             {
                 var msg = "Fattura validata." + Environment.NewLine + "Il file " + path + " è stato salvato sul desktop";
                 MessageBox.Show(msg, "Salvataggio completato", MessageBoxButton.OK);
@@ -368,15 +358,9 @@ namespace FaPA.GUI.Feautures.Fattura
             }
         }
 
-        private bool ValidateAndCreateXmlStream(IValidatable fattura, out string outPath, out string error)
+        private bool ValidateAndCreateXmlStream(IValidatable fattura, string outPath, out string error)
         {
             error = null;
-
-            var folderPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-            var nomeFile = CurrentEntity.FatturaPa.FatturaElettronicaHeader.DatiTrasmissione.IdTrasmittente.IdPaese +
-                           CurrentEntity.AnagraficaCedenteDB.CodiceFiscale + "_" +
-                           CurrentEntity.FatturaPa.FatturaElettronicaHeader.DatiTrasmissione.ProgressivoInvio + ".xml";
-            outPath = Path.Combine(folderPath, nomeFile);
 
             //ShowCursor.Show();
             var errors = fattura.Validate();
@@ -388,6 +372,15 @@ namespace FaPA.GUI.Feautures.Fattura
             var xmlDoc = CurrentEntity.GetXmlDocument();
             xmlDoc.Save(outPath);
             return true;
+        }
+
+        private string GetOutPath( string folderPath)
+        {
+            var nomeFile = CurrentEntity.FatturaPa.FatturaElettronicaHeader.DatiTrasmissione.IdTrasmittente.IdPaese +
+                           CurrentEntity.AnagraficaCedenteDB.CodiceFiscale + "_" +
+                           CurrentEntity.FatturaPa.FatturaElettronicaHeader.DatiTrasmissione.ProgressivoInvio + ".xml";
+            var outPath = Path.Combine(folderPath, nomeFile);
+            return outPath;
         }
 
         private Visibility _emptyMesgVisibility = Visibility.Collapsed;
