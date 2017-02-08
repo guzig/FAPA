@@ -1,38 +1,34 @@
 using System;
-using System.Xml.Schema;
-using System.Xml.Serialization;
 
 namespace FaPA.Core.FaPa
 {
     [Serializable]
     public class DatiBolloType : BaseEntityFpa
     {
-        private BolloVirtualeType bolloVirtualeField;
-        private decimal importoBolloField;
+        private BolloVirtualeType _bolloVirtualeField;
+        private decimal _importoBolloField;
         
-        [XmlElement( Form = XmlSchemaForm.Unqualified )]
         public virtual BolloVirtualeType BolloVirtuale
         {
             get
             {
-                return bolloVirtualeField;
+                return _bolloVirtualeField;
             }
             set
             {
-                bolloVirtualeField = value;
+                _bolloVirtualeField = value;
             }
         }
         
-        [XmlElement( Form = XmlSchemaForm.Unqualified )]
         public virtual decimal ImportoBollo
         {
             get
             {
-                return importoBolloField;
+                return _importoBolloField;
             }
             set
             {
-                importoBolloField = value;
+                _importoBolloField = value;
             }
         }
     }

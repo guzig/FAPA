@@ -9,18 +9,35 @@ using FaPA.GUI.Controls.MyTabControl;
 using FaPA.GUI.Utils;
 using NHibernate;
 using System.Linq;
-using System.Threading.Tasks;
 using FaPA.AppServices.CoreValidation;
 using FaPA.Core;
-using FaPA.Core.FaPa;
-using FaPA.Data;
 using FaPA.Infrastructure;
-using FaPA.Infrastructure.Helpers;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
     public class EditFatturaViewModel : EditViewModel<Core.Fattura>
     {
+        public bool IsCopyMode { get; set; } = false;
+
+        private ICommand _addCopy;
+        public ICommand AddCopy
+        {
+            get
+            {
+                if (_addCopy != null) return _addCopy;
+                _addCopy = new RelayCommand(param => AddNewCopy(), param => !IsInEditing );
+                return _addCopy;
+            }
+
+        }
+
+        private void AddNewCopy()
+        {
+            IsCopyMode = true;
+            AddNew();
+            IsCopyMode = false;
+        }
+
         private DatiGeneraliViewModel _datiGeneraliViewModel;
         public DatiGeneraliViewModel DatiGeneraliViewModel
         {
@@ -95,7 +112,6 @@ namespace FaPA.GUI.Feautures.Fattura
 
         public override void CreateNewEntity()
         {
-
             if ( IsCopyMode )
             {
                 object copy = CurrentEntity.Copy();
@@ -115,8 +131,6 @@ namespace FaPA.GUI.Feautures.Fattura
             InitFatturaTabs();
 
         }
-
-        public bool IsCopyMode { get; set; } = true;
 
 
         protected override void DefaultCancelOnEditAction()

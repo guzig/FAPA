@@ -76,22 +76,22 @@ namespace FaPA.GUI.Feautures.Fattura
             DisplayName = "Dati documento";
             IsCloseable = false;
 
+            DatiGeneraliDocumentoViewModel = new DatiGeneraliDocumentoViewModel(repository, instance);
+            DatiGeneraliDocumentoViewModel.Init();
+
             ScontoMaggiorazioneGeneraleView = new ScontoMaggiorazioneGeneraleViewModel(repository, 
                 instance.DatiGeneraliDocumento);
 
             ScontoMaggiorazioneGeneraleView.Init();
-
-            DatiRitenutaViewModel = new DatiRitenutaViewModel( repository, instance.DatiGeneraliDocumento );
-            DatiRitenutaViewModel.Init();
-
-            DatiGeneraliDocumentoViewModel = new DatiGeneraliDocumentoViewModel( repository, instance );
-            DatiGeneraliDocumentoViewModel.Init();
-
+           
             DatiBolloViewModel = new DatiBolloViewModel( repository, instance.DatiGeneraliDocumento );
             DatiBolloViewModel.Init();
 
             DatiCassaPrevViewModel = new DatiCassaPrevViewModel( repository, instance.DatiGeneraliDocumento );
             DatiCassaPrevViewModel.Init();
+
+            DatiRitenutaViewModel = new DatiRitenutaViewModel(repository, instance.DatiGeneraliDocumento);
+            DatiRitenutaViewModel.Init();
 
         }
 

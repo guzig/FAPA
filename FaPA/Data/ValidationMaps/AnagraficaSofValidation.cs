@@ -4,7 +4,6 @@ using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.Validator.Cfg.Loquacious;
 using NHibernate.Validator.Engine;
-using NHibernate.Validator.Specific.It;
 
 namespace FaPA.Data.ValidationMaps
 {

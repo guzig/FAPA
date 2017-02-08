@@ -1,6 +1,5 @@
 using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Windows;
 using System.Windows.Input;
@@ -231,15 +230,18 @@ namespace FaPA.GUI.Controls
         protected virtual void MakeTransient()
         {
             if ( !GetDeleteConfirmation() ) return;
+
             UserProperty = default(TProperty);
             CurrentPoco = null;
             IsEditing = false;
+
             PersitEntity();
 
             Instance = ReadInstance();
             UserProperty = GetterProp(Instance);
 
-            Debug.Assert(UserProperty==null);
+            //Debug.Assert(UserProperty==null);
+
             Init();
             AllowInsertNew = true;
         }

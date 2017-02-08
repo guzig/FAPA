@@ -83,10 +83,9 @@
 
             <t1:InstanceNullManager Grid.Row="0" Grid.ColumnSpan="2"
                                     BindedInstance="{Binding CurrentPoco, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
-                                    EmptyMessage="Nessuna scheda dati trasporto è stata aggiunta"
-                                    ActionCommandMessage="Aggiungi una scheda dati trasporto"
-                                    OnNullCommand="{Binding AddItemCommand}"
-                                    ActionCommandParam="DatiTrasporto"/>
+                                    EmptyMessage="Nessuna scheda dati pagamento è stata aggiunta"
+                                    ActionCommandMessage="Aggiungi una scheda dati pagamento"
+                                    OnNullCommand="{Binding AddItemCommand}"/>
 
             <Grid u:FocusAdvancement.AdvancesByEnterKey="True" Grid.Row="1" 
                   Visibility="{Binding IsEmpty, Mode=OneWay, Converter={StaticResource BoolToOppositeVisibilityConverter}}">

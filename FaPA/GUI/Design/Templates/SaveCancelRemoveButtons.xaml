@@ -13,7 +13,7 @@
                         <KeyBinding Key="F9"  Command="{Binding SearchOnSite}" />
                     </StackPanel.InputBindings>-->
 
-     <Grid.ColumnDefinitions>
+        <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition MaxWidth="32"/>
             <ColumnDefinition MaxWidth="32"/>

@@ -10,6 +10,10 @@
 
         <StackPanel.InputBindings>
             <KeyBinding Key="Enter" Modifiers="Ctrl" Command="{Binding EnterKey}" />
+
+
+            <KeyBinding Key="Add"  Modifiers="Ctrl" Command="{Binding AddCopy}" />
+            
             <!--
                             Command="{Binding RelativeSource={RelativeSource FindAncestor, 
                                               AncestorType={x:Type Window}},

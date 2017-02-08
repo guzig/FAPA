@@ -73,20 +73,19 @@
                         DisplayMemberPath="Denom" />
                 </StackPanel>
 
-                <StackPanel  Margin="2,0,2,0" Grid.Row="0" Grid.Column="7">
-                    <TextBlock Text="Data fattura" />
-                    <TextBox   Text="{Binding CurrentEntity.DataFatturaDB, Mode=TwoWay, StringFormat='{}{0:d}', ValidatesOnDataErrors=True, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, NotifyOnValidationError=True}" 
-                               MaxLength="10"
-                               HorizontalAlignment="Stretch"/>
-                </StackPanel>
-
                 <StackPanel Grid.Row="0" Grid.Column="6" Margin="2,0,2,0">
                     <TextBlock Text="Numero " />
                     <TextBox   Text="{Binding CurrentEntity.NumeroFatturaDB, Mode=TwoWay,ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True}" 
                                LostFocus="OnCommitBindingGroup"
                                HorizontalAlignment="Stretch"/>
+                </StackPanel>                
+                
+                <StackPanel  Margin="2,0,2,0" Grid.Row="0" Grid.Column="7">
+                    <TextBlock Text="Data fattura" />
+                    <DatePicker   Text="{Binding CurrentEntity.DataFatturaDB, Mode=TwoWay, StringFormat='{}{0:d}', ValidatesOnDataErrors=True, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, NotifyOnValidationError=True}" 
+                                  HorizontalAlignment="Stretch"/>
                 </StackPanel>
-            
+        
             </Grid>
                
             <StackPanel Grid.Row="1" Grid.Column="0"  Margin="2,0,2,0">
@@ -148,13 +147,13 @@
             </GroupBox>
 
             <Border Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2" Grid.Column="6" CornerRadius="3"  
+                    Margin="2,10,2,2"
                     BorderBrush="CadetBlue" BorderThickness="1" VerticalAlignment="Stretch">
                 
-                <ToolBar DockPanel.Dock="Left"  Margin="0,0,0,0"
-                             VerticalAlignment="Bottom" MaxHeight="35">
-
+                <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
 
                     <Button Name="ViewXmlIntoTreeView" Command="{Binding ShowXmlIntoTreeViewCommand}"
+                            Margin="2,5,5,5"
                             ToolTip="Visualizzazione albero fattura pa" VerticalAlignment="Stretch"
                            IsEnabled="{Binding Path=IsInEditing, Converter={StaticResource InverseBooleanConverter}}">
 
@@ -162,6 +161,7 @@
                     </Button>
 
                     <Button Name="ViewXmlIntoBrowser" Command="{Binding ShowXmlIntoBrowserCommand}"
+                            Margin="1,5,5,5"
                             ToolTip="Visualizzazione browser fattura pa" VerticalAlignment="Stretch"
                            IsEnabled="{Binding Path=IsInEditing, Converter={StaticResource InverseBooleanConverter}}">
 
@@ -169,6 +169,7 @@
                     </Button>
 
                     <Button Name="GeneraXml" Command="{Binding GenerateXmlStreamCommand}" 
+                            Margin="1,5,5,5"
                             ToolTip="Genera fattura PA" VerticalAlignment="Stretch"
                             IsEnabled="{Binding Path=IsInEditing, Converter={StaticResource InverseBooleanConverter}}">
 
@@ -176,7 +177,9 @@
 
                     </Button>
 
-                        <!--<Button Name="Ritenuta" Command="{Binding AddRitenutaCommand}" VerticalAlignment="Stretch"
+                </StackPanel>
+                
+                <!--<Button Name="Ritenuta" Command="{Binding AddRitenutaCommand}" VerticalAlignment="Stretch"
                                 ToolTip="Aggiungi una scheda ritenuta"  >
 
                             <Image Source="/GUI/Design/Styles/Images/Files-New-File-icon.png" />
@@ -200,7 +203,6 @@
                             <Image Source="/GUI/Design/Styles/Images/Files-New-File-icon.png" />
                         </Button>-->
                     
-                </ToolBar>
             </Border>
         
     </Grid>

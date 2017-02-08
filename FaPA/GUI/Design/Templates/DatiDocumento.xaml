@@ -147,18 +147,19 @@
                             <StackPanel Grid.Row="0" Grid.Column="0" Margin="2,0,2,0" Width="Auto" HorizontalAlignment="Left">
                                 <TextBlock Text="Bollo virtuale" />
 
-                                <ComboBox   Margin="2,0,2,0" HorizontalAlignment="Stretch" Tag="EnterAsTab" 
-                                                        ItemsSource="{Binding Source={utils:Enumeration {x:Type enums:BolloVirtualeType}}, UpdateSourceTrigger=PropertyChanged}"  
-                                                        DisplayMemberPath="Value" SelectedValuePath="Value" 
-                                                        IsReadOnly="False"
-                                                        SelectedValue="{Binding CurrentPoco.DatiBollo.BolloVirtuale, UpdateSourceTrigger=LostFocus}">
+                                <ComboBox   Margin="2,0,2,0" 
+                                            HorizontalAlignment="Stretch" Tag="EnterAsTab" 
+                                            ItemsSource="{Binding Source={utils:Enumeration {x:Type enums:BolloVirtualeType}}, UpdateSourceTrigger=PropertyChanged}"  
+                                            DisplayMemberPath="Value" SelectedValuePath="Value" 
+                                            IsReadOnly="False" IsEditable="True"
+                                            SelectedValue="{Binding CurrentPoco.BolloVirtuale, UpdateSourceTrigger=LostFocus}">
                                 </ComboBox>
 
                             </StackPanel>
 
                             <StackPanel  Grid.Row="0" Grid.Column="1" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Left" MinWidth="200">
                                 <TextBlock Text="Importo" />
-                                <TextBox   Text="{Binding CurrentPoco.DatiBollo.ImportoBollo, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
+                                <TextBox   Text="{Binding CurrentPoco.ImportoBollo, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
                             </StackPanel>
 
                             <t:SaveCancelRemoveButtons Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left"
@@ -171,9 +172,10 @@
                 </TabItem>
 
                 <TabItem Header="Ritenuta" Style="{StaticResource SubTabItemStyle}"
-                         PreviewMouseLeftButtonDown="UIElement_OnPreviewMouseLeftButtonDown">
+                         PreviewMouseLeftButtonDown="UIElement_OnPreviewMouseLeftButtonDown"
+                         DataContext="{Binding DatiRitenutaViewModel}">
 
-                    <Grid DataContext="{Binding DatiRitenutaViewModel}">
+                    <Grid >
                         <t:InstanceNullManager BindedInstance="{Binding CurrentPoco}"
                                                EmptyMessage="Nessuna ritenuta è stata aggiunta"
                                                ActionCommandMessage="Aggiungi una ritenuta"
@@ -257,27 +259,27 @@
 
                                 <StackPanel  Grid.Row="0" Grid.Column="0" Margin="2,0,2,0">
                                     <TextBlock Text="Tipo" />
-                                    <TextBox   Text="{Binding CurrentPoco.DatiCassaPrevidenziale.TipoCassa, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
+                                    <TextBox   Text="{Binding CurrentPoco.TipoCassa, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
                                 </StackPanel>
 
                                 <StackPanel  Grid.Row="0" Grid.Column="1" Margin="2,0,2,0">
                                     <TextBlock Text="Aliquota" />
-                                    <TextBox   Text="{Binding CurrentPoco.DatiCassaPrevidenziale.AlCassa, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch"/>
+                                    <TextBox   Text="{Binding CurrentPoco.AlCassa, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch"/>
                                 </StackPanel>
 
                                 <StackPanel Grid.Row="1" Grid.Column="0" Margin="2,0,2,0">
                                     <TextBlock Text="Contributo" />
-                                    <TextBox   Text="{Binding CurrentPoco.DatiCassaPrevidenziale.ImportoContributoCassa, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
+                                    <TextBox   Text="{Binding CurrentPoco.ImportoContributoCassa, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
                                 </StackPanel>
 
                                 <StackPanel Grid.Row="1" Grid.Column="1" Margin="2,0,2,0">
                                     <TextBlock Text="Imponibile" />
-                                    <TextBox   Text="{Binding CurrentPoco.DatiCassaPrevidenziale.ImponibileCassa, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
+                                    <TextBox   Text="{Binding CurrentPoco.ImponibileCassa, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
                                 </StackPanel>
 
                                 <StackPanel Grid.Row="2" Grid.Column="0" Margin="2,0,2,0">
                                     <TextBlock Text="Aliquota" />
-                                    <TextBox   Text="{Binding CurrentPoco.DatiCassaPrevidenziale.AliquotaIVA, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
+                                    <TextBox   Text="{Binding CurrentPoco.AliquotaIVA, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
                                 </StackPanel>
 
                                 <t:SaveCancelRemoveButtons Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left"
@@ -290,7 +292,8 @@
                 </TabItem>
 
                 <TabItem Header="Sconto/Magg.ne" Style="{StaticResource SubTabItemStyle}"
-                         PreviewMouseLeftButtonDown="UIElement_OnPreviewMouseLeftButtonDown">
+                         PreviewMouseLeftButtonDown="UIElement_OnPreviewMouseLeftButtonDown"
+                         DataContext="{Binding ScontoMaggiorazioneGeneraleView}">
                     <Grid utils:FocusAdvancement.AdvancesByEnterKey="True">
 
                         <Grid.Effect>
@@ -302,19 +305,13 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
-                        <DockPanel Grid.Row="0" 
-                                   Visibility="{Binding Path=ScontoMaggiorazioneGeneraleView.IsEmpty, Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
-
-                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,15,0,0"> 
-                                <Hyperlink FontSize="14" Command="{Binding ScontoMaggiorazioneGeneraleView.AddItemCommand}">
-                                    <Run Text="Inserisci un nuovo elemento sconto maggiorazione" />
-                                </Hyperlink>
-                            </TextBlock>
-
-                        </DockPanel>                        
+                        <t:InstanceNullManager BindedInstance="{Binding CurrentPoco}"
+                                               EmptyMessage="Nessun scheda dati sconto maggiorazione è stata aggiunta"
+                                               ActionCommandMessage="Aggiungi una scheda dati sconto maggiorazione"
+                                               OnNullCommand="{Binding AddItemCommand}" />
 
                         <Grid  Grid.Row="1" 
-                               Grid.Column="0" DataContext="{Binding ScontoMaggiorazioneGeneraleView}"
+                               Grid.Column="0" 
                                Visibility="{Binding IsEmpty, Mode=OneWay, Converter={StaticResource BoolToOppositeVisibilityConverter}}">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="14"/>
@@ -354,12 +351,12 @@
                                            MaxLength="10" HorizontalAlignment="Stretch"/>
                             </StackPanel>
 
-                            <t:SaveCancelRemoveButtons Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Left"
+                            <t:SaveCancelRemoveButtons Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" 
+                                                       HorizontalAlignment="Left" Margin="0,10,0,0"
                                                        Visibility="{Binding CurrentPoco, Converter={StaticResource NullToVisibiltyConverter}}"
                                                        DeleteEntityCommand="{Binding DeleteEntityCommand}"
                                                        SaveCommand="{Binding SaveEntity}"
                                                        PerformCancelCommand="{Binding PerformCancel}"/>
-
                         </Grid>
                     </Grid>
                 </TabItem>
