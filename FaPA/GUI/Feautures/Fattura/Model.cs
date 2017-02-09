@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.ObjectModel;
+using System.Linq;
 using FaPA.GUI.Controls.MyTabControl;
 using FaPA.Infrastructure.Helpers;
 using NHibernate;
@@ -37,14 +38,17 @@ namespace FaPA.GUI.Feautures.Fattura
                 .AddEntityLevelPropValidation((Core.Fattura f) => f.NumeroFatturaDB)
                 .AddEntityLevelPropValidation((Core.Fattura f) => f.AnagraficaCedenteDB);
 
-            var listViewViewModel = new FatturaListViewModel
+            if (Workspaces != null && !Workspaces.Any( w => w is FatturaListViewModel ) )
             {
-                DisplayName = DisplayName,
-                UserEntitiesView = UserCollectionView
-            };
+                 var listViewViewModel = new FatturaListViewModel
+                {
+                    DisplayName = DisplayName,
+                    UserEntitiesView = UserCollectionView
+                };
 
-            Workspaces.Add(listViewViewModel);
-
+                Workspaces.Add(listViewViewModel);               
+            }
+            
             if (UserEntities != null && UserEntities.Count > 0)
             {
                 Workspaces.Add(_editViewModel);

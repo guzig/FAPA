@@ -354,8 +354,13 @@ namespace FaPA.GUI.Controls.MyTabControl
             var currentPos = UserEntitiesView.CurrentPosition;
             UserCollection.Remove(CurrentEntity);
             var listCount = (UserEntitiesView as ListCollectionView).Count;
-            
-            if (listCount <= 0) return;
+
+            if (listCount <= 0)
+            {               
+                //BasePresenter.SetActiveWorkSpace(0);
+                //BasePresenter.Workspaces.RemoveAt(1);
+                return;
+            }
             
             UserEntitiesView.CurrentChanged += OnCurrentSelectionChanged;
             UserEntitiesView.MoveCurrentToPosition(currentPos == 0 ? 0 : currentPos - 1);
@@ -831,7 +836,7 @@ namespace FaPA.GUI.Controls.MyTabControl
         //    return true;
         //}
 
-        public bool TryGetUnproxiedEntity(long maxWait=3000)
+        private bool TryGetUnproxiedEntity(long maxWait=3000)
         {
             ShowCursor.Show();
             int pos = UserEntitiesView.CurrentPosition;

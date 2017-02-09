@@ -98,6 +98,14 @@ namespace FaPA.GUI.Controls.MyTabControl
             if ( viewModel != null )
             {
                 ( ( EditViewModel<T> ) Model.SelectedPage ).BasePresenter.CreateNewModel( 0 );
+
+                foreach (var workspaceViewModel in Workspaces.
+                    Where(w=> ! (w is ListViewViewModel) || (w is EditViewModel<T>) ).ToArray())
+                {
+                    Workspaces.Remove(workspaceViewModel);
+                }
+
+                SetActiveWorkSpace(0);
             }
         }
 
