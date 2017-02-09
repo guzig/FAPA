@@ -4,10 +4,10 @@ using FaPA.Infrastructure;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
-    public class DatiAnagraficiViewModel : EditWorkSpaceViewModel<DatiTrasportoType, DatiAnagraficiVettoreType>
+    public class DatiAnagraficiVettoreViewModel : EditWorkSpaceViewModel<DatiTrasportoType, DatiAnagraficiVettoreType>
     {
         //ctor
-        public DatiAnagraficiViewModel( IRepository repository, DatiTrasportoType instance ) :
+        public DatiAnagraficiVettoreViewModel( IRepository repository, DatiTrasportoType instance ) :
             base( repository, instance, f => f.DatiAnagraficiVettore, "Anagrafici", true )
         {
         }

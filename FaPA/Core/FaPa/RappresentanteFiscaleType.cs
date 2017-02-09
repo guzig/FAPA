@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Xml.Schema;
-using System.Xml.Serialization;
 
 namespace FaPA.Core.FaPa
 {
@@ -8,19 +6,16 @@ namespace FaPA.Core.FaPa
     public class RappresentanteFiscaleType : BaseEntityFpa
     {
 
-        private DatiAnagraficiRappresentanteType datiAnagraficiField;
-
-        
-        [XmlElement( Form = XmlSchemaForm.Unqualified )]
+        private DatiAnagraficiRappresentanteType _datiAnagraficiField;
         public virtual  DatiAnagraficiRappresentanteType DatiAnagrafici
         {
             get
             {
-                return datiAnagraficiField;
+                return _datiAnagraficiField;
             }
             set
             {
-                datiAnagraficiField = value;
+                _datiAnagraficiField = value;
             }
         }
     }

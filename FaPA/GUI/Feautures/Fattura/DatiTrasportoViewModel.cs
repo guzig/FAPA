@@ -8,17 +8,17 @@ namespace FaPA.GUI.Feautures.Fattura
 {
     public class DatiTrasportoViewModel : EditWorkSpaceViewModel<DatiGeneraliType, DatiTrasportoType>
     {
-        private DatiAnagraficiViewModel _datiAnagraficiViewModel;
+        private DatiAnagraficiVettoreViewModel _datiAnagraficiViewModel;
         private DatiIndirizzoViewModel _datiIndirizzoViewModel;
 
-        public DatiAnagraficiViewModel DatiAnagraficiViewModel
+        public DatiAnagraficiVettoreViewModel DatiAnagraficiVettoreViewModel
         {
             get { return _datiAnagraficiViewModel; }
             set
             {
                 if ( Equals( value, _datiAnagraficiViewModel ) ) return;
                 _datiAnagraficiViewModel = value;
-                NotifyOfPropertyChange( () => DatiAnagraficiViewModel );
+                NotifyOfPropertyChange( () => DatiAnagraficiVettoreViewModel );
             }
         }
 
@@ -42,16 +42,16 @@ namespace FaPA.GUI.Feautures.Fattura
 
         private void InitChildViewModel()
         {
-            DatiAnagraficiViewModel = new DatiAnagraficiViewModel( Repository, Instance.DatiTrasporto );
+            DatiAnagraficiVettoreViewModel = new DatiAnagraficiVettoreViewModel( Repository, Instance.DatiTrasporto );
             DatiIndirizzoViewModel = new DatiIndirizzoViewModel( Repository, Instance.DatiTrasporto );
 
             if ( Instance.DatiTrasporto != null )
             {
-                DatiAnagraficiViewModel.Init();
+                DatiAnagraficiVettoreViewModel.Init();
                 DatiIndirizzoViewModel.Init();
             }
 
-            DatiAnagraficiViewModel.CurrentEntityChanged += OnChildViewModelChanged;
+            DatiAnagraficiVettoreViewModel.CurrentEntityChanged += OnChildViewModelChanged;
             DatiIndirizzoViewModel.CurrentEntityChanged += OnChildViewModelChanged;
         }
 

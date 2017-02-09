@@ -60,3 +60,13 @@ backup
 https://www.codeproject.com/Articles/360472/Postgres-Database-Backup-Restore-From-Csharp
 https://www.codeproject.com/kb/database/postgresqltasks.aspx
 https://www.cyberciti.biz/tips/postgres-allow-remote-access-tcp-connection.html#3a
+
+http://www.softcombn.com/nfree/2014/08/news-fattura-pa-galleria-di-immagini/
+
+ribbon
+https://onedrive.live.com/?cid=bafa39a62a57009c&id=BAFA39A62A57009C!362
+http://prajeenkumar.blogspot.it/2013/06/creating-office-2010-style-minimize_8.html
+
+https://github.com/fluentribbon/Fluent.Ribbon/issues/73
+
+http://stackoverflow.com/questions/19498485/proper-validation-with-mvvm

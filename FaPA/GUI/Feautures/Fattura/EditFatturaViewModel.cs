@@ -111,6 +111,28 @@ namespace FaPA.GUI.Feautures.Fattura
             }
         }
 
+        public DatiRappresentanteFiscaleViewModel RappresentanteFiscaleViewModel
+        {
+            get { return _rappresentanteFiscaleViewModel; }
+            set
+            {
+                if ( Equals( value, _rappresentanteFiscaleViewModel ) ) return;
+                _rappresentanteFiscaleViewModel = value;
+                NotifyOfPropertyChange( () => RappresentanteFiscaleViewModel );
+            }
+        }
+
+        public DatiTerzoIntermediarioViewModel TerzoIntermediarioViewModel
+        {
+            get { return _terzoIntermediarioViewModel; }
+            set
+            {
+                if ( Equals( value, _terzoIntermediarioViewModel ) ) return;
+                _terzoIntermediarioViewModel = value;
+                NotifyOfPropertyChange( () => TerzoIntermediarioViewModel );
+            }
+        }
+
         public EditFatturaViewModel(IBasePresenter baseCrudPresenter, IList userEntities, 
             ICollectionView userCollectionView, ISession session): base(baseCrudPresenter, userEntities, userCollectionView)
         {           
@@ -236,6 +258,15 @@ namespace FaPA.GUI.Feautures.Fattura
             AllegatiViewModel = new AllegatiViewModel( this, fattura.FatturaElettronicaBody);
             AllegatiViewModel.Init();
             AddTabViewModel<AllegatiViewModel>( AllegatiViewModel );
+
+            RappresentanteFiscaleViewModel = new DatiRappresentanteFiscaleViewModel( this, fattura );
+            RappresentanteFiscaleViewModel.Init();
+            AddTabViewModel<DatiRappresentanteFiscaleViewModel>( RappresentanteFiscaleViewModel );
+
+
+            TerzoIntermediarioViewModel = new DatiTerzoIntermediarioViewModel( this, fattura );
+            TerzoIntermediarioViewModel.Init();
+            AddTabViewModel<DatiTerzoIntermediarioViewModel>( TerzoIntermediarioViewModel );
 
         }
 
@@ -436,6 +467,8 @@ namespace FaPA.GUI.Feautures.Fattura
         private AllegatiViewModel _allegatiViewModel;
         private bool _isOfficialSent;
         private bool _isOfficialSentEnabled;
+        private DatiRappresentanteFiscaleViewModel _rappresentanteFiscaleViewModel;
+        private DatiTerzoIntermediarioViewModel _terzoIntermediarioViewModel;
 
         public Visibility DettagliFatturaVisibility
         {

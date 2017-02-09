@@ -169,7 +169,7 @@ namespace FaPA.Core.FaPa
             set
             {
                 dataInizioPeriodoField = value;
-                DataInizioPeriodoSpecified = dataInizioPeriodoField != DateTime.MinValue && dataInizioPeriodoField != DateTime.MaxValue;
+                DataInizioPeriodoSpecified = dataInizioPeriodoField.Year > 1;
             }
         }
 

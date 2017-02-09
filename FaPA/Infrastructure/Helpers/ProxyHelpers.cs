@@ -1,5 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading;
 using System.Windows.Controls;
 using FaPA.Core;
@@ -10,7 +12,7 @@ namespace FaPA.Infrastructure.Helpers
 {
     public static class ProxyHelpers
     {
-        public static void UnproxiedCollection<T>(ObservableCollection<T> collection) where T : BaseEntity
+        public static void UnproxiedCollection<T>(IEnumerable<T> collection) where T : BaseEntity
         {
             ShowCursor.Show();
             var isStale = false;
@@ -18,16 +20,18 @@ namespace FaPA.Infrastructure.Helpers
             do
             {
                 isStale = false;
-                for (var i = lastStaleResult; i < collection.Count; i++)
+                foreach ( var item in collection.Skip( lastStaleResult ) )
                 {
-                    if (collection[i].Id != 0) continue;
-                    collection[i].IsProxy();
+                    if ( item.Id != 0 ) continue;
+                    item.IsProxy();
                     isStale = true;
-                    lastStaleResult = i;
+                    lastStaleResult++;
                     break;
                 }
+
                 if (isStale)
                     Thread.Sleep(50);
+
             } while (isStale);
         }
 

@@ -75,5 +75,10 @@ namespace FaPA.Core
             Validate();
             return DomainResult;
         }
+
+        //public override string ToString()
+        //{
+        //    return Denom;
+        //}
     }
 }

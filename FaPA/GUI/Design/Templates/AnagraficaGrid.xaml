@@ -8,12 +8,14 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:controls="clr-namespace:FaPA.GUI.Controls"
         xmlns:myRecordNavigator="clr-namespace:FaPA.GUI.Controls.MyRecordNavigator"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d">
     <Grid >
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
@@ -49,6 +51,16 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
 
+                <DataGrid.GroupStyle>
+                    <GroupStyle ContainerStyle="{StaticResource GroupHeaderStyle}">
+                        <GroupStyle.Panel>
+                            <ItemsPanelTemplate>
+                                <DataGridRowsPresenter/>
+                            </ItemsPanelTemplate>
+                        </GroupStyle.Panel>
+                    </GroupStyle>
+                </DataGrid.GroupStyle>
+
                 <DataGrid.Columns >
 
                     <DataGridTextColumn Header="Codice"
@@ -77,7 +89,33 @@
             </DataGrid>
         </DockPanel>
 
-        <DockPanel Width="Auto" Grid.Row="2" Height="25"  Visibility="Collapsed" x:Name="recordsToolBar" 
+        <DockPanel Grid.Row="2">
+            <Expander Header="Filtra/Raggruppa" Margin="4" Visibility="{Binding ElementName=FattureGridControl, Path=Visibility}">
+                <StackPanel Orientation="Horizontal">
+                    <GroupBox Header="Filtra">
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock Text="Filtra Per :" />
+                            <ComboBox x:Name="cmbProperty" />
+                            <xctk:WatermarkTextBox  x:Name="txtFilter" MinWidth="50" />
+                            <Button x:Name="btnApplyFilter" Click="btnFilter_Click" Content="Applica filtro"/>
+                            <Button x:Name="btnClearFilter" Click="btnClear_Click" Content="Azzera filtro"/>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="Raggruppa">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Raggruppa per :" />
+                            <ComboBox  x:Name="cmbGroups" />
+                            <Button x:Name="btnGroup" Click="btnGroup_Click"  Content ="Applica"/>
+                            <Button x:Name="btnClearGroup" Click="btnClearGr_Click"  Content="Rimuovi tutti"/>
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+
+            </Expander>
+
+        </DockPanel>
+
+        <DockPanel Width="Auto" Grid.Row="3" Height="25"  Visibility="Collapsed" x:Name="recordsToolBar" 
                    Margin="0 05 0 0" Background="{StaticResource Brush_ToolBar}">
 
             <Button Name="CreateNew" 

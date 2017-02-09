@@ -172,6 +172,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="GUI\Design\Templates\DatiAnagrafici.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="GUI\Design\Templates\InstanceNullManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -434,6 +438,9 @@
     <Compile Include="GUI\Design\Templates\DatiGenerali.xaml.cs">
       <DependentUpon>DatiGenerali.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Design\Templates\DatiAnagrafici.xaml.cs">
+      <DependentUpon>DatiAnagrafici.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Design\Templates\InstanceNullManager.xaml.cs">
       <DependentUpon>InstanceNullManager.xaml</DependentUpon>
     </Compile>
@@ -447,6 +454,7 @@
     <Compile Include="GUI\Feautures\Anagrafica\EditAnagraficaViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\AllegatiViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\BaseDatiCorrelatiViewModel.cs" />
+    <Compile Include="GUI\Feautures\Fattura\DatiTerzoIntermediarioViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\DatiAnagraficiViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\DatiBolloViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\DatiCassaPrevViewModel.cs" />
@@ -457,6 +465,7 @@
     <Compile Include="GUI\Feautures\Fattura\DatiGeneraliDocumentoViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\DatiGeneraliViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\DatiIndirizzoViewModel.cs" />
+    <Compile Include="GUI\Feautures\Fattura\DatiRappresentanteFiscaleViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\DatiRicezioneTabViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\DatiSalTabViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\DatiTrasportoViewModel.cs" />
@@ -466,6 +475,7 @@
     <Compile Include="GUI\Feautures\Fattura\DatiConvenzioneTabViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\UniqueFatturaValidationRule.cs" />
     <Compile Include="GUI\Feautures\Fattura\FatturaListViewModel.cs" />
+    <Compile Include="GUI\Utils\DataGridHelpers.cs" />
     <Compile Include="GUI\Utils\ReflectionHelpers.cs" />
     <Compile Include="GUI\Utils\TextBoxBehavior.cs" />
     <Compile Include="Infrastructure\Helpers\NhProxyInspector.cs" />

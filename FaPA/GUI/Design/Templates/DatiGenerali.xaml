@@ -171,7 +171,7 @@
 
                                         <Border BorderThickness="1" Margin="2,2,2,2" Padding="2,2,2,2" >
 
-                                            <Grid DataContext="{Binding DatiAnagraficiViewModel}">
+                                            <Grid DataContext="{Binding DatiAnagraficiVettoreViewModel}">
 
                                                 <t:InstanceNullManager Grid.Row="0" Grid.ColumnSpan="4"
                                                                    BindedInstance="{Binding CurrentPoco, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"

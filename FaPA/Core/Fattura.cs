@@ -54,6 +54,12 @@ namespace FaPA.Core
             set { FatturaPa.FatturaElettronicaHeader = value; }
         }
 
+        public virtual TerzoIntermediarioSoggettoEmittenteType TerzoIntermediarioOSoggettoEmittente
+        {
+            get { return FatturaElettronicaHeader.TerzoIntermediarioOSoggettoEmittente; }
+            set { FatturaElettronicaHeader.TerzoIntermediarioOSoggettoEmittente = value; }
+        }
+
         public virtual DatiTrasmissioneType DatiTrasmissione
         {
             get
@@ -69,6 +75,12 @@ namespace FaPA.Core
             {
                 FatturaPa.FatturaElettronicaHeader.DatiTrasmissione = value;
             }
+        }
+
+        public virtual RappresentanteFiscaleType RappresentanteFiscale
+        {
+            get { return FatturaElettronicaHeader.RappresentanteFiscale; }
+            set { FatturaElettronicaHeader.RappresentanteFiscale = value; }
         }
 
 

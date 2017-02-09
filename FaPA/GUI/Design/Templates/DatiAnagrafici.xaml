@@ -1,0 +1,98 @@
+﻿<UserControl x:Class="FaPA.GUI.Design.Templates.DatiAnagrafici"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:t="clr-namespace:FaPA.GUI.Design.Templates">
+
+    <Grid Margin="2,2,2,2">
+
+        <Grid.Effect>
+            <DropShadowEffect Color="LightSteelBlue" Direction="280"/>
+        </Grid.Effect>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <GroupBox Header="Anagrafica" Grid.Row="0" Grid.Column="0"  Margin="2,2,2,2" Padding="2,2,2,2">
+
+            <Border BorderThickness="1" Margin="2,2,2,2" Padding="2,2,2,2" >
+
+                <Grid >
+
+                    <t:InstanceNullManager Grid.Row="0" Grid.ColumnSpan="4"
+                                           BindedInstance="{Binding CurrentPoco, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                           EmptyMessage="Nessuna scheda dati anagrafici è stata aggiunta"
+                                           ActionCommandMessage="Aggiungi una scheda dati anagrafici"
+                                           OnNullCommand="{Binding AddItemCommand}"
+                                           ActionCommandParam="DatiVettore"/>
+
+                    <Grid Grid.Row="0" Grid.ColumnSpan="5" 
+                          Visibility="{Binding CurrentPoco, Converter={StaticResource NullToVisibiltyConverter}}">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="45" />
+                            <RowDefinition Height="45" />
+                            <RowDefinition Height="45" />
+                            <RowDefinition Height="45" />
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel  Grid.Row="0" Grid.Column="0" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
+                            <TextBlock Text="Id Paese" />
+                            <TextBox   Text="{Binding CurrentPoco.DatiAnagrafici.IdFiscaleIVA.IdPaese, UpdateSourceTrigger=LostFocus}" 
+                                                            MaxLength="2"  Margin="2,0,2,0"/>
+                        </StackPanel>
+
+                        <StackPanel  Grid.Row="0" Grid.Column="1" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
+                            <TextBlock Text="Id codice" />
+                            <TextBox   Text="{Binding CurrentPoco.DatiAnagrafici.IdFiscaleIVA.IdCodice, UpdateSourceTrigger=LostFocus}" 
+                                                            MaxLength="28"
+                                                            Margin="2,0,2,0"/>
+                        </StackPanel>
+
+                        <StackPanel  Grid.Row="0" Grid.Column="2" Margin="2,0,2,0" Width="Auto"   HorizontalAlignment="Stretch" MinWidth="200">
+                            <TextBlock Text="Codice Fiscale" />
+                            <TextBox   Text="{Binding CurrentPoco.DatiAnagrafici.CodiceFiscale, UpdateSourceTrigger=LostFocus}" HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
+                        </StackPanel>
+
+                        <StackPanel  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
+                            <TextBlock Text="Denominazione" />
+                            <TextBox   Text="{Binding CurrentPoco.DatiAnagrafici.Anagrafica.Denominazione, UpdateSourceTrigger=LostFocus}" 
+                                                                MaxLength="80" HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
+                        </StackPanel>
+
+                        <StackPanel  Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
+                            <TextBlock Text="Cognome" />
+                            <TextBox   Text="{Binding CurrentPoco.DatiAnagrafici.Anagrafica.Cognome, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" 
+                                                            MaxLength="60" Margin="2,0,2,0"/>
+                        </StackPanel>
+
+                        <StackPanel  Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
+                            <TextBlock Text="Nome" />
+                            <TextBox   Text="{Binding CurrentPoco.DatiAnagrafici.Anagrafica.Nome, UpdateSourceTrigger=LostFocus}" 
+                                                            MaxLength="60" Margin="2,0,2,0"/>
+                        </StackPanel>
+
+                    </Grid>
+
+                </Grid>
+
+            </Border>
+
+
+        </GroupBox>
+
+        <t:SaveCancelRemoveButtons Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left"
+                                   Visibility="{Binding CurrentPoco, Converter={StaticResource NullToVisibiltyConverter}}"
+                                   SaveCommand="{Binding SaveEntity}"
+                                   PerformCancelCommand="{Binding PerformCancel}"/>
+
+    </Grid>
+
+</UserControl>

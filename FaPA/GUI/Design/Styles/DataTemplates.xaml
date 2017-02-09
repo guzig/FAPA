@@ -65,6 +65,14 @@
         <t1:Ritenuta/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type a:DatiRappresentanteFiscaleViewModel}">
+        <t1:DatiAnagrafici/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type a:DatiTerzoIntermediarioViewModel}">
+        <t1:DatiAnagrafici/>
+    </DataTemplate>
+
     <DataTemplate DataType="{x:Type a:TrasmittenteTabViewModel}">
         <t1:DatiTrasmittente/>
     </DataTemplate>

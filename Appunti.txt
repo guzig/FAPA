@@ -1,4 +1,7 @@
-combobox fattura
+
+	TerzoIntermediarioSoggettoEmittente[]
+	SoggettoEmittente
+
 
 Style
 bacckUp
@@ -9,60 +12,20 @@ totale fattura <-> totale documento
 
 remove getLazyInstnce
 
-
 lunghezza campi in validation
-
-
-SoggettoEmittente (SOLO SE TERZO EMITTENTE)
 
 descrizione enums
 
+VALIDAZIONE
 
 PROGRESSIVO INVIO
-RIEPILOGO IVA .. ALTRI DATI SE NATURA
+RIEPILOGO IVA .. 
 
 DatiTrasmissione by settings 
 
-ContattiTrasmittente
-
-FatturaElettronicaHeader
-	RappresentanteFiscale[]
-	TerzoIntermediarioSoggettoEmittente[]
-	SoggettoEmittente
-		
-FatturaElettronicaBody
-	DatiGenerali
-		FatturaPrincipale
-		DatiGeneraliDocumento
-        DatiGeneraliDocumentoType _datiGeneraliDocumentoField;
-        DatiDocumentiCorrelatiType[] _datiOrdineAcquistoField;
-        DatiDocumentiCorrelatiType[] _datiContrattoField;
-        DatiDocumentiCorrelatiType[] _datiConvenzioneField;
-        DatiDocumentiCorrelatiType[] _datiRicezioneField;
-        DatiDocumentiCorrelatiType[] _datiFattureCollegateField;
-
-	DatiBeniServizi
-
-		DatiSALType in details
-
-		DettaglioLinee
-		Allegati
-
-altri dati gestionali in dettaglio 
 
 RiferimentoAmministrazione
 
-valorizza da ultima fattura utente
-nuova fattura da fattura corrente
 
 
-		Text="{Binding DataFatturaDB, StringFormat='{}{0:d}', ValidatesOnDataErrors=True}"
 
-
-ribbon
-https://onedrive.live.com/?cid=bafa39a62a57009c&id=BAFA39A62A57009C!362
-http://prajeenkumar.blogspot.it/2013/06/creating-office-2010-style-minimize_8.html
-
-https://github.com/fluentribbon/Fluent.Ribbon/issues/73
-
-http://stackoverflow.com/questions/19498485/proper-validation-with-mvvm
