@@ -160,6 +160,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="GUI\Design\Templates\CrudFattura.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GUI\Design\Templates\DatiDocumento.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -420,6 +424,9 @@
     <Compile Include="GUI\Design\Converters\NullToVisibiltyConverter.cs" />
     <Compile Include="GUI\Design\Templates\Allegati.xaml.cs">
       <DependentUpon>Allegati.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Design\Templates\CrudFattura.xaml.cs">
+      <DependentUpon>CrudFattura.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\Design\Templates\DatiDocumento.xaml.cs">
       <DependentUpon>DatiDocumento.xaml</DependentUpon>
@@ -751,6 +758,7 @@
     <Content Include="fatturapa_v1.1.xsl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="GUI\Design\Styles\Images\report-icon.png" />
     <Content Include="nhibernate.cfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

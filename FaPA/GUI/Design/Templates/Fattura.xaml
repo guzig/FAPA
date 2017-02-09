@@ -16,20 +16,19 @@
         <Grid.RowDefinitions>
                 <RowDefinition Height="40" />
                 <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
                 <RowDefinition Height="2" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="80"/>
                 <ColumnDefinition Width="120"/>
                 <ColumnDefinition Width="120"/>
                 <ColumnDefinition Width="120"/>
-                <ColumnDefinition Width="120"/>
-                <ColumnDefinition Width="120"/>
-                <ColumnDefinition Width="120"/>
-                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="240"/>
                 <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
@@ -133,77 +132,20 @@
                           IsEnabled="False"/>
             </StackPanel>
         
-            <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="6"  Margin="2,0,2,0">
+            <StackPanel Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="2"  Margin="2,0,2,0">
                 <TextBlock Text="Note" />
                 <TextBox   Text="{Binding CurrentEntity.NoteDB, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus, NotifyOnSourceUpdated=True, NotifyOnValidationError=True}" 
                            HorizontalAlignment="Stretch" MaxLength="1000" TextWrapping="Wrap"/>
             </StackPanel>
                        
-            <GroupBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="8" Header="Dettagli fattura"  Margin="2,2,2,2" Padding="4,4,4,4"
+            <GroupBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="8" Header="Dettagli fattura"  Margin="2,2,2,2" Padding="4,4,4,4"
                       HorizontalAlignment="Stretch" Width="Auto" Height="Auto">
                 
                     <templates:DettagliFattura  />
             
             </GroupBox>
 
-            <Border Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2" Grid.Column="6" CornerRadius="3"  
-                    Margin="2,10,2,2"
-                    BorderBrush="CadetBlue" BorderThickness="1" VerticalAlignment="Stretch">
-                
-                <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
 
-                    <Button Name="ViewXmlIntoTreeView" Command="{Binding ShowXmlIntoTreeViewCommand}"
-                            Margin="2,5,5,5"
-                            ToolTip="Visualizzazione albero fattura pa" VerticalAlignment="Stretch"
-                           IsEnabled="{Binding Path=IsInEditing, Converter={StaticResource InverseBooleanConverter}}">
-
-                        <Image Source="/GUI/Design/Styles/Images/Flow Chart-48.png" />
-                    </Button>
-
-                    <Button Name="ViewXmlIntoBrowser" Command="{Binding ShowXmlIntoBrowserCommand}"
-                            Margin="1,5,5,5"
-                            ToolTip="Visualizzazione browser fattura pa" VerticalAlignment="Stretch"
-                           IsEnabled="{Binding Path=IsInEditing, Converter={StaticResource InverseBooleanConverter}}">
-
-                        <Image Source="/GUI/Design/Styles/Images/Flow Chart-48.png" />
-                    </Button>
-
-                    <Button Name="GeneraXml" Command="{Binding GenerateXmlStreamCommand}" 
-                            Margin="1,5,5,5"
-                            ToolTip="Genera fattura PA" VerticalAlignment="Stretch"
-                            IsEnabled="{Binding Path=IsInEditing, Converter={StaticResource InverseBooleanConverter}}">
-
-                        <Image Source="/GUI/Design/Styles/Images/Send File-48.png" />
-
-                    </Button>
-
-                </StackPanel>
-                
-                <!--<Button Name="Ritenuta" Command="{Binding AddRitenutaCommand}" VerticalAlignment="Stretch"
-                                ToolTip="Aggiungi una scheda ritenuta"  >
-
-                            <Image Source="/GUI/Design/Styles/Images/Files-New-File-icon.png" />
-                        </Button>
-
-                        <Button Name="Ordini" Command="{Binding AddOrdineCommand}" VerticalAlignment="Stretch"
-                                ToolTip="Aggiungi una scheda ordini"  >
-
-                            <Image Source="/GUI/Design/Styles/Images/Files-New-File-icon.png" />
-                        </Button>
-
-                        <Button Name="Contratto" Command="{Binding AddContrattoCommand}" VerticalAlignment="Stretch"
-                                ToolTip="Aggiungi una scheda contratto"  >
-
-                            <Image Source="/GUI/Design/Styles/Images/Files-New-File-icon.png" />
-                        </Button>
-
-                        <Button Name="Convenzione" Command="{Binding AddConvenzioneCommand}" VerticalAlignment="Stretch"
-                                ToolTip="Aggiungi una scheda convenzione"  >
-
-                            <Image Source="/GUI/Design/Styles/Images/Files-New-File-icon.png" />
-                        </Button>-->
-                    
-            </Border>
         
     </Grid>
     </Border>

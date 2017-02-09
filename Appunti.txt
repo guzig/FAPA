@@ -1,23 +1,19 @@
-ProgFile
+combobox fattura
+
 Style
 bacckUp
-pulsante copy new
+
+pulsante save in editfattura
 
 totale fattura <-> totale documento
 
 remove getLazyInstnce
 
-la validazione non avviene solo dopo un input sotto UI
-
-entity level validation
 
 lunghezza campi in validation
 
 
-trasmittente per ogni singola fattura... appena valorizzo AnagraficaCedenteDB se vuoto lo valorizzo 
-
-SoggettoEmittente (SOLO SE TERZO EMITTENTE) (scheda vuota valorizzata solo se...)
-
+SoggettoEmittente (SOLO SE TERZO EMITTENTE)
 
 descrizione enums
 

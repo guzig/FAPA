@@ -11,12 +11,35 @@ using NHibernate;
 using System.Linq;
 using FaPA.AppServices.CoreValidation;
 using FaPA.Core;
+using FaPA.Core.FaPa;
 using FaPA.Infrastructure;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
     public class EditFatturaViewModel : EditViewModel<Core.Fattura>
     {
+        public bool IsOfficialSent
+        {
+            get { return _isOfficialSent; }
+            set
+            {
+                if (value == _isOfficialSent) return;
+                _isOfficialSent = value;
+                NotifyOfPropertyChange(() => IsOfficialSent);
+            }
+        }
+
+        public bool IsOfficialSentEnabled
+        {
+            get { return _isOfficialSentEnabled; }
+            set
+            {
+                if (value == _isOfficialSentEnabled) return;
+                _isOfficialSentEnabled = value;
+                NotifyOfPropertyChange(() => IsOfficialSentEnabled);
+            }
+        }
+
         public bool IsCopyMode { get; set; } = false;
 
         private ICommand _addCopy;
@@ -113,6 +136,7 @@ namespace FaPA.GUI.Feautures.Fattura
 
         public override void CreateNewEntity()
         {
+
             if ( IsCopyMode )
             {
                 object copy = CurrentEntity.Copy();
@@ -160,14 +184,12 @@ namespace FaPA.GUI.Feautures.Fattura
         {
             base.OnPageGotFocus();
 
-            if ( DettagliFatturaViewModel == null )
-                InitFatturaTabs();
-            else
-                InitFatturaTabs();
+            InitFatturaTabs();
         }
 
         private void OnCurrentFatturaChanged(Core.Fattura currententity)
         {
+
             InitFatturaTabs();
 
             if (currententity == null || currententity.Id == 0)
@@ -185,6 +207,13 @@ namespace FaPA.GUI.Feautures.Fattura
         private void InitFatturaTabs()
         {
             var fattura = CurrentEntity;
+
+            var hasProg = fattura.DatiTrasmissione != null &&
+                ( string.IsNullOrWhiteSpace( fattura.DatiTrasmissione.ProgressivoInvio )  ||
+                 !string.IsNullOrWhiteSpace(fattura.DatiTrasmissione.ProgressivoInvio.Replace("0","") ) );
+
+            IsOfficialSent = hasProg;
+            IsOfficialSentEnabled = hasProg;
 
             DettagliFatturaViewModel = new DettagliFatturaViewModel(this, fattura.DatiBeniServizi );
             DettagliFatturaViewModel.Init();
@@ -281,6 +310,12 @@ namespace FaPA.GUI.Feautures.Fattura
             //fattura.SetTrasmittente();
             //}
 
+            if ( IsOfficialSent )
+            {
+                CurrentEntity.DatiTrasmissione.ProgressivoInvio = CurrentEntity.ProgFile.ToString("00000");
+                TrySaveCurrentEntity();
+                IsOfficialSentEnabled = false;
+            }
             string error = null;
             var folderPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
             var path = GetOutPath( folderPath );
@@ -399,6 +434,8 @@ namespace FaPA.GUI.Feautures.Fattura
 
         private Visibility _dettagliFatturaVisibility;
         private AllegatiViewModel _allegatiViewModel;
+        private bool _isOfficialSent;
+        private bool _isOfficialSentEnabled;
 
         public Visibility DettagliFatturaVisibility
         {

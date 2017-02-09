@@ -9,7 +9,11 @@
                     xmlns:u="clr-namespace:FaPA.GUI.Utils"
                     xmlns:l="clr-namespace:FaPA.GUI.Feautures.Anagrafica"
                     xmlns:fp="clr-namespace:FaPA.Core.FaPa">
-    
+
+    <DataTemplate DataType="{x:Type a:EditFatturaViewModel}">
+        <t1:CrudFattura/>
+    </DataTemplate>
+
     <DataTemplate DataType="{x:Type l:EditAnagraficaViewModel}">
         <ctrls:CRUDVM/>
     </DataTemplate>
@@ -56,9 +60,6 @@
         <t1:AltriDatiGrid />
     </DataTemplate>    
 
-    <DataTemplate DataType="{x:Type a:EditFatturaViewModel}">
-        <ctrls:CRUDVM/>
-    </DataTemplate>
 
     <DataTemplate DataType="{x:Type a:DatiRitenutaViewModel}">
         <t1:Ritenuta/>
