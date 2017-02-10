@@ -179,7 +179,7 @@ namespace FaPaTets.DbSetUp
                 {
                     CodUfficioPa = "EZ8816",
                     Denominazione = "Comune di Crucoli",
-                    CodiceFiscale = "00297210791",
+                    //CodiceFiscale = "00297210791",
                     PIva = "00297210791",
                     Comune = "Crucoli",
                     Cap = "88812",
@@ -192,7 +192,7 @@ namespace FaPaTets.DbSetUp
                 var anagraficaCedente = new Anagrafica()
                 {
                     Denominazione = "Comune di Isola di Capo Rizzuto",
-                    CodiceFiscale = "81004130795",
+                    //CodiceFiscale = "81004130795",
                     PIva = "01939480792",
                     Comune = "Isola di Capo Rizzuto",
                     Cap = "88841",
@@ -214,10 +214,18 @@ namespace FaPaTets.DbSetUp
                     Nazione = "IT",
                     Indirizzo = "Via Lombardia"
                 };
-                
+
+                var account = new UserData() { };
+                account.Role = TipoUtenteEnums.Administrators;
+
+                var username = "em";
+
+                account.SetCredentials( username, "zagot" );
+
                 session1.Save(anagraficaCedente);
                 session1.Save(anagraficaCommittente);
                 session1.Save(committente);
+                session1.Save( account );
 
                 tx.Commit();
             }

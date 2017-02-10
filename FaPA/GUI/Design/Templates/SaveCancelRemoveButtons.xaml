@@ -33,7 +33,7 @@
                 ToolTip="Aggiunge una nuova scheda"
                 Visibility="{Binding AddItemCommand, Converter={StaticResource NullToVisibiltyConverter}}">
 
-            <Image Source="/GUI/Design/Styles/Images/1343547225_file_add.png" Width="25"/>
+            <Image Source="\GUI\Design\Styles\Images\1343547225_file_add.png" Width="25"/>
 
         </Button>
 
@@ -42,7 +42,7 @@
                 ToolTip="Salva la scheda nel database"
                 Visibility="{Binding SaveCommand, Converter={StaticResource NullToVisibiltyConverter}}">
 
-            <Image Source="/GUI/Design/Styles/Images/save(1).png" Width="25"/>
+            <Image Source="\GUI\Design\Styles\Images\save(1).png" Width="25"/>
         </Button>
 
         <Button  Width="Auto" Grid.Column="3" Margin="2,0,0,0"       
@@ -50,7 +50,7 @@
                  ToolTip="Annulla le modifiche apportate"  
                  Visibility="{Binding PerformCancelCommand, Converter={StaticResource NullToVisibiltyConverter}}">
 
-            <Image Source="/GUI/Design/Styles/Images/cancel.png" Width="25"/>
+            <Image Source="\GUI\Design\Styles\Images\cancel.png" Width="25"/>
 
         </Button>
 
@@ -59,7 +59,7 @@
                 ToolTip="Elimina la scheda dal database"
                 Visibility="{Binding DeleteEntityCommand, Converter={StaticResource NullToVisibiltyConverter}}">
 
-            <Image Source="/GUI/Design/Styles/Images/delete(1).png" Width="25"/>
+            <Image Source="\GUI\Design\Styles\Images\delete(1).png" Width="25"/>
 
         </Button>
 

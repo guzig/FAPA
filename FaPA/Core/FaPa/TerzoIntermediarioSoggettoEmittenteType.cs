@@ -5,6 +5,16 @@ namespace FaPA.Core.FaPa
     [Serializable]
     public class TerzoIntermediarioSoggettoEmittenteType: BaseEntityFpa
     {
+        private SoggettoEmittenteType _soggettoEmittente;
+        public SoggettoEmittenteType SoggettoEmittente
+        {
+            get { return _soggettoEmittente; }
+            set
+            {
+                if ( value == _soggettoEmittente ) return;
+                _soggettoEmittente = value;
+            }
+        }
 
         private DatiAnagraficiTerzoIntermediarioType datiAnagraficiField;
 

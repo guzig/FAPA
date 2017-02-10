@@ -60,7 +60,7 @@ namespace FaPA.GUI.Feautures.Main
 
         private void UsersClick(object sender, RoutedEventArgs e)
         {
-            //Presenters.Show("User", new Action<GUI.Feautures.User.Presenter>(p => p.CreateNewModel(0)));
+            Presenters.Show("User", new Action<GUI.Feautures.User.Presenter>(p => p.CreateNewModel(0)));
         }
     }
 }

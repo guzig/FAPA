@@ -185,6 +185,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="GUI\Design\Templates\DatiAnagraficiTerzoIntermediario.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="GUI\Design\Templates\DatiDocumento.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -315,6 +319,7 @@
     <Compile Include="AppServices\CoreValidation\DatiTrasportoValidator.cs" />
     <Compile Include="AppServices\CoreValidation\IdFiscaleValidator.cs" />
     <Compile Include="AppServices\CoreValidation\IndirizzoValidator.cs" />
+    <Compile Include="AppServices\CoreValidation\NhUserDataValidator.cs" />
     <Compile Include="AppServices\CoreValidation\ScontoMaggiorazioneValidator.cs" />
     <Compile Include="AppServices\CoreValidation\NhAnagraficaValidator.cs" />
     <Compile Include="AppServices\CoreValidation\BaseCoreValidator.cs" />
@@ -446,6 +451,7 @@
     <Compile Include="Data\PropertyPathExtensions.cs" />
     <Compile Include="Data\FatturaMap.cs" />
     <Compile Include="Data\ModelMapperWithNamingConventions.cs" />
+    <Compile Include="Data\ValidationMaps\UserDataSofValidation.cs" />
     <Compile Include="Data\_NotifyPropertyChangedInterceptor.cs" />
     <Compile Include="DomainServices\AuthenticationServices\AnonymousIdentity.cs" />
     <Compile Include="DomainServices\AuthenticationServices\AuthenticationService.cs" />
@@ -481,6 +487,9 @@
     </Compile>
     <Compile Include="GUI\Design\Templates\CrudFattura.xaml.cs">
       <DependentUpon>CrudFattura.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Design\Templates\DatiAnagraficiTerzoIntermediario.xaml.cs">
+      <DependentUpon>DatiAnagraficiTerzoIntermediario.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\Design\Templates\DatiDocumento.xaml.cs">
       <DependentUpon>DatiDocumento.xaml</DependentUpon>
@@ -538,10 +547,14 @@
     <Compile Include="GUI\Feautures\Fattura\DatiConvenzioneTabViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\UniqueFatturaValidationRule.cs" />
     <Compile Include="GUI\Feautures\Fattura\FatturaListViewModel.cs" />
+    <Compile Include="GUI\Feautures\LogInManager\Model.cs" />
+    <Compile Include="GUI\Feautures\LogInManager\Presenter.cs" />
+    <Compile Include="GUI\Feautures\LogInManager\View.xaml.cs" />
     <Compile Include="GUI\Feautures\LogIn\AuthenticationServiceLocator.cs" />
     <Compile Include="GUI\Feautures\LogIn\Model.cs" />
     <Compile Include="GUI\Feautures\LogIn\Presenter.cs" />
     <Compile Include="GUI\Feautures\LogIn\View.xaml.cs" />
+    <Compile Include="GUI\Feautures\User\UserListViewModel.cs" />
     <Compile Include="GUI\Feautures\User\EditUserViewModel.cs" />
     <Compile Include="GUI\Feautures\User\Model.cs" />
     <Compile Include="GUI\Feautures\User\Presenter.cs" />
@@ -726,6 +739,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="GUI\Feautures\LogInManager\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="GUI\Feautures\LogIn\View.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -853,6 +870,8 @@
     </Content>
     <Resource Include="GUI\Design\Styles\Images\report-icon.png" />
     <Resource Include="GUI\Design\Styles\Images\preferences_desktop_user_password.ico" />
+    <Resource Include="GUI\Design\Styles\Images\1462459533_backup-restore.ico" />
+    <Resource Include="GUI\Design\Styles\Images\1462461626_users.ico" />
     <Content Include="nhibernate.cfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

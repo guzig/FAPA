@@ -26,13 +26,13 @@ namespace FaPA.GUI.Feautures.Fattura
             var entity = poco as DatiGeneraliType;
             if ( entity == null ) return;
 
-            HookChanged( entity );
+            base.HookChanged( entity );
 
             if ( entity.DatiDDT == null ) return;
 
             foreach ( var dettaglio in entity.DatiDDT )
             {
-                HookChanged( dettaglio );
+                base.HookChanged( dettaglio );
             }
         }
 

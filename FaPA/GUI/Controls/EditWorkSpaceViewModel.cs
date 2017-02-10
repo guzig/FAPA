@@ -308,7 +308,7 @@ namespace FaPA.GUI.Controls
         public delegate void OnCurrentChangedhandler(object sender, PropertyChangedEventArgs eventArg);
         public event OnCurrentChangedhandler CurrentEntityChanged;
 
-        private void OnCurrentChanged(object sender, PropertyChangedEventArgs eventArg)
+        protected void OnCurrentChanged(object sender, PropertyChangedEventArgs eventArg)
         {
             var handler = CurrentEntityChanged;
             handler?.Invoke(sender, eventArg);

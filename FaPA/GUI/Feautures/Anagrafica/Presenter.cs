@@ -121,7 +121,7 @@ namespace FaPA.GUI.Feautures.Anagrafica
 
         }
 
-        public void OnSearch()
+        private void OnSearch()
         {
             const string presenterName = "SearchAnagrafica";
             var presenter = Presenters.CreateInstance(presenterName, null) as SearchAnagrafica.Presenter;

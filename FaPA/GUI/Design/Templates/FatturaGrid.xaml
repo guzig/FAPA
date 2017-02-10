@@ -146,7 +146,7 @@
                     Command="{Binding Presenter.OnGridEmptyCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
                     ToolTip="Crea una nuova oggetto">
 
-                <Image Source="/GUI/Design/Styles/Images/1343547225_file_add.png"
+                <Image Source="\GUI\Design\Styles\Images\1343547225_file_add.png"
                        
                        Width="32"/>
             </Button>
@@ -156,7 +156,7 @@
                     ToolTip="Apre la scheda dettaglio oggetto" 
                     Width="25">
 
-                <Image Source="/GUI/Design/Styles/Images/find(2).png"
+                <Image Source="\GUI\Design\Styles\Images\find(2).png"
                        Width="Auto"/>
             </Button>
 

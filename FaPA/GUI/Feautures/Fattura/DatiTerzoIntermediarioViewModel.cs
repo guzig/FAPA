@@ -6,18 +6,7 @@ namespace FaPA.GUI.Feautures.Fattura
 {
     public class DatiTerzoIntermediarioViewModel : EditWorkSpaceViewModel<Core.Fattura, TerzoIntermediarioSoggettoEmittenteType>
     {
-        private SoggettoEmittenteType _soggettoEmittenteType;
-        public SoggettoEmittenteType SoggettoEmittenteType
-        {
-            get { return _soggettoEmittenteType; }
-            set
-            {
-                if ( value == _soggettoEmittenteType ) return;
-                _soggettoEmittenteType = value;
-                Instance.FatturaElettronicaHeader.SoggettoEmittente = _soggettoEmittenteType;
-                NotifyOfPropertyChange( () => SoggettoEmittenteType );
-            }
-        }
+
 
         //ctor
         public DatiTerzoIntermediarioViewModel( IRepository repository, Core.Fattura instance ) :
@@ -26,19 +15,24 @@ namespace FaPA.GUI.Feautures.Fattura
             IsCloseable = false;
         }
 
+        protected override void PersitEntity()
+        {
+            Instance.FatturaElettronicaHeader.SoggettoEmittente = 
+                ( ( TerzoIntermediarioSoggettoEmittenteType  ) CurrentPoco).SoggettoEmittente;
+
+            base.PersitEntity();
+        }
+
         protected override void HookChanged( object poco )
         {
             var entity = poco as TerzoIntermediarioSoggettoEmittenteType;
-            if ( entity == null ) return;
 
-            HookChanged( entity );
+            if ( entity?.DatiAnagrafici == null ) return;
 
-            if ( entity.DatiAnagrafici == null ) return;
-
-            HookChanged( entity );
-            HookChanged( entity.DatiAnagrafici );
-            HookChanged( entity.DatiAnagrafici.Anagrafica );
-            HookChanged( entity.DatiAnagrafici.IdFiscaleIVA );
+            base.HookChanged( entity );
+            base.HookChanged( entity.DatiAnagrafici );
+            base.HookChanged( entity.DatiAnagrafici.Anagrafica );
+            base.HookChanged( entity.DatiAnagrafici.IdFiscaleIVA );
         }
 
         protected override object CreateInstance()

@@ -38,13 +38,13 @@
 
             <Button Name="Delete" Command="{Binding DeleteEntityCommand}"                        
                     ToolTip="Elimina definitivamente l'oggetto dal database" >
-                <Image Source="/GUI/Design/Styles/Images/delete(1).png" Width="25"/>
+                <Image Source="\GUI\Design\Styles\Images\delete(1).png" Width="25"/>
             </Button>
 
             <Button Name="CreateNew" Command="{Binding Path=AddNewEntity}"
                     ToolTip="Crea nuovo oggetto"  IsEnabled="{Binding Path=AllowInsertNewEntity}">
                 
-                <Image Source="/GUI/Design/Styles/Images/1343547225_file_add.png" Width="25"/>
+                <Image Source="\GUI\Design\Styles\Images\1343547225_file_add.png" Width="25"/>
                 
             </Button>
 
@@ -52,14 +52,14 @@
                     ToolTip="Salva le modifiche apportate all'oggetto"
                     Width="Auto" IsEnabled="{Binding AllowSave}">
 
-                <Image Source="/GUI/Design/Styles/Images/save(1).png" Width="25"/>
+                <Image Source="\GUI\Design\Styles\Images\save(1).png" Width="25"/>
             </Button>
 
             <Button Name="Cancel" Command="{Binding PerformCancel}"                           
                     ToolTip="Annulla le modifiche apportate"
                     Width="25" HorizontalAlignment="Left" IsEnabled="{Binding Path=IsInEditing}">
 
-                <Image Source="/GUI/Design/Styles/Images/cancel.png" Width="25"/>
+                <Image Source="\GUI\Design\Styles\Images\cancel.png" Width="25"/>
 
             </Button>
 
@@ -74,7 +74,7 @@
                     Command="{Binding Path=Presenter.Search, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"   
                     Width="Auto" HorizontalAlignment="Left">
 
-                <Image Source="/GUI/Design/Styles/Images/1351794424_file_search.png"
+                <Image Source="\GUI\Design\Styles\Images\1351794424_file_search.png"
                        Width="25"/>
                 <xctk:SplitButton.DropDownContent>
                     <Border  Background="CornflowerBlue" >
@@ -95,7 +95,7 @@
                     ToolTip= "Abilita la modalità ricerca immediata sul posto (tasto scorciatoia: F9)&#x0a;Per eseguire la ricerca, dopo aver abilitato la ricerca immediata ed aver immesso i dati, premere Ctrl-Invio"
                     Width="25" HorizontalAlignment="Left" IsEnabled="{Binding AllowFastSearch}">
 
-                <Image Source="/GUI/Design/Styles/Images/find.png" Width="32"/>
+                <Image Source="\GUI\Design\Styles\Images\find.png" Width="32"/>
 
             </Button>
 

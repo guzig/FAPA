@@ -19,65 +19,25 @@
 
         <Ribbon x:Name="Ribbon" IsMinimized="True">
             <Ribbon.ApplicationMenu>
-                <RibbonApplicationMenu KeyTip="Z" SmallImageSource="\GUI/Design/Styles/Images/Circled Chevron Down-26.png">
+                <RibbonApplicationMenu KeyTip="Z" SmallImageSource="\GUI\Design\Styles\Images\Circled Chevron Down-26.png">
 
                     <!--<RibbonApplicationMenuItem Header="Fatture recenti" 
-                                               ImageSource="\GUI/Design/Styles/Images\List_bullets.png" 
+                                               ImageSource="/GUI/Design/Styles/Images\List_bullets.png" 
                                                KeyTip="R">
                         <RibbonComboBox Label="Recenti" 
                                         IsEditable="True" IsTextSearchEnabled="True" IsTextSearchCaseSensitive="False"
-                                        SmallImageSource="\GUI/Design/Styles/Images\1351794424_file_search.png" 
+                                        SmallImageSource="/GUI/Design/Styles/Images\1351794424_file_search.png" 
                                         ItemsSource="{Binding Path=FolderItems}" />
 
                         
                     </RibbonApplicationMenuItem>-->
 
-                    <RibbonTab Header="Configurazione e gestione" KeyTip="G">
-
-                        <RibbonGroup Header="Copia e ripristino"  >
-                            <RibbonButton Height="Auto" 
-                                  LargeImageSource="/GUI/Design/Styles/Images/1462459533_backup-restore.ico"
-                                Label="Copia e ripristino banca dati" KeyTip="B"
-                                ToolTipTitle="Crea o ripristina una copia della banca dati"
-                                ToolTipDescription="Permette di creare o ripristinare una copia della banca dati"
-                                IsEnabled="{Binding IsAdministrator}"
-                                Click="BackUpAndRestoreClick"/>
-                        </RibbonGroup>
-
-                        <RibbonGroup Header="Operatori"  >
-                            <RibbonButton Height="Auto" 
-                                  LargeImageSource="/GUI/Design/Styles/Images/1462461626_users.ico"
-                                Label="Gestione operatori" KeyTip="O"
-                                ToolTipTitle="Gestione operatori"
-                                ToolTipDescription="Configurazione operatori con privilegi di accesso e gestione"
-                                Click="UsersClick"/>
-                        </RibbonGroup>
-
-                        <RibbonGroup Header="Password utente corrente" 
-                             VerticalAlignment="Center"
-                             VerticalContentAlignment="Center"
-                             HorizontalContentAlignment="Center"
-                             HorizontalAlignment="Center">
-                            <RibbonButton Height="Auto" 
-                                   VerticalAlignment="Center"
-                             VerticalContentAlignment="Center"
-                             HorizontalContentAlignment="Center"
-                             HorizontalAlignment="Center"
-                                  LargeImageSource="/GUI/Design/Styles/Images/preferences_desktop_user_password.ico"
-                                Label="Cambio password utente corrente" KeyTip="U"
-                                ToolTipTitle="Cambio password utente corrente"
-                                ToolTipDescription="Cambio password utente corrente"
-                                Click="ChangePasswordClick"/>
-                        </RibbonGroup>
-
-                    </RibbonTab>
-
                     <RibbonApplicationMenuItem Header="Esci" 
-                                               ImageSource="\GUI/Design/Styles/Images\gnome_panel_force_quit.png"  
+                                               ImageSource="/GUI/Design/Styles/Images\gnome_panel_force_quit.png"  
                                                Click="RibbonApplicationMenuItem_Click"
                                                KeyTip="X">
 
-                        <!--<RibbonButton LargeImageSource="\GUI/Design/Styles/Images\gnome_panel_force_quit.png" 
+                        <!--<RibbonButton LargeImageSource="/GUI/Design/Styles/Images\gnome_panel_force_quit.png" 
                                           Label="Esci" KeyTip="X"
                                           HorizontalAlignment="Right"
                                           Click="RibbonButton_Click" />-->
@@ -95,10 +55,10 @@
                             </Grid.ColumnDefinitions>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Column="0">
                                 <RibbonButton Content="Info" 
-                                              SmallImageSource="\GUI/Design/Styles/Images\info_box_blue.png" 
+                                              SmallImageSource="/GUI/Design/Styles/Images\info_box_blue.png" 
                                               Click="RibbonButton_Click"/>
                             </StackPanel>
-                            <!--<RibbonButton SmallImageSource="\GUI/Design/Styles/Images\gnome_panel_force_quit.png" 
+                            <!--<RibbonButton SmallImageSource="/GUI/Design/Styles/Images\gnome_panel_force_quit.png" 
                                           Label="Esci" KeyTip="X"
                                           HorizontalAlignment="Right" Grid.Column="2" 
                                           Click="RibbonButton_Click" />-->
@@ -108,7 +68,7 @@
                     <!--<RibbonApplicationMenu.AuxiliaryPaneContent>
                         <RibbonComboBox Label="Recenti" 
                                         IsEditable="True" IsTextSearchEnabled="True" IsTextSearchCaseSensitive="False"
-                                        SmallImageSource="\GUI/Design/Styles/Images\1351794424_file_search.png" 
+                                        SmallImageSource="/GUI/Design/Styles/Images\1351794424_file_search.png" 
                                         ItemsSource="{Binding Path=FolderItems}" />
                     </RibbonApplicationMenu.AuxiliaryPaneContent>-->
                 </RibbonApplicationMenu>
@@ -116,37 +76,37 @@
             
             <RibbonTab Header="Archivi" KeyTip="A">
                 <RibbonGroup Header="Anagrafiche">
-                    <RibbonButton LargeImageSource="\GUI/Design/Styles/Images\UserSilhouette.png"
+                    <RibbonButton LargeImageSource="/GUI/Design/Styles/Images\UserSilhouette.png"
                                 Label="Apri" 
                                 ToolTipTitle="Archivio anagrafiche fornitori e committenti"
                                 ToolTipDescription="Visualizza l'archivio anagrafiche fornitori e committenti"
                                 Click="ApriAnagrafiche"/>
 
-                    <!--<RibbonButton LargeImageSource="\GUI/Design/Styles/Images\find(2).png"
+                    <!--<RibbonButton LargeImageSource="/GUI/Design/Styles/Images\find(2).png"
                                     Label="Cerca" Click="CercaAnagrafiche"
                                     ToolTipTitle="Apre la finestra di ricerca estesa"
                                     ToolTipDescription="Apre la finestra di ricerca estesa"/>-->
 
                     <!--<RibbonSplitButton Label="Nuovo" 
-                                       LargeImageSource="\GUI/Design/Styles/Images\1343547225_file_add.png">
+                                       LargeImageSource="/GUI/Design/Styles/Images\1343547225_file_add.png">
                         <RibbonMenuItem Header="Anagrafica" />
                         <RibbonMenuItem Header="Anagrafica" />
                     </RibbonSplitButton>-->
                 </RibbonGroup>
 
                 <RibbonGroup Header="Fatture" >
-                    <RibbonButton LargeImageSource="\GUI/Design/Styles/Images\fpa.jpg"
+                    <RibbonButton LargeImageSource="/GUI/Design/Styles/Images\fpa.jpg"
                                 Label="Apri" KeyTip="F"
                                 ToolTipTitle="Archivio anagrafiche fatture"
                                 ToolTipDescription="Visualizza l'archivio fatture"
                                 Click="ApriFatture"/>
 
-                    <!--<RibbonButton LargeImageSource="\GUI/Design/Styles/Images\find(2).png"
+                    <!--<RibbonButton LargeImageSource="/GUI/Design/Styles/Images\find(2).png"
                                     Label="Cerca" KeyTip="1" Click="CercaFatture"
                                     ToolTipTitle="Apre la finestra di ricerca estesa fatture"
                                     ToolTipDescription="Apre la finestra di ricerca estesa fatture"/>-->
 
-                    <!--<RibbonButton LargeImageSource="\GUI/Design/Styles/Images\1343547225_file_add.png"
+                    <!--<RibbonButton LargeImageSource="/GUI/Design/Styles/Images\1343547225_file_add.png"
                                     Label="Nuova fattura" KeyTip="2"
                                     ToolTipTitle="Nuova fattura"
                                     ToolTipDescription="Nuova fattura"/>-->
@@ -155,15 +115,55 @@
 
             </RibbonTab>
 
+            <RibbonTab Header="Configurazione e gestione" KeyTip="G">
+
+                <RibbonGroup Header="Copia e ripristino"  >
+                    <RibbonButton Height="Auto" 
+                                  LargeImageSource="\GUI\Design\Styles\Images\1462459533_backup-restore.ico"
+                                Label="Copia e ripristino banca dati" KeyTip="B"
+                                ToolTipTitle="Crea o ripristina una copia della banca dati"
+                                ToolTipDescription="Permette di creare o ripristinare una copia della banca dati"
+                                IsEnabled="{Binding IsAdministrator}"
+                                Click="BackUpAndRestoreClick"/>
+                </RibbonGroup>
+
+                <RibbonGroup Header="Operatori"  >
+                    <RibbonButton Height="Auto" 
+                                  LargeImageSource="\GUI\Design\Styles\Images\1462461626_users.ico"
+                                Label="Gestione operatori" KeyTip="O"
+                                ToolTipTitle="Gestione operatori"
+                                ToolTipDescription="Configurazione operatori con privilegi di accesso e gestione"
+                                Click="UsersClick"/>
+                </RibbonGroup>
+
+                <RibbonGroup Header="Password utente corrente" 
+                             VerticalAlignment="Center"
+                             VerticalContentAlignment="Center"
+                             HorizontalContentAlignment="Center"
+                             HorizontalAlignment="Center">
+                    <RibbonButton Height="Auto" 
+                                   VerticalAlignment="Center"
+                             VerticalContentAlignment="Center"
+                             HorizontalContentAlignment="Center"
+                             HorizontalAlignment="Center"
+                                  LargeImageSource="\GUI\Design\Styles\Images\preferences_desktop_user_password.ico"
+                                Label="Cambio password utente corrente" KeyTip="U"
+                                ToolTipTitle="Cambio password utente corrente"
+                                ToolTipDescription="Cambio password utente corrente"
+                                Click="ChangePasswordClick"/>
+                </RibbonGroup>
+
+            </RibbonTab>
+
             <RibbonTab Header="Opzioni" KeyTip="O">
                 <RibbonGroup Header="Impostazioni e opzioni">
-                    <RibbonButton LargeImageSource="\GUI/Design/Styles/Images\Actions-system-run-icon.png"
+                    <RibbonButton LargeImageSource="/GUI/Design/Styles/Images\Actions-system-run-icon.png"
                                 Label="Settings Folder" 
                                 ToolTipTitle="Settings Folder"
                                 ToolTipDescription="Helps you change settings of the folder and also allows you to change certain system settings"
                                 Click="RibbonButton_Click"/>
 
-                    <RibbonButton SmallImageSource="\GUI/Design/Styles/Images\Settings.ico"
+                    <RibbonButton SmallImageSource="/GUI/Design/Styles/Images\Settings.ico"
                                          Label="Config" 
                                          ToolTipTitle="Configuration Settings"
                                          ToolTipDescription="ttings for the current selection"/>
@@ -172,7 +172,7 @@
             </RibbonTab>
 
             <!--<RibbonTab Header="Esci" KeyTip="X" >
-                <RibbonButton LargeImageSource="\GUI/Design/Styles/Images\gnome_panel_force_quit.png" 
+                <RibbonButton LargeImageSource="/GUI/Design/Styles/Images\gnome_panel_force_quit.png" 
                                           Label="Esci" KeyTip="X"
                                           HorizontalAlignment="Right"
                                           Click="RibbonButton_Click" />
@@ -188,7 +188,7 @@
             <Ribbon.QuickAccessToolBar>
                 <RibbonQuickAccessToolBar HorizontalAlignment="Right">
 
-                    <RibbonGroup SmallImageSource="\GUI/Design/Styles/Images\Actions-system-run-icon.png">
+                    <RibbonGroup SmallImageSource="/GUI/Design/Styles/Images\Actions-system-run-icon.png">
                         <RibbonCheckBox Label="Minimizza menù" />
                     </RibbonGroup>
 
@@ -198,7 +198,7 @@
             <!-- Ribbon Context Menu-->
             <!--<Ribbon.ContextMenu>
                 <RibbonContextMenu>
-                    <RibbonMenuButton SmallImageSource="\GUI/Design/Styles/Images\Chart-pie-icon.png"  
+                    <RibbonMenuButton SmallImageSource="/GUI/Design/Styles/Images\Chart-pie-icon.png"  
                                       Label="Special ContextMenu Option" />
                 </RibbonContextMenu>
             </Ribbon.ContextMenu>-->

@@ -24,10 +24,10 @@ namespace FaPA.GUI.Feautures.Fattura
 
             if ( entity.DatiAnagrafici == null ) return;
 
-            HookChanged( entity );
-            HookChanged( entity.DatiAnagrafici );
-            HookChanged( entity.DatiAnagrafici.Anagrafica );
-            HookChanged( entity.DatiAnagrafici.IdFiscaleIVA );
+            base.HookChanged( entity );
+            base.HookChanged( entity.DatiAnagrafici );
+            base.HookChanged( entity.DatiAnagrafici.Anagrafica );
+            base.HookChanged( entity.DatiAnagrafici.IdFiscaleIVA );
 
         }
 

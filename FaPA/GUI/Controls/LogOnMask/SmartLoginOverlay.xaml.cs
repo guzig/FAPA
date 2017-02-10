@@ -179,7 +179,7 @@ namespace FaPA.GUI.Controls.LogOnMask
 				}
 				else
 				{
-					this.imgUser.Source = new BitmapImage( new Uri( "/Design/Styles/Images/lightbulb-icon-39x39.png", UriKind.Relative ) );
+					this.imgUser.Source = new BitmapImage( new Uri( "/Design/Styles/Images/fpa.png", UriKind.Relative ) );
 				}
 			}
 			catch (Exception ex)

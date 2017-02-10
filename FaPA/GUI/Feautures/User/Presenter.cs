@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -97,36 +96,32 @@ namespace FaPA.GUI.Feautures.User
             SetUpModel(entities);
         }
 
-        //private void CreateNewModel(IList searchResult)
-        //{
-        //    var entitiesdto = new ObservableCollection<UserData>(
-        //        Mapper.Map<IEnumerable<UserData>, IEnumerable<UserData>>(
-        //            searchResult.Cast<UserData>().ToList()));
+        private void CreateNewModel( IList searchResult )
+        {
+            var entitiesdto = new ObservableCollection<UserData>(
+                searchResult.Cast<UserData>().ToList() );
 
-        //    if (IsIncrementalSearch())
-        //    {
-        //        foreach (var userEntity in Model.UserEntities.Cast<UserData>()
-        //            .Where(userEntity => !entitiesdto.Contains(userEntity)))
-        //        {
-        //            entitiesdto.Add(userEntity);
-        //        }
+            if ( IsIncrementalSearch() )
+            {
+                foreach ( var userEntity in Model.UserEntities.Cast<UserData>()
+                    .Where( userEntity => !entitiesdto.Contains( userEntity ) ) )
+                {
+                    entitiesdto.Add( userEntity );
+                }
 
-        //    }
-        //    Model.UserEntities = entitiesdto;
-        //    Model.UserCollectionView = CollectionViewSource.GetDefaultView(Model.UserEntities);
-        //    var viewModel = Model.EditViewModel as IEditViewModel;
-        //    viewModel.SetUpCollectionView(Model.UserEntities, Model.UserCollectionView);
-        //}
+            }
+            Model.UserEntities = entitiesdto;
+            Model.UserCollectionView = CollectionViewSource.GetDefaultView( Model.UserEntities );
+
+        }
 
         public override void CreateNewModel(int activeTab)
         {
-            Model = new Model();
             IsBusy = true;
-
-            var entities = GetExeCriteria<UserData>( QueryCriteria );
-            Model.UserEntities = (IList) entities;
-            Model.UserCollectionView = CollectionViewSource.GetDefaultView(Model.UserEntities);
-            //CreateNewModel("Utenti", activeTab, Model.UserCollectionView);
+            var entities = GetExeCriteria<Core.UserData>( QueryCriteria );
+            var entitiesdto = entities == null ? new ObservableCollection<Core.UserData>()
+                : new ObservableCollection<Core.UserData>( entities );
+            SetUpNewModel( 0, entitiesdto );
             IsBusy = false;
         }
 

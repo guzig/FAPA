@@ -26,14 +26,14 @@ namespace FaPA.GUI.Feautures.Fattura
         {
             var entity = poco as DatiPagamentoType;
             if ( entity == null ) return;
-            
-            HookChanged( entity );
+
+            base.HookChanged( entity );
 
             if ( entity.DettaglioPagamento == null ) return;
 
             foreach ( var dettaglio in entity.DettaglioPagamento )
             {
-                HookChanged(dettaglio);
+                base.HookChanged(dettaglio);
             }
         }
 

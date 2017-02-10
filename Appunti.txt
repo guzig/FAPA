@@ -1,6 +1,9 @@
+validator terzo, rapprm other
 
-	TerzoIntermediarioSoggettoEmittente[]
-	SoggettoEmittente
+
+validazione
+
+ricerca style
 
 	dettaglio fattura style
 

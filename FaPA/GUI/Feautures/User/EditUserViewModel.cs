@@ -10,18 +10,12 @@ namespace FaPA.GUI.Feautures.User
 {  
     public class EditUserViewModel : EditViewModel<UserData>
     {
-        //public EditUserViewModel(IBasePresenter baseCrudPresenter, IList userEntities, 
-        //    ICollectionView userCollectionView, ISession session)
-        //    : base(baseCrudPresenter, typeof(UserData))
-        //{
-        //    SetUpCollectionView(userEntities, userCollectionView);
-        //    SetUpSession(session, null);
-        //}
+        public override string EditTemplateName => "UserTemplate";
+
         public EditUserViewModel(IBasePresenter baseCrudPresenter, IList userEntities, 
-            ICollectionView userCollectionView) : base(baseCrudPresenter, userEntities, userCollectionView)
+            ICollectionView userCollectionView, ISession session) : base(baseCrudPresenter, userEntities, userCollectionView)
         {
-                //SetUpCollectionView(userEntities, userCollectionView);
-                //SetUpSession(session, null);
+                SetUpSession(session, null);
         }
 
         public override void PublishAddedNewEntityEvent(BaseEntity dto)

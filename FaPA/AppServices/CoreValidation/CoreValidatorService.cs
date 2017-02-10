@@ -23,7 +23,9 @@ namespace FaPA.AppServices.CoreValidation
             { typeof ( ScontoMaggiorazioneType ), new ScontoMaggiorazioneValidator() },
             { typeof ( DettaglioLineeType ), new DettaglioLineeValidator() },
             { typeof ( Anagrafica ), new NhCommittenteValidator() },
-            { typeof ( Fattura ), new NhFatturaValidator() }
+            { typeof ( Fattura ), new NhFatturaValidator() },
+            { typeof ( UserData ), new NhUserDataValidator() }
+            
         };
 
         public static DomainResult Validate( object instance )

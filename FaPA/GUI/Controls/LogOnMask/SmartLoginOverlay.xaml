@@ -64,7 +64,7 @@
 			</Grid.RenderTransform>
 
 			<Border Grid.RowSpan="3" BorderThickness="1" VerticalAlignment="Top" Margin="0,20,0,0">
-                <Image x:Name="imgUser" Source="/Design/Styles/Images/lightbulb-icon-39x39.png" MaxHeight="150" />
+                <Image x:Name="imgUser" Source="/GUI/Design/Styles/Images/fpa.jpg" MaxHeight="150" />
 			</Border>
 
 			<StackPanel Grid.Row="0" Grid.Column="1" Margin="0,20,0,0">
@@ -109,7 +109,7 @@
 							Margin="12,18,12,5" >
                 <Image DockPanel.Dock="Right" Margin="2,0,0,0" Height="64" Width="64"
                         ToolTip="Credenziali di accesso non valide"
-					 Source="/GUI/Design/Styles/Images/ValidationError.png" />
+					 Source="\GUI\Design\Styles\Images\ValidationError.png" />
                 
                 <TextBlock x:Name="tblNoCredentialsMessage" Padding="0" FontSize="10" FontFamily="Segoe UI"
 								Foreground="WhiteSmoke" Width="200" TextWrapping="Wrap" SnapsToDevicePixels="True"

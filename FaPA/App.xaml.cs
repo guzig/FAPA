@@ -1,6 +1,10 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Markup;
+using FaPA.AppServices;
+using FaPA.DomainServices.AuthenticationServices;
+using FaPA.GUI.Utils;
 using FaPA.Infrastructure;
 
 namespace FaPA
@@ -24,11 +28,23 @@ namespace FaPA
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            base.OnStartup(e);
+            if ( StoreAccess.IsServerConnected() )
+                BootStrapper.Initialize();
+            else
+            {
+                const string caption = "Fattura PA: servizio database Sql Server non raggiungibile";
+                string msg = "Il servizio di database di MS Sql Server, sull'istanza PAWARE, non è stato rilevato. " + Environment.NewLine +
+                             "L'applicazione verrà terminata.";
+                Xceed.Wpf.Toolkit.MessageBox.Show( msg, caption, MessageBoxButton.OK, MessageBoxImage.Hand );
+                Application.Current.Shutdown();
+            }
 
-            //AppDomain.CurrentDomain.SetThreadPrincipal(new CustomPrincipal());
+            ShowCursor.Show();
+            base.OnStartup( e );
 
-            Presenters.Show("Main");
+            AppDomain.CurrentDomain.SetThreadPrincipal( new CustomPrincipal() );
+            Presenters.Show( "Main" );
+
 
             //Presenters.Show("Anagrafica", new Action<GUI.Feautures.Anagrafica.Presenter>(p => p.CreateNewModel(0)));
             //Presenters.Show("Fattura", new Action<GUI.Feautures.Fattura.Presenter>(p => p.CreateNewModel(0)));

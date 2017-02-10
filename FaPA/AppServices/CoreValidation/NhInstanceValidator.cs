@@ -10,8 +10,12 @@ namespace FaPA.AppServices.CoreValidation
     /// </summary>
     public abstract class NhInstanceValidator : NhValidator
     {
+        private readonly IEnumerable<string> _itemLevelValidationGroup = new List<string>();
 
-        protected abstract IEnumerable<string> ItemLevelValidationGroup { get; }
+        protected virtual IEnumerable<string> ItemLevelValidationGroup
+        {
+            get { return _itemLevelValidationGroup; }
+        }
 
         public override IDictionary<string, IEnumerable<string>> GetValidationErrors( string columnName, object instance )
         {

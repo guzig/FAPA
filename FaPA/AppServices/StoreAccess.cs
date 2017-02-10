@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Data.SqlClient;
+using FaPA.GUI.Utils;
 using FaPA.Properties;
 
 namespace FaPA.AppServices
@@ -93,6 +95,28 @@ namespace FaPA.AppServices
                     default:
                         return "empwr";
                 }
+            }
+        }
+
+        /// <summary>
+        /// Test that the server is connected
+        /// </summary>
+        /// <param name="connectionString">The connection string</param>
+        /// <returns>true if the connection is opened</returns>
+        public static bool IsServerConnected()
+        {
+            ShowCursor.Show();
+            try
+            {
+                using ( var connection = new SqlConnection( ConnString ) )
+                {
+                    connection.Open();
+                    return true;
+                }
+            }
+            catch ( SqlException )
+            {
+                return false;
             }
         }
     }

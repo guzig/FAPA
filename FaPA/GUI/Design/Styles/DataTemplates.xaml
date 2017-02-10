@@ -8,11 +8,8 @@
                     xmlns:ctrls="clr-namespace:FaPA.GUI.Controls"
                     xmlns:u="clr-namespace:FaPA.GUI.Utils"
                     xmlns:l="clr-namespace:FaPA.GUI.Feautures.Anagrafica"
-                    xmlns:fp="clr-namespace:FaPA.Core.FaPa">
-
-    <DataTemplate DataType="{x:Type a:EditFatturaViewModel}">
-        <t1:CrudFattura/>
-    </DataTemplate>
+                    xmlns:fp="clr-namespace:FaPA.Core.FaPa"
+                    xmlns:user="clr-namespace:FaPA.GUI.Feautures.User">
 
     <DataTemplate DataType="{x:Type l:EditAnagraficaViewModel}">
         <ctrls:CRUDVM/>
@@ -28,6 +25,10 @@
                            IsSynchronizedWithCurrentItem="True"/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type a:EditFatturaViewModel}">
+        <t1:CrudFattura/>
+    </DataTemplate>
+    
     <DataTemplate x:Key="FatturaTemplate">
         <t1:Fattura />
     </DataTemplate>
@@ -39,6 +40,21 @@
                                                      RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
         </Border>
     </DataTemplate>
+
+    <DataTemplate DataType="{x:Type user:EditUserViewModel}">
+        <ctrls:CRUDVM/>
+    </DataTemplate>
+
+    <DataTemplate x:Key="UserTemplate">
+        <t1:User  />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type user:UserListViewModel}">
+        <t1:UsersGrid GridItemSource="{Binding Path=DataContext.UserCollectionView,
+                                                    RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                     IsSynchronizedWithCurrentItem="True"/>
+    </DataTemplate>
+
 
     <DataTemplate DataType="{x:Type a:AllegatiViewModel}">
         <t1:Allegati />
@@ -74,7 +90,7 @@
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type a:DatiTerzoIntermediarioViewModel}">
-        <t1:DatiAnagrafici/>
+        <t1:DatiAnagraficiTerzoIntermediario/>
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type a:TrasmittenteTabViewModel}">

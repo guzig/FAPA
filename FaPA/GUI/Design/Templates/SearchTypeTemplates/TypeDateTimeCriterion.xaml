@@ -115,7 +115,7 @@
 
                         <xctk:DropDownButton Width="Auto" x:Name="DropCa"
                                               >
-                            <Image Source="/GUI/Design/Styles/Images/Calendar_64.png"></Image>
+                            <Image Source="\GUI\Design\Styles\Images\Calendar_64.png"></Image>
 
                             <xctk:DropDownButton.DropDownContent >
 

@@ -36,9 +36,9 @@ namespace FaPA.GUI.Feautures.Fattura
             var entity = poco as DatiAnagraficiVettoreType;
             if ( entity == null ) return;
 
-            HookChanged( entity );
-            HookChanged( entity.Anagrafica );
-            HookChanged( entity.IdFiscaleIVA );
+            base.HookChanged( entity );
+            base.HookChanged( entity.Anagrafica );
+            base.HookChanged( entity.IdFiscaleIVA );
         }
     }
 }

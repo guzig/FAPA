@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace FaPA.Core
 {
@@ -59,12 +60,19 @@ namespace FaPA.Core
 
         public override DomainResult Validate()
         {
-            return new DomainResult(true);
+            var errors = new Dictionary<string, IEnumerable<string>>();
+
+            GetPersistentErrors( errors );
+
+            DomainResult = new DomainResult( errors );
+
+            return DomainResult;
         }
 
-        public override DomainResult ValidatePropertyValue(string prop)
+        public override DomainResult ValidatePropertyValue( string prop )
         {
-            return new DomainResult(true);
+            Validate();
+            return DomainResult;
         }
     }
 }

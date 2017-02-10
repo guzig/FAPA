@@ -119,7 +119,7 @@ namespace FaPA.Data
         {
             var valdtor = target as IValidatable;
             if ( valdtor == null ) return;
-            if ( valdtor.DomainResult.Success ) return ;
+            if ( valdtor.DomainResult.Success || valdtor.DomainResult.Errors == null ) return ;
             foreach (var pair in valdtor.DomainResult.Errors)
             {
                 ShowPropValidationError( pair.Key, target );

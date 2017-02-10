@@ -29,7 +29,7 @@ namespace FaPA.Data
                 d.Column( c =>
                 {
                     c.Length( 28 );
-                    c.NotNullable( true );
+                    //c.NotNullable( true );
                 } );
             } );
 

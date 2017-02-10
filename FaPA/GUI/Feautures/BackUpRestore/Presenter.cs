@@ -37,7 +37,7 @@ namespace FaPA.GUI.Feautures.BackUpRestore
         private void OnCloseView( object sender, CancelEventArgs e )
         {
 
-            if ( Model == null || Model.IsEditingEnabled == null || Model.IsEditingEnabled.Value==true ) return;
+            if ( Model?.IsEditingEnabled == null || Model.IsEditingEnabled.Value==true ) return;
             e.Cancel = true;
             const string msg = "Attendere la fine delle operazioni...";
             MessageBox.Show( msg, "Trasferimento dati in corso, attendere..");
@@ -45,7 +45,7 @@ namespace FaPA.GUI.Feautures.BackUpRestore
 
         private static void BackUp( DirectoryInfo backUpPath )
         {
-            var fullBackUpPath = backUpPath + @"\EMBKP.bak";
+            var fullBackUpPath = backUpPath + @"\FEPA.bak";
 
             var sql = @"BACKUP DATABASE FEPA TO DISK = '" + fullBackUpPath  + "'";
 

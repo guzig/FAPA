@@ -13,9 +13,6 @@ namespace FaPA.GUI.Feautures.Anagrafica
         {
             SetUpSession( session, null );
 
-            //userCollectionView.CurrentChanged += OnCurrentChanged;
-            //CurrentEntityPropChanged += OnPropChanged;
-            //CurrentEntityChanged += OnCurrentChanged;
         }
 
         public override string EditTemplateName => "AnagraficaTemplate";

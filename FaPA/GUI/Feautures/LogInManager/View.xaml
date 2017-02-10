@@ -1,10 +1,10 @@
-﻿<Window x:Class="FaPA.GUI.Feautures.LogIn.View"
+﻿<Window x:Class="FaPA.GUI.Feautures.LogInManager.View"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:logOnMask="clr-namespace:FaPA.GUI.Controls.LogOnMask"
     WindowStartupLocation="CenterScreen" 
         Style="{DynamicResource MetroWindowStyle}"
-        Title="Autenticazione Fattura PA" Width="500" Height="450">
+        Title="Autenticazione Fattura PA" Width="500" Height="500">
 
     <Window.Resources>
 
@@ -141,9 +141,8 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-        </Style>        
+        </Style>
 
- 
     </Window.Resources>
 
     <!--Background="#FF182067"  Background="#FF16499A">-->
@@ -159,13 +158,12 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <logOnMask:SmartLoginOverlay x:Name="SmartLoginOverlayControl"
+        <logOnMask:ChangePassword x:Name="ChangePasswordControl"
                                     FullSpan="On"
-									IsUserOptionAvailable="True"
-									UserName="{Binding UserName}"
+									IsUserOptionAvailable="False"
+									UserName="{Binding UserName, Mode=OneWay}"
 									Password="{Binding Password}"
-                                    AccessPassword="{Binding UserPassword}"
-									UserImageSource="{Binding UserImageSource}"
+                                    ConfirmedPassword="{Binding ConfirmedPassword}"
 									AdditionalSystemInfo="Bloccato"
 									Command="{Binding SubmitCommand}"
 									CommandParameter="{Binding RelativeSource={RelativeSource Self} }" />
@@ -177,3 +175,4 @@
 				 Content="Demo Data Information  =>  User: gingerbreadman * Password: gingy1   /   User: bluehairbeauty * Password: blue1" />-->
     </Grid>
 </Window>
+

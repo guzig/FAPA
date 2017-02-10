@@ -236,7 +236,7 @@
                                                      IsOpen="{Binding Data.DettagliFatturaViewModel.ScontoMaggiorazioneViewModel.IsDropDownOpen, 
                                                                       Source={StaticResource proxyFVM}, Mode=OneWayToSource}" >
 
-                                        <Image Source="/GUI/Design/Styles/Images/Calendar_64.png"></Image>
+                                        <Image Source="\GUI\Design\Styles\Images\Calendar_64.png"></Image>
 
                                         <xctk:DropDownButton.Resources>
                                             <f:BindingProxy x:Key="proxyDD" Data="{Binding ElementName=DropCa}" />
@@ -301,7 +301,7 @@
                                                      IsOpen="{Binding Data.DettagliFatturaViewModel.AltridatiViewModel.IsDropDownOpen, 
                                                                       Source={StaticResource proxyFVM}, Mode=OneWayToSource}" >
 
-                                    <Image Source="/GUI/Design/Styles/Images/Calendar_64.png"></Image>
+                                    <Image Source="\GUI\Design\Styles\Images\Calendar_64.png"></Image>
 
                                     <xctk:DropDownButton.Resources>
                                         <f:BindingProxy x:Key="proxyDD" Data="{Binding ElementName=DropCa}" />
@@ -360,14 +360,14 @@
                                                         Command="{Binding Path=Data.DettagliFatturaViewModel.AltridatiViewModel.AddItemCommand, Source={StaticResource proxyFVM}}"
                                                         Width="Auto" Height="25" HorizontalAlignment="Left" Margin="5,1,0,0">
 
-                                                    <Image Source="/GUI/Design/Styles/Images/1343547225_file_add.png" Width="25"/>
+                                                    <Image Source="\GUI\Design\Styles\Images\1343547225_file_add.png" Width="25"/>
                                                 </Button>
 
                                                 <Button Command="{Binding Path=Data.RemoveDettaglioElement, Source={StaticResource proxyFVM}}"
                                                         IsEnabled="{Binding Path=Data.EditFatturaViewModel.AllowAddAndRemoveDettaglioFattura, Source={StaticResource proxyFVM}}"
                                                         Width="Auto" Height="25" HorizontalAlignment="Left" Margin="2,1,0,0">
 
-                                                    <Image Source="/GUI/Design/Styles/Images/delete(1).png" Width="25"/>
+                                                    <Image Source="\GUI\Design\Styles\Images\delete(1).png" Width="25"/>
                                                 </Button>
 
                                             </DockPanel>-->
@@ -412,13 +412,13 @@
             <Button VerticalAlignment="Center" Width="Auto" Height="25" HorizontalAlignment="Left" Margin="5,1,0,0"
                     Command="{Binding Path=DataContext.EditViewModel.DettagliFatturaViewModel.AddItemCommand, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type Window}}}">
                 
-                <Image Source="/GUI/Design/Styles/Images/1343547225_file_add.png" Width="25"/>
+                <Image Source="\GUI\Design\Styles\Images\1343547225_file_add.png" Width="25"/>
             </Button>
 
             <Button Command="{Binding Path=DataContext.EditViewModel.DettagliFatturaViewModel.DeleteEntityCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
                     Width="Auto" Height="25" HorizontalAlignment="Left" Margin="2,1,0,0">
 
-                <Image Source="/GUI/Design/Styles/Images/delete(1).png" Width="25"/>
+                <Image Source="\GUI\Design\Styles\Images\delete(1).png" Width="25"/>
 
             </Button>
 
