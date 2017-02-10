@@ -1,0 +1,103 @@
+﻿<UserControl x:Class="FaPA.GUI.Design.Templates.User"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:enums="clr-namespace:FaPA.Core"
+             xmlns:utils="clr-namespace:FaPA.GUI.Utils"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid DockPanel.Dock="Top" HorizontalAlignment="Stretch" Margin="0,15">
+
+        <Grid.ColumnDefinitions>
+
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+
+
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="15"/>
+
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="15"/>
+
+            <RowDefinition Height="15" />
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="15"/>
+
+            <RowDefinition Height="Auto"/>
+
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Id " 
+            		Grid.Column="0" 
+            		Grid.Row="0"
+            		HorizontalAlignment="Left"
+            		Width="Auto" />
+
+        <Button Grid.Row="1" Grid.Column="1" Content="Reset password"  
+                Command="{Binding Path=Presenter.ResetPasswordCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
+        </Button>
+
+        <xctk:WatermarkTextBox  x:Name="Id" 
+                                    Text="{Binding Id, Mode=TwoWay, NotifyOnSourceUpdated=True, 
+                                                                    ValidatesOnDataErrors=False, 
+                                                                    NotifyOnValidationError=True, 
+                                                                    UpdateSourceTrigger=LostFocus}"
+                     
+                                    IsEnabled="{Binding RelativeSource={RelativeSource FindAncestor, 
+                                                                                    AncestorType={x:Type Window}},
+                                                                                    Path=DataContext.SelectedPage.IsSearchModality}"                     
+                                    Tag="EnterAsTab" 
+                                    Grid.Row="1" 
+                                    HorizontalAlignment="Left"
+                                    Width="80" />
+
+        <TextBlock Text="Nome utente"
+                       Grid.Column="0" 
+                       Grid.Row="3"
+                       Margin="3,0,3,0"
+                       HorizontalAlignment="Left"
+                       Width="Auto" />
+
+        <xctk:WatermarkTextBox  x:Name="UserName" 
+                                    Text="{Binding UserName,
+                                                   Mode=TwoWay, 
+                                                   NotifyOnSourceUpdated=True, 
+                                                   ValidatesOnDataErrors=True, 
+                                                   NotifyOnValidationError=True, 
+                                                   UpdateSourceTrigger=LostFocus}"
+                                    Tag="EnterAsTab"
+                                    HorizontalAlignment="Stretch"
+                                    MinWidth="250"
+            	                    Grid.Column="0" 
+            	                    Grid.Row="4" />
+
+        <TextBlock Text="Autorizzazioni utente" 
+            	   Grid.Column="0" 
+            	   Grid.Row="6"
+            	   HorizontalAlignment="Left"
+                   Margin="3,0,3,0"
+            	   Width="Auto" />
+
+        <ComboBox Grid.Column="0" Grid.Row="7" Tag="EnterAsTab"
+                  Margin="3,0,3,0"
+                  HorizontalAlignment="Stretch"
+                  MinWidth="250"
+                  IsEditable="true"
+                  IsTextSearchEnabled="True"
+                  TextSearch.TextPath="Description"
+                  SelectedValuePath="Value"
+                  ItemsSource="{Binding Source={utils:Enumeration {x:Type enums:TipoUtenteEnums}}}"
+                  SelectedValue="{Binding Path=Role, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,  ValidatesOnDataErrors=True}"
+                  DisplayMemberPath="Description" />
+
+    </Grid>
+</UserControl>

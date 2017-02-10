@@ -46,5 +46,21 @@ namespace FaPA.GUI.Feautures.Main
         //{
         //    Presenters.Show("SearchFattura");
         //}
+
+        private void BackUpAndRestoreClick(object sender, RoutedEventArgs e)
+        {
+
+            Presenters.Show("BackUpRestore");
+        }
+
+        private void ChangePasswordClick(object sender, RoutedEventArgs e)
+        {
+            Presenters.Show("LogInManager");
+        }
+
+        private void UsersClick(object sender, RoutedEventArgs e)
+        {
+            //Presenters.Show("User", new Action<GUI.Feautures.User.Presenter>(p => p.CreateNewModel(0)));
+        }
     }
 }

@@ -26,7 +26,7 @@ namespace FaPA.GUI.Feautures.Fattura
             IsCloseable = false;
         }
 
-        protected override void HookOnChanged( object poco )
+        protected override void HookChanged( object poco )
         {
             var entity = poco as TerzoIntermediarioSoggettoEmittenteType;
             if ( entity == null ) return;
@@ -39,7 +39,6 @@ namespace FaPA.GUI.Feautures.Fattura
             HookChanged( entity.DatiAnagrafici );
             HookChanged( entity.DatiAnagrafici.Anagrafica );
             HookChanged( entity.DatiAnagrafici.IdFiscaleIVA );
-
         }
 
         protected override object CreateInstance()

@@ -21,7 +21,7 @@
             <Ribbon.ApplicationMenu>
                 <RibbonApplicationMenu KeyTip="Z" SmallImageSource="\GUI/Design/Styles/Images/Circled Chevron Down-26.png">
 
-                    <RibbonApplicationMenuItem Header="Fatture recenti" 
+                    <!--<RibbonApplicationMenuItem Header="Fatture recenti" 
                                                ImageSource="\GUI/Design/Styles/Images\List_bullets.png" 
                                                KeyTip="R">
                         <RibbonComboBox Label="Recenti" 
@@ -30,7 +30,47 @@
                                         ItemsSource="{Binding Path=FolderItems}" />
 
                         
-                    </RibbonApplicationMenuItem>
+                    </RibbonApplicationMenuItem>-->
+
+                    <RibbonTab Header="Configurazione e gestione" KeyTip="G">
+
+                        <RibbonGroup Header="Copia e ripristino"  >
+                            <RibbonButton Height="Auto" 
+                                  LargeImageSource="/GUI/Design/Styles/Images/1462459533_backup-restore.ico"
+                                Label="Copia e ripristino banca dati" KeyTip="B"
+                                ToolTipTitle="Crea o ripristina una copia della banca dati"
+                                ToolTipDescription="Permette di creare o ripristinare una copia della banca dati"
+                                IsEnabled="{Binding IsAdministrator}"
+                                Click="BackUpAndRestoreClick"/>
+                        </RibbonGroup>
+
+                        <RibbonGroup Header="Operatori"  >
+                            <RibbonButton Height="Auto" 
+                                  LargeImageSource="/GUI/Design/Styles/Images/1462461626_users.ico"
+                                Label="Gestione operatori" KeyTip="O"
+                                ToolTipTitle="Gestione operatori"
+                                ToolTipDescription="Configurazione operatori con privilegi di accesso e gestione"
+                                Click="UsersClick"/>
+                        </RibbonGroup>
+
+                        <RibbonGroup Header="Password utente corrente" 
+                             VerticalAlignment="Center"
+                             VerticalContentAlignment="Center"
+                             HorizontalContentAlignment="Center"
+                             HorizontalAlignment="Center">
+                            <RibbonButton Height="Auto" 
+                                   VerticalAlignment="Center"
+                             VerticalContentAlignment="Center"
+                             HorizontalContentAlignment="Center"
+                             HorizontalAlignment="Center"
+                                  LargeImageSource="/GUI/Design/Styles/Images/preferences_desktop_user_password.ico"
+                                Label="Cambio password utente corrente" KeyTip="U"
+                                ToolTipTitle="Cambio password utente corrente"
+                                ToolTipDescription="Cambio password utente corrente"
+                                Click="ChangePasswordClick"/>
+                        </RibbonGroup>
+
+                    </RibbonTab>
 
                     <RibbonApplicationMenuItem Header="Esci" 
                                                ImageSource="\GUI/Design/Styles/Images\gnome_panel_force_quit.png"  

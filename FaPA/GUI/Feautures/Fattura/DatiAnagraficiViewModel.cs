@@ -31,7 +31,7 @@ namespace FaPA.GUI.Feautures.Fattura
             return instance;
         }
 
-        protected override void HookOnChanged( object poco )
+        protected override void HookChanged( object poco )
         {
             var entity = poco as DatiAnagraficiVettoreType;
             if ( entity == null ) return;

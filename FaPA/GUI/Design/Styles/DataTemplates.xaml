@@ -56,6 +56,10 @@
         <t1:ScontoMaggiorazione />
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type a:DatiRiepilogoIvaViewModel}">
+        <t1:DatiRiepilogo />
+    </DataTemplate>
+
     <DataTemplate DataType="{x:Type a:AltriDatiViewModel}">
         <t1:AltriDatiGrid />
     </DataTemplate>    

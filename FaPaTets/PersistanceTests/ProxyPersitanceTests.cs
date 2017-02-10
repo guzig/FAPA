@@ -26,7 +26,7 @@ namespace FaPaTets.PersistanceTests
             AddPropChangedAndDataErrorInterceptorProxyFactory.Create(typeof(Anagrafica),
                 fattura.AnagraficaCedenteDB);
 
-            fattura.SetTrasmittente();
+            fattura.SyncFatturaPa();
 
             object current = fattura.FatturaPa;
             //ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntityFpa>( ref current, "FaPA.Core" );

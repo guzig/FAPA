@@ -21,7 +21,7 @@ namespace FaPA.GUI.Feautures.Fattura
             RemoveFromFixedArray();
         }
 
-        protected override void HookOnChanged( object poco )
+        protected override void HookChanged(object poco )
         {
             var entity = poco as DatiGeneraliType;
             if ( entity == null ) return;

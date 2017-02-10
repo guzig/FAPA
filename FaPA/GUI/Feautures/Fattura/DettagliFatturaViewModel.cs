@@ -9,9 +9,8 @@ using FaPA.Infrastructure;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
-    public class DettagliFatturaViewModel : BaseTabsViewModel<DatiBeniServiziType, DettaglioLineeType[]>
+    public class DettagliFatturaViewModel : BaseTabsViewModel<Core.Fattura, DettaglioLineeType[]>
     {
-        
         private bool _isOnInit;
 
         private ScontoMaggiorazioneViewModel _scontoMaggiorazioneViewModel;
@@ -37,7 +36,7 @@ namespace FaPA.GUI.Feautures.Fattura
             }
         }
 
-        public DettagliFatturaViewModel( IRepository repository, DatiBeniServiziType instance ) :
+        public DettagliFatturaViewModel( IRepository repository, Core.Fattura instance ) :
             base( f => f.DettaglioLinee, repository, instance, "", false )
         {}
 
@@ -51,6 +50,12 @@ namespace FaPA.GUI.Feautures.Fattura
 
             InitAltriChildViewModel( dettaglio );
             _isOnInit = false;
+        }
+
+        protected override void PersitEntity()
+        {
+            Instance.SyncFatturaPa();
+            base.PersitEntity();
         }
 
         protected override void AddItemToUserCollection()
@@ -85,8 +90,7 @@ namespace FaPA.GUI.Feautures.Fattura
             InitScontoMaggiorazioneViewModel( dettaglio );
             AllowSave = IsValidate();
         }
-
-
+        
         private void InitAltriDatiViewModel( DettaglioLineeType dettaglio )
         {
             AltridatiViewModel = new AltriDatiViewModel( this, dettaglio );
@@ -144,11 +148,6 @@ namespace FaPA.GUI.Feautures.Fattura
             return isValidAltriDatiViewModel && isValidScontoMaggiorazioneViewModel ;
         }
 
-        //public override void RefreshView()
-        //{
-        //    base.RefreshView();
-        //    AltridatiViewModel.RefreshView( );
-        //}
 
     }
 

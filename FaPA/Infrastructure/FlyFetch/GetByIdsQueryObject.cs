@@ -37,13 +37,13 @@ namespace FaPA.Infrastructure.FlyFetch
                 {
                     var ids = AllowedIds.Skip(first).Take(count).ToList();
                     IList<T> list;
-                    using ( NhHelper.Instance.OpenUnitOfWork())
+                    using ( NHhelper.Instance.OpenUnitOfWork())
                     {
-                        NhHelper.Instance.CurrentSession.FlushMode = FlushMode.Never;
-                        using (var tx = NhHelper.Instance.CurrentSession.BeginTransaction())
+                        NHhelper.Instance.CurrentSession.FlushMode = FlushMode.Never;
+                        using (var tx = NHhelper.Instance.CurrentSession.BeginTransaction())
                         {
                             var criteria = CriteriaTransformer.Clone(DetachedCriteria);
-                            list = criteria.GetExecutableCriteria( NhHelper.Instance.CurrentSession)
+                            list = criteria.GetExecutableCriteria( NHhelper.Instance.CurrentSession)
                                             .Add(Restrictions.In("Id", ids))
                                             .SetReadOnly(true)
                                 // :( -> when caching a query, FetchModes for related entites are not used

@@ -1,0 +1,44 @@
+﻿using System.Collections;
+using System.ComponentModel;
+using FaPA.Core;
+using FaPA.GUI.Controls.MyTabControl;
+using FaPA.GUI.Design.Events;
+using FaPA.Infrastructure.Helpers;
+using NHibernate;
+
+namespace FaPA.GUI.Feautures.User
+{  
+    public class EditUserViewModel : EditViewModel<UserData>
+    {
+        //public EditUserViewModel(IBasePresenter baseCrudPresenter, IList userEntities, 
+        //    ICollectionView userCollectionView, ISession session)
+        //    : base(baseCrudPresenter, typeof(UserData))
+        //{
+        //    SetUpCollectionView(userEntities, userCollectionView);
+        //    SetUpSession(session, null);
+        //}
+        public EditUserViewModel(IBasePresenter baseCrudPresenter, IList userEntities, 
+            ICollectionView userCollectionView) : base(baseCrudPresenter, userEntities, userCollectionView)
+        {
+                //SetUpCollectionView(userEntities, userCollectionView);
+                //SetUpSession(session, null);
+        }
+
+        public override void PublishAddedNewEntityEvent(BaseEntity dto)
+        {
+            EventPublisher.Publish( new UserAddedNew { Dto = ( UserData ) CurrentEntity }, this );
+        }
+
+        public override void PublishUpdateEntityEvent(BaseEntity dto)
+        {
+            EventPublisher.Publish( new UserUpdated { Dto = ( UserData ) CurrentEntity }, this );
+        }
+
+        public override void PublishDeletedEntityEvent(BaseEntity dto)
+        {
+            EventPublisher.Publish( new UserDeleted { Dto = ( UserData ) dto }, this );
+        }
+
+
+    }
+}

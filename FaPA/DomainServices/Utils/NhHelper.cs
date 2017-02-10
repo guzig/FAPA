@@ -3,7 +3,7 @@ using NHibernate;
 
 namespace FaPA.DomainServices.Utils
 {
-    public class NhHelper
+    public class NHhelper
     {
         public UnitOfWork OpenUnitOfWork()
         {
@@ -16,16 +16,16 @@ namespace FaPA.DomainServices.Utils
             _factory.Evict(typeof(T));
         }
 
-        private static NhHelper _instance;
+        private static NHhelper _instance;
         private static readonly object Padlock = new object();
-        public static NhHelper Instance
+        public static NHhelper Instance
         {
             get
             {
                 lock (Padlock)
                 {
                     if (null == _instance)
-                        _instance = new NhHelper();
+                        _instance = new NHhelper();
                 }
                 return _instance;
             }

@@ -110,6 +110,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Windows.Controls.Ribbon" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Caliburn.Micro.3.0.3\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
@@ -136,6 +137,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="GUI\Controls\LogOnMask\ChangePassword.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GUI\Controls\LogOnMask\SmartLoginOverlay.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GUI\Controls\LogOnMask\SmartPasswordBoxesRD.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GUI\Controls\LogOnMask\SmartTextBoxesRD.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GUI\Controls\LogOnMask\TextAndFontsRD.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="GUI\Controls\MyRecordNavigator\MyRecordNavigator.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -175,6 +196,10 @@
     <Page Include="GUI\Design\Templates\DatiAnagrafici.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GUI\Design\Templates\DatiRiepilogo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\Design\Templates\InstanceNullManager.xaml">
       <SubType>Designer</SubType>
@@ -267,6 +292,14 @@
     <Page Include="GUI\Design\Templates\SearchTypeTemplates\TypeTagsAssociationByCheckBoxCriterion.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GUI\Design\Templates\User.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Design\Templates\UsersGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\Feautures\Anagrafica\View.xaml">
       <SubType>Designer</SubType>
@@ -414,7 +447,15 @@
     <Compile Include="Data\FatturaMap.cs" />
     <Compile Include="Data\ModelMapperWithNamingConventions.cs" />
     <Compile Include="Data\_NotifyPropertyChangedInterceptor.cs" />
+    <Compile Include="DomainServices\AuthenticationServices\AnonymousIdentity.cs" />
+    <Compile Include="DomainServices\AuthenticationServices\AuthenticationService.cs" />
+    <Compile Include="DomainServices\AuthenticationServices\AuthDbHelpers.cs" />
+    <Compile Include="DomainServices\AuthenticationServices\CustomIdentity.cs" />
+    <Compile Include="DomainServices\AuthenticationServices\CustomPrincipal.cs" />
+    <Compile Include="DomainServices\AuthenticationServices\IAuthenticationService.cs" />
     <Compile Include="DomainServices\NHibernateStaticContainer.cs" />
+    <Compile Include="DomainServices\Utils\IO.cs" />
+    <Compile Include="DomainServices\Utils\SqlActionUtil.cs" />
     <Compile Include="DomainServices\Utils\Utf8StringWriter.cs" />
     <Compile Include="DomainServices\Utils\NhHelper.cs" />
     <Compile Include="DomainServices\Utils\UnitOfWork.cs" />
@@ -422,10 +463,19 @@
     <Compile Include="DomainServices\Utils\LinqUtil.cs" />
     <Compile Include="GUI\Controls\BaseCustomControl.cs" />
     <Compile Include="GUI\Controls\BaseListViewControl.cs" />
+    <Compile Include="GUI\Controls\PasswordBoxBinding.cs" />
+    <Compile Include="GUI\Controls\LogOnMask\AdvancedUserControl.cs" />
+    <Compile Include="GUI\Controls\LogOnMask\AttachedPropertiesManager.cs" />
+    <Compile Include="GUI\Controls\LogOnMask\BrushPropertyAnimation.cs" />
+    <Compile Include="GUI\Controls\LogOnMask\ChangePassword.cs" />
+    <Compile Include="GUI\Controls\LogOnMask\SmartLoginOverlay.xaml.cs" />
     <Compile Include="GUI\Design\Converters\InvertVisibilityConverter.cs" />
     <Compile Include="GUI\Design\Converters\NullToBooleanConverter.cs" />
     <Compile Include="GUI\Design\Converters\NullToInverseVisibiltyConverter.cs" />
     <Compile Include="GUI\Design\Converters\NullToVisibiltyConverter.cs" />
+    <Compile Include="GUI\Design\Events\UserDeleted.cs" />
+    <Compile Include="GUI\Design\Events\UserUpdated.cs" />
+    <Compile Include="GUI\Design\Events\UserAddedNew.cs" />
     <Compile Include="GUI\Design\Templates\Allegati.xaml.cs">
       <DependentUpon>Allegati.xaml</DependentUpon>
     </Compile>
@@ -441,6 +491,9 @@
     <Compile Include="GUI\Design\Templates\DatiAnagrafici.xaml.cs">
       <DependentUpon>DatiAnagrafici.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Design\Templates\DatiRiepilogo.xaml.cs">
+      <DependentUpon>DatiRiepilogo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Design\Templates\InstanceNullManager.xaml.cs">
       <DependentUpon>InstanceNullManager.xaml</DependentUpon>
     </Compile>
@@ -450,10 +503,20 @@
     <Compile Include="GUI\Design\Templates\ScontoMaggiorazione.xaml.cs">
       <DependentUpon>ScontoMaggiorazione.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Design\Templates\User.xaml.cs">
+      <DependentUpon>User.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Design\Templates\UsersGrid.xaml.cs">
+      <DependentUpon>UsersGrid.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Feautures\Anagrafica\AnagraficaListViewModel.cs" />
     <Compile Include="GUI\Feautures\Anagrafica\EditAnagraficaViewModel.cs" />
+    <Compile Include="GUI\Feautures\BackUpRestore\Model.cs" />
+    <Compile Include="GUI\Feautures\BackUpRestore\Presenter.cs" />
+    <Compile Include="GUI\Feautures\BackUpRestore\View.xaml.cs" />
     <Compile Include="GUI\Feautures\Fattura\AllegatiViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\BaseDatiCorrelatiViewModel.cs" />
+    <Compile Include="GUI\Feautures\Fattura\DatiRiepilogoIvaViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\DatiTerzoIntermediarioViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\DatiAnagraficiViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\DatiBolloViewModel.cs" />
@@ -475,6 +538,14 @@
     <Compile Include="GUI\Feautures\Fattura\DatiConvenzioneTabViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\UniqueFatturaValidationRule.cs" />
     <Compile Include="GUI\Feautures\Fattura\FatturaListViewModel.cs" />
+    <Compile Include="GUI\Feautures\LogIn\AuthenticationServiceLocator.cs" />
+    <Compile Include="GUI\Feautures\LogIn\Model.cs" />
+    <Compile Include="GUI\Feautures\LogIn\Presenter.cs" />
+    <Compile Include="GUI\Feautures\LogIn\View.xaml.cs" />
+    <Compile Include="GUI\Feautures\User\EditUserViewModel.cs" />
+    <Compile Include="GUI\Feautures\User\Model.cs" />
+    <Compile Include="GUI\Feautures\User\Presenter.cs" />
+    <Compile Include="GUI\Feautures\User\View.xaml.cs" />
     <Compile Include="GUI\Utils\DataGridHelpers.cs" />
     <Compile Include="GUI\Utils\ReflectionHelpers.cs" />
     <Compile Include="GUI\Utils\TextBoxBehavior.cs" />
@@ -647,7 +718,15 @@
     <Compile Include="Infrastructure\Helpers\GenericsObservable.cs" />
     <Compile Include="Infrastructure\Presenters.cs" />
     <Compile Include="Infrastructure\Helpers\SmartVisualTreeHelper.cs" />
+    <Page Include="GUI\Feautures\BackUpRestore\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="GUI\Feautures\Fattura\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GUI\Feautures\LogIn\View.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -664,6 +743,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="GUI\Feautures\ShowXmlToTreeView\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GUI\Feautures\User\View.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -769,6 +852,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Resource Include="GUI\Design\Styles\Images\report-icon.png" />
+    <Resource Include="GUI\Design\Styles\Images\preferences_desktop_user_password.ico" />
     <Content Include="nhibernate.cfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

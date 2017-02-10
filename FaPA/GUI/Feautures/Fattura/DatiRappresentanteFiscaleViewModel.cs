@@ -15,7 +15,7 @@ namespace FaPA.GUI.Feautures.Fattura
             IsCloseable = false;
         }
 
-        protected override void HookOnChanged( object poco )
+        protected override void HookChanged( object poco )
         {
             var entity = poco as RappresentanteFiscaleType;
             if ( entity == null ) return;

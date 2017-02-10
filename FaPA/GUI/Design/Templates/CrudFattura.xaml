@@ -129,30 +129,13 @@
                 <Image Source="/GUI/Design/Styles/Images/report-icon.png" />
             </Button>
 
-            <xctk:SplitButton  Command="{Binding GenerateXmlStreamCommand}"    
-                               ToolTip="Generazione file fattura PA sul desktop" 
-                               VerticalAlignment="Stretch" 
-                               Margin="2,0,0,0" Width="Auto"
-                               HorizontalAlignment="Left">
+            <Button Command="{Binding GenerateXmlStreamCommand}"
+                    Margin="2,0,0,0"
+                    ToolTip="Generazione file fattura PA sul desktop" 
+                    IsEnabled="{Binding Path=IsInEditing, Converter={StaticResource InverseBooleanConverter}}">
 
                 <Image Source="/GUI/Design/Styles/Images/Send File-48.png" Width="25" />
-                
-                <xctk:SplitButton.DropDownContent>
-                    <Border  Background="CornflowerBlue" >
-                        <CheckBox IsChecked="{Binding IsOfficialSent}"
-                                  IsEnabled="{Binding IsOfficialSentEnabled, Converter={StaticResource InverseBooleanConverter}}"
-                                  Margin="3,3,3,3"
-                                  Foreground="Black"
-                                  Canvas.Left="20" 
-                                  Canvas.Top="10" 
-                                  Content="Generazione definitiva"
-                                  FontSize="15"  >
-                        </CheckBox>
-                    </Border>
-                </xctk:SplitButton.DropDownContent>
-            </xctk:SplitButton>
-
-
+            </Button>
 
         </DockPanel>
 

@@ -2,6 +2,7 @@
 	TerzoIntermediarioSoggettoEmittente[]
 	SoggettoEmittente
 
+	dettaglio fattura style
 
 Style
 bacckUp
@@ -19,7 +20,7 @@ descrizione enums
 VALIDAZIONE
 
 PROGRESSIVO INVIO
-RIEPILOGO IVA .. 
+
 
 DatiTrasmissione by settings 
 

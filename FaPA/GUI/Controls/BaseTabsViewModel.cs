@@ -54,7 +54,7 @@ namespace FaPA.GUI.Controls
 
                 foreach (var item in UserCollectionView)
                 {
-                    HookOnChanged(item);
+                    HookChanged( item);
                 }
 
                 Validate();
@@ -198,7 +198,7 @@ namespace FaPA.GUI.Controls
             Validate();
             AllowSave = IsValid;
             AllowDelete = true;
-            HookOnChanged( CurrentPoco );
+            HookChanged( CurrentPoco );
         }
 
         protected void RemoveItem()
@@ -260,7 +260,7 @@ namespace FaPA.GUI.Controls
             var newInstance = Activator.CreateInstance( elementType );
             ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntity>( ref newInstance, "FaPA.Core" );
             _userAddedNewPocos.Add( newInstance );
-            HookOnChanged( newInstance );
+            HookChanged( newInstance );
             aray[aray.Length - 1] = newInstance;
 
             ((IValidatable)newInstance).Validate();

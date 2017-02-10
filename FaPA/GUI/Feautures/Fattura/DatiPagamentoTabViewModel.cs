@@ -8,7 +8,7 @@ namespace FaPA.GUI.Feautures.Fattura
     {
         //ctor
         public DatiPagamentoTabViewModel(IRepository repository, Core.Fattura instance) :
-            base( (Core.Fattura f) => f.DatiPagamento, repository, instance, "Pagamenti", false )
+            base( f => f.DatiPagamento, repository, instance, "Pagamenti", false )
         {
         }
 
@@ -22,7 +22,7 @@ namespace FaPA.GUI.Feautures.Fattura
             RemoveFromFixedArray();
         }
 
-        protected override void HookOnChanged(object poco)
+        protected override void HookChanged(object poco)
         {
             var entity = poco as DatiPagamentoType;
             if ( entity == null ) return;

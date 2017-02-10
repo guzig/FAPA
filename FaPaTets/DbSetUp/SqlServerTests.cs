@@ -258,8 +258,8 @@ namespace FaPaTets.DbSetUp
             "User ID =" + StoreAccess.User + " ; Pwd =" + StoreAccess.Password;
 
             var sqlCreateDBQuery = "CREATE DATABASE FEPA ON PRIMARY "
-                                      + @" (NAME = EMUL_Data, FILENAME = '" + StoreAccess.DbFullPath + "', SIZE = 10MB, FILEGROWTH = 10% ) "
-                                      + @" LOG ON (NAME = EMUL_Log,  FILENAME = '" + StoreAccess.DbLogFullPath + "', SIZE = 10MB, FILEGROWTH = 10% ) ";
+                                      + @" (NAME = FEPA_Data, FILENAME = '" + StoreAccess.DbFullPath + "', SIZE = 10MB, FILEGROWTH = 10% ) "
+                                      + @" LOG ON (NAME = FEPA_Log,  FILENAME = '" + StoreAccess.DbLogFullPath + "', SIZE = 10MB, FILEGROWTH = 10% ) ";
 
             var sqlCreateDbQuery = sqlCreateDBQuery;
 

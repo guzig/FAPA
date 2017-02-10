@@ -1,0 +1,60 @@
+﻿<utils:WindowBase x:Class="FaPA.GUI.Feautures.User.View"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:user="clr-namespace:FaPA.GUI.Feautures.User"
+        xmlns:utils="clr-namespace:FaPA.GUI.Utils"
+        xmlns:core="clr-namespace:FaPA.Core"
+        xmlns:myTabControl1="clr-namespace:FaPA.GUI.Controls.MyTabControl"
+        xmlns:controls1="clr-namespace:FaPA.GUI.Controls"
+        xmlns:templates="clr-namespace:FaPA.GUI.Design.Templates"
+        SizeToContent="WidthAndHeight"
+        TextOptions.TextFormattingMode="Display"
+        Title="Utenti" >
+    <Window.Resources>
+
+        <DataTemplate DataType="{x:Type core:UserData}">
+            <templates:User x:Name="WorkspacesTemplate" />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type myTabControl1:ListViewViewModel}">
+            <templates:UsersGrid GridItemSource="{Binding Path=DataContext.UserCollectionView,RelativeSource={RelativeSource 
+                                                              FindAncestor,AncestorType={x:Type Window}}}"
+                                     IsSynchronizedWithCurrentItem="True"/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type user:EditUserViewModel}">
+            <controls1:CRUDVM/>
+        </DataTemplate>
+
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*">
+            </ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Utenti" Style="{StaticResource Title}"
+				   Grid.Row="0"
+				   TextAlignment="Center"
+				   VerticalAlignment="Top"/>
+
+        <DockPanel Height="Auto" 
+				   Grid.Row="1"
+				   Width="Auto">
+
+            <Border Style="{StaticResource MainBorderStyle}" >
+                <myTabControl1:MyTabControl />
+            </Border>
+
+        </DockPanel>
+
+
+    </Grid>
+</utils:WindowBase>
+

@@ -63,11 +63,11 @@ namespace FaPA.DomainServices.Utils
         protected virtual IEnumerable<T> LoadReferenceList<T>() where T : class
         {
             IEnumerable<T> list;
-            using (NhHelper.Instance.OpenUnitOfWork())
+            using (NHhelper.Instance.OpenUnitOfWork())
             {
-                using (var tx = NhHelper.Instance.CurrentSession.BeginTransaction())
+                using (var tx = NHhelper.Instance.CurrentSession.BeginTransaction())
                 {
-                    var criteria = NhHelper.Instance.CurrentSession.CreateCriteria<T>();
+                    var criteria = NHhelper.Instance.CurrentSession.CreateCriteria<T>();
                     if (_eagerFetchProps != null && _eagerFetchProps.Length > 0)
                     {
                         foreach (var eagerFetchProp in _eagerFetchProps)

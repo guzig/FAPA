@@ -1,0 +1,166 @@
+﻿<UserControl x:Class="FaPA.GUI.Design.Templates.DatiRiepilogo"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FaPA.GUI.Design.Templates"
+             xmlns:utils="clr-namespace:FaPA.GUI.Utils"
+             xmlns:enums="clr-namespace:FaPA.Core.FaPa"
+             mc:Ignorable="d" >
+    
+    <Grid  >
+
+        <local:InstanceNullManager  Grid.Row="0" Grid.ColumnSpan="2"
+                                    BindedInstance="{Binding CurrentPoco}"
+                                    EmptyMessage="Nessuna scheda dati riepilogo"
+                                    ActionCommandMessage="Aggiungi una scheda dati Riepilogo"
+                                    OnNullCommand="{Binding AddItemCommand}" />
+
+        <Grid HorizontalAlignment="Stretch">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <DockPanel Grid.Row="1">
+                <DataGrid   x:Name="DatiRiepilogoGridControl" 
+                            ItemsSource="{Binding UserCollectionView, NotifyOnSourceUpdated=True}"
+                            Visibility="{Binding IsEmpty, Converter={StaticResource BoolToOppositeVisibilityConverter},Mode=OneWay}"
+                            IsSynchronizedWithCurrentItem="True" 
+                            HorizontalContentAlignment="Stretch"
+                            HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" 
+                            SelectionMode="Extended"
+                            CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" 
+                            CanUserSortColumns="True" AutoGenerateColumns="False"
+                            RowHeaderWidth="17" RowHeight="26" HorizontalAlignment="Left" 
+                            FontSize="16"
+                            ScrollViewer.CanContentScroll="True"
+                            EnableRowVirtualization="True" EnableColumnVirtualization="False"
+                            VirtualizingStackPanel.IsVirtualizing="True"
+                            VirtualizingStackPanel.VirtualizationMode="Standard">
+
+                    <DataGrid.Resources>
+                        <Style x:Key="errorStyle" TargetType="{x:Type TextBlock}">
+                            <Style.Triggers>
+                                <Trigger Property="Validation.HasError" Value="True">
+                                    <Setter Property="Background" Value="Red"/>
+                                    <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, 
+                                                           Path=(Validation.Errors)[0].ErrorContent}"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+
+                    </DataGrid.Resources>
+
+                    <DataGrid.RowValidationRules>
+
+                        <DataErrorValidationRule  ValidationStep="CommittedValue"  ValidatesOnTargetUpdated="True" />
+
+                    </DataGrid.RowValidationRules>
+
+                    <DataGrid.Columns >
+
+                        <DataGridTextColumn Header="Aliquota IVA" Width="Auto" 
+                                            Binding="{Binding AliquotaIVA, ValidatesOnDataErrors =True,
+                                                                           NotifyOnSourceUpdated=True,
+                                                                           NotifyOnValidationError=True,
+                                                                           UpdateSourceTrigger =LostFocus}"
+                                            ElementStyle="{StaticResource errorStyle}">
+
+                        </DataGridTextColumn>
+
+                        <DataGridComboBoxColumn Header="Natura" 
+                                            ItemsSource="{Binding Source={utils:Enumeration {x:Type enums:NaturaType}}, UpdateSourceTrigger=PropertyChanged}"  
+                                            DisplayMemberPath="Description" SelectedValuePath="Value" 
+                                            SelectedValueBinding="{Binding Natura, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus}">
+
+                            <DataGridComboBoxColumn.ElementStyle>
+                                <Style TargetType="ComboBox">
+                                    <Setter Property="ItemsSource" Value="{Binding Source={utils:Enumeration {x:Type enums:NaturaType}}, UpdateSourceTrigger=PropertyChanged}"/>
+                                </Style>
+                            </DataGridComboBoxColumn.ElementStyle>
+                            <DataGridComboBoxColumn.EditingElementStyle>
+                                <Style TargetType="ComboBox">
+                                    <Setter Property="ItemsSource" Value="{Binding Source={utils:Enumeration {x:Type enums:NaturaType}}, UpdateSourceTrigger=PropertyChanged}"/>
+                                </Style>
+                            </DataGridComboBoxColumn.EditingElementStyle>
+                        </DataGridComboBoxColumn>
+
+                        <DataGridComboBoxColumn Header="Esigibilità IVA" 
+                                            ItemsSource="{Binding Source={utils:Enumeration {x:Type enums:EsigibilitaIVAType}}, UpdateSourceTrigger=PropertyChanged}"  
+                                            DisplayMemberPath="Description" SelectedValuePath="Value" 
+                                            SelectedValueBinding="{Binding EsigibilitaIVA, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus}">
+
+                            <DataGridComboBoxColumn.ElementStyle>
+                                <Style TargetType="ComboBox">
+                                    <Setter Property="ItemsSource" Value="{Binding Source={utils:Enumeration {x:Type enums:EsigibilitaIVAType}}, UpdateSourceTrigger=PropertyChanged}"/>
+                                </Style>
+                            </DataGridComboBoxColumn.ElementStyle>
+                            <DataGridComboBoxColumn.EditingElementStyle>
+                                <Style TargetType="ComboBox">
+                                    <Setter Property="ItemsSource" Value="{Binding Source={utils:Enumeration {x:Type enums:EsigibilitaIVAType}}, UpdateSourceTrigger=PropertyChanged}"/>
+                                </Style>
+                            </DataGridComboBoxColumn.EditingElementStyle>
+                        </DataGridComboBoxColumn>
+
+                        <DataGridTextColumn Header="Imponibile" Width="Auto" 
+                                            Binding="{Binding ImponibileImporto, ValidatesOnDataErrors =True,
+                                                                           NotifyOnSourceUpdated=True,
+                                                                           NotifyOnValidationError=True,
+                                                                           UpdateSourceTrigger =LostFocus}"
+                                            ElementStyle="{StaticResource errorStyle}">
+
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Header="Imposta" Width="Auto" 
+                                            Binding="{Binding Imposta, ValidatesOnDataErrors =True,
+                                                                           NotifyOnSourceUpdated=True,
+                                                                           NotifyOnValidationError=True,
+                                                                           UpdateSourceTrigger =LostFocus}"
+                                            ElementStyle="{StaticResource errorStyle}">
+
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Header="Arrotondamento" Width="Auto" 
+                                            Binding="{Binding Arrotondamento, ValidatesOnDataErrors =True,
+                                                                           NotifyOnSourceUpdated=True,
+                                                                           NotifyOnValidationError=True,
+                                                                           UpdateSourceTrigger =LostFocus}"
+                                            ElementStyle="{StaticResource errorStyle}">
+
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Header="Rif. normativo" Width="Auto" 
+                                            Binding="{Binding RiferimentoNormativo, ValidatesOnDataErrors =True,
+                                                                           NotifyOnSourceUpdated=True,
+                                                                           NotifyOnValidationError=True,
+                                                                           UpdateSourceTrigger =LostFocus}"
+                                            ElementStyle="{StaticResource errorStyle}">
+
+                        </DataGridTextColumn>
+
+
+
+                    </DataGrid.Columns>
+
+                </DataGrid>
+            </DockPanel>
+
+            <local:SaveCancelRemoveButtons  Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="1" HorizontalAlignment="Left"
+                                            Visibility="{Binding CurrentPoco, Converter={StaticResource NullToVisibiltyConverter}}"
+                                            DeleteEntityCommand="{Binding DeleteEntityCommand}"
+                                            PerformCancelCommand="{Binding PerformCancel}"
+                                            AddItemCommand="{Binding AddItemCommand}"
+                                            SaveCommand="{Binding SaveEntity}"
+                                            UserCollectionView="{Binding UserCollectionView}"/>
+
+        </Grid>
+
+    </Grid>
+</UserControl>

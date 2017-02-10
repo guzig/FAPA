@@ -176,7 +176,7 @@ namespace FaPA.GUI.Controls
             ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntity>(ref userProperty, "FaPA.Core");
             CurrentPoco = userProperty;
 
-            HookOnChanged( CurrentPoco );
+            HookChanged( CurrentPoco );
             UserProperty = (TProperty)CurrentPoco;
 
             IsEditing = true;
@@ -199,7 +199,7 @@ namespace FaPA.GUI.Controls
 
             if ( UserProperty == null ) return;
             CurrentPoco = UserProperty;
-            HookOnChanged( UserProperty );
+            HookChanged( UserProperty );
         }
 
         protected virtual void Validate()
@@ -288,11 +288,6 @@ namespace FaPA.GUI.Controls
             IsValid = validatable.DomainResult.Success;
             AllowSave = IsValid;
             return false;
-        }
-
-        protected virtual void HookOnChanged( object poco )
-        {
-            HookChanged(poco);
         }
 
         protected virtual void HookChanged(object poco)

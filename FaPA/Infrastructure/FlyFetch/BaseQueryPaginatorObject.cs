@@ -49,9 +49,9 @@ namespace FaPA.Infrastructure.FlyFetch
                     if (NotifyDataSourceLoadCompleted != null)
                         NotifyDataSourceLoadCompleted.LoadCompleted(false);
                     NotifyHit.QueryInProgress(true);
-                    using ( NhHelper.Instance.OpenUnitOfWork())
+                    using ( NHhelper.Instance.OpenUnitOfWork())
                     {
-                        var criteria = DetachedCriteria.GetExecutableCriteria( NhHelper.Instance.CurrentSession);
+                        var criteria = DetachedCriteria.GetExecutableCriteria( NHhelper.Instance.CurrentSession);
                         Count = CriteriaTransformer.TransformToRowCount(criteria).UniqueResult<int>();
                     }
                     e.Result = Count;
@@ -85,12 +85,12 @@ namespace FaPA.Infrastructure.FlyFetch
                 try
                 {
                     IList<T> list;
-                    using ( NhHelper.Instance.OpenUnitOfWork())
+                    using ( NHhelper.Instance.OpenUnitOfWork())
                     {
-                        using (var tx = NhHelper.Instance.CurrentSession.BeginTransaction())
+                        using (var tx = NHhelper.Instance.CurrentSession.BeginTransaction())
                         {
                             list = DetachedCriteria
-                                .GetExecutableCriteria( NhHelper.Instance.CurrentSession )
+                                .GetExecutableCriteria( NHhelper.Instance.CurrentSession )
                                 .SetReadOnly(true)
                                 // :( -> when caching a query, FetchModes for related entites are not used
                                 //.SetCacheable(false)

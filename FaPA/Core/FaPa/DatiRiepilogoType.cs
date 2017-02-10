@@ -10,29 +10,29 @@ namespace FaPA.Core.FaPa
 
         #region 
 
-        private decimal aliquotaIVAField;
+        private decimal _aliquotaIvaField;
 
-        private NaturaType naturaField;
+        private NaturaType _naturaField;
 
-        private bool naturaFieldSpecified;
+        private bool _naturaFieldSpecified;
 
-        private decimal speseAccessorieField;
+        private decimal _speseAccessorieField;
 
-        private bool speseAccessorieFieldSpecified;
+        private bool _speseAccessorieFieldSpecified;
 
-        private decimal arrotondamentoField;
+        private decimal _arrotondamentoField;
 
-        private bool arrotondamentoFieldSpecified;
+        private bool _arrotondamentoFieldSpecified;
 
-        private decimal imponibileImportoField;
+        private decimal _imponibileImportoField;
 
-        private decimal impostaField;
+        private decimal _impostaField;
 
-        private EsigibilitaIVAType esigibilitaIVAField;
+        private EsigibilitaIVAType _esigibilitaIvaField;
 
-        private bool esigibilitaIVAFieldSpecified;
+        private bool _esigibilitaIvaFieldSpecified;
 
-        private string riferimentoNormativoField;
+        private string _riferimentoNormativoField;
         
         #endregion
 
@@ -40,11 +40,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return aliquotaIVAField;
+                return _aliquotaIvaField;
             }
             set
             {
-                aliquotaIVAField = value;
+                _aliquotaIvaField = value;
             }
         }
 
@@ -53,11 +53,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return naturaField;
+                return _naturaField;
             }
             set
             {
-                naturaField = value;
+                _naturaField = value;
             }
         }
 
@@ -66,11 +66,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return naturaFieldSpecified;
+                return _naturaFieldSpecified;
             }
             set
             {
-                naturaFieldSpecified = value;
+                _naturaFieldSpecified = value;
             }
         }
 
@@ -78,11 +78,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return speseAccessorieField;
+                return _speseAccessorieField;
             }
             set
             {
-                speseAccessorieField = value;
+                _speseAccessorieField = value;
             }
         }
 
@@ -91,24 +91,25 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return speseAccessorieFieldSpecified;
+                return _speseAccessorieFieldSpecified;
             }
             set
             {
-                speseAccessorieFieldSpecified = value;
+                _speseAccessorieFieldSpecified = value;
             }
         }
 
-        [XmlElement( Form = XmlSchemaForm.Unqualified )]
+
         public virtual decimal Arrotondamento
         {
             get
             {
-                return arrotondamentoField;
+                return _arrotondamentoField;
             }
             set
             {
-                arrotondamentoField = value;
+                _arrotondamentoField = value;
+                ArrotondamentoSpecified = _arrotondamentoField > 0 || _arrotondamentoField < 0;
             }
         }
 
@@ -117,11 +118,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return arrotondamentoFieldSpecified;
+                return _arrotondamentoFieldSpecified;
             }
             set
             {
-                arrotondamentoFieldSpecified = value;
+                _arrotondamentoFieldSpecified = value;
             }
         }
 
@@ -129,11 +130,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return imponibileImportoField;
+                return _imponibileImportoField;
             }
             set
             {
-                imponibileImportoField = decimal.Parse(string.Format("{0:###0.00}", value));
+                _imponibileImportoField = decimal.Parse(string.Format("{0:###0.00}", value));
             }
         }
 
@@ -141,11 +142,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return impostaField;
+                return _impostaField;
             }
             set
             {
-                impostaField = decimal.Parse(string.Format("{0:###0.00}", value));
+                _impostaField = decimal.Parse(string.Format("{0:###0.00}", value));
             }
         }
 
@@ -153,11 +154,12 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return esigibilitaIVAField;
+                return _esigibilitaIvaField;
             }
             set
             {
-                esigibilitaIVAField = value;
+                _esigibilitaIvaField = value;
+                EsigibilitaIVASpecified = _esigibilitaIvaField != EsigibilitaIVAType.N;
             }
         }
 
@@ -166,24 +168,23 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return esigibilitaIVAFieldSpecified;
+                return _esigibilitaIvaFieldSpecified;
             }
             set
             {
-                esigibilitaIVAFieldSpecified = value;
+                _esigibilitaIvaFieldSpecified = value;
             }
-        }
-        
-        [XmlElement( Form = XmlSchemaForm.Unqualified, DataType = "normalizedString" )]
+        }      
+
         public virtual string RiferimentoNormativo
         {
             get
             {
-                return riferimentoNormativoField;
+                return _riferimentoNormativoField;
             }
             set
             {
-                riferimentoNormativoField = value;
+                _riferimentoNormativoField = value;
             }
         }
     }

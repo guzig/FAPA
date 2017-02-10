@@ -11,69 +11,31 @@ using NHibernate;
 using System.Linq;
 using FaPA.AppServices.CoreValidation;
 using FaPA.Core;
-using FaPA.Core.FaPa;
 using FaPA.Infrastructure;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
     public class EditFatturaViewModel : EditViewModel<Core.Fattura>
     {
-        public bool IsOfficialSent
-        {
-            get { return _isOfficialSent; }
-            set
-            {
-                if (value == _isOfficialSent) return;
-                _isOfficialSent = value;
-                NotifyOfPropertyChange(() => IsOfficialSent);
-            }
-        }
-
-        public bool IsOfficialSentEnabled
-        {
-            get { return _isOfficialSentEnabled; }
-            set
-            {
-                if (value == _isOfficialSentEnabled) return;
-                _isOfficialSentEnabled = value;
-                NotifyOfPropertyChange(() => IsOfficialSentEnabled);
-            }
-        }
-
         public bool IsCopyMode { get; set; } = false;
 
-        private ICommand _addCopy;
-        public ICommand AddCopy
-        {
-            get
-            {
-                if (_addCopy != null) return _addCopy;
-                _addCopy = new RelayCommand(param => AddNewCopy(), param => !IsInEditing );
-                return _addCopy;
-            }
-
-        }
-
-        private void AddNewCopy()
-        {
-            IsCopyMode = true;
-            AddNew();
-            IsCopyMode = false;
-        }
+        #region ViewModels
 
         private DatiGeneraliViewModel _datiGeneraliViewModel;
+
         public DatiGeneraliViewModel DatiGeneraliViewModel
         {
             get { return _datiGeneraliViewModel; }
             set
             {
-                if ( Equals( value, _datiGeneraliViewModel ) ) return;
+                if (Equals(value, _datiGeneraliViewModel)) return;
                 _datiGeneraliViewModel = value;
-                NotifyOfPropertyChange( () => DatiGeneraliViewModel );
+                NotifyOfPropertyChange(() => DatiGeneraliViewModel);
             }
         }
 
         private DatiDocumentoViewModel _datiDocumentoViewModel;
+
         public DatiDocumentoViewModel DatiDocumentoViewModel
         {
             get { return _datiDocumentoViewModel; }
@@ -86,16 +48,17 @@ namespace FaPA.GUI.Feautures.Fattura
         }
 
         private DettagliFatturaViewModel _dettagliFatturaViewModel;
+
         public DettagliFatturaViewModel DettagliFatturaViewModel
         {
             get { return _dettagliFatturaViewModel; }
             set
             {
                 _dettagliFatturaViewModel = value;
-                NotifyOfPropertyChange( () => DettagliFatturaViewModel );
+                NotifyOfPropertyChange(() => DettagliFatturaViewModel);
             }
         }
-        
+
         public TrasmittenteTabViewModel TrasmittenteViewModel { get; set; }
 
         public DatiPagamentoTabViewModel DatiPagamentoViewModel { get; set; }
@@ -116,9 +79,9 @@ namespace FaPA.GUI.Feautures.Fattura
             get { return _rappresentanteFiscaleViewModel; }
             set
             {
-                if ( Equals( value, _rappresentanteFiscaleViewModel ) ) return;
+                if (Equals(value, _rappresentanteFiscaleViewModel)) return;
                 _rappresentanteFiscaleViewModel = value;
-                NotifyOfPropertyChange( () => RappresentanteFiscaleViewModel );
+                NotifyOfPropertyChange(() => RappresentanteFiscaleViewModel);
             }
         }
 
@@ -127,11 +90,25 @@ namespace FaPA.GUI.Feautures.Fattura
             get { return _terzoIntermediarioViewModel; }
             set
             {
-                if ( Equals( value, _terzoIntermediarioViewModel ) ) return;
+                if (Equals(value, _terzoIntermediarioViewModel)) return;
                 _terzoIntermediarioViewModel = value;
-                NotifyOfPropertyChange( () => TerzoIntermediarioViewModel );
+                NotifyOfPropertyChange(() => TerzoIntermediarioViewModel);
             }
         }
+
+        public DatiRiepilogoIvaViewModel DatiRiepilogoIvaViewModel
+        {
+            get { return _datiRiepilogoIvaViewModel; }
+            set
+            {
+                if (Equals(value, _datiRiepilogoIvaViewModel)) return;
+                _datiRiepilogoIvaViewModel = value;
+                NotifyOfPropertyChange(() => DatiRiepilogoIvaViewModel);
+            }
+        }
+
+        #endregion
+
 
         public EditFatturaViewModel(IBasePresenter baseCrudPresenter, IList userEntities, 
             ICollectionView userCollectionView, ISession session): base(baseCrudPresenter, userEntities, userCollectionView)
@@ -158,7 +135,6 @@ namespace FaPA.GUI.Feautures.Fattura
 
         public override void CreateNewEntity()
         {
-
             if ( IsCopyMode )
             {
                 object copy = CurrentEntity.Copy();
@@ -178,8 +154,7 @@ namespace FaPA.GUI.Feautures.Fattura
             InitFatturaTabs();
 
         }
-
-
+        
         protected override void DefaultCancelOnEditAction()
         {
             base.DefaultCancelOnEditAction();
@@ -189,9 +164,9 @@ namespace FaPA.GUI.Feautures.Fattura
 
         protected override bool TrySaveCurrentEntity()
         {
-           CurrentEntity.SetTrasmittente();
-
-           return base.TrySaveCurrentEntity();
+            var result = base.TrySaveCurrentEntity();
+            DatiRiepilogoIvaViewModel.Init();
+            return result;
         }
 
         protected override void Dispose()
@@ -230,14 +205,7 @@ namespace FaPA.GUI.Feautures.Fattura
         {
             var fattura = CurrentEntity;
 
-            var hasProg = fattura.DatiTrasmissione != null &&
-                ( string.IsNullOrWhiteSpace( fattura.DatiTrasmissione.ProgressivoInvio )  ||
-                 !string.IsNullOrWhiteSpace(fattura.DatiTrasmissione.ProgressivoInvio.Replace("0","") ) );
-
-            IsOfficialSent = hasProg;
-            IsOfficialSentEnabled = hasProg;
-
-            DettagliFatturaViewModel = new DettagliFatturaViewModel(this, fattura.DatiBeniServizi );
+            DettagliFatturaViewModel = new DettagliFatturaViewModel(this, fattura );
             DettagliFatturaViewModel.Init();
             DettagliFatturaViewModel.CurrentEntityChanged += OnDettaglioFatturaPropertyChanged;
 
@@ -262,11 +230,14 @@ namespace FaPA.GUI.Feautures.Fattura
             RappresentanteFiscaleViewModel = new DatiRappresentanteFiscaleViewModel( this, fattura );
             RappresentanteFiscaleViewModel.Init();
             AddTabViewModel<DatiRappresentanteFiscaleViewModel>( RappresentanteFiscaleViewModel );
-
-
+            
             TerzoIntermediarioViewModel = new DatiTerzoIntermediarioViewModel( this, fattura );
             TerzoIntermediarioViewModel.Init();
             AddTabViewModel<DatiTerzoIntermediarioViewModel>( TerzoIntermediarioViewModel );
+
+            DatiRiepilogoIvaViewModel = new DatiRiepilogoIvaViewModel(this, fattura.DatiBeniServizi);
+            DatiRiepilogoIvaViewModel.Init();
+            AddTabViewModel<DatiRiepilogoIvaViewModel>(DatiRiepilogoIvaViewModel);
 
         }
 
@@ -279,6 +250,7 @@ namespace FaPA.GUI.Feautures.Fattura
         {
             LockMessage = EditViewModel<BaseEntity>.OnEditingLockMessage;
             IsInEditing = true;
+            Validate();
             AllowSave = IsValidate();
         }
 
@@ -336,17 +308,6 @@ namespace FaPA.GUI.Feautures.Fattura
 
         private void ValidateAndFlushXml(IValidatable fattura)
         {
-            //if ( fattura.FatturaElettronicaHeader.DatiTrasmissione == null )
-            //{
-            //fattura.SetTrasmittente();
-            //}
-
-            if ( IsOfficialSent )
-            {
-                CurrentEntity.DatiTrasmissione.ProgressivoInvio = CurrentEntity.ProgFile.ToString("00000");
-                TrySaveCurrentEntity();
-                IsOfficialSentEnabled = false;
-            }
             string error = null;
             var folderPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
             var path = GetOutPath( folderPath );
@@ -407,6 +368,27 @@ namespace FaPA.GUI.Feautures.Fattura
             if (CurrentEntity == null) return;
             Presenters.Show("ShowXmlToTreeView", CurrentEntity.GetXmlDocument());
         }
+
+
+        private ICommand _addCopy;
+        public ICommand AddCopy
+        {
+            get
+            {
+                if (_addCopy != null) return _addCopy;
+                _addCopy = new RelayCommand(param => AddNewCopy(), param => !IsInEditing);
+                return _addCopy;
+            }
+
+        }
+
+        private void AddNewCopy()
+        {
+            IsCopyMode = true;
+            AddNew();
+            IsCopyMode = false;
+        }
+
 
         private bool FlushXml(IValidatable fattura, string path, out string error)
         {
@@ -469,6 +451,7 @@ namespace FaPA.GUI.Feautures.Fattura
         private bool _isOfficialSentEnabled;
         private DatiRappresentanteFiscaleViewModel _rappresentanteFiscaleViewModel;
         private DatiTerzoIntermediarioViewModel _terzoIntermediarioViewModel;
+        private DatiRiepilogoIvaViewModel _datiRiepilogoIvaViewModel;
 
         public Visibility DettagliFatturaVisibility
         {
