@@ -28,7 +28,7 @@ namespace FaPA.Data
             {
                 d.Column( c =>
                 {
-                    c.Length( 28 );
+                    c.Length( 16 );
                     //c.NotNullable( true );
                 } );
             } );
@@ -37,7 +37,7 @@ namespace FaPA.Data
             {
                 d.Column( c =>
                 {
-                    c.Length( 28 );
+                    c.Length( 11 );
                     //c.NotNullable( true );
                     c.Unique( true );
                     c.Check( "" );
@@ -48,7 +48,7 @@ namespace FaPA.Data
             {
                 d.Column( c =>
                 {
-                    c.Length( 150 );
+                    c.Length( 80 );
                     c.Index( "denomidx" );
                 } );
             } );
@@ -57,7 +57,7 @@ namespace FaPA.Data
             {
                 d.Column( c =>
                 {
-                    c.Length( 80 );
+                    c.Length( 60 );
                     c.Index( "cognomidx" );
                 } );
             } );
@@ -66,7 +66,7 @@ namespace FaPA.Data
             {
                 d.Column( c =>
                 {
-                    c.Length( 80 );
+                    c.Length( 60 );
                     c.Index( "nomidx" );
                 } );
             } );
@@ -79,23 +79,44 @@ namespace FaPA.Data
                 } );
             } );
 
-            Property(x => x.Email);
-            Property(x => x.Pec);
-            Property(x => x.Tel);
-            Property(x => x.Fax);
-            Property(x => x.Note, d =>
+            Property( x => x.Email, d =>
             {
-                d.Column(c =>
+                d.Column( c =>
                 {
-                    c.Length(1000);
-                });
-            });
+                    c.Length( 256 );
+                } );
+            } );
+
+            Property( x => x.Pec, d =>
+            {
+                d.Column( c =>
+                {
+                    c.Length( 256 );
+                } );
+            } );
+
+
+            Property( x => x.Tel, d =>
+            {
+                d.Column( c =>
+                {
+                    c.Length( 12 );
+                } );
+            } );
+
+            Property( x => x.Fax, d =>
+            {
+                d.Column( c =>
+                {
+                    c.Length( 12 );
+                } );
+            } );
 
             Property(x => x.Comune, d =>
             {
                 d.Column(c =>
                 {
-                    c.Length(50);
+                    c.Length(60);
                     c.NotNullable(true);
                 });
             });
@@ -122,7 +143,7 @@ namespace FaPA.Data
             {
                 d.Column(c =>
                 {
-                    c.Length(50);
+                    c.Length(60);
                     c.NotNullable(true);
                 });
             });
@@ -131,7 +152,7 @@ namespace FaPA.Data
             {
                 d.Column(c =>
                 {
-                    c.Length(25);
+                    c.Length(8);
                     c.NotNullable(true);
                 });
             });
@@ -140,10 +161,18 @@ namespace FaPA.Data
             {
                 d.Column(c =>
                 {
-                    c.Length(5);
+                    c.Length(2);
                     c.NotNullable(true);
                 });
             });
+
+            Property( x => x.RifAmministrazione, d =>
+            {
+                d.Column( c =>
+                {
+                    c.Length( 20 );
+                } );
+            } );
 
             Set( x => x.Fatture, s =>
             {

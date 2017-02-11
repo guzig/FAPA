@@ -36,7 +36,7 @@ namespace FaPA.Core
 
         public virtual string NumeroFatturaDB { get; set; }
 
-        public virtual string NoteDB { get; set; }
+        public virtual string RiferimentoAmmDB { get; set; }
 
         public virtual int ProgFile { get; set; }
 
@@ -234,13 +234,9 @@ namespace FaPA.Core
         {
             get
             {
-                if (FatturaElettronicaBody.DatiBeniServizi == null)
-                {
-                    FatturaElettronicaBody.DatiBeniServizi = new DatiBeniServiziType();
-                }
-
                 return FatturaElettronicaBody.DatiBeniServizi;
             }
+            set { FatturaElettronicaBody.DatiBeniServizi = value; }
         }
 
         public virtual DettaglioLineeType[] DettaglioLinee
@@ -274,7 +270,8 @@ namespace FaPA.Core
                     DatiGenerali = new DatiGeneraliType
                     {
                         DatiGeneraliDocumento = new DatiGeneraliDocumentoType()
-                    }
+                    },
+                    DatiBeniServizi = new DatiBeniServiziType()
                 },
                 FatturaElettronicaHeader = new FatturaElettronicaHeaderType()
                 {
@@ -319,6 +316,10 @@ namespace FaPA.Core
 
             if (e.PropertyName == nameof(TotaleFatturaDB))
             {
+                if ( string.IsNullOrWhiteSpace( DatiGeneraliDocumento.Divisa ) )
+                {
+                    DatiGeneraliDocumento.Divisa = "EUR";
+                }
                 DatiGeneraliDocumento.ImportoTotaleDocumento = decimal.Parse(string.Format("{0:###0.00}", TotaleFatturaDB));
             }
 
@@ -364,12 +365,16 @@ namespace FaPA.Core
             }
             CedenteFornitore.DatiAnagrafici.Anagrafica = anag;
             CedenteFornitore.DatiAnagrafici.CodiceFiscale = AnagraficaCedenteDB.CodiceFiscale;
-            //CedenteFornitore.DatiAnagrafici.RegimeFiscale = RegimeFiscaleType.RF01;
+            CedenteFornitore.DatiAnagrafici.RegimeFiscale = RegimeFiscale;
             CedenteFornitore.DatiAnagrafici.IdFiscaleIVA = new IdFiscaleType()
             {
                 IdCodice = AnagraficaCedenteDB.PIva,
-                IdPaese = "IT"
+                IdPaese = AnagraficaCedenteDB.Nazione
             };
+
+            if ( string.IsNullOrWhiteSpace( RiferimentoAmmDB ) &&
+                 !string.IsNullOrWhiteSpace( CedenteFornitore.RiferimentoAmministrazione ) )
+                CedenteFornitore.RiferimentoAmministrazione = RiferimentoAmmDB;
         }
 
         //private void SyncDatiGeneraliDocumento()
@@ -428,6 +433,7 @@ namespace FaPA.Core
             DatiTrasmissione.ProgressivoInvio = ProgFile.ToString("00000");
             SetTrasmittente();
             UpdateRiepilogoIva();
+            CedenteFornitore.RiferimentoAmministrazione = RiferimentoAmmDB;
         }
 
         private void UpdateRiepilogoIva()
@@ -502,7 +508,11 @@ namespace FaPA.Core
             doc.InsertBefore(doc.CreateProcessingInstruction("xml-stylesheet",
                 "type=\"text/xsl\" href=\"fatturapa_v1.1.xsl\""), doc.DocumentElement);
             return doc;
-        }      
+        }
+
+
+
+
         bool IFlyFetch.TryUnproxyFlyFetch
         {
             get
@@ -526,7 +536,7 @@ namespace FaPA.Core
             other.CigDB = CigDB == null ? null : string.Copy( CigDB );
             other.CupDB = CupDB == null ? null : string.Copy( CupDB );
             other.CodUfficioDB = CodUfficioDB == null ? null : string.Copy( CodUfficioDB );
-            other.NoteDB = NoteDB == null ? null : string.Copy( NoteDB );
+            other.RiferimentoAmmDB = RiferimentoAmmDB == null ? null : string.Copy( RiferimentoAmmDB );
             other.ProgFile = 0;
             other.Version = 0;
             return other;

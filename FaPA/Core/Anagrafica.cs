@@ -24,7 +24,7 @@ namespace FaPA.Core
         public virtual string Email { get; set; }
         public virtual string Tel { get; set; }
         public virtual string Fax { get; set; }
-        public virtual string Note { get; set; }
+        public virtual string RifAmministrazione { get; set; }
 
         public virtual IList<Comune> ComuniPerProvincia { get; set; }
 

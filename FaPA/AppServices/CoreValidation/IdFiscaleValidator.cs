@@ -14,7 +14,7 @@ namespace FaPA.AppServices.CoreValidation
 
             if ( TryAddNotNullError( nameof( instnce.IdCodice ), instnce.IdCodice, errors ) )
             {
-                TryGetLengthErrors(nameof(instnce.IdCodice), instnce.IdCodice, errors, 2, 2); 
+                TryGetLengthErrors(nameof(instnce.IdCodice), instnce.IdCodice, errors, 11, 11); 
             }
 
             if ( !TryAddNotNullError( nameof( instnce.IdPaese ), instnce.IdPaese, errors ) )

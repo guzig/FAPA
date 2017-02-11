@@ -11,6 +11,7 @@ namespace FaPA.AppServices.CoreValidation
     {
         private static readonly IDictionary<Type, ICoreValidator> Validators = new Dictionary<Type, ICoreValidator>()
         {
+            { typeof ( DatiTrasmissioneType ), new DatiTrasmittenteValidator() },
             { typeof ( IdFiscaleType ), new IdFiscaleValidator() },
             { typeof ( AnagraficaType ), new AnagraficaValidator() },
             { typeof ( DatiAnagraficiVettoreType ), new DatiAnagraficiVettoreValidator() },
@@ -24,8 +25,9 @@ namespace FaPA.AppServices.CoreValidation
             { typeof ( DettaglioLineeType ), new DettaglioLineeValidator() },
             { typeof ( Anagrafica ), new NhCommittenteValidator() },
             { typeof ( Fattura ), new NhFatturaValidator() },
-            { typeof ( UserData ), new NhUserDataValidator() }
-            
+            { typeof ( UserData ), new NhUserDataValidator() },
+            { typeof ( DatiAnagraficiTerzoIntermediarioType ), new DatiTerzoIntermdiarioValidator() },
+            { typeof ( DatiAnagraficiRappresentanteType ), new RappFiscaleValidator() }
         };
 
         public static DomainResult Validate( object instance )

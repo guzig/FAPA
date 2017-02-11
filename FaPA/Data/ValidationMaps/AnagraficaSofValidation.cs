@@ -15,16 +15,23 @@ namespace FaPA.Data.ValidationMaps
         {
             ValidateInstance.By( ValidateInstanc );
 
-            Define( l => l.Comune ).NotNullableAndNotEmpty().WithMessage( "Specificare un comune" );
-            Define( l => l.Provincia ).NotNullableAndNotEmpty().WithMessage( "Specificare la provincia " );
-            Define( l => l.Cap ).NotNullableAndNotEmpty().WithMessage( "Specificare la provincia " );
-            Define( f => f.Indirizzo ).NotNullable().WithMessage( "Specificare indirizzo" );
-            Define( f => f.Civico ).NotNullable().WithMessage( "Specificare il civico" );
+            Define( l => l.Comune ).NotNullableAndNotEmpty().WithMessage( "Specificare un comune" ).And.MaxLength( 60 );
+            Define( l => l.Provincia ).NotNullableAndNotEmpty().WithMessage( "Specificare la provincia " ).And.MaxLength( 2 );
+            Define( l => l.Cap ).NotNullableAndNotEmpty().WithMessage( "Specificare la provincia " ).And.MaxLength( 5 );
+            Define( f => f.Indirizzo ).NotNullable().WithMessage( "Specificare indirizzo" ).And.MaxLength( 60 );
+            Define( f => f.Civico ).NotNullable().WithMessage( "Specificare il civico" ).And.MaxLength( 8 );
             Define( f => f.Nazione ).NotNullable().WithMessage( "Specificare la naizone" );
             Define(f => f.Email).IsEmail();
+            Define( f => f.Pec ).IsEmail();
             Define(f => f.CodiceFiscale).IsCodiceFiscale();
             Define(f => f.PIva).IsPartitaIva();
-
+            Define( f => f.Cognome ).MaxLength( 60 );
+            Define( f => f.Nome ).MaxLength( 60 );
+            Define( f => f.Denominazione ).MaxLength( 80 );
+            Define( f => f.Tel ).MinLength( 5 ).And.MaxLength( 12 );
+            Define( f => f.Fax ).MinLength( 5 ).And.MaxLength( 12 );
+            Define( f => f.CodUfficioPa ).MinLength( 6 ).And.MaxLength( 6 );
+            Define( f => f.RifAmministrazione ).MaxLength( 80 );
         }
 
         private static bool ValidateInstanc( Anagrafica anag, IConstraintValidatorContext context )

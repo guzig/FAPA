@@ -1,4 +1,5 @@
 using System;
+using System.Xml.Serialization;
 
 namespace FaPA.Core.FaPa
 {
@@ -6,6 +7,8 @@ namespace FaPA.Core.FaPa
     public class TerzoIntermediarioSoggettoEmittenteType: BaseEntityFpa
     {
         private SoggettoEmittenteType _soggettoEmittente;
+
+        [XmlIgnore]
         public SoggettoEmittenteType SoggettoEmittente
         {
             get { return _soggettoEmittente; }
@@ -16,17 +19,17 @@ namespace FaPA.Core.FaPa
             }
         }
 
-        private DatiAnagraficiTerzoIntermediarioType datiAnagraficiField;
+        private DatiAnagraficiTerzoIntermediarioType _datiAnagraficiField;
 
         public virtual DatiAnagraficiTerzoIntermediarioType DatiAnagrafici
         {
             get
             {
-                return datiAnagraficiField;
+                return _datiAnagraficiField;
             }
             set
             {
-                datiAnagraficiField = value;
+                _datiAnagraficiField = value;
             }
         }
     }

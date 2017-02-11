@@ -1,52 +1,47 @@
 ﻿using System;
-using System.Xml.Schema;
-using System.Xml.Serialization;
 
 namespace FaPA.Core.FaPa
 {
     [Serializable]
     public class DatiAnagraficiRappresentanteType : BaseEntityFpa
     {
-        private IdFiscaleType idFiscaleIVAField;
-        private string codiceFiscaleField;
-        private AnagraficaType anagraficaField;
+        private IdFiscaleType _idFiscaleIvaField;
+        private string _codiceFiscaleField;
+        private AnagraficaType _anagraficaField;
         
-        [XmlElement( Form = XmlSchemaForm.Unqualified )]
         public virtual IdFiscaleType IdFiscaleIVA
         {
             get
             {
-                return idFiscaleIVAField;
+                return _idFiscaleIvaField;
             }
             set
             {
-                idFiscaleIVAField = value;
+                _idFiscaleIvaField = value;
             }
         }
         
-        [XmlElement( Form = XmlSchemaForm.Unqualified )]
         public virtual string CodiceFiscale
         {
             get
             {
-                return codiceFiscaleField;
+                return _codiceFiscaleField;
             }
             set
             {
-                codiceFiscaleField = value;
+                _codiceFiscaleField = value;
             }
         }
         
-        [XmlElement( Form = XmlSchemaForm.Unqualified )]
         public virtual AnagraficaType Anagrafica
         {
             get
             {
-                return anagraficaField;
+                return _anagraficaField;
             }
             set
             {
-                anagraficaField = value;
+                _anagraficaField = value;
             }
         }
     }

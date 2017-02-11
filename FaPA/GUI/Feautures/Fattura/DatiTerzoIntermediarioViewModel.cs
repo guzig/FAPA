@@ -6,8 +6,6 @@ namespace FaPA.GUI.Feautures.Fattura
 {
     public class DatiTerzoIntermediarioViewModel : EditWorkSpaceViewModel<Core.Fattura, TerzoIntermediarioSoggettoEmittenteType>
     {
-
-
         //ctor
         public DatiTerzoIntermediarioViewModel( IRepository repository, Core.Fattura instance ) :
             base( repository, instance, f => f.TerzoIntermediarioOSoggettoEmittente, "Terzo emittente", false )
@@ -20,7 +18,17 @@ namespace FaPA.GUI.Feautures.Fattura
             Instance.FatturaElettronicaHeader.SoggettoEmittente = 
                 ( ( TerzoIntermediarioSoggettoEmittenteType  ) CurrentPoco).SoggettoEmittente;
 
+            Instance.FatturaElettronicaHeader.SoggettoEmittenteFieldSpecified = true;
+            
             base.PersitEntity();
+        }
+
+        protected override void MakeTransient()
+        {
+            base.MakeTransient();
+
+            Instance.FatturaElettronicaHeader.SoggettoEmittenteFieldSpecified = false;
+
         }
 
         protected override void HookChanged( object poco )

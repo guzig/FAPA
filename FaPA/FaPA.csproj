@@ -316,10 +316,13 @@
     <Compile Include="AppServices\CoreValidation\AltriDatiGestionaliValidator.cs" />
     <Compile Include="AppServices\CoreValidation\AnagraficaValidator.cs" />
     <Compile Include="AppServices\CoreValidation\DatiAnagraficiVettoreValidator.cs" />
+    <Compile Include="AppServices\CoreValidation\DatiTerzoIntermdiarioValidator.cs" />
+    <Compile Include="AppServices\CoreValidation\DatiTrasmittenteValidator.cs" />
     <Compile Include="AppServices\CoreValidation\DatiTrasportoValidator.cs" />
     <Compile Include="AppServices\CoreValidation\IdFiscaleValidator.cs" />
     <Compile Include="AppServices\CoreValidation\IndirizzoValidator.cs" />
     <Compile Include="AppServices\CoreValidation\NhUserDataValidator.cs" />
+    <Compile Include="AppServices\CoreValidation\RappFiscaleValidator.cs" />
     <Compile Include="AppServices\CoreValidation\ScontoMaggiorazioneValidator.cs" />
     <Compile Include="AppServices\CoreValidation\NhAnagraficaValidator.cs" />
     <Compile Include="AppServices\CoreValidation\BaseCoreValidator.cs" />
@@ -446,6 +449,7 @@
     <Compile Include="Data\PropertyChangedLazyInitializer.cs" />
     <Compile Include="Data\PropertyChangedProxyFactory.cs" />
     <Compile Include="Data\PropertyChangedProxyFactoryFactory.cs" />
+    <Compile Include="Data\UserDataMap.cs" />
     <Compile Include="Data\ValidationMaps\AnagraficaSofValidation.cs" />
     <Compile Include="Data\ValidationMaps\FatturaSofValidation.cs" />
     <Compile Include="Data\PropertyPathExtensions.cs" />

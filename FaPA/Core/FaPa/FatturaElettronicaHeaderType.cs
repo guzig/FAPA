@@ -91,7 +91,6 @@ namespace FaPA.Core.FaPa
             }
         }
 
-        [XmlIgnore]
         public virtual  SoggettoEmittenteType SoggettoEmittente
         {
             get
