@@ -56,7 +56,6 @@ namespace FaPA.Core.FaPa
 
         #endregion
         
-        [XmlElement( Form = XmlSchemaForm.Unqualified, DataType = "integer" )]
         public virtual  string NumeroLinea
         {
             get
@@ -79,6 +78,7 @@ namespace FaPA.Core.FaPa
             set
             {
                 tipoCessionePrestazioneField = value;
+                TipoCessionePrestazioneSpecified = tipoCessionePrestazioneField != TipoCessionePrestazioneType.N;
             }
         }
 
@@ -108,7 +108,6 @@ namespace FaPA.Core.FaPa
             }
         }
 
-        [XmlElement( Form = XmlSchemaForm.Unqualified, DataType = "normalizedString" )]
         public virtual string Descrizione
         {
             get
@@ -146,7 +145,6 @@ namespace FaPA.Core.FaPa
         //    }
         //}
 
-        [XmlElement( Form = XmlSchemaForm.Unqualified, DataType = "normalizedString" )]
         public virtual string UnitaMisura
         {
             get
@@ -159,7 +157,6 @@ namespace FaPA.Core.FaPa
             }
         }
 
-        [XmlElement( Form = XmlSchemaForm.Unqualified, DataType = "date" )]
         public virtual DateTime DataInizioPeriodo
         {
             get
@@ -186,7 +183,6 @@ namespace FaPA.Core.FaPa
             }
         }
 
-        [XmlElement( Form = XmlSchemaForm.Unqualified, DataType = "date" )]
         public virtual DateTime DataFinePeriodo
         {
             get
@@ -225,7 +221,6 @@ namespace FaPA.Core.FaPa
             }
         }
 
-        [XmlElement( "ScontoMaggiorazione", Form = XmlSchemaForm.Unqualified )]
         public virtual ScontoMaggiorazioneType[] ScontoMaggiorazione
         {
             get
@@ -297,6 +292,7 @@ namespace FaPA.Core.FaPa
             set
             {
                 naturaField = value;
+                NaturaSpecified = naturaField != NaturaType.N;
             }
         }
 
@@ -313,7 +309,6 @@ namespace FaPA.Core.FaPa
             }
         }
 
-        [XmlElement( Form = XmlSchemaForm.Unqualified, DataType = "normalizedString" )]
         public virtual string RiferimentoAmministrazione
         {
             get
@@ -326,7 +321,6 @@ namespace FaPA.Core.FaPa
             }
         }
 
-        [XmlElement( "AltriDatiGestionali", Form = XmlSchemaForm.Unqualified )]
         public virtual AltriDatiGestionaliType[] AltriDatiGestionali
         {
             get

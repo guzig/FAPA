@@ -60,10 +60,6 @@ namespace FaPA.GUI.Feautures.Fattura
             }
         }
 
-        public EditFatturaViewModel EditFatturaViewModel
-        {
-            get { return Model.EditViewModel as EditFatturaViewModel; }
-        }
 
         private string _onGridEmptyText = "Inserisci una nuova fattura";
         public string OnGridEmptyText

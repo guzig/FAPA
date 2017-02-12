@@ -12,11 +12,38 @@ using System.Linq;
 using FaPA.AppServices.CoreValidation;
 using FaPA.Core;
 using FaPA.Infrastructure;
+using FaPA.Infrastructure.Helpers;
+using NHibernate.Properties;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
     public class EditFatturaViewModel : EditViewModel<Core.Fattura>
     {
+        private const string XsdValidationErrorIcon = @"/GUI/Design\Styles\Images\1366144159_error.png";
+        private const string XsdValidationPassedIcon = @"/GUI/Design\Styles\Images\Button-Ok-icon.png";
+
+        public virtual string DomainResultFatturaPA
+        {
+            get { return _domainResultFatturaPa; }
+            set
+            {
+                if ( value == _domainResultFatturaPa ) return;
+                _domainResultFatturaPa = value;                   
+                NotifyOfPropertyChange( () => DomainResultFatturaPA );
+            }
+        }
+
+        public string IconXsdValidationState
+        {
+            get { return _iconXsdValidationState; }
+            set
+            {
+                if ( value == _iconXsdValidationState ) return;
+                _iconXsdValidationState = value;
+                NotifyOfPropertyChange( () => IconXsdValidationState );
+            }
+        }
+
         public bool IsCopyMode { get; set; } = false;
 
         #region ViewModels
@@ -151,19 +178,19 @@ namespace FaPA.GUI.Feautures.Fattura
                 CurrentEntity = CreateInstance();
             }
 
-            InitFatturaTabs();
-
+            InitFatturaTabs( CurrentEntity );
         }
         
         protected override void DefaultCancelOnEditAction()
         {
             base.DefaultCancelOnEditAction();
-            InitFatturaTabs();
+            InitFatturaTabs( CurrentEntity );
             DettagliFatturaViewModel.UserCollectionView?.Refresh();
         }
 
         protected override bool TrySaveCurrentEntity()
         {
+            CurrentEntity.SyncFatturaPa();
             var result = base.TrySaveCurrentEntity();
             DatiRiepilogoIvaViewModel.Init();
             return result;
@@ -177,37 +204,28 @@ namespace FaPA.GUI.Feautures.Fattura
 
         #endregion
 
-        public override void OnPageGotFocus()
-        {
-            base.OnPageGotFocus();
+        //public override void OnPageGotFocus()
+        //{
+        //    base.OnPageGotFocus();
 
-            InitFatturaTabs();
-        }
+        //    InitFatturaTabs();
+        //}
 
         private void OnCurrentFatturaChanged(Core.Fattura currententity)
         {
+            InitFatturaTabs( currententity );
 
-            InitFatturaTabs();
-
-            if (currententity == null || currententity.Id == 0)
-            {
-                DettagliFatturaVisibility = Visibility.Collapsed;
-                EmptyMsgVisibility = Visibility.Visible;
-            }
-            else
-            {
-                DettagliFatturaVisibility = Visibility.Visible;
-                EmptyMsgVisibility = Visibility.Collapsed;          
-            }
         }
 
-        private void InitFatturaTabs()
+        private void InitFatturaTabs(Core.Fattura fattura )
         {
-            var fattura = CurrentEntity;
+            //var fattura = CurrentEntity;
 
             DettagliFatturaViewModel = new DettagliFatturaViewModel(this, fattura );
             DettagliFatturaViewModel.Init();
             DettagliFatturaViewModel.CurrentEntityChanged += OnDettaglioFatturaPropertyChanged;
+            DettagliFatturaViewModel.UserCollectionView.CurrentChanged += OnDettaglioFatturaPropertyChanged1;
+            DettagliFatturaViewModel.UserCollectionView.CurrentChanging += OnDettaglioFatturaPropertyChanged2;
 
             DatiGeneraliViewModel = new DatiGeneraliViewModel( this, fattura.FatturaElettronicaBody );
             AddTabViewModel<DatiGeneraliViewModel>( DatiGeneraliViewModel );
@@ -239,6 +257,29 @@ namespace FaPA.GUI.Feautures.Fattura
             DatiRiepilogoIvaViewModel.Init();
             AddTabViewModel<DatiRiepilogoIvaViewModel>(DatiRiepilogoIvaViewModel);
 
+            var isValidatedByXsd = SerializerHelpers.ValidateByXsdFatturaPA( fattura );
+
+            if ( string.IsNullOrWhiteSpace( isValidatedByXsd ) )
+            {
+                IconXsdValidationState = XsdValidationPassedIcon;
+                DomainResultFatturaPA = "Validazione riuscita";
+            }
+            else
+            {
+                IconXsdValidationState = XsdValidationErrorIcon;
+                DomainResultFatturaPA = isValidatedByXsd;
+            }
+
+        }
+
+        private void OnDettaglioFatturaPropertyChanged1( object sender, EventArgs e )
+        {
+            var fff = sender;
+        }
+
+        private void OnDettaglioFatturaPropertyChanged2( object sender, EventArgs e )
+        {
+            var fff = sender;
         }
 
         private void OnDettaglioFatturaPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -445,23 +486,14 @@ namespace FaPA.GUI.Feautures.Fattura
             }
         }
 
-        private Visibility _dettagliFatturaVisibility;
         private AllegatiViewModel _allegatiViewModel;
-        private bool _isOfficialSent;
-        private bool _isOfficialSentEnabled;
+
         private DatiRappresentanteFiscaleViewModel _rappresentanteFiscaleViewModel;
         private DatiTerzoIntermediarioViewModel _terzoIntermediarioViewModel;
         private DatiRiepilogoIvaViewModel _datiRiepilogoIvaViewModel;
+        private string _domainResultFatturaPa;
+        private string _iconXsdValidationState;
 
-        public Visibility DettagliFatturaVisibility
-        {
-            get { return _dettagliFatturaVisibility; }
-            set
-            {
-                _dettagliFatturaVisibility = value;
-                NotifyOfPropertyChange(() => DettagliFatturaVisibility);
-            }
-        }
 
         #endregion
     }

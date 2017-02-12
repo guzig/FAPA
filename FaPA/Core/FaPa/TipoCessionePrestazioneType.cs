@@ -6,6 +6,9 @@ namespace FaPA.Core.FaPa
     [Serializable]
     public enum TipoCessionePrestazioneType
     {
+        [Description( "" )]
+        N,
+
         [Description("Sconto")]
         SC,
 

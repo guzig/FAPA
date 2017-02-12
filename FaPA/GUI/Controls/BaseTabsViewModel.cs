@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Windows;
@@ -11,6 +12,7 @@ using FaPA.Infrastructure;
 using Remotion.Linq.Collections;
 using FaPA.Core;
 using FaPA.Infrastructure.Helpers;
+using NHibernate.Proxy.DynamicProxy;
 using NHibernate.Util;
 
 namespace FaPA.GUI.Controls
@@ -50,10 +52,14 @@ namespace FaPA.GUI.Controls
             if ( Instance != null && UserProperty != null )
             {
                 AllowDelete = true;
+
                 InitCollectionView();
 
                 foreach (var item in UserCollectionView)
                 {
+                    if ( !( item is INotifyPropertyChanged ) )
+                        throw new NullReferenceException();
+
                     HookChanged( item);
                 }
 
@@ -110,8 +116,10 @@ namespace FaPA.GUI.Controls
         
         protected override bool CanAddEntity(object obj)
         {
-            var view = UserCollectionView as ListCollectionView;
-            return view == null || ( !view.IsAddingNew && !view.IsEditingItem );
+            //var view = UserCollectionView as ListCollectionView;
+            //var isa = view == null || ( !view.IsAddingNew && !view.IsEditingItem );
+            //return isa;
+            return true;
         }
 
         protected override void AddEntity()
@@ -189,12 +197,20 @@ namespace FaPA.GUI.Controls
             UserCollectionView.CurrentChanged -= OnCurrentChanged;
             UserCollectionView.CurrentChanged += OnCurrentChanged;
             IsEmpty = UserProperty == null || UserCollectionView == null || UserCollectionView.IsEmpty;
+
+            foreach ( var VARIABLE in UserCollectionView )
+            {
+                if ( !( VARIABLE is IProxy ) )
+                    throw new NullReferenceException();
+            }
         }
 
         protected virtual void OnCurrentChanged( object sender, EventArgs e)
         {
             CurrentPoco = UserCollectionView.CurrentItem;
             if ( CurrentPoco == null) return;
+            if ( !( CurrentPoco is IProxy ) )
+                throw new NullReferenceException();
             Validate();
             AllowSave = IsValid;
             AllowDelete = true;

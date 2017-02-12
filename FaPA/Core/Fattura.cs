@@ -242,7 +242,10 @@ namespace FaPA.Core
         public virtual DettaglioLineeType[] DettaglioLinee
         {
             get { return DatiBeniServizi.DettaglioLinee; }
-            set { DatiBeniServizi.DettaglioLinee = value; }
+            set
+            {
+                DatiBeniServizi.DettaglioLinee = value;
+            }
         }
 
         //public virtual AllegatiType[] Allegati
@@ -269,7 +272,7 @@ namespace FaPA.Core
                 {
                     DatiGenerali = new DatiGeneraliType
                     {
-                        DatiGeneraliDocumento = new DatiGeneraliDocumentoType()
+                        DatiGeneraliDocumento = new DatiGeneraliDocumentoType() {Data = DataFatturaDB}
                     },
                     DatiBeniServizi = new DatiBeniServiziType()
                 },
@@ -391,16 +394,18 @@ namespace FaPA.Core
             FatturaElettronicaHeader.DatiTrasmissione = new DatiTrasmissioneType
             {
                 CodiceDestinatario = CodUfficioDB,
-                FormatoTrasmissione = new FormatoTrasmissioneType(),
+                FormatoTrasmissione = FormatoTrasmissioneType.SDI11,
                 ProgressivoInvio = ProgFile.ToString("00000")
             };
-            
+       
             if ( AnagraficaCedenteDB != null )
+            {
                 FatturaElettronicaHeader.DatiTrasmissione.IdTrasmittente = new IdFiscaleType
                 {
                     IdCodice = AnagraficaCedenteDB.CodiceFiscale,
-                    IdPaese = "IT"
+                    IdPaese = AnagraficaCedenteDB.Nazione
                 };
+            }
 
             if ( AnagraficaCommittenteDB == null ) return;
 
@@ -410,7 +415,7 @@ namespace FaPA.Core
             CessionarioCommittente.DatiAnagrafici.IdFiscaleIVA = new IdFiscaleType()
             {
                 IdCodice = AnagraficaCommittenteDB.PIva,
-                IdPaese = "IT"
+                IdPaese = AnagraficaCommittenteDB.Nazione
             };
         }
 
@@ -430,7 +435,6 @@ namespace FaPA.Core
 
         public virtual void SyncFatturaPa()
         {
-            DatiTrasmissione.ProgressivoInvio = ProgFile.ToString("00000");
             SetTrasmittente();
             UpdateRiepilogoIva();
             CedenteFornitore.RiferimentoAmministrazione = RiferimentoAmmDB;
@@ -463,8 +467,8 @@ namespace FaPA.Core
 
         public override DomainResult Validate()
         {
-            
-            //var resultFatturaPa = SerializerHelpers.ValidateFatturaPA(this);
+            //DomainResultFatturaPA = new DomainResult( new Dictionary<string, IEnumerable<string>>()
+            //{ { nameof(FatturaPa), new[] { resultFatturaPa } } } );
 
             var err = new Dictionary<string, IEnumerable<string>>();
 
@@ -500,9 +504,7 @@ namespace FaPA.Core
 
         public virtual XmlDocument GetXmlDocument( )
         {
-            var proxy = ObjectExplorer.UnProxiedDeep( FatturaPa );
-            var xmlData = SerializerHelpers.ObjectToXml( (FatturaElettronicaType) proxy );
-            //var document = XDocument.Parse(xmlData);
+            var xmlData = GetXmlStream();
             var doc = new XmlDocument();
             doc.LoadXml(xmlData);
             doc.InsertBefore(doc.CreateProcessingInstruction("xml-stylesheet",
@@ -510,7 +512,11 @@ namespace FaPA.Core
             return doc;
         }
 
-
+        public virtual string GetXmlStream()
+        {
+            var proxy = ObjectExplorer.UnProxiedDeep( FatturaPa );
+            return SerializerHelpers.ObjectToXml( ( FatturaElettronicaType ) proxy );
+        }
 
 
         bool IFlyFetch.TryUnproxyFlyFetch

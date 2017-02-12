@@ -876,6 +876,9 @@
     <Resource Include="GUI\Design\Styles\Images\preferences_desktop_user_password.ico" />
     <Resource Include="GUI\Design\Styles\Images\1462459533_backup-restore.ico" />
     <Resource Include="GUI\Design\Styles\Images\1462461626_users.ico" />
+    <Resource Include="GUI\Design\Styles\Images\Verified.png" />
+    <Resource Include="GUI\Design\Styles\Images\Actions-dialog-ok-apply-icon.png" />
+    <Resource Include="GUI\Design\Styles\Images\Button-Ok-icon.png" />
     <Content Include="nhibernate.cfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

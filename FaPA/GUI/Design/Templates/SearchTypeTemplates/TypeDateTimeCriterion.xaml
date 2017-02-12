@@ -113,9 +113,9 @@
 
                     <DockPanel Margin="5" Width="45" Height="Auto"  DockPanel.Dock="Right">
 
-                        <xctk:DropDownButton Width="Auto" x:Name="DropCa"
-                                              >
-                            <Image Source="\GUI\Design\Styles\Images\Calendar_64.png"></Image>
+                        <xctk:DropDownButton Width="Auto" x:Name="DropCa">
+                            
+                            <Image Source="/GUI/Design\Styles\Images\Calendar_64.png"></Image>
 
                             <xctk:DropDownButton.DropDownContent >
 

@@ -2,8 +2,7 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:FaPA.GUI.Design.Templates"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:utils="clr-namespace:FaPA.GUI.Utils"
              xmlns:myRecordNavigator="clr-namespace:FaPA.GUI.Controls.MyRecordNavigator"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
@@ -37,6 +36,8 @@
             <!--<ContentControl Content="{Binding CurrentEntity, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"/>-->
 
         </DockPanel>
+        
+        <StackPanel Orientation="Horizontal">
 
         <DockPanel Height="25" Margin="2,5,2,2" HorizontalAlignment="Left"
                    Background="{StaticResource Brush_ToolBar}">
@@ -74,13 +75,12 @@
                                                                                         AncestorType={x:Type  Window}}}"
                                    IsEnabled="{Binding Path=AllowRecordsNavigation}"/>
 
-            <xctk:SplitButton  x:Name="Search"
+                <xctk:SplitButton  x:Name="Search" Margin="5,0,0,0"
                     ToolTip= "Apre la finestra per la ricerca estesa"
                     Command="{Binding Path=Presenter.Search, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"   
                     Width="Auto" HorizontalAlignment="Left">
 
-                <Image Source="\GUI\Design\Styles\Images\1351794424_file_search.png"
-                       Width="25"/>
+                <Image Source="\GUI\Design\Styles\Images\1351794424_file_search.png" Width="25"/>
                 <xctk:SplitButton.DropDownContent>
                     <Border  Background="CornflowerBlue" >
                         <CheckBox Name="McCheckBox"
@@ -96,7 +96,7 @@
                 </xctk:SplitButton.DropDownContent>
             </xctk:SplitButton>
 
-            <Button x:Name="SearchOnSite" Command="{Binding SearchOnSite}" 
+                <Button x:Name="SearchOnSite" Command="{Binding SearchOnSite}" Margin="2,0,0,0"
                     ToolTip= "Abilita la modalità ricerca immediata sul posto (tasto scorciatoia: F9)&#x0a;Per eseguire la ricerca, dopo aver abilitato la ricerca immediata ed aver immesso i dati, premere Ctrl-Invio"
                     Width="25" HorizontalAlignment="Left" IsEnabled="{Binding AllowFastSearch}">
 
@@ -138,7 +138,27 @@
             </Button>
 
         </DockPanel>
+            
+        <DockPanel Margin="10,2,0,0" HorizontalAlignment="Stretch" MaxWidth="600"  Height="Auto" MaxHeight="300">
+
+                <xctk:DropDownButton Width="Auto" Height="25" MaxHeight="300" >
+
+                    <Image Source="{Binding IconXsdValidationState}" Height="Auto"/>
+
+                        <xctk:DropDownButton.DropDownContent >
+
+                        <Grid  MaxHeight="300" MaxWidth="500" IsEnabled="True" >
+                            <Border BorderBrush="CadetBlue" BorderThickness="1" CornerRadius="3" Background="White">
+                                <TextBlock Text="{Binding DomainResultFatturaPA}" TextWrapping="Wrap" FontSize="15" />
+                            </Border>
+                        </Grid>
+
+                    </xctk:DropDownButton.DropDownContent>
+
+                    </xctk:DropDownButton>
 
 
+            </DockPanel>
+        </StackPanel>
     </StackPanel>
 </UserControl>

@@ -309,6 +309,7 @@ namespace FaPA.GUI.Controls.MyTabControl
             {
                 LoadAndShowCurrentEntity();
             }
+            
         }
         
         #region Validation stuff
@@ -594,6 +595,8 @@ namespace FaPA.GUI.Controls.MyTabControl
             _isOnBind = false;
 
             _onCancelDelegate = DefaultCancelOnEditAction;
+
+            OnCurrentChanged( CurrentEntity );
         }
 
         public virtual void Load()

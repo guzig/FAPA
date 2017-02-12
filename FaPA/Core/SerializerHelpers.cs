@@ -3,6 +3,7 @@ using System.Text;
 using System.Xml.Linq;
 using System.Xml.Schema;
 using System.Xml.Serialization;
+using FaPA.AppServices.CoreValidation;
 using FaPA.Core.FaPa;
 using FaPA.DomainServices.Utils;
 
@@ -29,8 +30,6 @@ namespace FaPA.Core
             Overrides.Add(typeof(BaseEntityFpa), "IsValidating", XmlAttributes);
             Overrides.Add(typeof(BaseEntity), "IsNotyfing", XmlAttributes);
             Overrides.Add(typeof(BaseEntityFpa), "IsNotyfing", XmlAttributes);
-
-            //ObjectExplorer.OverridesAllInstances( typeof( FatturaElettronicaType ), Overrides );
 
             Serializer = new XmlSerializer(typeof (FatturaElettronicaType), Overrides);
         }
@@ -82,9 +81,9 @@ namespace FaPA.Core
             return result;
         }
 
-        public static string ValidateFatturaPA(Fattura fattura)
+        public static string ValidateByXsdFatturaPA(Fattura fattura)
         {
-            var xmlData = ObjectToXml(fattura.FatturaPa);
+            var xmlData = fattura.GetXmlStream();
             var document = XDocument.Parse(xmlData);
             var sb = new StringBuilder();
             document.Validate(FatturaPaXmlSchema, (o, e) =>

@@ -43,6 +43,7 @@ namespace FaPA.GUI.Feautures.Fattura
         public override void Init()
         {
             _isOnInit = true;
+
             base.Init();
 
             var dettaglio = UserCollectionView?.CurrentItem as DettaglioLineeType;
@@ -71,38 +72,31 @@ namespace FaPA.GUI.Feautures.Fattura
             RemoveFromFixedArray();
         }
 
-        protected override void OnCurrentChanged(object  sender, EventArgs e)
-        {
-            if ( _isOnInit ) return;
+        //protected override void OnCurrentChanged( object sender, EventArgs e )
+        //{
+        //    if ( _isOnInit ) return;
 
-            base.OnCurrentChanged(sender, e);
+        //    base.OnCurrentChanged( sender, e );
 
-            var cview = sender as ListCollectionView;
-            var dettaglio = cview?.CurrentItem as DettaglioLineeType;
-            if ( dettaglio == null ) return;
+        //    var cview = sender as ListCollectionView;
+        //    var dettaglio = cview?.CurrentItem as DettaglioLineeType;
 
-            InitAltriChildViewModel( dettaglio );
-        }
+        //    if ( dettaglio == null ) return;
+
+        //    InitAltriChildViewModel( dettaglio );
+        //}
 
         private void InitAltriChildViewModel( DettaglioLineeType dettaglio )
-        {
-            InitAltriDatiViewModel( dettaglio );
-            InitScontoMaggiorazioneViewModel( dettaglio );
-            AllowSave = IsValidate();
-        }
-        
-        private void InitAltriDatiViewModel( DettaglioLineeType dettaglio )
         {
             AltridatiViewModel = new AltriDatiViewModel( this, dettaglio );
             AltridatiViewModel.Init();
             AltridatiViewModel.CurrentEntityChanged += OnAltriDatiPropertyChanged;
-        }
 
-        private void InitScontoMaggiorazioneViewModel( DettaglioLineeType dettaglio )
-        {
             ScontoMaggiorazioneViewModel = new ScontoMaggiorazioneViewModel( this, dettaglio );
             ScontoMaggiorazioneViewModel.Init();
             ScontoMaggiorazioneViewModel.CurrentEntityChanged += OnScontoMaggiorazionePropertyChanged;
+
+            AllowSave = IsValidate();
         }
 
         private void OnAltriDatiPropertyChanged(object sender, PropertyChangedEventArgs e)

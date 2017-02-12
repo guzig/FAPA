@@ -1,4 +1,5 @@
 ﻿using System.Windows.Input;
+using FaPA.GUI.Utils;
 
 namespace FaPA.GUI.Design.Templates
 {
@@ -18,7 +19,7 @@ namespace FaPA.GUI.Design.Templates
 
         private void DettagliFatturaGridControl_OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
-            //DataGridHelpers.DataGridKeyUpEventHandler( e, DettagliFatturaGridControl );
+            DataGridHelpers.DataGridKeyUpEventHandler( e, DettagliFatturaGridControl );
         }
 
 

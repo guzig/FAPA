@@ -6,6 +6,9 @@ namespace FaPA.Core.FaPa
     [Serializable]
     public enum NaturaType
     {
+        [Description( "" )]
+        N,
+
         [Description( "escluse ex art.15" )]
         N1,
 
