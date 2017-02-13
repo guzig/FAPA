@@ -22,7 +22,8 @@
     </ResourceDictionary>
 
     </Application.Resources>
-    
+
     <Application.ShutdownMode>OnMainWindowClose</Application.ShutdownMode>
+
 
 </Application>

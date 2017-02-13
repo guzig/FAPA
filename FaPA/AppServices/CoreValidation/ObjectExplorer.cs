@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Xml.Serialization;
 using FaPA.Core;
 using FaPA.Data;
+using FaPA.Infrastructure.Helpers;
 using NHibernate.Proxy.DynamicProxy;
 
 namespace FaPA.AppServices.CoreValidation
@@ -60,6 +61,89 @@ namespace FaPA.AppServices.CoreValidation
             }
         }
 
+        public static object TryProxiedAllInstances1<T>(object value, string nameSpace = null) where T : class
+        {
+            var exploredObjects = new HashSet<object>();
+
+            return TryProxiedAllInstances1<T>(value, exploredObjects, nameSpace);
+
+        }
+
+        private static object TryProxiedAllInstances1<T>(object value, HashSet<object> exploredObjects, string nameSpace) where T : class
+        {
+            //bool isValueSet = false;
+
+            if (value == null || exploredObjects.Contains(value) || value.GetType().IsEnum) return null;
+
+            exploredObjects.Add(value);
+
+            if (value is string) return null;
+            var enumerable = value as IEnumerable;
+            if (enumerable != null)
+            {
+                #region IEnumerable loop
+
+                var array = enumerable as Array;
+                if (array != null)
+                {
+                    for (var i = 0; i < array.Length; i++)
+                    {
+                        var app = array.GetValue(i);
+                        if (app.GetType().IsEnum) continue;
+                        var newVal = TryProxiedAllInstances1<T>(app, exploredObjects, nameSpace);
+                        if (newVal != null)
+                        {
+                            array.SetValue(newVal, i);
+                        }
+                    }
+                }
+                else if (IsList(enumerable))
+                {
+                    throw new NotImplementedException();
+                }
+
+                #endregion
+            }
+            else
+            {
+                var possibleMatch = value as T;
+                var type = value.GetType();
+
+                object proxyValue = null;
+                if (possibleMatch != null)
+                {
+                    proxyValue = AddPropChangedAndDataErrorInterceptorProxyFactory.Create(type, value);
+                }
+
+                var properties = type.GetProperties(_bindingFlags).
+                    Where(t => string.IsNullOrWhiteSpace(nameSpace) || t.PropertyType.FullName.StartsWith(nameSpace));
+
+                foreach (var property in properties.Where(t => !t.PropertyType.IsEnum))
+                {
+                    var propertyValue = property.GetValue(value);
+
+                    if (propertyValue == null)
+                        continue;
+
+                    var newPropValue = TryProxiedAllInstances1<T>(propertyValue, exploredObjects, nameSpace);
+
+                    if ( newPropValue != null )
+                    {
+                        ((BaseEntity)value).IsNotyfing = false;
+                        ((BaseEntity)value).IsValidating = false;
+                        property.SetValue(proxyValue, newPropValue);
+                        ((BaseEntity)value).IsNotyfing = true;
+                        ((BaseEntity)value).IsValidating = true;
+
+                    }
+                }
+
+                return proxyValue;
+            }
+
+            return null;
+        }
+
         public static void TryProxiedAllInstances<T>( ref object value, string nameSpace=null) where T : class
         {
             var exploredObjects = new HashSet<object>();
@@ -110,7 +194,7 @@ namespace FaPA.AppServices.CoreValidation
 
                 if (possibleMatch != null)
                 {
-                    var proxy = AddPropChangedAndDataErrorInterceptorProxyFactory.Create( type, value);
+                    var proxy = AddPropChangedAndDataErrorInterceptorProxyFactory.Create( type, value );
                     if (proxy != null)
                     {
                         value = proxy;
@@ -129,7 +213,14 @@ namespace FaPA.AppServices.CoreValidation
                         continue;
 
                     if ( TryProxiedAllInstances<T>( ref propertyValue, exploredObjects, nameSpace)  )
+                    {
+                        ((BaseEntity) value).IsNotyfing = false;
+                        ((BaseEntity)value).IsValidating = false;
                         property.SetValue(value, propertyValue );
+                        ((BaseEntity)value).IsNotyfing = true;
+                        ((BaseEntity)value).IsValidating = true;
+
+                    }
                 }
             }
 
@@ -140,7 +231,9 @@ namespace FaPA.AppServices.CoreValidation
         {
             var exploredObjects = new HashSet<object>();
 
-            return UnProxiedDeep( value, exploredObjects);
+            return UnProxiedDeep( value.Unproxy(), exploredObjects);
+
+            //return value.Unproxy();
 
         }
 
@@ -217,8 +310,12 @@ namespace FaPA.AppServices.CoreValidation
                         baseEntity.IsValidating = false;
                     }
 
-                    property.SetValue( value, unproxied );
-
+                    ((BaseEntity)value).IsNotyfing = false;
+                    ((BaseEntity)value).IsValidating = false;
+                    property.SetValue(value, unproxied);
+                    ((BaseEntity)value).IsNotyfing = true;
+                    ((BaseEntity)value).IsValidating = true;
+                    
                     if (baseEntity != null)
                     {
                         baseEntity.IsNotyfing = true;

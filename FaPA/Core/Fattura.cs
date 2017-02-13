@@ -514,8 +514,7 @@ namespace FaPA.Core
 
         public virtual string GetXmlStream()
         {
-            var proxy = ObjectExplorer.UnProxiedDeep( FatturaPa );
-            return SerializerHelpers.ObjectToXml( ( FatturaElettronicaType ) proxy );
+            return SerializerHelpers.ObjectToXml(  FatturaPa );
         }
 
 
@@ -533,9 +532,7 @@ namespace FaPA.Core
             var other = ( Fattura ) this.MemberwiseClone();
             other.Id = 0;
 
-            var fatturaElettronicaType = ObjectExplorer.UnProxiedDeep( FatturaPa );
-            var xmlStream = SerializerHelpers.ObjectToXml( ( FatturaElettronicaType ) fatturaElettronicaType );
-            other.FatturaPa = SerializerHelpers.XmlToObject( xmlStream );
+            other.FatturaPa = FatturaPa.DeepCopy();
 
             other.DomainResult = new DomainResult( DomainResult.Success, DomainResult.Errors );
             other.NumeroFatturaDB = string.Copy( NumeroFatturaDB );

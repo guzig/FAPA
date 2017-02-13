@@ -15,7 +15,8 @@ namespace FaPA.Data.ValidationMaps
         {
             ValidateInstance.By( ValidateInstanc );
 
-            Define( l => l.Comune ).NotNullableAndNotEmpty().WithMessage( "Specificare un comune" ).And.MaxLength( 60 );
+            Define(l => l.Comune).Satisfy(l => l != null);
+                //.NotNullableAndNotEmpty().WithMessage( "Specificare un comune" ).And.MaxLength( 60 );
             Define( l => l.Provincia ).NotNullableAndNotEmpty().WithMessage( "Specificare la provincia " ).And.MaxLength( 2 );
             Define( l => l.Cap ).NotNullableAndNotEmpty().WithMessage( "Specificare la provincia " ).And.MaxLength( 5 );
             Define( f => f.Indirizzo ).NotNullable().WithMessage( "Specificare indirizzo" ).And.MaxLength( 60 );

@@ -24,13 +24,13 @@ namespace FaPaTets.FatturaPa.FatturaPa_11
             ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntityFpa>( ref currentHeader, "FaPA.Core" );
             fattPa.FatturaElettronicaHeader = ( FaPA.Core.FaPa.FatturaElettronicaHeaderType ) currentHeader;
 
-            CheckAllTypesAreProxied( currentHeader );
+            CheckAllTypesAreProxied<FaPA.Core.BaseEntityFpa>( currentHeader );
 
             object currentBody = fattPa.FatturaElettronicaBody;
             ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntityFpa>( ref currentBody, "FaPA.Core" );
             fattPa.FatturaElettronicaBody = ( FaPA.Core.FaPa.FatturaElettronicaBodyType ) currentBody;
 
-            CheckAllTypesAreProxied( currentBody );
+            CheckAllTypesAreProxied<FaPA.Core.BaseEntityFpa>( currentBody );
 
             var xml = fattura.GetXmlDocument();
 
@@ -59,13 +59,13 @@ namespace FaPaTets.FatturaPa.FatturaPa_11
             ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntityFpa>( ref currentHeader, "FaPA.Core" );
             fattPa.FatturaElettronicaHeader = ( FaPA.Core.FaPa.FatturaElettronicaHeaderType ) currentHeader;
 
-            CheckAllTypesAreProxied( currentHeader );
+            CheckAllTypesAreProxied<FaPA.Core.BaseEntityFpa>( currentHeader );
 
             object currentBody = fattPa.FatturaElettronicaBody;
             ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntityFpa>( ref currentBody, "FaPA.Core" );
             fattPa.FatturaElettronicaBody = ( FaPA.Core.FaPa.FatturaElettronicaBodyType ) currentBody;
 
-            CheckAllTypesAreProxied( currentBody );
+            CheckAllTypesAreProxied<FaPA.Core.BaseEntityFpa>( currentBody );
 
             var nameSpaceFatturaPa = new XmlSerializerNamespaces();
             nameSpaceFatturaPa.Add( "p", "http://www.fatturapa.gov.it/sdi/fatturapa/v1.1" );
@@ -115,7 +115,7 @@ namespace FaPaTets.FatturaPa.FatturaPa_11
             object current = fattPa;
             ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntityFpa>(ref current, "FaPA.Core");
 
-            CheckAllTypesAreProxied( current );
+            CheckAllTypesAreProxied<FaPA.Core.BaseEntityFpa>( current );
 
             var nameSpaceFatturaPa = new XmlSerializerNamespaces();
             nameSpaceFatturaPa.Add("p", "http://www.fatturapa.gov.it/sdi/fatturapa/v1.1");
@@ -152,11 +152,46 @@ namespace FaPaTets.FatturaPa.FatturaPa_11
 
         }
 
-
-
-        private static void CheckAllTypesAreProxied( object current )
+        [Test]
+        public void can_serialize_and_deseliarize_nested_proxies()
         {
-            var instances = ObjectExplorer.FindAllInstances<FaPA.Core.BaseEntityFpa>( current ).ToArray();
+            object fattura = new Fattura();
+            ((Fattura)fattura).Init();
+
+            FillFatturaPa( ((Fattura)fattura).FatturaPa);
+
+            object proxy = ObjectExplorer.TryProxiedAllInstances1<FaPA.Core.BaseEntity>( fattura, "FaPA.Core");
+
+            CheckAllTypesAreProxied<FaPA.Core.BaseEntity>(proxy);
+
+            //var copy = ((Fattura)fattura).ShallowCopy();
+
+            CheckAllTypesAreUnProxied<FaPA.Core.BaseEntity>(fattura);
+
+            //var unproxyChilds = ObjectExplorer.UnProxiedDeep(((Fattura)fattura).FatturaPa);
+            //CheckAllTypesAreUnProxied<FaPA.Core.BaseEntity>(unproxyChilds);
+
+            //((Fattura) fattura).FatturaPa = ((Fattura) copy).FatturaPa;
+            //CheckAllTypesAreProxied<FaPA.Core.BaseEntity>(((Fattura)fattura).FatturaPa);
+
+            //var xml = ((Fattura)fattura).GetXmlDocument();
+
+            //Assert.IsNotNull(xml);
+
+            //Assert.AreEqual("00000SDI11RF01PortoBelloITTP03MP010", xml.InnerText);
+
+            //Console.WriteLine(xml.InnerXml);
+
+
+
+
+        }
+
+
+
+        private static void CheckAllTypesAreProxied<T>( object current ) where T : class
+        {
+            var instances = ObjectExplorer.FindAllInstances<T>( current ).ToArray();
 
             foreach ( var instance in instances )
             {
@@ -164,9 +199,18 @@ namespace FaPaTets.FatturaPa.FatturaPa_11
             }
         }
 
+        private static void CheckAllTypesAreUnProxied<T>(object current) where T : class 
+        {
+            var instances = ObjectExplorer.FindAllInstances<T>(current).ToArray();
+
+            foreach (var instance in instances)
+            {
+                Assert.AreEqual(false, instance.GetType().Name.EndsWith("Proxy"));
+            }
+        }
+
         private static void FillFatturaPa( FatturaElettronicaType fattPa )
         {
-            fattPa.FatturaElettronicaHeader = new FaPA.Core.FaPa.FatturaElettronicaHeaderType();
             fattPa.FatturaElettronicaHeader.CedentePrestatore = new FaPA.Core.FaPa.CedentePrestatoreType();
             fattPa.FatturaElettronicaHeader.CedentePrestatore.DatiAnagrafici =
                 new FaPA.Core.FaPa.DatiAnagraficiCedenteType();
@@ -174,7 +218,15 @@ namespace FaPaTets.FatturaPa.FatturaPa_11
                 new FaPA.Core.FaPa.AnagraficaType();
             fattPa.FatturaElettronicaHeader.CedentePrestatore.Sede =
                 new FaPA.Core.FaPa.IndirizzoType() { Comune = "PortoBello" };
-            fattPa.FatturaElettronicaBody = new FaPA.Core.FaPa.FatturaElettronicaBodyType();
+            fattPa.FatturaElettronicaBody = new FaPA.Core.FaPa.FatturaElettronicaBodyType()
+            {
+                DatiGenerali = new FaPA.Core.FaPa.DatiGeneraliType()
+                {
+                    DatiGeneraliDocumento = new FaPA.Core.FaPa.DatiGeneraliDocumentoType()
+                }, DatiBeniServizi = new FaPA.Core.FaPa.DatiBeniServiziType()
+
+
+            };
             fattPa.FatturaElettronicaBody.DatiPagamento = new[ ]
             {
                 new FaPA.Core.FaPa.DatiPagamentoType() { CondizioniPagamento = FaPA.Core.FaPa.CondizioniPagamentoType.TP03 }

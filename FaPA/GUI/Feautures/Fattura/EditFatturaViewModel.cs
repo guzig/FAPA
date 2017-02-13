@@ -224,8 +224,8 @@ namespace FaPA.GUI.Feautures.Fattura
             DettagliFatturaViewModel = new DettagliFatturaViewModel(this, fattura );
             DettagliFatturaViewModel.Init();
             DettagliFatturaViewModel.CurrentEntityChanged += OnDettaglioFatturaPropertyChanged;
-            DettagliFatturaViewModel.UserCollectionView.CurrentChanged += OnDettaglioFatturaPropertyChanged1;
-            DettagliFatturaViewModel.UserCollectionView.CurrentChanging += OnDettaglioFatturaPropertyChanged2;
+            //DettagliFatturaViewModel.UserCollectionView.CurrentChanged += OnDettaglioFatturaPropertyChanged1;
+            //DettagliFatturaViewModel.UserCollectionView.CurrentChanging += OnDettaglioFatturaPropertyChanged2;
 
             DatiGeneraliViewModel = new DatiGeneraliViewModel( this, fattura.FatturaElettronicaBody );
             AddTabViewModel<DatiGeneraliViewModel>( DatiGeneraliViewModel );

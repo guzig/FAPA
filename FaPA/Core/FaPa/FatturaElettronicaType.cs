@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Xml.Serialization;
+using FaPA.AppServices.CoreValidation;
 using FaPA.Core.FaPa.SignatureFPA;
 
 namespace FaPA.Core.FaPa
@@ -69,6 +70,14 @@ namespace FaPA.Core.FaPa
         public virtual object Clone()
         {
             return this.MemberwiseClone();
+        }
+
+        public FatturaElettronicaType DeepCopy()
+        {
+            //var copy = fattura.FatturaPa.DeepCopy();
+            //var copyUnxproxied = ObjectExplorer.UnProxiedDeep(copy);
+            var xmlStream = SerializerHelpers.ObjectToXml(this);
+            return SerializerHelpers.XmlToObject(xmlStream);
         }
     }
 }

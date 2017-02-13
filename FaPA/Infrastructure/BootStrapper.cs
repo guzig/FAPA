@@ -24,7 +24,7 @@ namespace FaPA.Infrastructure
 
         public static void Initialize()
         {
-            //log4net.Config.XmlConfigurator.Configure();
+            log4net.Config.XmlConfigurator.Configure();
 
             var cfg = new Configuration();
             //cfg.Proxy(p => p.ProxyFactoryFactory<PropertyChangedProxyFactoryFactory>());
@@ -39,7 +39,7 @@ namespace FaPA.Infrastructure
             });
 
             var validatorEngine = new ValidatorEngine();
-            
+
             cfg.ConfigureNHibernateValidator( validatorEngine );
 
             var mapper = new ModelMapper();

@@ -200,8 +200,10 @@ namespace FaPA.GUI.Controls
 
             foreach ( var VARIABLE in UserCollectionView )
             {
-                if ( !( VARIABLE is IProxy ) )
-                    throw new NullReferenceException();
+                if (!(VARIABLE is IProxy))
+                {
+                    var f = 1;
+                }
             }
         }
 

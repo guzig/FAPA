@@ -83,8 +83,10 @@ namespace FaPA.Core
 
         public static string ValidateByXsdFatturaPA(Fattura fattura)
         {
-            var xmlData = fattura.GetXmlStream();
-            var document = XDocument.Parse(xmlData);
+            var copy = fattura.FatturaPa.DeepCopy();
+            var copyUnxproxied = ObjectExplorer.UnProxiedDeep(copy);
+            var xmlStream = ObjectToXml((FatturaElettronicaType)copyUnxproxied);
+            var document = XDocument.Parse(xmlStream);
             var sb = new StringBuilder();
             document.Validate(FatturaPaXmlSchema, (o, e) =>
             {

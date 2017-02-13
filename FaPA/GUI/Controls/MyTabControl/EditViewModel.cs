@@ -615,7 +615,11 @@ namespace FaPA.GUI.Controls.MyTabControl
             }
 
             object current = LoadEntity(currentItem.Id);
-            
+
+            ( ( IValidatable ) current).HandleValidationResults();
+            ( ( BaseEntity ) current).IsValidating = true;
+
+
             var notifyPropertyChanged = current as INotifyPropertyChanged;
             if (notifyPropertyChanged == null) return;
             notifyPropertyChanged.PropertyChanged -= OnPropChanged;

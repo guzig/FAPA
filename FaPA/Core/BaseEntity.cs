@@ -50,7 +50,7 @@ namespace FaPA.Core
                 errors.Add(item.Key, item.Value);
         }
 
-        public virtual bool IsValidating { get; set; } = true;
+        public virtual bool IsValidating { get; set; } = false;
 
         public virtual bool IsNotyfing { get; set; } = true;
 
