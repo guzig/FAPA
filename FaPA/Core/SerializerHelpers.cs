@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Text;
 using System.Xml.Linq;
@@ -5,6 +6,7 @@ using System.Xml.Schema;
 using System.Xml.Serialization;
 using FaPA.AppServices.CoreValidation;
 using FaPA.Core.FaPa;
+using FaPA.Data;
 using FaPA.DomainServices.Utils;
 
 namespace FaPA.Core
@@ -31,7 +33,16 @@ namespace FaPA.Core
             Overrides.Add(typeof(BaseEntity), "IsNotyfing", XmlAttributes);
             Overrides.Add(typeof(BaseEntityFpa), "IsNotyfing", XmlAttributes);
 
-            Serializer = new XmlSerializer(typeof (FatturaElettronicaType), Overrides);
+            //ObjectExplorer.OverridesAllInstances( typeof( FatturaElettronicaType ), Overrides );
+
+            //Serializer = new XmlSerializer( typeof( FatturaElettronicaType ), Overrides, new Type[]
+            //{
+            //    AddPropChangedAndDataErrorInterceptorProxyFactory.Create( 
+            //        typeof( FatturaElettronicaType ), new FatturaElettronicaType() ).GetType()
+            //}, null, "" );
+
+            Serializer = new XmlSerializer( typeof( FatturaElettronicaType ), Overrides );
+
         }
 
         private static XmlSerializerNamespaces NameSpaceFatturaPa
@@ -47,7 +58,7 @@ namespace FaPA.Core
             }
         }
 
-        private static XmlSchemaSet FatturaPaXmlSchema
+        public static XmlSchemaSet FatturaPaXmlSchema
         {
             get
             {
@@ -71,6 +82,18 @@ namespace FaPA.Core
             return utf8;
         }
 
+        public static string ObjectToXml1( FatturaElettronicaType objectInstance )
+        {
+            string utf8;
+            using ( StringWriter writer = new Utf8StringWriter() )
+            {
+                Serializer.Serialize( new NonXsiTextWriter( writer ), objectInstance, NameSpaceFatturaPa ); 
+                //Serializer.Serialize( writer, objectInstance, NameSpaceFatturaPa );
+                utf8 = writer.ToString();
+            }
+            return utf8;
+        }
+        
         public static FatturaElettronicaType XmlToObject(string objectData)
         {
             FatturaElettronicaType result;
@@ -81,19 +104,7 @@ namespace FaPA.Core
             return result;
         }
 
-        public static string ValidateByXsdFatturaPA(Fattura fattura)
-        {
-            var copy = fattura.FatturaPa.DeepCopy();
-            var copyUnxproxied = ObjectExplorer.UnProxiedDeep(copy);
-            var xmlStream = ObjectToXml((FatturaElettronicaType)copyUnxproxied);
-            var document = XDocument.Parse(xmlStream);
-            var sb = new StringBuilder();
-            document.Validate(FatturaPaXmlSchema, (o, e) =>
-            {
-                sb.Append(e.Message);
-            });
-            return sb.ToString();
-        }
+
 
     }
 }

@@ -57,9 +57,8 @@ namespace FaPA.GUI.Controls
 
                 foreach (var item in UserCollectionView)
                 {
-                    if ( !( item is INotifyPropertyChanged ) )
-                        throw new NullReferenceException();
-
+                    Debug.Assert( item is INotifyPropertyChanged );
+                    
                     HookChanged( item);
                 }
 
@@ -276,15 +275,14 @@ namespace FaPA.GUI.Controls
 
             //append new instance
             var newInstance = Activator.CreateInstance( elementType );
-            ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntity>( ref newInstance, "FaPA.Core" );
-            _userAddedNewPocos.Add( newInstance );
-            HookChanged( newInstance );
-            aray[aray.Length - 1] = newInstance;
+            var proxy = ObjectExplorer.ProxiedAllInstancesOfType<FaPA.Core.BaseEntity>( newInstance );
+            _userAddedNewPocos.Add( proxy );
+            HookChanged( proxy );
+            aray[aray.Length - 1] = proxy;
 
-            ((IValidatable)newInstance).Validate();
+            ( ( IValidatable ) proxy ).Validate();
 
             UserProperty = userProperty;
-
         }
 
         protected override void CancelEdit()

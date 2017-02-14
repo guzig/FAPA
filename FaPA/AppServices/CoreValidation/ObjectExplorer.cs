@@ -61,18 +61,16 @@ namespace FaPA.AppServices.CoreValidation
             }
         }
 
-        public static object TryProxiedAllInstances1<T>(object value, string nameSpace = null) where T : class
+        public static object ProxiedAllInstancesOfType<T>(object value) where T : class
         {
             var exploredObjects = new HashSet<object>();
-
-            return TryProxiedAllInstances1<T>(value, exploredObjects, nameSpace);
+            var nameSpac = typeof ( T ).Namespace;
+            return ProxiedAllInstancesOfType<T>(value, exploredObjects, nameSpac );
 
         }
 
-        private static object TryProxiedAllInstances1<T>(object value, HashSet<object> exploredObjects, string nameSpace) where T : class
+        private static object ProxiedAllInstancesOfType<T>(object value, HashSet<object> exploredObjects, string nameSpace) where T : class
         {
-            //bool isValueSet = false;
-
             if (value == null || exploredObjects.Contains(value) || value.GetType().IsEnum) return null;
 
             exploredObjects.Add(value);
@@ -90,7 +88,7 @@ namespace FaPA.AppServices.CoreValidation
                     {
                         var app = array.GetValue(i);
                         if (app.GetType().IsEnum) continue;
-                        var newVal = TryProxiedAllInstances1<T>(app, exploredObjects, nameSpace);
+                        var newVal = ProxiedAllInstancesOfType<T>(app, exploredObjects, nameSpace);
                         if (newVal != null)
                         {
                             array.SetValue(newVal, i);
@@ -125,7 +123,7 @@ namespace FaPA.AppServices.CoreValidation
                     if (propertyValue == null)
                         continue;
 
-                    var newPropValue = TryProxiedAllInstances1<T>(propertyValue, exploredObjects, nameSpace);
+                    var newPropValue = ProxiedAllInstancesOfType<T>(propertyValue, exploredObjects, nameSpace);
 
                     if ( newPropValue != null )
                     {
@@ -144,14 +142,14 @@ namespace FaPA.AppServices.CoreValidation
             return null;
         }
 
-        public static void TryProxiedAllInstances<T>( ref object value, string nameSpace=null) where T : class
+        public static void TryProxiedAllInstances2<T>( ref object value, string nameSpace=null) where T : class
         {
             var exploredObjects = new HashSet<object>();
 
-            TryProxiedAllInstances<T>( ref value, exploredObjects, nameSpace);
+            TryProxiedAllInstances2<T>( ref value, exploredObjects, nameSpace);
         }
 
-        private static bool TryProxiedAllInstances<T>( ref object value, HashSet<object> exploredObjects, string nameSpace)  where T : class
+        private static bool TryProxiedAllInstances2<T>( ref object value, HashSet<object> exploredObjects, string nameSpace)  where T : class
         {
             bool isValueSet = false;
 
@@ -172,7 +170,7 @@ namespace FaPA.AppServices.CoreValidation
                     {
                         var app = array.GetValue( i );
                         if ( app.GetType().IsEnum ) continue;
-                        if ( TryProxiedAllInstances<T>( ref app, exploredObjects, nameSpace ) )
+                        if ( TryProxiedAllInstances2<T>( ref app, exploredObjects, nameSpace ) )
                         {
                             array.SetValue( app, i );
                             isValueSet = true;
@@ -212,7 +210,7 @@ namespace FaPA.AppServices.CoreValidation
                     if (propertyValue == null)
                         continue;
 
-                    if ( TryProxiedAllInstances<T>( ref propertyValue, exploredObjects, nameSpace)  )
+                    if ( TryProxiedAllInstances2<T>( ref propertyValue, exploredObjects, nameSpace)  )
                     {
                         ((BaseEntity) value).IsNotyfing = false;
                         ((BaseEntity)value).IsValidating = false;
@@ -232,8 +230,6 @@ namespace FaPA.AppServices.CoreValidation
             var exploredObjects = new HashSet<object>();
 
             return UnProxiedDeep( value.Unproxy(), exploredObjects);
-
-            //return value.Unproxy();
 
         }
 
@@ -337,12 +333,14 @@ namespace FaPA.AppServices.CoreValidation
         public static void OverridesAllInstances( Type classType, XmlAttributeOverrides overrides ) 
         {
             var exploredObjects = new HashSet<Type>();
+            
 
             OverridesAllInstances( classType, null, exploredObjects, overrides, null );
 
         }
 
-        private static void OverridesAllInstances( Type classType, Type rootType, HashSet<Type> exploredObjects, XmlAttributeOverrides overrides, string mn ) 
+        private static void OverridesAllInstances( Type classType, Type rootType, HashSet<Type> exploredObjects, 
+            XmlAttributeOverrides overrides, string mn ) 
         {
             const string targetNameSpace = "FaPA.Core.FaPa";
 
@@ -397,8 +395,11 @@ namespace FaPA.AppServices.CoreValidation
             var attribs = new XmlAttributes();
             attribs.XmlElements.Add( new XmlElementAttribute( proxyType ) );
             attribs.XmlElements.Add( new XmlElementAttribute( classType ) );
+            //attribs.XmlElements.Add( new XmlElementAttribute {ElementName = memberName} );
             overrides.Add( rootClassType, memberName, attribs );
+            //Console.WriteLine(rootClassType.Name + " " + memberName + " " + proxyType.Name + " " + classType.Name);
         }
+
 
         private static bool IsList( object o )
         {

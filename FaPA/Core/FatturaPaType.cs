@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Data;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using FaPA.AppServices.CoreValidation;
 using FaPA.Core.FaPa;
 using FaPA.Data;
+using FaPA.DomainServices.Utils;
 using NHibernate;
 using NHibernate.Proxy.DynamicProxy;
 using NHibernate.SqlTypes;
@@ -25,9 +28,9 @@ namespace FaPA.Core
 
             if ( owner is IProxy )
             {
-                object proxied = SerializerHelpers.XmlToObject( xmlContent );
-                ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntityFpa>( ref proxied, "FaPA.Core" );
-                return proxied;
+                object toObject = SerializerHelpers.XmlToObject( xmlContent );
+                var ooo = ObjectExplorer.ProxiedAllInstancesOfType<FaPA.Core.BaseEntityFpa>( toObject );
+                return ooo;
             }
 
             return SerializerHelpers.XmlToObject( xmlContent );
@@ -41,32 +44,25 @@ namespace FaPA.Core
             }
             else
             {
-                var fatturaElettronicaTypeV11 = (FatturaElettronicaType)value;
-                var unproxy = (FatturaElettronicaType) ObjectExplorer.UnProxiedDeep(fatturaElettronicaTypeV11);
-                var xmlStream = SerializerHelpers.ObjectToXml( unproxy ); 
+                var fatturaElettronica = (FatturaElettronicaType)value;
+                var xmlStream = SerializerHelpers.ObjectToXml( ( FatturaElettronicaType ) ObjectExplorer.UnProxiedDeep( fatturaElettronica ) ); 
                 ((IDataParameter)cmd.Parameters[index]).Value = xmlStream;
             }
         }
 
         public object DeepCopy(object value)
         {
-            return Unproxy( value ).Clone();
-
-            //return value;
-            //var toCopy = value as FatturaElettronicaType;
-            //if ( toCopy == null )
-            //    return null;
-            //string xmlStream = SerializerHelpers.ObjectToXml( toCopy );
-            //return SerializerHelpers.XmlToObject( xmlStream );
+            var toCopy = value as FatturaElettronicaType;
+            if ( toCopy == null )
+                return null;
+            var unproxy = ObjectExplorer.UnProxiedDeep( toCopy.Copy<FatturaElettronicaType>() );
+            string xmlStream = SerializerHelpers.ObjectToXml( ( FatturaElettronicaType ) unproxy);
+            //var xml = xmlStream.Replace( "Proxy", "" );
+            var oo = SerializerHelpers.XmlToObject( xmlStream );
+            return oo;
         }
 
-        private static FatturaElettronicaType Unproxy( object value  )
-        {
-            var interceptor = ( value as IProxy )?.Interceptor as PropChangedAndDataErrorDynProxyInterceptor;
-            if ( interceptor == null ) return ( FatturaElettronicaType ) value;
-            var proxy = interceptor.Proxy as FatturaElettronicaType;
-            return proxy;
-        }
+
 
         public object Replace(object original, object target, object owner)
         {
@@ -97,7 +93,7 @@ namespace FaPA.Core
             get { return true; }
         }
 
-        public class SqlXmlStringType : SqlType
+        private class SqlXmlStringType : SqlType
         {
             public SqlXmlStringType() : base(DbType.String, 4001) // anything over 4000 is nvarchar(max)
             { }
@@ -119,6 +115,7 @@ namespace FaPA.Core
             return x.GetHashCode();
         }
     }
+
 }
 
 

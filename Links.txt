@@ -10,6 +10,10 @@ http://stackoverflow.com/questions/1461029/possible-to-add-a-xslt-stylesheet-to-
 
 http://www.codeproject.com/Articles/13908/Serializing-XML-with-stylesheet
 
+http://www.icodeguru.com/dotnet/dotnet-and-xml/0596003978_netxml-chp-9-sect-3.html
+
+https://msdn.microsoft.com/en-us/library/aa302290.aspx
+
 wcf web service
 http://www.codeproject.com/Articles/576820/Basic-Step-by-Step-WCF-WebService
 
@@ -70,3 +74,11 @@ http://prajeenkumar.blogspot.it/2013/06/creating-office-2010-style-minimize_8.ht
 https://github.com/fluentribbon/Fluent.Ribbon/issues/73
 
 http://stackoverflow.com/questions/19498485/proper-validation-with-mvvm
+
+        private static FatturaElettronicaType Unproxy( object value  )
+        {
+            var interceptor = ( value as IProxy )?.Interceptor as PropChangedAndDataErrorDynProxyInterceptor;
+            if ( interceptor == null ) return ( FatturaElettronicaType ) value;
+            var proxy = interceptor.Proxy as FatturaElettronicaType;
+            return proxy;
+        }

@@ -7,6 +7,7 @@ using NHibernate.Proxy.DynamicProxy;
 
 namespace FaPA.Data
 {
+    [Serializable]
     public class PropChangedAndDataErrorDynProxyInterceptor : NHibernate.Proxy.DynamicProxy.IInterceptor, ICrossPropertiesValidationResolver
     {
         private readonly PropertyChangedEventHandler _onChangedHanler;

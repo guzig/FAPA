@@ -20,14 +20,12 @@ namespace FaPaTets.FatturaPa.FatturaPa_11
 
             FillFatturaPa( fattPa );
 
-            object currentHeader = fattPa.FatturaElettronicaHeader;
-            ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntityFpa>( ref currentHeader, "FaPA.Core" );
+            object currentHeader = ObjectExplorer.ProxiedAllInstancesOfType<FaPA.Core.BaseEntityFpa>( fattPa.FatturaElettronicaHeader );
             fattPa.FatturaElettronicaHeader = ( FaPA.Core.FaPa.FatturaElettronicaHeaderType ) currentHeader;
 
             CheckAllTypesAreProxied<FaPA.Core.BaseEntityFpa>( currentHeader );
 
-            object currentBody = fattPa.FatturaElettronicaBody;
-            ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntityFpa>( ref currentBody, "FaPA.Core" );
+            object currentBody = ObjectExplorer.ProxiedAllInstancesOfType<FaPA.Core.BaseEntityFpa>( fattPa.FatturaElettronicaBody );
             fattPa.FatturaElettronicaBody = ( FaPA.Core.FaPa.FatturaElettronicaBodyType ) currentBody;
 
             CheckAllTypesAreProxied<FaPA.Core.BaseEntityFpa>( currentBody );
@@ -55,14 +53,12 @@ namespace FaPaTets.FatturaPa.FatturaPa_11
 
             #endregion
 
-            object currentHeader = fattPa.FatturaElettronicaHeader;
-            ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntityFpa>( ref currentHeader, "FaPA.Core" );
+            object currentHeader = ObjectExplorer.ProxiedAllInstancesOfType<FaPA.Core.BaseEntityFpa>( fattPa.FatturaElettronicaHeader );
             fattPa.FatturaElettronicaHeader = ( FaPA.Core.FaPa.FatturaElettronicaHeaderType ) currentHeader;
 
             CheckAllTypesAreProxied<FaPA.Core.BaseEntityFpa>( currentHeader );
 
-            object currentBody = fattPa.FatturaElettronicaBody;
-            ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntityFpa>( ref currentBody, "FaPA.Core" );
+            object currentBody = ObjectExplorer.ProxiedAllInstancesOfType<FaPA.Core.BaseEntityFpa>( fattPa.FatturaElettronicaBody );
             fattPa.FatturaElettronicaBody = ( FaPA.Core.FaPa.FatturaElettronicaBodyType ) currentBody;
 
             CheckAllTypesAreProxied<FaPA.Core.BaseEntityFpa>( currentBody );
@@ -112,8 +108,7 @@ namespace FaPaTets.FatturaPa.FatturaPa_11
 
             FillFatturaPa( fattPa );
 
-            object current = fattPa;
-            ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntityFpa>(ref current, "FaPA.Core");
+            object current = ObjectExplorer.ProxiedAllInstancesOfType<FaPA.Core.BaseEntityFpa>( fattPa);
 
             CheckAllTypesAreProxied<FaPA.Core.BaseEntityFpa>( current );
 
@@ -152,42 +147,6 @@ namespace FaPaTets.FatturaPa.FatturaPa_11
 
         }
 
-        [Test]
-        public void can_serialize_and_deseliarize_nested_proxies()
-        {
-            object fattura = new Fattura();
-            ((Fattura)fattura).Init();
-
-            FillFatturaPa( ((Fattura)fattura).FatturaPa);
-
-            object proxy = ObjectExplorer.TryProxiedAllInstances1<FaPA.Core.BaseEntity>( fattura, "FaPA.Core");
-
-            CheckAllTypesAreProxied<FaPA.Core.BaseEntity>(proxy);
-
-            //var copy = ((Fattura)fattura).ShallowCopy();
-
-            CheckAllTypesAreUnProxied<FaPA.Core.BaseEntity>(fattura);
-
-            //var unproxyChilds = ObjectExplorer.UnProxiedDeep(((Fattura)fattura).FatturaPa);
-            //CheckAllTypesAreUnProxied<FaPA.Core.BaseEntity>(unproxyChilds);
-
-            //((Fattura) fattura).FatturaPa = ((Fattura) copy).FatturaPa;
-            //CheckAllTypesAreProxied<FaPA.Core.BaseEntity>(((Fattura)fattura).FatturaPa);
-
-            //var xml = ((Fattura)fattura).GetXmlDocument();
-
-            //Assert.IsNotNull(xml);
-
-            //Assert.AreEqual("00000SDI11RF01PortoBelloITTP03MP010", xml.InnerText);
-
-            //Console.WriteLine(xml.InnerXml);
-
-
-
-
-        }
-
-
 
         private static void CheckAllTypesAreProxied<T>( object current ) where T : class
         {
@@ -209,11 +168,13 @@ namespace FaPaTets.FatturaPa.FatturaPa_11
             }
         }
 
-        private static void FillFatturaPa( FatturaElettronicaType fattPa )
+        public static void FillFatturaPa( FatturaElettronicaType fattPa )
         {
             fattPa.FatturaElettronicaHeader.CedentePrestatore = new FaPA.Core.FaPa.CedentePrestatoreType();
+
             fattPa.FatturaElettronicaHeader.CedentePrestatore.DatiAnagrafici =
                 new FaPA.Core.FaPa.DatiAnagraficiCedenteType();
+
             fattPa.FatturaElettronicaHeader.CedentePrestatore.DatiAnagrafici.Anagrafica =
                 new FaPA.Core.FaPa.AnagraficaType();
             fattPa.FatturaElettronicaHeader.CedentePrestatore.Sede =

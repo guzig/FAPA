@@ -11,6 +11,8 @@ namespace FaPA.GUI.Controls.MyTabControl
     /// from the UI when its CloseCommand executes.
     /// This class is abstract.
     /// </summary>
+    /// 
+    [Serializable]
     public abstract class WorkspaceViewModel : ViewModelBase
     {
 

@@ -342,6 +342,7 @@
     <Compile Include="Core\Anagrafica.cs" />
     <Compile Include="Core\BaseEntity.cs" />
     <Compile Include="Core\BaseEntityFpa.cs" />
+    <Compile Include="Core\NonXsiTextWriter.cs" />
     <Compile Include="Core\PasswordHasher.cs" />
     <Compile Include="Core\UserData.cs" />
     <Compile Include="Core\TipoUtenteEnums.cs" />
@@ -465,6 +466,7 @@
     <Compile Include="DomainServices\AuthenticationServices\IAuthenticationService.cs" />
     <Compile Include="DomainServices\NHibernateStaticContainer.cs" />
     <Compile Include="DomainServices\Utils\IO.cs" />
+    <Compile Include="DomainServices\Utils\ObjectExtensions.cs" />
     <Compile Include="DomainServices\Utils\SqlActionUtil.cs" />
     <Compile Include="DomainServices\Utils\Utf8StringWriter.cs" />
     <Compile Include="DomainServices\Utils\NhHelper.cs" />

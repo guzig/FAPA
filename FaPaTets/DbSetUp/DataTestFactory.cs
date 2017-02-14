@@ -9,8 +9,8 @@ namespace FaPaTets.DbSetUp
         {
             var fornitore = new Anagrafica();
             fornitore.Denominazione = "Comune di Isola di Capo Rizzuto";
-            fornitore.CodiceFiscale = "81004130795";
-            fornitore.PIva = "01939480792";
+            //fornitore.CodiceFiscale = "81004130795";
+            fornitore.PIva = "01939480799";
             fornitore.Comune = "Isola di Capo Rizzuto";
             fornitore.Cap = "88841";
             fornitore.Civico = "01";
@@ -21,7 +21,7 @@ namespace FaPaTets.DbSetUp
             var committente = new Anagrafica();
 
             committente.Denominazione = "Anagrafica 1";
-            committente.CodiceFiscale = "00304310790";
+            //committente.CodiceFiscale = "00304310790";
             committente.PIva = "00304310790";
             committente.Comune = "Cropani";
             committente.Cap = "88051";

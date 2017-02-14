@@ -1,9 +1,12 @@
 using System;
+using System.ComponentModel;
 using FaPaTets.DbSetUp;
+using FaPaTets.FatturaPa.FatturaPa_11;
 using FaPA.AppServices.CoreValidation;
 using FaPA.Core;
 using FaPA.Core.FaPa;
 using FaPA.Data;
+using FaPA.Infrastructure.Helpers;
 using NHibernate;
 using NHibernate.Proxy.DynamicProxy;
 using NUnit.Framework;
@@ -16,21 +19,15 @@ namespace FaPaTets.PersistanceTests
         [Test]
         public void Created_proxy_entity_should_be_persistable()
         {
-            var session = _sessionFactory.OpenSession(new AddPropertyChangedInterceptor()); //new AddPropertyChangedInterceptor()
+            var session = _sessionFactory.OpenSession( new AddPropertyChangedInterceptor() ); //new AddPropertyChangedInterceptor()
 
             var fattura = DataTestFactory.GetFattura();
-
-            AddPropChangedAndDataErrorInterceptorProxyFactory.Create( typeof(Anagrafica), 
-                fattura.AnagraficaCommittenteDB);
-
-            AddPropChangedAndDataErrorInterceptorProxyFactory.Create(typeof(Anagrafica),
-                fattura.AnagraficaCedenteDB);
+            fattura.Init();
 
             fattura.SyncFatturaPa();
 
-            object current = fattura.FatturaPa;
-            //ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntityFpa>( ref current, "FaPA.Core" );
-            fattura.FatturaPa = (FatturaElettronicaType) ObjectExplorer.UnProxiedDeep(current);
+            ProxyAndSerializationTest.FillFatturaPa( fattura.FatturaPa );
+
             using ( var transaction = session.BeginTransaction())
             {
                 session.SaveOrUpdate(typeof(Anagrafica).FullName, fattura.AnagraficaCedenteDB);
@@ -52,15 +49,24 @@ namespace FaPaTets.PersistanceTests
 
             using ( var transaction = session.BeginTransaction() )
             {
-                read.DatiGeneraliDocumento.Data = DateTime.Now.AddDays( 10 );
-                //read.TotaleFatturaDB = 101;
+                var f1 = read.DatiGeneraliDocumento;
+                f1.Data = DateTime.Now.AddDays( 10 );
+                read.TotaleFatturaDB = 101;
                 session.Update( read );
                 session.Flush();
                 transaction.Commit();
             }
 
+            var f = read as INotifyPropertyChanged;
+            f.PropertyChanged += Pl;
+
             Assert.AreEqual(fattura.FatturaPa.FatturaElettronicaHeader.DatiTrasmissione.IdTrasmittente.IdCodice,
                             read.FatturaPa.FatturaElettronicaHeader.DatiTrasmissione.IdTrasmittente.IdCodice);
+        }
+
+        private void Pl( object sender, PropertyChangedEventArgs e )
+        {
+            throw new NotImplementedException();
         }
 
         [Test]

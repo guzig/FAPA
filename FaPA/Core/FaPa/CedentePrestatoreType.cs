@@ -1,4 +1,5 @@
 using System;
+using System.Xml.Serialization;
 
 namespace FaPA.Core.FaPa
 {
@@ -21,7 +22,7 @@ namespace FaPA.Core.FaPa
         private string riferimentoAmministrazioneField;
 
         #endregion
-        
+
         public virtual DatiAnagraficiCedenteType DatiAnagrafici
         {
             get

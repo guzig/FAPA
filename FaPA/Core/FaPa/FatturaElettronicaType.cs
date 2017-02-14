@@ -12,6 +12,7 @@ namespace FaPA.Core.FaPa
     public class FatturaElettronicaType : BaseEntityFpa, ICloneable
     {
         private FatturaElettronicaHeaderType fatturaElettronicaHeaderField;
+
         public virtual  FatturaElettronicaHeaderType FatturaElettronicaHeader
         {
             get
@@ -74,10 +75,10 @@ namespace FaPA.Core.FaPa
 
         public FatturaElettronicaType DeepCopy()
         {
-            //var copy = fattura.FatturaPa.DeepCopy();
-            //var copyUnxproxied = ObjectExplorer.UnProxiedDeep(copy);
-            var xmlStream = SerializerHelpers.ObjectToXml(this);
-            return SerializerHelpers.XmlToObject(xmlStream);
+            string xmlStream = SerializerHelpers.ObjectToXml( this );
+            //var xml = xmlStream.Replace( "Proxy", "" );
+            var oo = SerializerHelpers.XmlToObject( xmlStream );
+            return oo;
         }
     }
 }

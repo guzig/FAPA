@@ -150,28 +150,22 @@ namespace FaPA.GUI.Feautures.Fattura
 
         protected override Core.Fattura CreateInstance()
         {
-            object entity = Activator.CreateInstance( typeof( Core.Fattura ) );
-
-            ( ( Core.Fattura) entity ).DataFatturaDB = DateTime.Now;
-            ( ( Core.Fattura ) entity ).Init();
-
-            ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntity>( ref entity, "FaPA.Core" );
-
-            return ( Core.Fattura ) entity ;
+            var entity = Activator.CreateInstance<Core.Fattura>();
+            entity.DataFatturaDB = DateTime.Now;
+            entity.Init();
+            return ( Core.Fattura ) ObjectExplorer.ProxiedAllInstancesOfType<FaPA.Core.BaseEntity>( entity );
         }
 
         public override void CreateNewEntity()
         {
             if ( IsCopyMode )
             {
-                object copy = CurrentEntity.Copy();
+                var copy = CurrentEntity.Copy();
                 
-                ( ( Core.Fattura ) copy ).DataFatturaDB = DateTime.Now;
-                ( ( Core.Fattura ) copy ).NumeroFatturaDB = CurrentEntity.NumeroFatturaDB + " ? ";
+                copy.DataFatturaDB = DateTime.Now;
+                copy.NumeroFatturaDB = CurrentEntity.NumeroFatturaDB + " ? ";
 
-                ObjectExplorer.TryProxiedAllInstances<FaPA.Core.BaseEntity>( ref copy, "FaPA.Core" );
-
-                CurrentEntity = ( Core.Fattura ) copy;
+                CurrentEntity = ( Core.Fattura ) ObjectExplorer.ProxiedAllInstancesOfType<FaPA.Core.BaseEntity>( copy ); ;
             }
             else
             {
@@ -192,6 +186,8 @@ namespace FaPA.GUI.Feautures.Fattura
         {
             CurrentEntity.SyncFatturaPa();
             var result = base.TrySaveCurrentEntity();
+            Load();
+            InitFatturaTabs( CurrentEntity );
             DatiRiepilogoIvaViewModel.Init();
             return result;
         }
@@ -257,7 +253,7 @@ namespace FaPA.GUI.Feautures.Fattura
             DatiRiepilogoIvaViewModel.Init();
             AddTabViewModel<DatiRiepilogoIvaViewModel>(DatiRiepilogoIvaViewModel);
 
-            var isValidatedByXsd = SerializerHelpers.ValidateByXsdFatturaPA( fattura );
+            var isValidatedByXsd = fattura.ValidateByXsdFatturaPA( );
 
             if ( string.IsNullOrWhiteSpace( isValidatedByXsd ) )
             {
@@ -270,16 +266,6 @@ namespace FaPA.GUI.Feautures.Fattura
                 DomainResultFatturaPA = isValidatedByXsd;
             }
 
-        }
-
-        private void OnDettaglioFatturaPropertyChanged1( object sender, EventArgs e )
-        {
-            var fff = sender;
-        }
-
-        private void OnDettaglioFatturaPropertyChanged2( object sender, EventArgs e )
-        {
-            var fff = sender;
         }
 
         private void OnDettaglioFatturaPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -430,7 +416,6 @@ namespace FaPA.GUI.Feautures.Fattura
             IsCopyMode = false;
         }
 
-
         private bool FlushXml(IValidatable fattura, string path, out string error)
         {
             ShowCursor.Show();
@@ -451,7 +436,10 @@ namespace FaPA.GUI.Feautures.Fattura
         {
             error = null;
 
-            //ShowCursor.Show();
+            ShowCursor.Show();
+
+            DomainResultFatturaPA = CurrentEntity.ValidateByXsdFatturaPA();
+
             var errors = fattura.Validate();
             if (!errors.Success)
             {

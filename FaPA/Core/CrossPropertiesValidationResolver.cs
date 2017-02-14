@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace FaPA.Core
 {
+    [Serializable]
     public  class CrossPropertiesValidationResolver: ICrossPropertiesValidationResolver
     {
         private readonly Dictionary<Type, HashSet<HashSet<string>>> _crossPropetiesContexts = 

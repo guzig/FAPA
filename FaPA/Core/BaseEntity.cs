@@ -6,6 +6,7 @@ using FaPA.AppServices.CoreValidation;
 
 namespace FaPA.Core
 {
+    [Serializable]
     public abstract class BaseEntity : IEntity, IValidatable //, INotifyPropertyChanged
     {
         //public virtual event PropertyChangedEventHandler PropertyChanged;

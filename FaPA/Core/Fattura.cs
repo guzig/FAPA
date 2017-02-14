@@ -3,8 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using FaPA.Core.FaPa;
 using System.Linq;
+using System.Text;
 using System.Xml;
+using System.Xml.Linq;
+using System.Xml.Schema;
 using FaPA.AppServices.CoreValidation;
+using FaPA.DomainServices.Utils;
+using FaPA.Infrastructure.Helpers;
 
 namespace FaPA.Core
 {
@@ -512,9 +517,26 @@ namespace FaPA.Core
             return doc;
         }
 
-        public virtual string GetXmlStream()
+        protected virtual string GetXmlStream()
         {
-            return SerializerHelpers.ObjectToXml(  FatturaPa );
+            var unproxy = ObjectExplorer.UnProxiedDeep( FatturaPa.Copy<FatturaElettronicaType>() );
+            //string xmlStream = SerializerHelpers.ObjectToXml( ( FatturaElettronicaType ) unproxy );
+
+            //var copy = FatturaPa.DeepCopy();
+            //var c = ( FatturaElettronicaType ) ObjectExplorer.UnProxiedDeep( copy );
+            return SerializerHelpers.ObjectToXml( ( FatturaElettronicaType ) unproxy ); //.Replace( "Type", "" ); 
+        }
+
+        public virtual string ValidateByXsdFatturaPA(  )
+        {
+            var xmlStream = GetXmlStream();
+            var document = XDocument.Parse( xmlStream );
+            var sb = new StringBuilder();
+            document.Validate( SerializerHelpers.FatturaPaXmlSchema, ( o, e ) =>
+            {
+                sb.Append( e.Message );
+            } );
+            return sb.ToString();
         }
 
 
@@ -533,7 +555,8 @@ namespace FaPA.Core
             other.Id = 0;
 
             other.FatturaPa = FatturaPa.DeepCopy();
-
+            AnagraficaCedenteDB = ( Anagrafica ) other.AnagraficaCedenteDB.Unproxy();
+            AnagraficaCommittenteDB = ( Anagrafica ) other.AnagraficaCommittenteDB.Unproxy();
             other.DomainResult = new DomainResult( DomainResult.Success, DomainResult.Errors );
             other.NumeroFatturaDB = string.Copy( NumeroFatturaDB );
             other.CigDB = CigDB == null ? null : string.Copy( CigDB );

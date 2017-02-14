@@ -40,7 +40,7 @@ namespace FaPaTets.DbSetUp
                 eventWasCalled = true; sender = s; propertyName = e.PropertyName;
             };
 
-            //entity.Id = 99999;
+            entity.Id = 99999;
 
 
             Assert.That(eventWasCalled);

@@ -24,7 +24,7 @@ namespace FaPA.Infrastructure
 
         public static void Initialize()
         {
-            log4net.Config.XmlConfigurator.Configure();
+            //log4net.Config.XmlConfigurator.Configure();
 
             var cfg = new Configuration();
             //cfg.Proxy(p => p.ProxyFactoryFactory<PropertyChangedProxyFactoryFactory>());

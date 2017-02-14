@@ -78,5 +78,16 @@ namespace FaPA.Core.FaPa
                 _attachmentField = value;
             }
         }
+
+        //public override BaseEntityFpa DeepCopy()
+        //{
+        //    var other = ( AllegatiType ) this.MemberwiseClone();
+        //    other.NomeAttachment = String.Copy( NomeAttachment );
+        //    //AnagraficaCommittenteDB = ( Anagrafica ) other.AnagraficaCommittenteDB.Unproxy();
+        //    //other.DomainResult = new DomainResult( DomainResult.Success, DomainResult.Errors );
+        //    //other.NumeroFatturaDB = string.Copy( NumeroFatturaDB );
+        //    other.Version = 0;
+        //    return other;
+        //}
     }
 }
