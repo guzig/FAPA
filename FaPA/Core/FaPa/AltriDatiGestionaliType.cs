@@ -47,6 +47,7 @@ namespace FaPA.Core.FaPa
             set
             {
                 _riferimentoNumeroField = value;
+                RiferimentoNumeroSpecified = _riferimentoNumeroField > 0 || _riferimentoNumeroField < 0;
             }
         }
 
@@ -73,6 +74,7 @@ namespace FaPA.Core.FaPa
             set
             {
                 _riferimentoDataField = value;
+                RiferimentoDataSpecified = _riferimentoDataField != DateTime.MinValue;
             }
         }
 

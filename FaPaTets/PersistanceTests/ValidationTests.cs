@@ -20,7 +20,7 @@ namespace FaPaTets.PersistanceTests
                 tx.Commit();
             }
 
-            var list = ObjectExplorer.FindAllInstances<object>(fattura);
+            var list = ObjectExplorer.FindAllInstancesDeep<object>(fattura);
 
             foreach (var coreValidator in list)
             {

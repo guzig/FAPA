@@ -84,7 +84,9 @@
                 
                 <StackPanel  Margin="2,0,2,0" Grid.Row="0" Grid.Column="7">
                     <TextBlock Text="Data fattura" />
-                    <DatePicker   SelectedDate="{Binding CurrentEntity.DataFatturaDB, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, NotifyOnValidationError=True}" 
+                    <DatePicker   SelectedDate="{Binding CurrentEntity.DataFatturaDB, Mode=TwoWay, StringFormat='{}{0:d}',
+                                                         UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, NotifyOnValidationError=True}" 
+                                  
                                   HorizontalAlignment="Stretch"/>
                 </StackPanel>
         

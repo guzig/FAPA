@@ -7,29 +7,29 @@ namespace FaPA.Core.FaPa
     public class IscrizioneREAType : BaseEntityFpa
     {
 
-        private string ufficioField;
+        private string _ufficioField;
 
-        private string numeroREAField;
+        private string _numeroReaField;
 
-        private decimal capitaleSocialeField;
+        private decimal _capitaleSocialeField;
 
-        private bool capitaleSocialeFieldSpecified;
+        private bool _capitaleSocialeFieldSpecified;
 
-        private SocioUnicoType socioUnicoField;
+        private SocioUnicoType _socioUnicoField;
 
-        private bool socioUnicoFieldSpecified;
+        private bool _socioUnicoFieldSpecified;
 
-        private StatoLiquidazioneType statoLiquidazioneField;
+        private StatoLiquidazioneType _statoLiquidazioneField;
 
         public virtual  string Ufficio
         {
             get
             {
-                return ufficioField;
+                return _ufficioField;
             }
             set
             {
-                ufficioField = value;
+                _ufficioField = value;
             }
         }
 
@@ -37,11 +37,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return numeroREAField;
+                return _numeroReaField;
             }
             set
             {
-                numeroREAField = value;
+                _numeroReaField = value;
             }
         }
 
@@ -49,11 +49,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return capitaleSocialeField;
+                return _capitaleSocialeField;
             }
             set
             {
-                capitaleSocialeField = value;
+                _capitaleSocialeField = value;
             }
         }
 
@@ -62,11 +62,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return capitaleSocialeFieldSpecified;
+                return _capitaleSocialeFieldSpecified;
             }
             set
             {
-                capitaleSocialeFieldSpecified = value;
+                _capitaleSocialeFieldSpecified = value;
             }
         }
 
@@ -74,11 +74,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return socioUnicoField;
+                return _socioUnicoField;
             }
             set
             {
-                socioUnicoField = value;
+                _socioUnicoField = value;
             }
         }
 
@@ -87,11 +87,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return socioUnicoFieldSpecified;
+                return _socioUnicoFieldSpecified;
             }
             set
             {
-                socioUnicoFieldSpecified = value;
+                _socioUnicoFieldSpecified = value;
             }
         }
 
@@ -99,11 +99,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return statoLiquidazioneField;
+                return _statoLiquidazioneField;
             }
             set
             {
-                statoLiquidazioneField = value;
+                _statoLiquidazioneField = value;
             }
         }
     }

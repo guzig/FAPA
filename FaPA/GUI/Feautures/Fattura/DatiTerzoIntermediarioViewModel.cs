@@ -17,18 +17,8 @@ namespace FaPA.GUI.Feautures.Fattura
         {
             Instance.FatturaElettronicaHeader.SoggettoEmittente = 
                 ( ( TerzoIntermediarioSoggettoEmittenteType  ) CurrentPoco).SoggettoEmittente;
-
-            Instance.FatturaElettronicaHeader.SoggettoEmittenteFieldSpecified = true;
-            
+          
             base.PersitEntity();
-        }
-
-        protected override void MakeTransient()
-        {
-            base.MakeTransient();
-
-            Instance.FatturaElettronicaHeader.SoggettoEmittenteFieldSpecified = false;
-
         }
 
         protected override void HookChanged( object poco )

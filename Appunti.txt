@@ -1,4 +1,8 @@
+ver 1.2
 
+in aggiunta scompare fattura causa load
+
+validazione committente 
 
 calcolo totale con iva
 
@@ -6,30 +10,12 @@ validazione
 
 ricerca style
 
-	dettaglio fattura style
 
-Style
-bacckUp
+Style bacckUp
 
-pulsante save in editfattura
-
-totale fattura <-> totale documento
-
-remove getLazyInstnce
-
-lunghezza campi in validation
-
-descrizione enums
-
-VALIDAZIONE
-
-PROGRESSIVO INVIO
+SetResultTransformer( new DistinctRootEntityResultTransformer() );
 
 
-DatiTrasmissione by settings 
-
-
-RiferimentoAmministrazione
 
 
 

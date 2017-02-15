@@ -112,7 +112,7 @@
 
             <t1:InstanceNullManager Grid.Row="0" Grid.ColumnSpan="2"
                                     BindedInstance="{Binding CurrentPoco, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
-                                    EmptyMessage="Nessuna scheda dati pagamento è stata aggiunta"
+                                    EmptyMessage="Nessuna scheda dati pagamento presente"
                                     ActionCommandMessage="Aggiungi una scheda dati pagamento"
                                     OnNullCommand="{Binding AddItemCommand}"/>
 

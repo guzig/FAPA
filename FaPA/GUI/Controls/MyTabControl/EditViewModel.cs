@@ -422,8 +422,9 @@ namespace FaPA.GUI.Controls.MyTabControl
             }
             UserEntitiesView.CurrentChanged += OnCurrentSelectionChanged;
             UserEntitiesView.Refresh();
-            OnCurrentChanged( CurrentEntity );
-            _isOnBind = false;           
+            //OnCurrentChanged( CurrentEntity );
+            _isOnBind = false;
+            IsInEditing = false;
         }
 
         public bool TryPersistEntity(  )

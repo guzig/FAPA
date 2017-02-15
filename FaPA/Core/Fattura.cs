@@ -334,7 +334,11 @@ namespace FaPA.Core
                 SyncFornitore();
 
             if ( e.PropertyName == nameof( AnagraficaCommittenteDB ) )
+            {
+                IsValidating = false;
                 SyncCommittente();
+                IsValidating = true;
+            }
         }
 
 
@@ -383,15 +387,6 @@ namespace FaPA.Core
                  !string.IsNullOrWhiteSpace( CedenteFornitore.RiferimentoAmministrazione ) )
                 CedenteFornitore.RiferimentoAmministrazione = RiferimentoAmmDB;
         }
-
-        //private void SyncDatiGeneraliDocumento()
-        //{
-        //    DatiGeneraliDocumento.Divisa = "EUR";
-        //    DatiGeneraliDocumento.Numero = NumeroFatturaDB;
-        //    DatiGeneraliDocumento.Data = DataFatturaDB;
-        //    DatiGeneraliDocumento.ImportoTotaleDocumento = decimal.Parse( string.Format( "##.000", TotaleFatturaDB ) );
-        //    //Causale = new string[] { "causale" } ,
-        //}
 
         private void SetTrasmittente()
         {          
@@ -533,8 +528,7 @@ namespace FaPA.Core
             } );
             return sb.ToString();
         }
-
-
+        
         bool IFlyFetch.TryUnproxyFlyFetch
         {
             get

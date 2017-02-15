@@ -7,25 +7,25 @@ namespace FaPA.Core.FaPa
     //[XmlType( Namespace = "http://www.fatturapa.gov.it/sdi/fatturapa/v1.1" )]
     public class DatiAnagraficiCedenteType: BaseEntityFpa
     {
-        private IdFiscaleType idFiscaleIVAField;
-        private string codiceFiscaleField;
-        private AnagraficaType anagraficaField;
-        private string alboProfessionaleField;
-        private string provinciaAlboField;
-        private string numeroIscrizioneAlboField;
-        private DateTime dataIscrizioneAlboField;
-        private bool dataIscrizioneAlboFieldSpecified;
-        private RegimeFiscaleType regimeFiscaleField;
+        private IdFiscaleType _idFiscaleIvaField;
+        private string _codiceFiscaleField;
+        private AnagraficaType _anagraficaField;
+        private string _alboProfessionaleField;
+        private string _provinciaAlboField;
+        private string _numeroIscrizioneAlboField;
+        private DateTime _dataIscrizioneAlboField;
+        private bool _dataIscrizioneAlboFieldSpecified;
+        private RegimeFiscaleType _regimeFiscaleField;
 
         public virtual IdFiscaleType IdFiscaleIVA
         {
             get
             {
-                return idFiscaleIVAField;
+                return _idFiscaleIvaField;
             }
             set
             {
-                idFiscaleIVAField = value;
+                _idFiscaleIvaField = value;
             }
         }
 
@@ -33,11 +33,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return codiceFiscaleField;
+                return _codiceFiscaleField;
             }
             set
             {
-                codiceFiscaleField = value;
+                _codiceFiscaleField = value;
             }
         }
 
@@ -45,11 +45,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return anagraficaField;
+                return _anagraficaField;
             }
             set
             {
-                anagraficaField = value;
+                _anagraficaField = value;
             }
         }
 
@@ -57,11 +57,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return alboProfessionaleField;
+                return _alboProfessionaleField;
             }
             set
             {
-                alboProfessionaleField = value;
+                _alboProfessionaleField = value;
             }
         }
 
@@ -69,11 +69,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return provinciaAlboField;
+                return _provinciaAlboField;
             }
             set
             {
-                provinciaAlboField = value;
+                _provinciaAlboField = value;
             }
         }
 
@@ -81,11 +81,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return numeroIscrizioneAlboField;
+                return _numeroIscrizioneAlboField;
             }
             set
             {
-                numeroIscrizioneAlboField = value;
+                _numeroIscrizioneAlboField = value;
             }
         }
 
@@ -93,11 +93,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return dataIscrizioneAlboField;
+                return _dataIscrizioneAlboField;
             }
             set
             {
-                dataIscrizioneAlboField = value;
+                _dataIscrizioneAlboField = value;
             }
         }
 
@@ -106,11 +106,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return dataIscrizioneAlboFieldSpecified;
+                return _dataIscrizioneAlboFieldSpecified;
             }
             set
             {
-                dataIscrizioneAlboFieldSpecified = value;
+                _dataIscrizioneAlboFieldSpecified = value;
             }
         }
 
@@ -118,11 +118,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return regimeFiscaleField;
+                return _regimeFiscaleField;
             }
             set
             {
-                regimeFiscaleField = value;
+                _regimeFiscaleField = value;
             }
         }
     }

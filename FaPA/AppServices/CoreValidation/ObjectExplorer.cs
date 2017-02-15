@@ -15,17 +15,17 @@ namespace FaPA.AppServices.CoreValidation
     {
         private static BindingFlags _bindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.GetProperty;
 
-        public static List<T> FindAllInstances<T>(object value) where T : class
+        public static List<T> FindAllInstancesDeep<T>(object value) where T : class
         {
             var exploredObjects = new HashSet<object>();
             var found = new List<T>();
 
-            FindAllInstances(value, exploredObjects, found);
+            FindAllInstancesDeep(value, exploredObjects, found);
 
             return found;
         }
 
-        private static void FindAllInstances<T>( object value, HashSet<object> exploredObjects, List<T> found ) where T : class
+        private static void FindAllInstancesDeep<T>( object value, HashSet<object> exploredObjects, List<T> found ) where T : class
         {
             if ( value == null || exploredObjects.Contains( value ) || value.GetType().IsEnum ) return;
 
@@ -36,7 +36,7 @@ namespace FaPA.AppServices.CoreValidation
             if ( enumerable != null )
             {
                 foreach ( var item in enumerable )
-                    FindAllInstances<T>( item, exploredObjects, found );
+                    FindAllInstancesDeep<T>( item, exploredObjects, found );
             }
             else
             {
@@ -56,7 +56,7 @@ namespace FaPA.AppServices.CoreValidation
                 {
                     var propertyValue = property.GetValue( value, null );
 
-                    FindAllInstances<T>( propertyValue, exploredObjects, found );
+                    FindAllInstancesDeep<T>( propertyValue, exploredObjects, found );
                 }
             }
         }

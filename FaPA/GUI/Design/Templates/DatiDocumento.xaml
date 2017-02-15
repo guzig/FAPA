@@ -24,7 +24,7 @@
                     <Grid>
 
                         <t:InstanceNullManager BindedInstance="{Binding CurrentPoco}"
-                                               EmptyMessage="Nessuna scheda dati generali è stata aggiunta"
+                                               EmptyMessage="Nessuna scheda dati generali presente"
                                                ActionCommandMessage="Aggiungi una scheda dati generali"
                                                OnNullCommand="{Binding AddItemCommand}" />
 
@@ -124,7 +124,7 @@
 
                     <Grid >
                         <t:InstanceNullManager BindedInstance="{Binding CurrentPoco}"
-                                               EmptyMessage="Nessun scheda dati bollo è stata aggiunta"
+                                               EmptyMessage="Nessun scheda dati bollo presente"
                                                ActionCommandMessage="Aggiungi una scheda dati bollo"
                                                OnNullCommand="{Binding AddItemCommand}" />
 
@@ -177,7 +177,7 @@
 
                     <Grid >
                         <t:InstanceNullManager BindedInstance="{Binding CurrentPoco}"
-                                               EmptyMessage="Nessuna ritenuta è stata aggiunta"
+                                               EmptyMessage="Nessuna ritenuta presente"
                                                ActionCommandMessage="Aggiungi una ritenuta"
                                                OnNullCommand="{Binding AddItemCommand}" />
 
@@ -238,7 +238,7 @@
                          PreviewMouseLeftButtonDown="UIElement_OnPreviewMouseLeftButtonDown">
                     <Grid>
                         <t:InstanceNullManager BindedInstance="{Binding CurrentPoco}"
-                                               EmptyMessage="Nessun scheda dati cassa previdenziale è stata aggiunta"
+                                               EmptyMessage="Nessun scheda dati cassa previdenziale presente"
                                                ActionCommandMessage="Aggiungi una scheda dati cassa previdenziale"
                                                OnNullCommand="{Binding AddItemCommand}" />
                             <Grid Margin="2,2,2,2"
@@ -306,7 +306,7 @@
                         </Grid.RowDefinitions>
 
                         <t:InstanceNullManager BindedInstance="{Binding CurrentPoco}"
-                                               EmptyMessage="Nessun scheda dati sconto maggiorazione è stata aggiunta"
+                                               EmptyMessage="Nessun scheda dati sconto maggiorazione presente"
                                                ActionCommandMessage="Aggiungi una scheda dati sconto maggiorazione"
                                                OnNullCommand="{Binding AddItemCommand}" />
 

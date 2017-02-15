@@ -38,7 +38,7 @@ namespace FaPA.Core.FaPa
                     _importoPagamento = value;
                 else
 
-                _importoPagamento = decimal.Parse( string.Format( "##.000", value ) ); ;
+                _importoPagamento = decimal.Parse( string.Format( "##.000", value ) ); 
             }
         }
 

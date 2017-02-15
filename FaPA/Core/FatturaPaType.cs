@@ -48,10 +48,9 @@ namespace FaPA.Core
 
         public object DeepCopy(object value)
         {
-            var toCopy = value as FatturaElettronicaType;
-            return toCopy?.CopyDeep();
+            return value != null ? ObjectExplorer.UnProxiedDeepCopy( value ) : null;
         }
-        
+
         public object Replace(object original, object target, object owner)
         {
             throw new NotImplementedException();

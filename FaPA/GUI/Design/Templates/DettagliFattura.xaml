@@ -244,10 +244,10 @@
 
                         <DataGridTemplateColumn.CellTemplate>
 
-                            <DataTemplate>
-                                <AdornerDecorator>
+                            <DataTemplate >
+                                <AdornerDecorator >
                                     <xctk:DropDownButton Width="Auto" Height="Auto" x:Name="DropCa" 
-                                                     IsOpen="{Binding Data.DettagliFatturaViewModel.ScontoMaggiorazioneViewModel.IsDropDownOpen, 
+                                                        IsOpen="{Binding Data.DettagliFatturaViewModel.ScontoMaggiorazioneViewModel.IsDropDownOpen, 
                                                                       Source={StaticResource proxyFVM}, Mode=OneWayToSource}" >
 
                                         <Image Source="/GUI/Design\Styles\Images\Calendar_64.png"></Image>

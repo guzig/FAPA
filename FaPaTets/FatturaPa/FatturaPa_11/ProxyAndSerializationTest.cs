@@ -171,8 +171,8 @@ namespace FaPaTets.FatturaPa.FatturaPa_11
 
         private static void CheckNestedRefEquals<T>( object orig, object copy, bool condition ) where T : class
         {
-            var instances = ObjectExplorer.FindAllInstances<T>( orig ).ToArray();
-            var others = ObjectExplorer.FindAllInstances<T>( copy ).ToArray();
+            var instances = ObjectExplorer.FindAllInstancesDeep<T>( orig ).ToArray();
+            var others = ObjectExplorer.FindAllInstancesDeep<T>( copy ).ToArray();
 
             for ( int index = 0; index < instances.Length; index++ )
             {
@@ -184,7 +184,7 @@ namespace FaPaTets.FatturaPa.FatturaPa_11
 
         private static void CheckAllTypesAreProxied<T>( object current ) where T : class
         {
-            var instances = ObjectExplorer.FindAllInstances<T>( current ).ToArray();
+            var instances = ObjectExplorer.FindAllInstancesDeep<T>( current ).ToArray();
 
             foreach ( var instance in instances )
             {
@@ -194,7 +194,7 @@ namespace FaPaTets.FatturaPa.FatturaPa_11
 
         private static void CheckAllTypesAreUnProxied<T>(object current) where T : class 
         {
-            var instances = ObjectExplorer.FindAllInstances<T>(current).ToArray();
+            var instances = ObjectExplorer.FindAllInstancesDeep<T>(current).ToArray();
 
             foreach (var instance in instances)
             {

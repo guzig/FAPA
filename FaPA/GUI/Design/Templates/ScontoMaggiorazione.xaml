@@ -18,8 +18,8 @@
 
         <t:InstanceNullManager  Grid.Row="0" Grid.Column="0" 
                                 BindedInstance="{Binding CurrentPoco}"
-                                EmptyMessage="Nessuna scheda fattura principale aggiunta"
-                                ActionCommandMessage="Aggiungi una scheda fattura principale aggiunta"
+                                EmptyMessage="Nessuna scheda sconto/maggiorazione presente"
+                                ActionCommandMessage="Aggiungi una scheda sconto/maggiorazione"
                                 OnNullCommand="{Binding AddItemCommand}" 
                                 ActionCommandParam="FatturaPrincipale"/>
 

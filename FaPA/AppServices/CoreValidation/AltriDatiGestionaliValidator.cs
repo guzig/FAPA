@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using FaPA.Core.FaPa;
+using Xceed.Wpf.Toolkit;
 
 namespace FaPA.AppServices.CoreValidation
 {
@@ -19,6 +20,10 @@ namespace FaPA.AppServices.CoreValidation
                 propErrors.Add( "TipoDato deve essere valorizzato" );
             else if ( instnce.TipoDato.Length > 20 )
                 propErrors.Add( "TipoDato deve essere lungo max 20 caratteri" );
+
+            //opt
+            //rif. testo 60
+            //RiferimentoNumero: 4-21
 
             if ( propErrors.Any() )
             {

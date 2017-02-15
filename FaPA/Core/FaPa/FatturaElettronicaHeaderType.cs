@@ -15,21 +15,7 @@ namespace FaPA.Core.FaPa
         private CessionarioCommittenteType _cessionarioCommittenteField;
         private TerzoIntermediarioSoggettoEmittenteType _terzoIntermediarioOSoggettoEmittenteField;
         private SoggettoEmittenteType _soggettoEmittenteField;
-
         private bool _soggettoEmittenteFieldSpecified;
-
-        [XmlIgnore]
-        public virtual  bool SoggettoEmittenteFieldSpecified
-        {
-            get
-            {
-                return _soggettoEmittenteFieldSpecified;
-            }
-            set
-            {
-                _soggettoEmittenteFieldSpecified = value;
-            }
-        }
 
         public virtual  DatiTrasmissioneType DatiTrasmissione
         {
@@ -88,6 +74,7 @@ namespace FaPA.Core.FaPa
             set
             {
                 _terzoIntermediarioOSoggettoEmittenteField = value;
+                SoggettoEmittenteSpecified = _terzoIntermediarioOSoggettoEmittenteField != null;
             }
         }
 
@@ -103,18 +90,17 @@ namespace FaPA.Core.FaPa
             }
         }
 
-        //
-        //[XmlIgnore]
-        //public virtual  bool SoggettoEmittenteSpecified
-        //{
-        //    get
-        //    {
-        //        return soggettoEmittenteFieldSpecified;
-        //    }
-        //    set
-        //    {
-        //        soggettoEmittenteFieldSpecified = value;
-        //    }
-        //}
+        [XmlIgnore]
+        public virtual bool SoggettoEmittenteSpecified
+        {
+            get
+            {
+                return _soggettoEmittenteFieldSpecified;
+            }
+            set
+            {
+                _soggettoEmittenteFieldSpecified = value;
+            }
+        }
     }
 }

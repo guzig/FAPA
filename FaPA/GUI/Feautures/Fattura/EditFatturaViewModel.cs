@@ -149,7 +149,7 @@ namespace FaPA.GUI.Feautures.Fattura
         protected override Core.Fattura CreateInstance()
         {
             var entity = Activator.CreateInstance<Core.Fattura>();
-            entity.DataFatturaDB = DateTime.Now;
+            entity.DataFatturaDB = DateTime.Now.Date;
             entity.Init();
             return ( Core.Fattura ) ObjectExplorer.DeepProxiedCopyOfType<FaPA.Core.BaseEntity>( entity );
         }
@@ -159,11 +159,10 @@ namespace FaPA.GUI.Feautures.Fattura
             if ( IsCopyMode )
             {
                 var copy = CurrentEntity.Copy();
-                
-                copy.DataFatturaDB = DateTime.Now;
+                copy.DataFatturaDB = DateTime.Now.Date;
                 copy.NumeroFatturaDB = CurrentEntity.NumeroFatturaDB + " ? ";
 
-                CurrentEntity = ( Core.Fattura ) ObjectExplorer.DeepProxiedCopyOfType<FaPA.Core.BaseEntity>( copy ); ;
+                CurrentEntity = ( Core.Fattura ) ObjectExplorer.DeepProxiedCopyOfType<FaPA.Core.BaseEntity>( copy ); 
             }
             else
             {
@@ -185,8 +184,7 @@ namespace FaPA.GUI.Feautures.Fattura
             CurrentEntity.SyncFatturaPa();
             var result = base.TrySaveCurrentEntity();
             Load();
-            InitFatturaTabs( CurrentEntity );
-            DatiRiepilogoIvaViewModel.Init();
+            //InitFatturaTabs( CurrentEntity );
             return result;
         }
 
@@ -207,7 +205,7 @@ namespace FaPA.GUI.Feautures.Fattura
 
         private void OnCurrentFatturaChanged(Core.Fattura currententity)
         {
-            InitFatturaTabs( currententity );
+            InitFatturaTabs( CurrentEntity );
 
         }
 
@@ -218,8 +216,6 @@ namespace FaPA.GUI.Feautures.Fattura
             DettagliFatturaViewModel = new DettagliFatturaViewModel(this, fattura );
             DettagliFatturaViewModel.Init();
             DettagliFatturaViewModel.CurrentEntityChanged += OnDettaglioFatturaPropertyChanged;
-            //DettagliFatturaViewModel.UserCollectionView.CurrentChanged += OnDettaglioFatturaPropertyChanged1;
-            //DettagliFatturaViewModel.UserCollectionView.CurrentChanging += OnDettaglioFatturaPropertyChanged2;
 
             DatiGeneraliViewModel = new DatiGeneraliViewModel( this, fattura.FatturaElettronicaBody );
             AddTabViewModel<DatiGeneraliViewModel>( DatiGeneraliViewModel );
@@ -268,13 +264,15 @@ namespace FaPA.GUI.Feautures.Fattura
 
         private void OnDettaglioFatturaPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            if ( DettagliFatturaViewModel.IsEditing )
+            {
+               LockMessage = EditViewModel<BaseEntity>.OnEditingLockMessage;
+            }
             OnChildChanged();
         }
 
         private void OnChildChanged()
         {
-            LockMessage = EditViewModel<BaseEntity>.OnEditingLockMessage;
-            IsInEditing = true;
             Validate();
             AllowSave = IsValidate();
         }
@@ -326,12 +324,12 @@ namespace FaPA.GUI.Feautures.Fattura
             {
                 if (_generateXmlStreamCommand != null)
                     return _generateXmlStreamCommand;
-                _generateXmlStreamCommand = new RelayCommand(c => ValidateAndFlushXml(CurrentEntity));
+                _generateXmlStreamCommand = new RelayCommand(c => ValidateAndFlushXml(CurrentEntity), x => !IsInEditing);
                 return _generateXmlStreamCommand;
             }
         }
 
-        private void ValidateAndFlushXml(IValidatable fattura)
+        private void ValidateAndFlushXml(Core.Fattura fattura)
         {
             string error = null;
             var folderPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
@@ -414,35 +412,35 @@ namespace FaPA.GUI.Feautures.Fattura
             IsCopyMode = false;
         }
 
-        private bool FlushXml(IValidatable fattura, string path, out string error)
+        private bool FlushXml(Core.Fattura fattura, string path, out string error)
         {
             ShowCursor.Show();
             if ( ValidateAndCreateXmlStream(fattura, path, out error))
             {
-                var msg = "Fattura validata." + Environment.NewLine + "Il file " + path + " è stato salvato sul desktop";
-                MessageBox.Show(msg, "Salvataggio completato", MessageBoxButton.OK);
+                var msg = "Fattura validata esportata." + Environment.NewLine + "Il file " + path + " è stato salvato sul desktop";
+                MessageBox.Show(msg, "Salvataggio completato", MessageBoxButton.OK, MessageBoxImage.Information);
                 return true;
             }
             else
             {
-                MessageBox.Show( error, "Fattura non generata...", MessageBoxButton.OK);
+                var msg = "Fattura NON validata esportata." + Environment.NewLine + "Il file " + path + " è stato salvato sul desktop";
+                MessageBox.Show( msg, "Fattura non validata...", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
         }
 
-        private bool ValidateAndCreateXmlStream(IValidatable fattura, string outPath, out string error)
+        private bool ValidateAndCreateXmlStream(Core.Fattura fattura, string outPath, out string error)
         {
             error = null;
 
             ShowCursor.Show();
 
-            DomainResultFatturaPA = CurrentEntity.ValidateByXsdFatturaPA();
+            var internalErrors = fattura.Validate();
+            var DomainResultFatturaPA = fattura.ValidateByXsdFatturaPA();
 
-            var errors = fattura.Validate();
-            if (!errors.Success)
+            if (!internalErrors.Success || !string.IsNullOrWhiteSpace( DomainResultFatturaPA ) )
             {
-                error = "Fattura non validata: " + Environment.NewLine + string.Join("; ", errors);
-                return false;
+                error = "Fattura non validata: " + Environment.NewLine + string.Join("; ", DomainResultFatturaPA );
             }
             var xmlDoc = CurrentEntity.GetXmlFatturaPA();
             xmlDoc.Save(outPath);

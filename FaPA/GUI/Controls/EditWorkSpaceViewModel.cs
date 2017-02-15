@@ -18,8 +18,8 @@ namespace FaPA.GUI.Controls
         protected EditWorkSpaceViewModel(IRepository repository, T instance,
             Expression<Func<T, TProperty>> getter, string dispName, bool isClosable) 
         {
-            SetterProp = ReflectionHelpers.GetSetter(getter);
-            GetterProp = getter.Compile();
+            SetterPropExp = ReflectionHelpers.GetSetter(getter);
+            GetterPropExp = getter.Compile();
             Repository = repository;
             Instance = instance;
             DisplayName = dispName;
@@ -30,8 +30,8 @@ namespace FaPA.GUI.Controls
 
         //public bool IsOnInit { get; protected set; }
 
-        protected readonly Action<T, TProperty> SetterProp;
-        protected readonly Func<T, TProperty> GetterProp;
+        protected readonly Action<T, TProperty> SetterPropExp;
+        protected readonly Func<T, TProperty> GetterPropExp;
         protected readonly IRepository Repository;
 
         protected T Instance { get; set; }
@@ -40,12 +40,12 @@ namespace FaPA.GUI.Controls
         {
             get
             {
-                return GetterProp(Instance);
+                return GetUserProperty();
             }
 
             set
             {
-                SetterProp(Instance, (TProperty)value);
+                SetUserProperty( value );
                 NotifyOfPropertyChange(() => UserProperty);
             }
         }
@@ -173,7 +173,7 @@ namespace FaPA.GUI.Controls
 
             ( ( IValidatable ) userProperty ).Validate();
 
-            CurrentPoco = ObjectExplorer.DeepProxiedCopyOfType<FaPA.Core.BaseEntity>( userProperty ); ;
+            CurrentPoco = ObjectExplorer.DeepProxiedCopyOfType<FaPA.Core.BaseEntity>( userProperty ); 
 
             HookChanged( CurrentPoco );
             UserProperty = (TProperty)CurrentPoco;
@@ -191,6 +191,23 @@ namespace FaPA.GUI.Controls
 
         #endregion
 
+        public void SetUserProperty( TProperty value)
+        {
+            if ( Instance != null )
+                SetterPropExp( Instance, value );
+            NotifyOfPropertyChange( () => UserProperty );
+        }
+
+
+        public TProperty GetUserProperty()
+        {
+            if ( Instance != null )
+                return GetterPropExp( Instance );
+
+            return default ( TProperty );
+        }
+
+
         public virtual void Init()
         {
             AllowDelete = UserProperty != null;
@@ -199,6 +216,7 @@ namespace FaPA.GUI.Controls
             if ( UserProperty == null ) return;
             CurrentPoco = UserProperty;
             HookChanged( UserProperty );
+            ( ( BaseEntity ) CurrentPoco ).IsValidating = true;
         }
 
         protected virtual void Validate()
@@ -237,7 +255,7 @@ namespace FaPA.GUI.Controls
             PersitEntity();
 
             Instance = ReadInstance();
-            UserProperty = GetterProp(Instance);
+            UserProperty = GetUserProperty();
 
             //Debug.Assert(UserProperty==null);
 
@@ -270,7 +288,7 @@ namespace FaPA.GUI.Controls
         {
             if ( ProcessChangedEvent( sender ) ) return;
 
-            OnCurrentChanged(sender, eventArg);
+            OnPropertyChanged(sender, eventArg);
         }
 
         protected bool ProcessChangedEvent( object sender )
@@ -307,7 +325,7 @@ namespace FaPA.GUI.Controls
         public delegate void OnCurrentChangedhandler(object sender, PropertyChangedEventArgs eventArg);
         public event OnCurrentChangedhandler CurrentEntityChanged;
 
-        protected void OnCurrentChanged(object sender, PropertyChangedEventArgs eventArg)
+        protected void OnPropertyChanged(object sender, PropertyChangedEventArgs eventArg)
         {
             var handler = CurrentEntityChanged;
             handler?.Invoke(sender, eventArg);
@@ -338,7 +356,7 @@ namespace FaPA.GUI.Controls
             if (Repository == null) return;
 
             Instance = ReadInstance();
-            UserProperty = GetterProp(Instance);
+            UserProperty = GetUserProperty();
             CurrentPoco = UserProperty;
         }
 

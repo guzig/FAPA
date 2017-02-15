@@ -55,13 +55,6 @@ namespace FaPA.GUI.Controls
 
                 InitCollectionView();
 
-                foreach (var item in UserCollectionView)
-                {
-                    Debug.Assert( item is INotifyPropertyChanged );
-                    
-                    HookChanged( item);
-                }
-
                 Validate();
             }
             else
@@ -94,7 +87,8 @@ namespace FaPA.GUI.Controls
             Persist( Instance );
 
             Instance = ReadInstance();
-            UserProperty = GetterProp(Instance); 
+
+            UserProperty = GetUserProperty(); 
             CurrentPoco = UserProperty;
 
             Init();
@@ -139,8 +133,9 @@ namespace FaPA.GUI.Controls
             UserCollectionView.MoveCurrentToLast();
 
             IsEditing = true;
-            AllowDelete = false;
-            AllowSave = true;
+            AllowDelete = true;
+            Validate();
+            AllowSave = IsValid;
         }
         
         
@@ -197,25 +192,27 @@ namespace FaPA.GUI.Controls
             UserCollectionView.CurrentChanged += OnCurrentChanged;
             IsEmpty = UserProperty == null || UserCollectionView == null || UserCollectionView.IsEmpty;
 
-            foreach ( var VARIABLE in UserCollectionView )
+            foreach ( var item in UserCollectionView )
             {
-                if (!(VARIABLE is IProxy))
-                {
-                    var f = 1;
-                }
+                Debug.Assert( item is INotifyPropertyChanged );
+
+                HookChanged( item );
+
+                ( ( BaseEntity ) item ).IsValidating = true;
             }
+
         }
 
-        protected virtual void OnCurrentChanged( object sender, EventArgs e)
+        protected virtual void OnCurrentChanged( object sender, EventArgs eventArgs )
         {
             CurrentPoco = UserCollectionView.CurrentItem;
             if ( CurrentPoco == null) return;
-            if ( !( CurrentPoco is IProxy ) )
-                throw new NullReferenceException();
+            Debug.Assert( CurrentPoco is IProxy );
             Validate();
             AllowSave = IsValid;
             AllowDelete = true;
             HookChanged( CurrentPoco );
+            //base.OnPropertyChanged( sender, new PropertyChangedEventArgs( eventArgs.ToString() ) );
         }
 
         protected void RemoveItem()
@@ -228,7 +225,7 @@ namespace FaPA.GUI.Controls
                 view.CommitNew();
             }
             Validate();
-            //base.OnCurrentChanged(UserProperty, new PropertyChangedEventArgs("UserProperty"));
+            //base.OnPropertyChanged(UserProperty, new PropertyChangedEventArgs("UserProperty"));
         }
 
         protected void ValidateAll()
@@ -296,7 +293,8 @@ namespace FaPA.GUI.Controls
             if ( Repository != null )
             {
                 Instance = ReadInstance();
-                UserProperty = Instance != null ? GetterProp( Instance ) : default( TProperty );
+                if ( Instance != null )
+                    UserProperty = GetUserProperty();
             }
 
             Init();

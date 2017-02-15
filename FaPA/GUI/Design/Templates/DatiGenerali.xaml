@@ -20,8 +20,8 @@
                         
                         <t:InstanceNullManager Grid.Row="0" Grid.ColumnSpan="2"
                                                BindedInstance="{Binding CurrentPoco}"
-                                               EmptyMessage="Nessuna scheda fattura principale aggiunta"
-                                               ActionCommandMessage="Aggiungi una scheda fattura principale aggiunta"
+                                               EmptyMessage="Nessuna scheda fattura principale presente"
+                                               ActionCommandMessage="Aggiungi una scheda fattura principale"
                                                OnNullCommand="{Binding AddItemCommand}" 
                                                ActionCommandParam="FatturaPrincipale"/>
 
@@ -68,7 +68,7 @@
 
                             <t:InstanceNullManager Grid.Row="0" Grid.ColumnSpan="2"
                                                BindedInstance="{Binding CurrentPoco, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
-                                               EmptyMessage="Nessuna scheda dati trasporto è stata aggiunta"
+                                               EmptyMessage="Nessuna scheda dati trasporto presente"
                                                ActionCommandMessage="Aggiungi una scheda dati trasporto"
                                                OnNullCommand="{Binding AddItemCommand}"
                                                ActionCommandParam="DatiTrasporto"/>
@@ -175,7 +175,7 @@
 
                                                 <t:InstanceNullManager Grid.Row="0" Grid.ColumnSpan="4"
                                                                    BindedInstance="{Binding CurrentPoco, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
-                                                                   EmptyMessage="Nessuna scheda dati anagrafici vettore è stata aggiunta"
+                                                                   EmptyMessage="Nessuna scheda dati anagrafici vettore presente"
                                                                    ActionCommandMessage="Aggiungi una scheda dati anagrafici vettore"
                                                                    OnNullCommand="{Binding AddItemCommand}"
                                                                    ActionCommandParam="DatiVettore"/>
@@ -264,7 +264,7 @@
 
                                                     <t:InstanceNullManager Grid.Row="0" 
                                                                            BindedInstance="{Binding CurrentPoco, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
-                                                                           EmptyMessage="Nessuna scheda dati indirizzo è stata aggiunta"
+                                                                           EmptyMessage="Nessuna scheda dati indirizzo presente"
                                                                            ActionCommandMessage="Aggiungi una scheda dati indirizzo"
                                                                            OnNullCommand="{Binding AddItemCommand}"
                                                                            ActionCommandParam="IndirizzoResa"/>
@@ -352,7 +352,7 @@
                         
                         <t:InstanceNullManager Grid.Row="0" Grid.ColumnSpan="2"
                                                BindedInstance="{Binding CurrentPoco}"
-                                               EmptyMessage="Nessuna scheda dati SAL aggiunta"
+                                               EmptyMessage="Nessuna scheda dati SAL presente"
                                                ActionCommandMessage="Aggiungi una scheda dati SAL"
                                                OnNullCommand="{Binding AddItemCommand}" 
                                                ActionCommandParam="DatiSAL"/>
@@ -449,7 +449,7 @@
 
                         <t:InstanceNullManager Grid.Row="0" Grid.ColumnSpan="2"
                                                BindedInstance="{Binding CurrentPoco, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
-                                               EmptyMessage="Nessuna scheda dati DDT aggiunta"
+                                               EmptyMessage="Nessuna scheda dati DDT presente"
                                                ActionCommandMessage="Aggiungi una scheda dati DDT"
                                                OnNullCommand="{Binding AddItemCommand}" />
 

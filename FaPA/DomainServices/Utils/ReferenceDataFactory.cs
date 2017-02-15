@@ -4,6 +4,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using FaPA.Core;
 using NHibernate;
+using NHibernate.Transform;
 
 namespace FaPA.DomainServices.Utils
 {
@@ -67,7 +68,8 @@ namespace FaPA.DomainServices.Utils
             {
                 using (var tx = NHhelper.Instance.CurrentSession.BeginTransaction())
                 {
-                    var criteria = NHhelper.Instance.CurrentSession.CreateCriteria<T>();
+                    var criteria = NHhelper.Instance.CurrentSession.CreateCriteria<T>().
+                        SetResultTransformer( new DistinctRootEntityResultTransformer() );
                     if (_eagerFetchProps != null && _eagerFetchProps.Length > 0)
                     {
                         foreach (var eagerFetchProp in _eagerFetchProps)

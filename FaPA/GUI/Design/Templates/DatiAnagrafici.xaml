@@ -22,7 +22,7 @@
 
                     <t:InstanceNullManager Grid.Row="0" Grid.ColumnSpan="4"
                                            BindedInstance="{Binding CurrentPoco, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
-                                           EmptyMessage="Nessuna scheda dati anagrafici è stata aggiunta"
+                                           EmptyMessage="Nessuna scheda dati anagrafici presente"
                                            ActionCommandMessage="Aggiungi una scheda dati anagrafici"
                                            OnNullCommand="{Binding AddItemCommand}"
                                            ActionCommandParam="DatiVettore"/>

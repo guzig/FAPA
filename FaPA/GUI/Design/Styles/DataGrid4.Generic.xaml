@@ -144,11 +144,11 @@
             <Setter.Value>
                 <ControlTemplate>
                     <DockPanel  >
-                        <TextBlock DockPanel.Dock="Top"
+                        <!--<TextBlock DockPanel.Dock="Top"
                                        HorizontalAlignment="Center"
                                        Foreground="Crimson"
                                        FontSize="10pt"
-                                       Text="{Binding AdornedElement.(Validation.Errors).CurrentItem.ErrorContent, ElementName=MyAdorner}"/>
+                                       Text="{Binding AdornedElement.(Validation.Errors).CurrentItem.ErrorContent, ElementName=MyAdorner}"/>-->
                         <Border BorderBrush="Crimson" BorderThickness="1.5" CornerRadius="2">
                             <AdornedElementPlaceholder x:Name="MyAdorner"/>
                         </Border>

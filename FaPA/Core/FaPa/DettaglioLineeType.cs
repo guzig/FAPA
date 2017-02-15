@@ -9,75 +9,75 @@ namespace FaPA.Core.FaPa
 
         #region fields
 
-        private string numeroLineaField;
+        private string _numeroLineaField;
 
-        private TipoCessionePrestazioneType tipoCessionePrestazioneField;
+        private TipoCessionePrestazioneType _tipoCessionePrestazioneField;
 
-        private bool tipoCessionePrestazioneFieldSpecified;
+        private bool _tipoCessionePrestazioneFieldSpecified;
 
-        private CodiceArticoloType[] codiceArticoloField;
+        private CodiceArticoloType[] _codiceArticoloField;
 
-        private string descrizioneField;
+        private string _descrizioneField;
 
-        private decimal quantitaField;
+        private decimal _quantitaField;
 
-        private bool quantitaFieldSpecified;
+        private bool _quantitaFieldSpecified;
 
-        private string unitaMisuraField;
+        private string _unitaMisuraField;
 
-        private DateTime dataInizioPeriodoField;
+        private DateTime _dataInizioPeriodoField;
 
-        private bool dataInizioPeriodoFieldSpecified=true;
+        private bool _dataInizioPeriodoFieldSpecified;
 
-        private DateTime dataFinePeriodoField;
+        private DateTime _dataFinePeriodoField;
 
-        private bool dataFinePeriodoFieldSpecified=true;
+        private bool _dataFinePeriodoFieldSpecified;
 
-        private decimal prezzoUnitarioField;
+        private decimal _prezzoUnitarioField;
 
-        private ScontoMaggiorazioneType[] scontoMaggiorazioneField;
+        private ScontoMaggiorazioneType[] _scontoMaggiorazioneField;
 
-        private decimal prezzoTotaleField;
+        private decimal _prezzoTotaleField;
 
-        private decimal aliquotaIVAField;
+        private decimal _aliquotaIvaField;
 
-        private RitenutaType ritenutaField;
+        private RitenutaType _ritenutaField;
 
-        private bool ritenutaFieldSpecified;
+        private bool _ritenutaFieldSpecified;
 
-        private NaturaType naturaField;
+        private NaturaType _naturaField;
 
-        private bool naturaFieldSpecified=true;
+        private bool _naturaFieldSpecified;
 
-        private string riferimentoAmministrazioneField;
+        private string _riferimentoAmministrazioneField;
 
-        private AltriDatiGestionaliType[] altriDatiGestionaliField;
-
+        private AltriDatiGestionaliType[] _altriDatiGestionaliField;
+        
         #endregion
         
         public virtual  string NumeroLinea
         {
             get
             {
-                return numeroLineaField;
+                return _numeroLineaField;
             }
             set
             {
-                numeroLineaField = value;
+                _numeroLineaField = value;
             }
         }
 
-        [XmlIgnore]
+
         public virtual TipoCessionePrestazioneType TipoCessionePrestazione
         {
             get
             {
-                return tipoCessionePrestazioneField;
+                return _tipoCessionePrestazioneField;
             }
             set
             {
-                tipoCessionePrestazioneField = value;
-                TipoCessionePrestazioneSpecified = tipoCessionePrestazioneField != TipoCessionePrestazioneType.N;
+                _tipoCessionePrestazioneField = value;
+                TipoCessionePrestazioneSpecified = _tipoCessionePrestazioneField != TipoCessionePrestazioneType.N;
             }
         }
 
@@ -86,11 +86,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return tipoCessionePrestazioneFieldSpecified;
+                return _tipoCessionePrestazioneFieldSpecified;
             }
             set
             {
-                tipoCessionePrestazioneFieldSpecified = value;
+                _tipoCessionePrestazioneFieldSpecified = value;
             }
         }
 
@@ -99,11 +99,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return codiceArticoloField;
+                return _codiceArticoloField;
             }
             set
             {
-                codiceArticoloField = value;
+                _codiceArticoloField = value;
             }
         }
 
@@ -111,11 +111,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return descrizioneField;
+                return _descrizioneField;
             }
             set
             {
-                descrizioneField = value;
+                _descrizioneField = value;
             }
         }
 
@@ -123,36 +123,37 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return quantitaField;
+                return _quantitaField;
             }
             set
             {
-                quantitaField = decimal.Parse(string.Format("{0:###0.00}",value) );
+                _quantitaField = decimal.Parse(string.Format("{0:###0.00}",value) );
+                QuantitaSpecified = _quantitaField > 0 || _quantitaField < 0;
             }
         }
 
-        //[XmlIgnore]
-        //public bool QuantitaSpecified
-        //{
-        //    get
-        //    {
-        //        return quantitaFieldSpecified;
-        //    }
-        //    set
-        //    {
-        //        quantitaFieldSpecified = value;
-        //    }
-        //}
+        [XmlIgnore]
+        public bool QuantitaSpecified
+        {
+            get
+            {
+                return _quantitaFieldSpecified;
+            }
+            set
+            {
+                _quantitaFieldSpecified = value;
+            }
+        }
 
         public virtual string UnitaMisura
         {
             get
             {
-                return unitaMisuraField;
+                return _unitaMisuraField;
             }
             set
             {
-                unitaMisuraField = value;
+                _unitaMisuraField = value;
             }
         }
 
@@ -160,12 +161,12 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return dataInizioPeriodoField;
+                return _dataInizioPeriodoField;
             }
             set
             {
-                dataInizioPeriodoField = value;
-                DataInizioPeriodoSpecified = dataInizioPeriodoField.Year > 1;
+                _dataInizioPeriodoField = value;
+                DataInizioPeriodoSpecified = _dataInizioPeriodoField != DateTime.MinValue;
             }
         }
 
@@ -174,11 +175,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return dataInizioPeriodoFieldSpecified;
+                return _dataInizioPeriodoFieldSpecified;
             }
             set
             {
-                dataInizioPeriodoFieldSpecified = value;
+                _dataInizioPeriodoFieldSpecified = value;
             }
         }
 
@@ -186,12 +187,12 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return dataFinePeriodoField;
+                return _dataFinePeriodoField;
             }
             set
             {
-                dataFinePeriodoField = value;
-                DataFinePeriodoSpecified = dataFinePeriodoField != DateTime.MinValue && dataFinePeriodoField != DateTime.MaxValue;
+                _dataFinePeriodoField = value;
+                DataFinePeriodoSpecified = _dataFinePeriodoField != DateTime.MinValue && _dataFinePeriodoField != DateTime.MaxValue;
             }
         }
 
@@ -200,11 +201,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return dataFinePeriodoFieldSpecified;
+                return _dataFinePeriodoFieldSpecified;
             }
             set
             {
-                dataFinePeriodoFieldSpecified = value;
+                _dataFinePeriodoFieldSpecified = value;
             }
         }
 
@@ -212,23 +213,24 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return prezzoUnitarioField;
+                return _prezzoUnitarioField;
             }
             set
             {
-                prezzoUnitarioField = decimal.Parse(string.Format("{0:###0.00}", value));
+                _prezzoUnitarioField = decimal.Parse(string.Format("{0:###0.00}", value));
             }
         }
 
+        [XmlElement]
         public virtual ScontoMaggiorazioneType[] ScontoMaggiorazione
         {
             get
             {
-                return scontoMaggiorazioneField;
+                return _scontoMaggiorazioneField;
             }
             set
             {
-                scontoMaggiorazioneField = value;
+                _scontoMaggiorazioneField = value;
             }
         }
 
@@ -236,11 +238,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return prezzoTotaleField;
+                return _prezzoTotaleField;
             }
             set
             {
-                prezzoTotaleField = decimal.Parse(string.Format("{0:###0.00}", value));
+                _prezzoTotaleField = decimal.Parse(string.Format("{0:###0.00}", value));
             }
         }
 
@@ -248,11 +250,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return aliquotaIVAField;
+                return _aliquotaIvaField;
             }
             set
             {
-                aliquotaIVAField = decimal.Parse(string.Format("{0:###0.00}", value));
+                _aliquotaIvaField = decimal.Parse(string.Format("{0:###0.00}", value));
             }
         }
 
@@ -260,12 +262,12 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return ritenutaField;
+                return _ritenutaField;
             }
             set
             {
-                ritenutaField = value;
-                RitenutaSpecified = ritenutaField == RitenutaType.SI;
+                _ritenutaField = value;
+                RitenutaSpecified = _ritenutaField == RitenutaType.SI;
             }
         }
 
@@ -274,11 +276,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return ritenutaFieldSpecified;
+                return _ritenutaFieldSpecified;
             }
             set
             {
-                ritenutaFieldSpecified = value;
+                _ritenutaFieldSpecified = value;
             }
         }
 
@@ -286,12 +288,12 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return naturaField;
+                return _naturaField;
             }
             set
             {
-                naturaField = value;
-                NaturaSpecified = naturaField != NaturaType.N;
+                _naturaField = value;
+                NaturaSpecified = _naturaField != NaturaType.N;
             }
         }
 
@@ -300,11 +302,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return naturaFieldSpecified;
+                return _naturaFieldSpecified;
             }
             set
             {
-                naturaFieldSpecified = value;
+                _naturaFieldSpecified = value;
             }
         }
 
@@ -312,23 +314,24 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return riferimentoAmministrazioneField;
+                return _riferimentoAmministrazioneField;
             }
             set
             {
-                riferimentoAmministrazioneField = value;
+                _riferimentoAmministrazioneField = value;
             }
         }
 
+        [XmlElement]
         public virtual AltriDatiGestionaliType[] AltriDatiGestionali
         {
             get
             {
-                return altriDatiGestionaliField;
+                return _altriDatiGestionaliField;
             }
             set
             {
-                altriDatiGestionaliField = value;
+                _altriDatiGestionaliField = value;
             }
         }
     }

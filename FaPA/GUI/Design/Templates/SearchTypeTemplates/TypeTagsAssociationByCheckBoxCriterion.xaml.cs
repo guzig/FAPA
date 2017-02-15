@@ -57,7 +57,7 @@ namespace FaPA.GUI.Design.Templates.SearchTypeTemplates
 
         private void ToggleButton_OnUnchecked(object sender, RoutedEventArgs e)
         {
-            CrossCoupledProps.BindingGroup.CommitEdit(); ;
+            CrossCoupledProps.BindingGroup.CommitEdit(); 
         }
     }
 }

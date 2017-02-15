@@ -47,7 +47,7 @@ namespace FaPA.GUI.Feautures.Fattura
 
         //ctor 
         public AltriDatiViewModel( IRepository repository, DettaglioLineeType instance) :
-            base( (DettaglioLineeType f) => f.AltriDatiGestionali, repository, instance, "Altri dati", true )
+            base( f => f.AltriDatiGestionali, repository, instance, "Altri dati", true )
         {}
 
         //persist change in the main tab view model
@@ -82,11 +82,12 @@ namespace FaPA.GUI.Feautures.Fattura
         public override DettaglioLineeType ReadInstance()
         {
             var root = Repository.Read();
+            var current = CurrentPoco?.Unproxy();
+            if ( current == null ) return null;
             var list = ( ( Core.Fattura ) root ).DatiBeniServizi.DettaglioLinee;
             if (list == null || !list.Any())
                 return null;
-            var current = list.FirstOrDefault(r => r.Unproxy() == CurrentPoco.Unproxy());
-            return current;
+            return list.FirstOrDefault(r => r.Unproxy() == current);
         }
 
     }

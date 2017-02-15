@@ -16,8 +16,8 @@
 
         <t:InstanceNullManager  Grid.Row="0" 
                                 Visibility="{Binding Path=IsEmpty, Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"
-                                EmptyMessage="Nessuna scheda dati trasporto è stata aggiunta"
-                                ActionCommandMessage="Aggiungi una scheda dati trasporto"
+                                EmptyMessage="Nessuna scheda altri dati presente"
+                                ActionCommandMessage="Aggiungi una scheda altri dati"
                                 OnNullCommand="{Binding AddItemCommand}"
                                 ActionCommandParam="DatiTrasporto"/>
 

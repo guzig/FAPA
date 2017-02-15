@@ -7,27 +7,27 @@ namespace FaPA.Core.FaPa
     {
         #region fields
 
-        private TipoCassaType tipoCassaField;
+        private TipoCassaType _tipoCassaField;
 
-        private decimal alCassaField;
+        private decimal _alCassaField;
 
-        private decimal importoContributoCassaField;
+        private decimal _importoContributoCassaField;
 
-        private decimal imponibileCassaField;
+        private decimal _imponibileCassaField;
 
-        private bool imponibileCassaFieldSpecified;
+        private bool _imponibileCassaFieldSpecified;
 
-        private decimal aliquotaIVAField;
+        private decimal _aliquotaIvaField;
 
-        private RitenutaType ritenutaField;
+        private RitenutaType _ritenutaField;
 
-        private bool ritenutaFieldSpecified;
+        private bool _ritenutaFieldSpecified;
 
-        private NaturaType naturaField;
+        private NaturaType _naturaField;
 
-        private bool naturaFieldSpecified;
+        private bool _naturaFieldSpecified;
 
-        private string riferimentoAmministrazioneField;
+        private string _riferimentoAmministrazioneField;
 
         
         #endregion
@@ -36,12 +36,12 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return tipoCassaField;
+                return _tipoCassaField;
             }
             set
             {
-                if (value == tipoCassaField) return;
-                tipoCassaField = value;
+                if (value == _tipoCassaField) return;
+                _tipoCassaField = value;
             }
         }
 
@@ -49,12 +49,12 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return alCassaField;
+                return _alCassaField;
             }
             set
             {
-                if (value == alCassaField) return;
-                alCassaField = value;
+                if (value == _alCassaField) return;
+                _alCassaField = value;
             }
         }
 
@@ -62,12 +62,12 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return importoContributoCassaField;
+                return _importoContributoCassaField;
             }
             set
             {
-                if (value == importoContributoCassaField) return;
-                importoContributoCassaField = value;
+                if (value == _importoContributoCassaField) return;
+                _importoContributoCassaField = value;
             }
         }
 
@@ -75,12 +75,12 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return imponibileCassaField;
+                return _imponibileCassaField;
             }
             set
             {
-                if (value == imponibileCassaField) return;
-                imponibileCassaField = value;
+                if (value == _imponibileCassaField) return;
+                _imponibileCassaField = value;
             }
         }
 
@@ -88,12 +88,12 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return imponibileCassaFieldSpecified;
+                return _imponibileCassaFieldSpecified;
             }
             set
             {
-                if (value == imponibileCassaFieldSpecified) return;
-                imponibileCassaFieldSpecified = value;
+                if (value == _imponibileCassaFieldSpecified) return;
+                _imponibileCassaFieldSpecified = value;
             }
         }
 
@@ -101,12 +101,12 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return aliquotaIVAField;
+                return _aliquotaIvaField;
             }
             set
             {
-                if (value == aliquotaIVAField) return;
-                aliquotaIVAField = value;
+                if (value == _aliquotaIvaField) return;
+                _aliquotaIvaField = value;
             }
         }
 
@@ -114,12 +114,12 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return ritenutaField;
+                return _ritenutaField;
             }
             set
             {
-                if (value == ritenutaField) return;
-                ritenutaField = value;
+                if (value == _ritenutaField) return;
+                _ritenutaField = value;
             }
         }
 
@@ -127,12 +127,12 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return ritenutaFieldSpecified;
+                return _ritenutaFieldSpecified;
             }
             set
             {
-                if (value == ritenutaFieldSpecified) return;
-                ritenutaFieldSpecified = value;
+                if (value == _ritenutaFieldSpecified) return;
+                _ritenutaFieldSpecified = value;
             }
         }
 
@@ -140,12 +140,12 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return naturaField;
+                return _naturaField;
             }
             set
             {
-                if (value == naturaField) return;
-                naturaField = value;
+                if (value == _naturaField) return;
+                _naturaField = value;
             }
         }
 
@@ -153,12 +153,12 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return naturaFieldSpecified;
+                return _naturaFieldSpecified;
             }
             set
             {
-                if (value == naturaFieldSpecified) return;
-                naturaFieldSpecified = value;
+                if (value == _naturaFieldSpecified) return;
+                _naturaFieldSpecified = value;
             }
         }
 
@@ -166,12 +166,12 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return riferimentoAmministrazioneField;
+                return _riferimentoAmministrazioneField;
             }
             set
             {
-                if (value == riferimentoAmministrazioneField) return;
-                riferimentoAmministrazioneField = value;
+                if (value == _riferimentoAmministrazioneField) return;
+                _riferimentoAmministrazioneField = value;
             }
         }
     }

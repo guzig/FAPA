@@ -12,43 +12,21 @@ namespace FaPA.AppServices.CoreValidation
             var instnce = instance as DettaglioLineeType;
             if (instnce == null) return errors;
 
-            TryGetLengthErrors( nameof(instnce.NumeroLinea) , instnce.NumeroLinea, errors, 4 );
-            TryGetLengthErrors( nameof( instnce.Descrizione ), instnce.Descrizione, errors, 1000 );
-            TryGetLengthErrors( nameof( instnce.Quantita ), instnce.Quantita.ToString( "{0:###0.00}" ), errors, 21, 4 );
-            TryGetLengthErrors( nameof( instnce.UnitaMisura ), instnce.UnitaMisura, errors, 10 );
+            TryGetLengthErrors( nameof(instnce.NumeroLinea) , instnce.NumeroLinea, errors, 4, 1 );
+            TryGetLengthErrors( nameof( instnce.Descrizione ), instnce.Descrizione, errors, 1000, 1 );
             TryGetLengthErrors( nameof( instnce.PrezzoUnitario ), instnce.PrezzoUnitario.ToString( "{0:###0.00}" ), errors, 21, 4 );
             TryGetLengthErrors( nameof( instnce.PrezzoTotale ), instnce.PrezzoTotale.ToString( "{0:###0.00}" ), errors, 21, 4 );
-            TryGetLengthErrors( nameof( instnce.AliquotaIVA ), instnce.PrezzoUnitario.ToString( "{0:###0.00}" ), errors, 21, 4 );
-            TryGetLengthErrors( nameof( instnce.RiferimentoAmministrazione ), instnce.NumeroLinea, errors, 20 );
+            TryGetLengthErrors( nameof( instnce.AliquotaIVA ), instnce.AliquotaIVA.ToString( "{0:###0.00}" ), errors, 21, 4 );
+            TryGetMinMaxValueErrors( nameof( instnce.AliquotaIVA ), instnce.AliquotaIVA, errors, 1 );
 
-            var childs = ObjectExplorer.FindAllInstances<AltriDatiGestionaliType>(instance);
-            if (childs == null || !childs.Any()) return errors;
+            TryGetLengthErrors( nameof( instnce.Quantita ), instnce.Quantita.ToString( "{0:###0.00}" ), errors, 21 );
+            TryGetLengthErrors( nameof( instnce.UnitaMisura ), instnce.UnitaMisura, errors, 10 );
+            TryGetLengthErrors( nameof( instnce.RiferimentoAmministrazione ), instnce.RiferimentoAmministrazione, errors, 20 );
+
             const string propName = "AltriDatiGestionali";
 
-            foreach (var child in childs)
-            {
-                var childErrors = CoreValidatorService.GetValidationErrors(child);
-                if (childErrors == null) continue;
-                foreach (var erro in childErrors)
-                {
-                    if ( errors.ContainsKey( propName ) )
-                    {
-                        var temp = errors[propName].ToList();
-                        temp.AddRange(erro.Value);
-                        errors[propName] = temp;
-                    }
-                    else
-                        errors.Add( propName, erro.Value);
-                }
-            }
-
-            //if (string.IsNullOrWhiteSpace(instnce.IdDocumento))
-            //    propErrors.Add("IdDocumento deve essere valorizzato");
-            //else if (instnce.IdDocumento.Length > 20)
-            //    propErrors.Add("IdDocumento deve essere lungo max 20 caratteri");
-
-            //errors.Add(nameof(instnce.IdDocumento), propErrors);
-
+            ValidateChild<AltriDatiGestionaliType>(instance, propName, errors  );
+            
             return errors;
         }
 
