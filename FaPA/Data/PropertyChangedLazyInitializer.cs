@@ -9,7 +9,6 @@ using NHibernate.Type;
 
 namespace FaPA.Data
 {
-    [Serializable]
     public class PropertyChangedLazyInitializer : DefaultLazyInitializer, IInterceptor
     {
         private readonly bool _entityHandlesPropertyChanged;

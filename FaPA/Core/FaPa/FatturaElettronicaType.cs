@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Xml.Serialization;
-using FaPA.AppServices.CoreValidation;
 using FaPA.Core.FaPa.SignatureFPA;
 
 namespace FaPA.Core.FaPa
@@ -9,7 +8,7 @@ namespace FaPA.Core.FaPa
     //[XmlType( Namespace = "http://www.fatturapa.gov.it/sdi/fatturapa/v1.1" )]
     [XmlRoot( "FatturaElettronica", Namespace = "http://www.fatturapa.gov.it/sdi/fatturapa/v1.1", IsNullable = false )]
     [XmlTypeAttribute(AnonymousType = true, Namespace = "")]
-    public class FatturaElettronicaType : BaseEntityFpa, ICloneable
+    public class FatturaElettronicaType : BaseEntityFpa
     {
         private FatturaElettronicaHeaderType fatturaElettronicaHeaderField;
 
@@ -68,17 +67,9 @@ namespace FaPA.Core.FaPa
             }
         }
 
-        public virtual object Clone()
-        {
-            return this.MemberwiseClone();
-        }
-
         public FatturaElettronicaType DeepCopy()
         {
-            string xmlStream = SerializerHelpers.ObjectToXml( this );
-            //var xml = xmlStream.Replace( "Proxy", "" );
-            var oo = SerializerHelpers.XmlToObject( xmlStream );
-            return oo;
+            return this.CopyDeep();
         }
     }
 }

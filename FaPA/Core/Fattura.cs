@@ -8,7 +8,6 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
 using FaPA.AppServices.CoreValidation;
-using FaPA.DomainServices.Utils;
 using FaPA.Infrastructure.Helpers;
 
 namespace FaPA.Core
@@ -507,7 +506,7 @@ namespace FaPA.Core
 
         }
 
-        public virtual XmlDocument GetXmlDocument( )
+        public virtual XmlDocument GetXmlFatturaPA( )
         {
             var xmlData = GetXmlStream();
             var doc = new XmlDocument();
@@ -519,12 +518,8 @@ namespace FaPA.Core
 
         protected virtual string GetXmlStream()
         {
-            var unproxy = ObjectExplorer.UnProxiedDeep( FatturaPa.Copy<FatturaElettronicaType>() );
-            //string xmlStream = SerializerHelpers.ObjectToXml( ( FatturaElettronicaType ) unproxy );
-
-            //var copy = FatturaPa.DeepCopy();
-            //var c = ( FatturaElettronicaType ) ObjectExplorer.UnProxiedDeep( copy );
-            return SerializerHelpers.ObjectToXml( ( FatturaElettronicaType ) unproxy ); //.Replace( "Type", "" ); 
+            var unProxy = ObjectExplorer.UnProxiedDeepCopy( FatturaPa );
+            return SerializerHelpers.ObjectToXml( ( FatturaElettronicaType ) unProxy );
         }
 
         public virtual string ValidateByXsdFatturaPA(  )

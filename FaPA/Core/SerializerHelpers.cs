@@ -1,12 +1,7 @@
-using System;
 using System.IO;
-using System.Text;
-using System.Xml.Linq;
 using System.Xml.Schema;
 using System.Xml.Serialization;
-using FaPA.AppServices.CoreValidation;
 using FaPA.Core.FaPa;
-using FaPA.Data;
 using FaPA.DomainServices.Utils;
 
 namespace FaPA.Core
@@ -77,18 +72,6 @@ namespace FaPA.Core
             using ( StringWriter writer = new Utf8StringWriter() )
             {
                 Serializer.Serialize(writer, objectInstance, NameSpaceFatturaPa);                   
-                utf8 = writer.ToString();
-            }
-            return utf8;
-        }
-
-        public static string ObjectToXml1( FatturaElettronicaType objectInstance )
-        {
-            string utf8;
-            using ( StringWriter writer = new Utf8StringWriter() )
-            {
-                Serializer.Serialize( new NonXsiTextWriter( writer ), objectInstance, NameSpaceFatturaPa ); 
-                //Serializer.Serialize( writer, objectInstance, NameSpaceFatturaPa );
                 utf8 = writer.ToString();
             }
             return utf8;

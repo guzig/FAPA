@@ -12,8 +12,6 @@ using System.Linq;
 using FaPA.AppServices.CoreValidation;
 using FaPA.Core;
 using FaPA.Infrastructure;
-using FaPA.Infrastructure.Helpers;
-using NHibernate.Properties;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
@@ -153,7 +151,7 @@ namespace FaPA.GUI.Feautures.Fattura
             var entity = Activator.CreateInstance<Core.Fattura>();
             entity.DataFatturaDB = DateTime.Now;
             entity.Init();
-            return ( Core.Fattura ) ObjectExplorer.ProxiedAllInstancesOfType<FaPA.Core.BaseEntity>( entity );
+            return ( Core.Fattura ) ObjectExplorer.DeepProxiedCopyOfType<FaPA.Core.BaseEntity>( entity );
         }
 
         public override void CreateNewEntity()
@@ -165,7 +163,7 @@ namespace FaPA.GUI.Feautures.Fattura
                 copy.DataFatturaDB = DateTime.Now;
                 copy.NumeroFatturaDB = CurrentEntity.NumeroFatturaDB + " ? ";
 
-                CurrentEntity = ( Core.Fattura ) ObjectExplorer.ProxiedAllInstancesOfType<FaPA.Core.BaseEntity>( copy ); ;
+                CurrentEntity = ( Core.Fattura ) ObjectExplorer.DeepProxiedCopyOfType<FaPA.Core.BaseEntity>( copy ); ;
             }
             else
             {
@@ -393,7 +391,7 @@ namespace FaPA.GUI.Feautures.Fattura
         private void OnOpendXml()
         {
             if (CurrentEntity == null) return;
-            Presenters.Show("ShowXmlToTreeView", CurrentEntity.GetXmlDocument());
+            Presenters.Show("ShowXmlToTreeView", CurrentEntity.GetXmlFatturaPA());
         }
 
 
@@ -446,7 +444,7 @@ namespace FaPA.GUI.Feautures.Fattura
                 error = "Fattura non validata: " + Environment.NewLine + string.Join("; ", errors);
                 return false;
             }
-            var xmlDoc = CurrentEntity.GetXmlDocument();
+            var xmlDoc = CurrentEntity.GetXmlFatturaPA();
             xmlDoc.Save(outPath);
             return true;
         }

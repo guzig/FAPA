@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Xml.Serialization;
 using FaPA.Core;
 using FaPA.Data;
-using FaPA.Infrastructure.Helpers;
+using FaPA.DomainServices.Utils;
 using NHibernate.Proxy.DynamicProxy;
 
 namespace FaPA.AppServices.CoreValidation
@@ -61,15 +61,16 @@ namespace FaPA.AppServices.CoreValidation
             }
         }
 
-        public static object ProxiedAllInstancesOfType<T>(object value) where T : class
+        public static object DeepProxiedCopyOfType<T>(object value) where T : class
         {
             var exploredObjects = new HashSet<object>();
             var nameSpac = typeof ( T ).Namespace;
-            return ProxiedAllInstancesOfType<T>(value, exploredObjects, nameSpac );
+            var copy = value.Copy();
+            return DeepProxiedCopyOfType<T>( copy, exploredObjects, nameSpac );
 
         }
 
-        private static object ProxiedAllInstancesOfType<T>(object value, HashSet<object> exploredObjects, string nameSpace) where T : class
+        private static object DeepProxiedCopyOfType<T>(object value, HashSet<object> exploredObjects, string nameSpace) where T : class
         {
             if (value == null || exploredObjects.Contains(value) || value.GetType().IsEnum) return null;
 
@@ -88,7 +89,7 @@ namespace FaPA.AppServices.CoreValidation
                     {
                         var app = array.GetValue(i);
                         if (app.GetType().IsEnum) continue;
-                        var newVal = ProxiedAllInstancesOfType<T>(app, exploredObjects, nameSpace);
+                        var newVal = DeepProxiedCopyOfType<T>(app, exploredObjects, nameSpace);
                         if (newVal != null)
                         {
                             array.SetValue(newVal, i);
@@ -123,7 +124,7 @@ namespace FaPA.AppServices.CoreValidation
                     if (propertyValue == null)
                         continue;
 
-                    var newPropValue = ProxiedAllInstancesOfType<T>(propertyValue, exploredObjects, nameSpace);
+                    var newPropValue = DeepProxiedCopyOfType<T>(propertyValue, exploredObjects, nameSpace);
 
                     if ( newPropValue != null )
                     {
@@ -142,98 +143,14 @@ namespace FaPA.AppServices.CoreValidation
             return null;
         }
 
-        public static void TryProxiedAllInstances2<T>( ref object value, string nameSpace=null) where T : class
+        public static object UnProxiedDeepCopy(object value ) 
         {
             var exploredObjects = new HashSet<object>();
-
-            TryProxiedAllInstances2<T>( ref value, exploredObjects, nameSpace);
+            var copy = value.Copy();
+            return UnProxiedDeepCopy( copy, exploredObjects);
         }
 
-        private static bool TryProxiedAllInstances2<T>( ref object value, HashSet<object> exploredObjects, string nameSpace)  where T : class
-        {
-            bool isValueSet = false;
-
-            if ( value == null || exploredObjects.Contains(value) || value.GetType().IsEnum ) return false;
-
-            exploredObjects.Add(value);
-
-            if (value is string) return false;
-            var enumerable = value as IEnumerable;
-            if ( enumerable != null)
-            {
-                #region IEnumerable loop
-
-                var array = enumerable as Array;
-                if ( array != null )
-                {
-                    for ( var i = 0; i < array.Length; i++ )
-                    {
-                        var app = array.GetValue( i );
-                        if ( app.GetType().IsEnum ) continue;
-                        if ( TryProxiedAllInstances2<T>( ref app, exploredObjects, nameSpace ) )
-                        {
-                            array.SetValue( app, i );
-                            isValueSet = true;
-                        }
-                    }
-                    value = array;
-                }
-                else if ( IsList( enumerable ) )
-                {
-                    throw new NotImplementedException();
-                }
-
-                #endregion
-            }
-            else
-            {
-                var possibleMatch = value as T;
-                var type = value.GetType();
-
-                if (possibleMatch != null)
-                {
-                    var proxy = AddPropChangedAndDataErrorInterceptorProxyFactory.Create( type, value );
-                    if (proxy != null)
-                    {
-                        value = proxy;
-                    }
-                    isValueSet = true;
-                }
-                
-                var properties = type.GetProperties(_bindingFlags).
-                    Where(t=> string.IsNullOrWhiteSpace(nameSpace) || t.PropertyType.FullName.StartsWith(nameSpace));
-
-                foreach (var property in properties.Where( t=> !t.PropertyType.IsEnum ) )
-                {
-                    var propertyValue = property.GetValue(value);
-
-                    if (propertyValue == null)
-                        continue;
-
-                    if ( TryProxiedAllInstances2<T>( ref propertyValue, exploredObjects, nameSpace)  )
-                    {
-                        ((BaseEntity) value).IsNotyfing = false;
-                        ((BaseEntity)value).IsValidating = false;
-                        property.SetValue(value, propertyValue );
-                        ((BaseEntity)value).IsNotyfing = true;
-                        ((BaseEntity)value).IsValidating = true;
-
-                    }
-                }
-            }
-
-            return isValueSet;
-        }
-
-        public static object UnProxiedDeep(object value ) 
-        {
-            var exploredObjects = new HashSet<object>();
-
-            return UnProxiedDeep( value.Unproxy(), exploredObjects);
-
-        }
-
-        private static object UnProxiedDeep( object value, HashSet<object> exploredObjects)
+        private static object UnProxiedDeepCopy( object value, HashSet<object> exploredObjects)
         {
             if (value == null || exploredObjects.Contains(value) || value.GetType().IsEnum) return null;
 
@@ -252,7 +169,7 @@ namespace FaPA.AppServices.CoreValidation
                     {
                         var app = array.GetValue(i);
                         if (app == null || app.GetType().IsEnum) continue;
-                        var proxy = UnProxiedDeep(app, exploredObjects);
+                        var proxy = UnProxiedDeepCopy(app, exploredObjects);
                         if (proxy == null) continue;
 
                         var baseEntity = proxy as BaseEntity;
@@ -295,7 +212,7 @@ namespace FaPA.AppServices.CoreValidation
                         continue;
                     }
 
-                    var unproxied = UnProxiedDeep( propertyValue, exploredObjects);
+                    var unproxied = UnProxiedDeepCopy( propertyValue, exploredObjects);
 
                     if (unproxied == null) continue;
 
@@ -395,7 +312,6 @@ namespace FaPA.AppServices.CoreValidation
             var attribs = new XmlAttributes();
             attribs.XmlElements.Add( new XmlElementAttribute( proxyType ) );
             attribs.XmlElements.Add( new XmlElementAttribute( classType ) );
-            //attribs.XmlElements.Add( new XmlElementAttribute {ElementName = memberName} );
             overrides.Add( rootClassType, memberName, attribs );
             //Console.WriteLine(rootClassType.Name + " " + memberName + " " + proxyType.Name + " " + classType.Name);
         }

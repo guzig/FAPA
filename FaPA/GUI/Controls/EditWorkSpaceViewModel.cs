@@ -173,7 +173,7 @@ namespace FaPA.GUI.Controls
 
             ( ( IValidatable ) userProperty ).Validate();
 
-            CurrentPoco = ObjectExplorer.ProxiedAllInstancesOfType<FaPA.Core.BaseEntity>( userProperty ); ;
+            CurrentPoco = ObjectExplorer.DeepProxiedCopyOfType<FaPA.Core.BaseEntity>( userProperty ); ;
 
             HookChanged( CurrentPoco );
             UserProperty = (TProperty)CurrentPoco;

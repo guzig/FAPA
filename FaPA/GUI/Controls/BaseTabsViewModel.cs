@@ -275,7 +275,7 @@ namespace FaPA.GUI.Controls
 
             //append new instance
             var newInstance = Activator.CreateInstance( elementType );
-            var proxy = ObjectExplorer.ProxiedAllInstancesOfType<FaPA.Core.BaseEntity>( newInstance );
+            var proxy = ObjectExplorer.DeepProxiedCopyOfType<FaPA.Core.BaseEntity>( newInstance );
             _userAddedNewPocos.Add( proxy );
             HookChanged( proxy );
             aray[aray.Length - 1] = proxy;

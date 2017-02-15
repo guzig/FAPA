@@ -1,9 +1,7 @@
-﻿using System;
-using FaPA.Core.FaPa;
+﻿using FaPA.Core.FaPa;
 
 namespace FaPA.Core
 {
-    [Serializable]
     public class CustomCrossPropertiesValidationResolver : CrossPropertiesValidationResolver
     {
         //ctor

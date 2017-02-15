@@ -6,11 +6,9 @@ using FaPA.AppServices.CoreValidation;
 
 namespace FaPA.Core
 {
-    [Serializable]
-    public abstract class BaseEntity : IEntity, IValidatable //, INotifyPropertyChanged
+    public abstract class BaseEntity : IEntity, IValidatable 
     {
-        //public virtual event PropertyChangedEventHandler PropertyChanged;
-
+        
         #region Validation
 
         public virtual DomainResult DomainResult { get; protected set; } = new DomainResult( false );

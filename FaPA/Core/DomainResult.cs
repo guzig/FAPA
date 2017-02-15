@@ -1,11 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
 
 namespace FaPA.Core
 {
-    [Serializable]
     public class DomainResult
     {
         public DomainResult(IDictionary<string, IEnumerable<string>> errors )

@@ -20,21 +20,43 @@ namespace FaPaTets.FatturaPa.FatturaPa_11
 
             FillFatturaPa( fattPa );
 
-            object currentHeader = ObjectExplorer.ProxiedAllInstancesOfType<FaPA.Core.BaseEntityFpa>( fattPa.FatturaElettronicaHeader );
-            fattPa.FatturaElettronicaHeader = ( FaPA.Core.FaPa.FatturaElettronicaHeaderType ) currentHeader;
+            // Proxing
+            object proxied = ObjectExplorer.DeepProxiedCopyOfType<FaPA.Core.BaseEntityFpa>( fattPa );
 
-            CheckAllTypesAreProxied<FaPA.Core.BaseEntityFpa>( currentHeader );
+            CheckAllTypesAreUnProxied<FaPA.Core.BaseEntityFpa>( fattPa );
 
-            object currentBody = ObjectExplorer.ProxiedAllInstancesOfType<FaPA.Core.BaseEntityFpa>( fattPa.FatturaElettronicaBody );
-            fattPa.FatturaElettronicaBody = ( FaPA.Core.FaPa.FatturaElettronicaBodyType ) currentBody;
+            CheckAllTypesAreProxied<FaPA.Core.BaseEntityFpa>( proxied );
 
-            CheckAllTypesAreProxied<FaPA.Core.BaseEntityFpa>( currentBody );
 
-            var xml = fattura.GetXmlDocument();
+            //Unproxing
+            var unProxy = ObjectExplorer.UnProxiedDeepCopy( proxied );
+
+            CheckAllTypesAreUnProxied<FaPA.Core.BaseEntityFpa>( unProxy );
+
+            CheckAllTypesAreProxied<FaPA.Core.BaseEntityFpa>( proxied );
+
+            CheckAllTypesAreUnProxied<FaPA.Core.BaseEntityFpa>( fattPa );
+
+
+            //Copying
+            var copy = fattPa.CopyDeep();
+
+            var origSer = SerializerHelpers.ObjectToXml( fattPa );
+            var copySer = SerializerHelpers.ObjectToXml( copy );
+
+            Assert.AreEqual( origSer, copySer );
+
+            CheckNestedRefEquals<FaPA.Core.BaseEntityFpa>( proxied, copy, false );
+
+            CheckAllTypesAreUnProxied<FaPA.Core.BaseEntityFpa>( copy );
+
+            CheckAllTypesAreProxied<FaPA.Core.BaseEntityFpa>( proxied );
+
+            var xml = fattura.GetXmlFatturaPA();
 
             Assert.IsNotNull( xml );
 
-            Assert.AreEqual( "00000SDI11RF01PortoBelloITTP03MP010", xml.InnerText );
+            Assert.AreEqual( "RF01PortoBelloITCCTD010001-01-01TP03MP010", xml.InnerText );
 
             Console.WriteLine( xml.InnerXml );
         }
@@ -53,12 +75,12 @@ namespace FaPaTets.FatturaPa.FatturaPa_11
 
             #endregion
 
-            object currentHeader = ObjectExplorer.ProxiedAllInstancesOfType<FaPA.Core.BaseEntityFpa>( fattPa.FatturaElettronicaHeader );
+            object currentHeader = ObjectExplorer.DeepProxiedCopyOfType<FaPA.Core.BaseEntityFpa>( fattPa.FatturaElettronicaHeader );
             fattPa.FatturaElettronicaHeader = ( FaPA.Core.FaPa.FatturaElettronicaHeaderType ) currentHeader;
 
             CheckAllTypesAreProxied<FaPA.Core.BaseEntityFpa>( currentHeader );
 
-            object currentBody = ObjectExplorer.ProxiedAllInstancesOfType<FaPA.Core.BaseEntityFpa>( fattPa.FatturaElettronicaBody );
+            object currentBody = ObjectExplorer.DeepProxiedCopyOfType<FaPA.Core.BaseEntityFpa>( fattPa.FatturaElettronicaBody );
             fattPa.FatturaElettronicaBody = ( FaPA.Core.FaPa.FatturaElettronicaBodyType ) currentBody;
 
             CheckAllTypesAreProxied<FaPA.Core.BaseEntityFpa>( currentBody );
@@ -108,7 +130,7 @@ namespace FaPaTets.FatturaPa.FatturaPa_11
 
             FillFatturaPa( fattPa );
 
-            object current = ObjectExplorer.ProxiedAllInstancesOfType<FaPA.Core.BaseEntityFpa>( fattPa);
+            object current = ObjectExplorer.DeepProxiedCopyOfType<FaPA.Core.BaseEntityFpa>( fattPa);
 
             CheckAllTypesAreProxied<FaPA.Core.BaseEntityFpa>( current );
 
@@ -147,6 +169,18 @@ namespace FaPaTets.FatturaPa.FatturaPa_11
 
         }
 
+        private static void CheckNestedRefEquals<T>( object orig, object copy, bool condition ) where T : class
+        {
+            var instances = ObjectExplorer.FindAllInstances<T>( orig ).ToArray();
+            var others = ObjectExplorer.FindAllInstances<T>( copy ).ToArray();
+
+            for ( int index = 0; index < instances.Length; index++ )
+            {
+                var instance = instances[index];
+                var other = others[index];
+                Assert.AreEqual( condition, ReferenceEquals( instance, other ) );
+            }
+        }
 
         private static void CheckAllTypesAreProxied<T>( object current ) where T : class
         {

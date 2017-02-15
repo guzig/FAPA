@@ -1,5 +1,4 @@
 ﻿using System.Threading;
-using System.Windows.Controls;
 
 namespace FaPA.GUI.Design.Templates
 {

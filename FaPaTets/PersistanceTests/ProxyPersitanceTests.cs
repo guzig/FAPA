@@ -1,12 +1,8 @@
 using System;
-using System.ComponentModel;
 using FaPaTets.DbSetUp;
 using FaPaTets.FatturaPa.FatturaPa_11;
-using FaPA.AppServices.CoreValidation;
 using FaPA.Core;
-using FaPA.Core.FaPa;
 using FaPA.Data;
-using FaPA.Infrastructure.Helpers;
 using NHibernate;
 using NHibernate.Proxy.DynamicProxy;
 using NUnit.Framework;
@@ -49,24 +45,16 @@ namespace FaPaTets.PersistanceTests
 
             using ( var transaction = session.BeginTransaction() )
             {
-                var f1 = read.DatiGeneraliDocumento;
-                f1.Data = DateTime.Now.AddDays( 10 );
+                read.DatiGeneraliDocumento.Data = DateTime.Now.AddDays( 10 );
                 read.TotaleFatturaDB = 101;
                 session.Update( read );
                 session.Flush();
                 transaction.Commit();
             }
 
-            var f = read as INotifyPropertyChanged;
-            f.PropertyChanged += Pl;
 
             Assert.AreEqual(fattura.FatturaPa.FatturaElettronicaHeader.DatiTrasmissione.IdTrasmittente.IdCodice,
                             read.FatturaPa.FatturaElettronicaHeader.DatiTrasmissione.IdTrasmittente.IdCodice);
-        }
-
-        private void Pl( object sender, PropertyChangedEventArgs e )
-        {
-            throw new NotImplementedException();
         }
 
         [Test]

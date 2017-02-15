@@ -106,8 +106,6 @@ namespace FaPA.GUI.Controls.MyTabControl
             }
         }
 
-        //public object CurrentEntityToObject => _currentEntity;
-
         private IList _userCollection;
         public IList UserCollection
         {
@@ -133,9 +131,7 @@ namespace FaPA.GUI.Controls.MyTabControl
 
         public const string OnEditingLockMessage = "Salvare o annullare le modifiche apportate prima di chiudere la scheda.";
         private const string OnFastSearchLockMessage = "Annullare la ricerca in corso, prima di chiudere la scheda .";
-
-
-
+        
         private bool _allowPrint = true;
         public bool AllowPrint
         {
@@ -219,8 +215,6 @@ namespace FaPA.GUI.Controls.MyTabControl
             }
         }
         
-        //protected Type DtoType { get; set; }
-
         private bool _isIncrementalSearch;
         public bool IsIncrementalSearch
         {

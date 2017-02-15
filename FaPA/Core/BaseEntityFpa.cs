@@ -3,7 +3,6 @@ using FaPA.AppServices.CoreValidation;
 
 namespace FaPA.Core
 {
-    [Serializable]
     public abstract class BaseEntityFpa: BaseEntity
     {
         protected BaseEntityFpa()
@@ -27,13 +26,6 @@ namespace FaPA.Core
         {
             return true;
         }
-
-        //public abstract BaseEntityFpa DeepCopy();
-
-        //public virtual BaseEntity ShallowCopy()
-        //{
-        //    return (BaseEntity)this.MemberwiseClone();
-        //}
 
     }
 }

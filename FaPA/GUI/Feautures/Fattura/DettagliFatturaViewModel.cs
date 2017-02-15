@@ -1,6 +1,4 @@
-using System;
 using System.ComponentModel;
-using System.Windows.Data;
 using FaPA.Core;
 using FaPA.Core.FaPa;
 using FaPA.GUI.Controls;

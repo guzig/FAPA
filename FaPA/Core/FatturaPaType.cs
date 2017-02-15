@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Data;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using FaPA.AppServices.CoreValidation;
 using FaPA.Core.FaPa;
-using FaPA.Data;
-using FaPA.DomainServices.Utils;
 using NHibernate;
 using NHibernate.Proxy.DynamicProxy;
 using NHibernate.SqlTypes;
@@ -29,8 +25,7 @@ namespace FaPA.Core
             if ( owner is IProxy )
             {
                 object toObject = SerializerHelpers.XmlToObject( xmlContent );
-                var ooo = ObjectExplorer.ProxiedAllInstancesOfType<FaPA.Core.BaseEntityFpa>( toObject );
-                return ooo;
+                return ObjectExplorer.DeepProxiedCopyOfType<FaPA.Core.BaseEntityFpa>( toObject );
             }
 
             return SerializerHelpers.XmlToObject( xmlContent );
@@ -45,7 +40,8 @@ namespace FaPA.Core
             else
             {
                 var fatturaElettronica = (FatturaElettronicaType)value;
-                var xmlStream = SerializerHelpers.ObjectToXml( ( FatturaElettronicaType ) ObjectExplorer.UnProxiedDeep( fatturaElettronica ) ); 
+                var unProxiedDeep = ObjectExplorer.UnProxiedDeepCopy( fatturaElettronica );
+                var xmlStream = SerializerHelpers.ObjectToXml( ( FatturaElettronicaType ) unProxiedDeep ); 
                 ((IDataParameter)cmd.Parameters[index]).Value = xmlStream;
             }
         }
@@ -53,17 +49,9 @@ namespace FaPA.Core
         public object DeepCopy(object value)
         {
             var toCopy = value as FatturaElettronicaType;
-            if ( toCopy == null )
-                return null;
-            var unproxy = ObjectExplorer.UnProxiedDeep( toCopy.Copy<FatturaElettronicaType>() );
-            string xmlStream = SerializerHelpers.ObjectToXml( ( FatturaElettronicaType ) unproxy);
-            //var xml = xmlStream.Replace( "Proxy", "" );
-            var oo = SerializerHelpers.XmlToObject( xmlStream );
-            return oo;
+            return toCopy?.CopyDeep();
         }
-
-
-
+        
         public object Replace(object original, object target, object owner)
         {
             throw new NotImplementedException();
@@ -115,7 +103,6 @@ namespace FaPA.Core
             return x.GetHashCode();
         }
     }
-
 }
 
 

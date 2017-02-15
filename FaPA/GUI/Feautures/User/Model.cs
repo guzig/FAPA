@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using System.Threading;
 using FaPA.Core;
 using FaPA.GUI.Controls.MyTabControl;
-using FaPA.GUI.Feautures.Anagrafica;
 using NHibernate;
 
 namespace FaPA.GUI.Feautures.User
