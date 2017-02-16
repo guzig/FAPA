@@ -301,7 +301,8 @@ namespace FaPA.GUI.Controls.MyTabControl
             //OnCurrentChanging(CurrentEntity);
             if (BasePresenter.GetActiveWorkSpace() is EditViewModel<T>)
             {
-                LoadAndShowCurrentEntity();
+                if ( !IsNewEntity( CurrentEntity ) )
+                    LoadAndShowCurrentEntity();
             }
             
         }
@@ -327,7 +328,7 @@ namespace FaPA.GUI.Controls.MyTabControl
 
         protected virtual string Validate()
         {
-            if ( IsValidEntity()) return null;
+            if ( IsValidEntity() ) return null;
 
             var errors = HibHelpers.Validator.Validate(CurrentEntity);
 
@@ -345,19 +346,18 @@ namespace FaPA.GUI.Controls.MyTabControl
         
         protected virtual void SetContextAfterEntityDeleted()
         {          
-            UserEntitiesView.CurrentChanged -= OnCurrentSelectionChanged;
             var currentPos = UserEntitiesView.CurrentPosition;
             UserCollection.Remove(CurrentEntity);
             var listCount = (UserEntitiesView as ListCollectionView).Count;
 
             if (listCount <= 0)
-            {               
+            {
+                UserEntitiesView.CurrentChanged -= OnCurrentSelectionChanged;
                 //BasePresenter.SetActiveWorkSpace(0);
                 //BasePresenter.Workspaces.RemoveAt(1);
                 return;
             }
-            
-            UserEntitiesView.CurrentChanged += OnCurrentSelectionChanged;
+
             UserEntitiesView.MoveCurrentToPosition(currentPos == 0 ? 0 : currentPos - 1);
 
             BindCurrent();
@@ -406,23 +406,21 @@ namespace FaPA.GUI.Controls.MyTabControl
 
             if ( !TryPersistEntity() ) return;
 
-            UserEntitiesView.CurrentChanged -= OnCurrentSelectionChanged;          
+            Load();
+
             if (isNewEntityAdded)
             {
                 DisplayName = DisplayName.Replace("Crea","Dettaglio");
                 BasePresenter.RefreshSharedViewsAfterAddedNew( CurrentEntity );
                 PublishAddedNewEntityEvent(CurrentEntity);
-                UserCollection.Add( CurrentEntity );
-                UserEntitiesView.MoveCurrentToLast();
+                SetContextAfterBindEntity();
             }
             else
             {
                 PublishUpdateEntityEvent(CurrentEntity); // -> LoadAndShowCurrent
                 BasePresenter.RefreshSharedViewsAfterUpdated( CurrentEntity );
             }
-            UserEntitiesView.CurrentChanged += OnCurrentSelectionChanged;
-            UserEntitiesView.Refresh();
-            //OnCurrentChanged( CurrentEntity );
+
             _isOnBind = false;
             IsInEditing = false;
         }
@@ -431,10 +429,10 @@ namespace FaPA.GUI.Controls.MyTabControl
         {
             var errors = Validate();
 
-            if ( !string.IsNullOrEmpty( errors ) )
+            if (!string.IsNullOrEmpty(errors))
             {
-                MessageBox.Show( errors, "Validazione fallita, salvataggio non consentito...", MessageBoxButton.OK,
-                    MessageBoxImage.Exclamation );
+                MessageBox.Show(errors, "Validazione fallita, salvataggio non consentito...", MessageBoxButton.OK,
+                    MessageBoxImage.Exclamation);
                 return false;
             }
 
@@ -526,8 +524,17 @@ namespace FaPA.GUI.Controls.MyTabControl
             IsInEditing = true;
             //IsNewEntity = true;
             CreateNewEntity();
-
+            CurrentEntity.IsValidating = true;
             DecorateEntity();
+
+            //UserEntitiesView.CurrentChanged -= OnCurrentSelectionChanged;
+
+            DisplayName = DisplayName.Replace("Crea", "Dettaglio");
+            UserCollection.Add(CurrentEntity);
+            UserEntitiesView.MoveCurrentToLast();
+
+            //UserEntitiesView.CurrentChanged += OnCurrentSelectionChanged;
+            //UserEntitiesView.Refresh();
 
             ValidateAndShow( CurrentEntity );
 
@@ -662,7 +669,7 @@ namespace FaPA.GUI.Controls.MyTabControl
 
         private static bool IsNewEntity(T entity)
         {
-            return entity != null && entity.Id == 0L;
+            return entity == null || entity.Id == 0L;
         }
 
         #region Cancel stuff
@@ -685,13 +692,12 @@ namespace FaPA.GUI.Controls.MyTabControl
 
         protected virtual void DefaultCancelOnEditAction()
         {
-            //OnCurrentChanging(CurrentEntity);
+           _session.Clear();
             
-            _session.Clear();
-            
-            //CurrentEntity = CreateInstance();
-
-            //CurrentDtoEntity = ( BaseEntityDto )Activator.CreateInstance( CurrentDtoEntity.GetType() );
+            if (IsNewEntity(CurrentEntity))
+            {
+                UserCollection.Remove(UserEntitiesView.CurrentItem);
+            }
             
             FreeLock(OnEditingLockMessage);
             

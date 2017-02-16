@@ -127,7 +127,7 @@ namespace FaPA.Core.FaPa
             }
             set
             {
-                _quantitaField = decimal.Parse(string.Format("{0:###0.00}",value) );
+                _quantitaField = decimal.Parse(string.Format("{0:0.00}",value) );
                 QuantitaSpecified = _quantitaField > 0 || _quantitaField < 0;
             }
         }
@@ -217,7 +217,7 @@ namespace FaPA.Core.FaPa
             }
             set
             {
-                _prezzoUnitarioField = decimal.Parse(string.Format("{0:###0.00}", value));
+                _prezzoUnitarioField = decimal.Parse(string.Format("{0:0.00}", value));
             }
         }
 
@@ -242,7 +242,7 @@ namespace FaPA.Core.FaPa
             }
             set
             {
-                _prezzoTotaleField = decimal.Parse(string.Format("{0:###0.00}", value));
+                _prezzoTotaleField = decimal.Parse(string.Format("{0:0.00}", value));
             }
         }
 
@@ -254,7 +254,7 @@ namespace FaPA.Core.FaPa
             }
             set
             {
-                _aliquotaIvaField = decimal.Parse(string.Format("{0:###0.00}", value));
+                _aliquotaIvaField = decimal.Parse(string.Format("{0:0.00}", value));
             }
         }
 

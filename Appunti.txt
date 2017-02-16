@@ -1,15 +1,6 @@
 ver 1.2
 
-in aggiunta scompare fattura causa load
-
-validazione committente 
-
-calcolo totale con iva
-
-validazione
-
 ricerca style
-
 
 Style bacckUp
 

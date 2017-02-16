@@ -45,6 +45,8 @@ namespace FaPA.Core
 
                 if ( ComuniPerProvincia.Any( c=>c.Denominazione == Comune ) ) return;
                 proxy.Comune = null;
+
+                Nazione = "IT";
             }
 
         }

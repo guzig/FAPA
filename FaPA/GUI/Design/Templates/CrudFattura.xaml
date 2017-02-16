@@ -39,7 +39,7 @@
         
         <StackPanel Orientation="Horizontal">
 
-        <DockPanel Height="25" Margin="2,5,2,2" HorizontalAlignment="Left"
+        <DockPanel Height="32" Margin="2,5,2,2" HorizontalAlignment="Left"
                    Background="{StaticResource Brush_ToolBar}">
 
             <Button Name="Delete" Command="{Binding DeleteEntityCommand}"                        
@@ -80,7 +80,7 @@
                     Command="{Binding Path=Presenter.Search, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"   
                     Width="Auto" HorizontalAlignment="Left">
 
-                <Image Source="\GUI\Design\Styles\Images\1351794424_file_search.png" Width="25"/>
+                <Image Source="\GUI\Design\Styles\Images\1351794424_file_search.png" Width="32"/>
                 <xctk:SplitButton.DropDownContent>
                     <Border  Background="CornflowerBlue" >
                         <CheckBox Name="McCheckBox"
@@ -98,7 +98,7 @@
 
                 <Button x:Name="SearchOnSite" Command="{Binding SearchOnSite}" Margin="2,0,0,0"
                     ToolTip= "Abilita la modalità ricerca immediata sul posto (tasto scorciatoia: F9)&#x0a;Per eseguire la ricerca, dopo aver abilitato la ricerca immediata ed aver immesso i dati, premere Ctrl-Invio"
-                    Width="25" HorizontalAlignment="Left" IsEnabled="{Binding AllowFastSearch}">
+                    Width="32" HorizontalAlignment="Left" IsEnabled="{Binding AllowFastSearch}">
 
                 <Image Source="\GUI\Design\Styles\Images\find.png" Width="32"/>
 
@@ -141,7 +141,7 @@
             
         <DockPanel Margin="10,2,0,0" HorizontalAlignment="Stretch" MaxWidth="600"  Height="Auto" MaxHeight="300">
 
-                <xctk:DropDownButton Width="Auto" Height="25" MaxHeight="300" >
+                <xctk:DropDownButton Width="Auto" Height="32" MaxHeight="300" >
 
                     <Image Source="{Binding IconXsdValidationState}" Height="Auto"/>
 

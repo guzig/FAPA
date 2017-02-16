@@ -95,6 +95,7 @@ namespace FaPA.GUI.Controls
 
             AllowDelete = UserCollectionView != null && !UserCollectionView.IsEmpty;
 
+            LockMessage = null;
         }
         
         protected override void OnCancelDelegateExecute()
@@ -212,7 +213,6 @@ namespace FaPA.GUI.Controls
             AllowSave = IsValid;
             AllowDelete = true;
             HookChanged( CurrentPoco );
-            //base.OnPropertyChanged( sender, new PropertyChangedEventArgs( eventArgs.ToString() ) );
         }
 
         protected void RemoveItem()
@@ -225,7 +225,7 @@ namespace FaPA.GUI.Controls
                 view.CommitNew();
             }
             Validate();
-            //base.OnPropertyChanged(UserProperty, new PropertyChangedEventArgs("UserProperty"));
+
         }
 
         protected void ValidateAll()

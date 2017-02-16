@@ -134,7 +134,7 @@ namespace FaPA.Core.FaPa
             }
             set
             {
-                _imponibileImportoField = decimal.Parse(string.Format("{0:###0.00}", value));
+                _imponibileImportoField = decimal.Parse(string.Format("{0:0.00}", value));
             }
         }
 
@@ -146,7 +146,7 @@ namespace FaPA.Core.FaPa
             }
             set
             {
-                _impostaField = decimal.Parse(string.Format("{0:###0.00}", value));
+                _impostaField = decimal.Parse(string.Format("{0:0.00}", value));
             }
         }
 

@@ -54,25 +54,6 @@
                                         ActionCommandMessage="Aggiungi una riga di dettaglio"
                                         OnNullCommand="{Binding AddItemCommand}"/>
 
-        <!--<DockPanel x:Name="emptyMessage" 
-                   Grid.Row="0" Width="Auto" HorizontalAlignment="Stretch"
-                   Visibility="{Binding Path=DataContext.EditViewModel.DettagliFatturaViewModel.IsEmpty, Mode=OneWay, 
-                                        Converter={StaticResource BoolToVisibilityConverter}, 
-                                        RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
-            
-            <TextBlock Text="Nessun dettaglio fattura presente. "
-                       FontSize="14" Foreground="Red" Height="Auto" Margin="10,15,15,15"
-                       HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,15,0,15"> 
-                    <Hyperlink x:Name="hyperLink" FontSize="14"  
-                               Command="{Binding Path=DataContext.EditViewModel.DettagliFatturaViewModel.AddItemCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
-                        <Run Text="Aggiungi una riga di dettaglio" />
-                    </Hyperlink>
-            </TextBlock>
-
-        </DockPanel>-->
-
         <DockPanel Grid.Row="1" HorizontalAlignment="Stretch" Width="Auto">
             <DataGrid x:Name="DettagliFatturaGridControl"
                         ItemsSource="{Binding Path=DettagliFatturaViewModel.UserCollectionView, NotifyOnSourceUpdated=True, 

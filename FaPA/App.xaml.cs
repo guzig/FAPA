@@ -22,7 +22,7 @@ namespace FaPA
             FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement),
               new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
 
-            BootStrapper.Initialize();
+            //BootStrapper.Initialize();
         }
 
         protected override void OnStartup(StartupEventArgs e)

@@ -6,7 +6,7 @@
              xmlns:myRecordNavigator="clr-namespace:FaPA.GUI.Controls.MyRecordNavigator"
              mc:Ignorable="d" >
     
-    <Grid Margin="2,5,5,5" Background="Gainsboro" x:Name="LayoutRoot" >
+    <Grid Margin="2,2,2,2" Background="Gainsboro" x:Name="LayoutRoot" >
 
         <!--<StackPanel.InputBindings>
                         <KeyBinding Key="Enter" Modifiers="Ctrl" Command="{Binding EnterKey}" />

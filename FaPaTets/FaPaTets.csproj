@@ -175,6 +175,7 @@
     <Compile Include="DbSetUp\AbstractTestFixtureFixture.cs" />
     <Compile Include="DbSetUp\Class1.cs" />
     <Compile Include="DbSetUp\DataTestFactory.cs" />
+    <Compile Include="Misc\NumberFormatTests.cs" />
     <Compile Include="PersistanceTests\QueriesTest.cs" />
     <Compile Include="DbSetUp\SqlServerTests.cs" />
     <Compile Include="DbSetUp\SQLiteDatabaseScope.cs" />
@@ -202,7 +203,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="FatturaPa\FatturaPa_11\fatturapa_v1.1.xsd">
       <SubType>Designer</SubType>
     </None>

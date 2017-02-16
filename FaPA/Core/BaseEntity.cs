@@ -32,8 +32,9 @@ namespace FaPA.Core
         protected void GetPersistentErrors( IDictionary<string, IEnumerable<string>> errors, string propName )
         {
             //get persistent layer validation
-            var validationErrors = CoreValidatorService.GetValidationErrors( propName, this ).ToArray();
-            if ( !validationErrors.Any() ) return;
+            var err = CoreValidatorService.GetValidationErrors(propName, this);
+            var validationErrors = err == null ? null : CoreValidatorService.GetValidationErrors( propName, this ).ToArray();
+            if ( validationErrors == null || !validationErrors.Any() ) return;
             foreach (var keyValuePair in validationErrors)
                 errors.Add(keyValuePair.Key, keyValuePair.Value);
         }

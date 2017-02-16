@@ -183,7 +183,6 @@ namespace FaPA.GUI.Feautures.Fattura
         {
             CurrentEntity.SyncFatturaPa();
             var result = base.TrySaveCurrentEntity();
-            Load();
             //InitFatturaTabs( CurrentEntity );
             return result;
         }
@@ -267,6 +266,7 @@ namespace FaPA.GUI.Feautures.Fattura
             if ( DettagliFatturaViewModel.IsEditing )
             {
                LockMessage = EditViewModel<BaseEntity>.OnEditingLockMessage;
+               IsInEditing = true;
             }
             OnChildChanged();
         }

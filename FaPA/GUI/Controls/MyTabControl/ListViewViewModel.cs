@@ -34,8 +34,10 @@ namespace FaPA.GUI.Controls.MyTabControl
                 if (value==null) return;
 
                 //eventi esposti
+                _userEntitiesView.CurrentChanged -= OnCurrentChanged;
                 _userEntitiesView.CurrentChanged += OnCurrentChanged;
 
+                _userEntitiesView.CurrentChanging -= OnCurrentChanging;
                 _userEntitiesView.CurrentChanging += OnCurrentChanging;
 
                 RequestClose += (o, e) =>

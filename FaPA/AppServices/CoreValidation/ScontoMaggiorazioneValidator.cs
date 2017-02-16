@@ -12,7 +12,7 @@ namespace FaPA.AppServices.CoreValidation
 
             if ( instnce == null ) return errors;
 
-            TryGetLengthErrors( nameof( instnce.Importo ), instnce.Importo.ToString( "##.000" ), errors, 15, 4 );
+            TryGetLengthErrors( nameof( instnce.Importo ), instnce.Importo.ToString( "{0:0.00}" ), errors, 15, 4 );
             TryGetLengthErrors( nameof( instnce.Percentuale ), instnce.Percentuale.ToString( "##.#0" ), errors, 6, 4 );
 
             return errors;

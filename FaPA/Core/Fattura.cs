@@ -308,10 +308,12 @@ namespace FaPA.Core
         
         private void OnPropChanged( object sender, PropertyChangedEventArgs e )
         {
-            if ( FatturaPa == null )
-                return;       
+            if (FatturaPa == null)
+                return;
 
-            if ( e.PropertyName == nameof(NumeroFatturaDB))
+            IsValidating = false;
+
+            if (e.PropertyName == nameof(NumeroFatturaDB))
             {
                 DatiGeneraliDocumento.Numero = NumeroFatturaDB;
             }
@@ -323,22 +325,22 @@ namespace FaPA.Core
 
             if (e.PropertyName == nameof(TotaleFatturaDB))
             {
-                if ( string.IsNullOrWhiteSpace( DatiGeneraliDocumento.Divisa ) )
+                if (string.IsNullOrWhiteSpace(DatiGeneraliDocumento.Divisa))
                 {
                     DatiGeneraliDocumento.Divisa = "EUR";
                 }
-                DatiGeneraliDocumento.ImportoTotaleDocumento = decimal.Parse(string.Format("{0:###0.00}", TotaleFatturaDB));
+                DatiGeneraliDocumento.ImportoTotaleDocumento = decimal.Parse(string.Format("{0:0.00}", TotaleFatturaDB));
             }
 
-            if ( e.PropertyName == nameof( AnagraficaCedenteDB ) )
+            if (e.PropertyName == nameof(AnagraficaCedenteDB))
                 SyncFornitore();
 
-            if ( e.PropertyName == nameof( AnagraficaCommittenteDB ) )
+            if (e.PropertyName == nameof(AnagraficaCommittenteDB))
             {
-                IsValidating = false;
                 SyncCommittente();
-                IsValidating = true;
             }
+            IsValidating = true;
+
         }
 
 

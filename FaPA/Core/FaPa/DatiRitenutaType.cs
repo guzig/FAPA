@@ -32,7 +32,7 @@ namespace FaPA.Core.FaPa
             set
             {
                 if (value == _importoRitenutaField) return;
-                _importoRitenutaField = decimal.Parse(string.Format("{0:###0.00}", value)); 
+                _importoRitenutaField = decimal.Parse(string.Format("{0:0.00}", value)); 
             }
         }
 
@@ -45,7 +45,7 @@ namespace FaPA.Core.FaPa
             set
             {
                 if (value == _aliquotaRitenutaField) return;
-                _aliquotaRitenutaField = decimal.Parse(string.Format("{0:###0.00}", value)); 
+                _aliquotaRitenutaField = decimal.Parse(string.Format("{0:0.00}", value)); 
             }
         }
 

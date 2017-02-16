@@ -3,4 +3,4 @@
 
 
 in dettagliopagamento
-_importoPagamento = decimal.Parse( string.Format( "##.000", value ) ); -> exception when value is zero
+_importoPagamento = decimal.Parse( string.Format( "{0:0.00}", value ) ); -> exception when value is zero
