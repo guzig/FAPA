@@ -3,21 +3,23 @@ using System;
 namespace FaPA.Core.FaPa
 {
     [Serializable]
-    //[XmlType( Namespace = "http://www.fatturapa.gov.it/sdi/fatturapa/v1.1" )]
+    
     public class CessionarioCommittenteType: BaseEntityFpa 
     {
-        private DatiAnagraficiCessionarioType datiAnagraficiField;
-        private IndirizzoType sedeField;
+        private DatiAnagraficiCessionarioType _datiAnagraficiField;
+        private IndirizzoType _stabileOrganizzazioneField;
+        private IndirizzoType _sedeField;
+        private RappresentanteCessionarioType _rappresentanteCessionarioTypeField;
 
         public virtual DatiAnagraficiCessionarioType DatiAnagrafici
         {
             get
             {
-                return datiAnagraficiField;
+                return _datiAnagraficiField;
             }
             set
             {
-                datiAnagraficiField = value;
+                _datiAnagraficiField = value;
             }
         }
 
@@ -25,11 +27,41 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return sedeField;
+                return _sedeField;
             }
             set
             {
-                sedeField = value;
+                _sedeField = value;
+            }
+        }
+
+        /// <summary>
+        /// può essere valorizzato solo se la fattura è destinata ad un privato (FormatoTrasmissione = ‘FPR12’).
+        /// </summary>
+        public virtual IndirizzoType StabileOrganizzazione
+        {
+            get
+            {
+                return _stabileOrganizzazioneField;
+            }
+            set
+            {
+                _stabileOrganizzazioneField = value;
+            }
+        }
+
+        /// <summary>
+        /// può essere valorizzato solo se la fattura è destinata ad un privato (FormatoTrasmissione = ‘FPR12’)
+        /// </summary>
+        public virtual RappresentanteCessionarioType RappresentanteFiscale
+        {
+            get
+            {
+                return _rappresentanteCessionarioTypeField;
+            }
+            set
+            {
+                _rappresentanteCessionarioTypeField = value;
             }
         }
     }

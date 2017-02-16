@@ -12,7 +12,7 @@ namespace FaPA.AppServices.CoreValidation
 
             if ( !TryAddNotNullError( nameof( instnce ), instnce, errors ) )
             {
-                TryGetLengthErrors( nameof( instnce.CodiceDestinatario ), instnce.CodiceDestinatario, errors, 6, 6 );
+                TryGetLengthErrors( nameof( instnce.CodiceDestinatario ), instnce.CodiceDestinatario, errors, 6, 7 );
                 TryGetLengthErrors( nameof( instnce.ProgressivoInvio ), instnce.ProgressivoInvio, errors, 5, 5 );
 
                 if ( !TryAddNotNullError( nameof( instnce.IdTrasmittente ), instnce, errors ) )

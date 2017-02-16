@@ -1,9 +1,10 @@
 using System;
+using System.Xml.Serialization;
 
 namespace FaPA.Core.FaPa
 {
     [Serializable]
-    //[XmlType( Namespace = "http://www.fatturapa.gov.it/sdi/fatturapa/v1.1" )]
+    
     //[XmlRoot("FatturaElettronica", Namespace = "http://www.fatturapa.gov.it/sdi/fatturapa/v1.1", IsNullable = false)]
     public class DatiTrasmissioneType : BaseEntityFpa
     {
@@ -12,6 +13,16 @@ namespace FaPA.Core.FaPa
         private FormatoTrasmissioneType _formatoTrasmissioneField;
         private string _codiceDestinatarioField;
         private ContattiTrasmittenteType _contattiTrasmittenteField;
+        private string _pecDestinatarioField;
+
+        public string PECDestinatario
+        {
+            get { return _pecDestinatarioField; }
+            set { _pecDestinatarioField = value; }
+        }
+
+        [XmlIgnore]
+        public bool PECDestinatarioSpecified { get; set; } = false;
 
         public virtual IdFiscaleType IdTrasmittente
         {

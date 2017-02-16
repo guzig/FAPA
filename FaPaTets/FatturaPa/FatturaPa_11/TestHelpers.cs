@@ -6,11 +6,12 @@ namespace FaPaTets.FatturaPa.FatturaPa_11
 {
     public class TestHelpers
     {
+        private static readonly string sch1 = TestsPaths.TestDataRootPath + @"\XSD-Fattura\XSD_Schemas\XSD_Schema_v12\fatturapa_v1.2.xsd";
         private static void Validate(string sch2, XDocument document)
         {
             var schemas = new XmlSchemaSet();
-            //schemas.Add( "http://www.w3.org/2000/09/xmldsig#", sch1 );
-            schemas.Add("http://www.fatturapa.gov.it/sdi/fatturapa/v1.1", sch2);
+            schemas.Add( "http://www.w3.org/2000/09/xmldsig#", sch1 );
+            schemas.Add( "http://ivaservizi.agenziaentrate.gov.it/docs/xsd/fatture/v1.2", sch2);
 
             bool errors = false;
             document.Validate(schemas, (o, e) =>

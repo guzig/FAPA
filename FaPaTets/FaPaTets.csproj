@@ -175,6 +175,7 @@
     <Compile Include="DbSetUp\AbstractTestFixtureFixture.cs" />
     <Compile Include="DbSetUp\Class1.cs" />
     <Compile Include="DbSetUp\DataTestFactory.cs" />
+    <Compile Include="FatturaPa\FatturaPa_12\ValidationSchemaTestsV12.cs" />
     <Compile Include="Misc\NumberFormatTests.cs" />
     <Compile Include="PersistanceTests\QueriesTest.cs" />
     <Compile Include="DbSetUp\SqlServerTests.cs" />
@@ -189,7 +190,7 @@
     <Compile Include="FatturaPa\FatturaPa_11\SerializationHelpers.cs" />
     <Compile Include="FatturaPa\FatturaPa_11\ProxyAndSerializationTest.cs" />
     <Compile Include="FatturaPa\FatturaPa_11\TestHelpers.cs" />
-    <Compile Include="FatturaPa\FatturaPa_11\ValidationSchemaTests.cs" />
+    <Compile Include="FatturaPa\FatturaPa_11\ValidationSchemaTestsV11.cs" />
     <Compile Include="MappingTests.cs" />
     <Compile Include="Misc\ReflectionTest.cs" />
     <Compile Include="PersistanceTests\ValidationTests.cs" />
@@ -207,6 +208,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="FatturaPa\FatturaPa_11\fatturapa_v1.1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FatturaPa\FatturaPa_12\Schema_del_file_xml_FatturaPA_versione_1.2.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />

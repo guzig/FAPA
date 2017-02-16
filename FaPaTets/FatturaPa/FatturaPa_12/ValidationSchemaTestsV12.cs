@@ -6,24 +6,26 @@ namespace FaPaTets.FatturaPa.FatturaPa_11
 {
     //http://stackoverflow.com/questions/28571394/serialize-part-of-xml-file-want-namespace-on-root-not-on-serialized-subelement
 
-    public class ValidationSchemaTests
+    public class ValidationSchemaTestsV12
     {
-        private readonly string _schema = FaPA.AppServices.StoreAccess.DataPath + @"\fatturapa_v1.1.xsd";
-        //TestsPaths.TestDataRootPath + @"\XSD-Fattura\XSD_Schemas\XSD_Schema_v11\fatturapa_v1.1.xsd";
+        private readonly string _schema = TestsPaths.TestDataRootPath + @"\XSD-Fattura\XSD_Schemas\XSD_Schema_v12\fatturapa_v1.2.xsd";
+
+        //FaPA.AppServices.StoreAccess.DataPath + @"\fatturapa_v1.2.xsd";
+        //TestsPaths.TestDataRootPath + @"\XSD-Fattura\XSD_Schemas\XSD_Schema_v11\fatturapa_v1.2.xsd";
 
         [Test]
-        public void ValidateFatturaElettronica_V11_Test()
+        public void ValidateFatturaElettronica_V12_Test()
         {
             //var nomeFile = TestsPaths.TestDataRootPath + @"\XSD-Fattura\XSD_Fattura_Sample\IT01234567890_11001.xml";
             //var ouPath = Environment.GetFolderPath( Environment.SpecialFolder.DesktopDirectory ) + @"\file.xml";
 
-            var fatturaElettronicaTypeV11 = new FatturaElettronicaType();
-            fatturaElettronicaTypeV11.FatturaElettronicaHeader = new FaPA.Core.FaPa.FatturaElettronicaHeaderType
+            var fatturaElettronicaTypeV12 = new FaPA.Core.FaPa.FatturaElettronicaType();
+            fatturaElettronicaTypeV12.FatturaElettronicaHeader = new FaPA.Core.FaPa.FatturaElettronicaHeaderType
             {
                 DatiTrasmissione = new FaPA.Core.FaPa.DatiTrasmissioneType
                 {
                     CodiceDestinatario = "AAAAAA",
-                    FormatoTrasmissione = new FaPA.Core.FaPa.FormatoTrasmissioneType(),
+                    FormatoTrasmissione = FaPA.Core.FaPa.FormatoTrasmissioneType.FPA12,
                     ProgressivoInvio = "00001",
                     IdTrasmittente = new FaPA.Core.FaPa.IdFiscaleType {IdCodice = "01234567890", IdPaese = "IT"}
                 }
@@ -45,7 +47,7 @@ namespace FaPaTets.FatturaPa.FatturaPa_11
                 Nazione = "IT"
             };
 
-            fatturaElettronicaTypeV11.FatturaElettronicaHeader.CedentePrestatore =
+            fatturaElettronicaTypeV12.FatturaElettronicaHeader.CedentePrestatore =
                 new FaPA.Core.FaPa.CedentePrestatoreType
                 {
                     DatiAnagrafici = new FaPA.Core.FaPa.DatiAnagraficiCedenteType
@@ -60,7 +62,7 @@ namespace FaPaTets.FatturaPa.FatturaPa_11
                     Sede = sede
                 };
 
-            fatturaElettronicaTypeV11.FatturaElettronicaHeader.CessionarioCommittente = 
+            fatturaElettronicaTypeV12.FatturaElettronicaHeader.CessionarioCommittente = 
                 new FaPA.Core.FaPa.CessionarioCommittenteType()
                 {
                     DatiAnagrafici = new FaPA.Core.FaPa.DatiAnagraficiCessionarioType()
@@ -70,7 +72,7 @@ namespace FaPaTets.FatturaPa.FatturaPa_11
                     Sede = sede
                 };
             Decimal importo = (decimal) 14.24;
-            fatturaElettronicaTypeV11.FatturaElettronicaBody = new FaPA.Core.FaPa.FatturaElettronicaBodyType()
+            fatturaElettronicaTypeV12.FatturaElettronicaBody = new FaPA.Core.FaPa.FatturaElettronicaBodyType()
             {
                 DatiGenerali = new FaPA.Core.FaPa.DatiGeneraliType()
                 {
@@ -87,7 +89,7 @@ namespace FaPaTets.FatturaPa.FatturaPa_11
             };
 
             var ouPath = Environment.GetFolderPath( Environment.SpecialFolder.DesktopDirectory ) + @"\file.xml";
-            SerializationHelpers.SerializeToDisk( ouPath, fatturaElettronicaTypeV11 );
+            SerializationHelpers.SerializeToDisk( ouPath, fatturaElettronicaTypeV12 );
 
             //var xmlData = FatturaPaType.XmlSerializeToString(fatturaElettronicaTypeV11);
             //var document = XDocument.Parse(xmlData);
@@ -100,7 +102,9 @@ namespace FaPaTets.FatturaPa.FatturaPa_11
         [Test]
         public void ValidateXmlDiskStream()
         {
-            var ouPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + @"\file.xml";
+            var ouPath = Environment.GetFolderPath( Environment.SpecialFolder.DesktopDirectory ) + @"\file.xml";
+                //@"\IT01234567890_FPA01.xml";
+                //"\file.xml";
             TestHelpers.ValidateXmlFatturaFromDisk( ouPath, _schema );
         }
     }

@@ -75,7 +75,7 @@ namespace FaPA.Data
             {
                 d.Column( c =>
                 {
-                    c.Length( 6 );
+                    c.Length( 7 );
                 } );
             } );
 

@@ -395,7 +395,7 @@ namespace FaPA.Core
             FatturaElettronicaHeader.DatiTrasmissione = new DatiTrasmissioneType
             {
                 CodiceDestinatario = CodUfficioDB,
-                FormatoTrasmissione = FormatoTrasmissioneType.SDI11,
+                FormatoTrasmissione = FormatoTrasmissioneType.FPA12,
                 ProgressivoInvio = ProgFile.ToString("00000")
             };
        
@@ -410,8 +410,7 @@ namespace FaPA.Core
 
             if ( AnagraficaCommittenteDB == null ) return;
 
-            CessionarioCommittente.DatiAnagrafici.CodiceFiscale = string.IsNullOrWhiteSpace(AnagraficaCommittenteDB.CodiceFiscale ) ?
-                AnagraficaCommittenteDB.PIva : AnagraficaCommittenteDB.CodiceFiscale;
+            CessionarioCommittente.DatiAnagrafici.CodiceFiscale = AnagraficaCommittenteDB.CodiceFiscale;
 
             CessionarioCommittente.DatiAnagrafici.IdFiscaleIVA = new IdFiscaleType()
             {
@@ -509,7 +508,7 @@ namespace FaPA.Core
             var doc = new XmlDocument();
             doc.LoadXml(xmlData);
             doc.InsertBefore(doc.CreateProcessingInstruction("xml-stylesheet",
-                "type=\"text/xsl\" href=\"fatturapa_v1.1.xsl\""), doc.DocumentElement);
+                "type=\"text/xsl\" href=\"fatturapa_v1.2.xsl\""), doc.DocumentElement);
             return doc;
         }
 

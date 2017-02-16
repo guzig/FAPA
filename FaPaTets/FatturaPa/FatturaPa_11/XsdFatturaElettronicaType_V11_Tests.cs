@@ -6,7 +6,7 @@ namespace FaPaTets.FatturaPa.FatturaPa_11
     [TestFixture]
     public class XsdFatturaElettronicaType_V11_Tests
     {
-        readonly string _schema = TestsPaths.TestDataRootPath + @"\XSD-Fattura\XSD_Schemas\XSD_Schema_v11\fatturapa_v1.1.xsd";
+        readonly string _schema = TestsPaths.TestDataRootPath + @"\XSD-Fattura\XSD_Schemas\XSD_Schema_v11\fatturapa_v1.2.xsd";
         
         [Test]
         public void CanDeserializeAndSerializeAndValidateFatturaElettronica_V11_Type_11()

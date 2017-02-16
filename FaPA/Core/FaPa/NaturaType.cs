@@ -25,6 +25,9 @@ namespace FaPA.Core.FaPa
         N5,
 
         [Description( "inversione contabile (reverse charge)" )]
-        N6
+        N6,
+
+        [Description( "IVA assolta in altro stato UE" )]
+        N7
     }
 }

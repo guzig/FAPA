@@ -342,6 +342,7 @@
     <Compile Include="Core\Anagrafica.cs" />
     <Compile Include="Core\BaseEntity.cs" />
     <Compile Include="Core\BaseEntityFpa.cs" />
+    <Compile Include="Core\FaPa\RappresentanteCessionarioType.cs" />
     <Compile Include="Core\FatturaPaExtension.cs" />
     <Compile Include="Core\PasswordHasher.cs" />
     <Compile Include="Core\UserData.cs" />
@@ -872,9 +873,6 @@
     <Resource Include="GUI\Design\Styles\Images\fpa.jpg" />
     <Resource Include="GUI\Design\Styles\Images\gnome_panel_force_quit.png" />
     <Resource Include="GUI\Design\Styles\Images\Send File-48.png" />
-    <Content Include="fatturapa_v1.1.xsl">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Resource Include="GUI\Design\Styles\Images\report-icon.png" />
     <Resource Include="GUI\Design\Styles\Images\preferences_desktop_user_password.ico" />
     <Resource Include="GUI\Design\Styles\Images\1462459533_backup-restore.ico" />
@@ -882,6 +880,12 @@
     <Resource Include="GUI\Design\Styles\Images\Verified.png" />
     <Resource Include="GUI\Design\Styles\Images\Actions-dialog-ok-apply-icon.png" />
     <Resource Include="GUI\Design\Styles\Images\Button-Ok-icon.png" />
+    <Resource Include="fatturaordinaria_v1.2.xsl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="fatturapa_v1.2.xsl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="nhibernate.cfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

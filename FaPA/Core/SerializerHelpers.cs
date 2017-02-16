@@ -11,7 +11,7 @@ namespace FaPA.Core
     {
         private static readonly XmlAttributes XmlAttributes = new XmlAttributes() { XmlIgnore = true };
         private static readonly XmlAttributeOverrides Overrides = new XmlAttributeOverrides();
-        private static readonly string FatturaPaXsdSchema = AppServices.StoreAccess.DataPath + @"\fatturapa_v1.1.xsd";
+        private static readonly string FatturaPaXsdSchema = AppServices.StoreAccess.DataPath + @"\fatturapa_v1.2.xsd";
         private static readonly XmlSerializer Serializer ;
         private static XmlSerializerNamespaces _nameSpaceFatturaPa;
         private static XmlSchemaSet _fatturaPaXmlSchema;
@@ -48,7 +48,9 @@ namespace FaPA.Core
                 if (_nameSpaceFatturaPa != null) return _nameSpaceFatturaPa;
 
                 _nameSpaceFatturaPa = new XmlSerializerNamespaces();
-                _nameSpaceFatturaPa.Add("p", "http://www.fatturapa.gov.it/sdi/fatturapa/v1.1");
+                _nameSpaceFatturaPa.Add("p", "http://ivaservizi.agenziaentrate.gov.it/docs/xsd/fatture/v1.2" );
+                _nameSpaceFatturaPa.Add( "ds", "http://www.w3.org/2000/09/xmldsig#" );
+                _nameSpaceFatturaPa.Add( "xsi", "http://www.w3.org/2001/XMLSchema-instance" );
 
                 return _nameSpaceFatturaPa;
             }
@@ -61,7 +63,7 @@ namespace FaPA.Core
                 if (_fatturaPaXmlSchema != null) return _fatturaPaXmlSchema;
 
                 _fatturaPaXmlSchema = new XmlSchemaSet();
-                _fatturaPaXmlSchema.Add("http://www.fatturapa.gov.it/sdi/fatturapa/v1.1", FatturaPaXsdSchema);
+                _fatturaPaXmlSchema.Add( "http://ivaservizi.agenziaentrate.gov.it/docs/xsd/fatture/v1.2", FatturaPaXsdSchema);
 
                 return _fatturaPaXmlSchema;
             } 

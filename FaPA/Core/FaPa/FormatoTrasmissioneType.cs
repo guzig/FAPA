@@ -3,9 +3,13 @@
 namespace FaPA.Core.FaPa
 {
     [Serializable]
-    //[XmlType( Namespace = "http://www.fatturapa.gov.it/sdi/fatturapa/v1.1" )]
+    
     public enum FormatoTrasmissioneType
     {
-        SDI11
+        //Formato di Trasmissione fattura verso PA-ver. 1.2
+        FPA12,
+
+        //Formato di Trasmissione fattura verso privati-ver. 1.2
+        FPR12
     }
 }

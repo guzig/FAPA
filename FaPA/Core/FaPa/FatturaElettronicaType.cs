@@ -5,8 +5,7 @@ using FaPA.Core.FaPa.SignatureFPA;
 namespace FaPA.Core.FaPa
 {
     [Serializable]
-    //[XmlType( Namespace = "http://www.fatturapa.gov.it/sdi/fatturapa/v1.1" )]
-    [XmlRoot( "FatturaElettronica", Namespace = "http://www.fatturapa.gov.it/sdi/fatturapa/v1.1", IsNullable = false )]
+    [XmlRoot( "FatturaElettronica", Namespace = "http://ivaservizi.agenziaentrate.gov.it/docs/xsd/fatture/v1.2", IsNullable = false )]
     [XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public class FatturaElettronicaType : BaseEntityFpa
     {
@@ -38,7 +37,7 @@ namespace FaPA.Core.FaPa
         }
 
         private SignatureType signatureField;
-        
+
         [XmlElement( Namespace = "http://www.w3.org/2000/09/xmldsig#" )]
         public virtual  SignatureType Signature
         {

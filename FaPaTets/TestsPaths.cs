@@ -5,7 +5,7 @@ namespace FaPaTets
     public static class TestsPaths
     {
         const string PathTestData = @"\TestData";
-        const string BasePath = "FaPA";
+        const string BasePath = "FAPAL";
 
         //public static string Path_FPA_P7M { get } = TestDataBaseFullNamePath + @"\FatturePA\fatturePA_p7m";
         //public static string Path_FPA_Pdf { get; } = TestDataBaseFullNamePath + @"\FatturePA\fatturePA_pdf";

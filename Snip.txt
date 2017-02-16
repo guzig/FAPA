@@ -109,3 +109,14 @@ public Process launchBrowser(string url)
 
     return Process.Start(new ProcessStartInfo(browserName, url));
 }
+
+ar xml = new XmlSerializer(typeof(Transacao));
+
+var fname = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "transacao.xml");
+var appendMode = false;
+var encoding = Encoding.GetEncoding("ISO-8859-1");
+
+using(StreamWriter sw = new StreamWriter(fname, appendMode, encoding))
+{
+    xml.Serialize(sw, transacao);
+}

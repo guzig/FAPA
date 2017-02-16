@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 namespace FaPA.Core.FaPa
 {
     [Serializable]
-    //[XmlType( Namespace = "http://www.fatturapa.gov.it/sdi/fatturapa/v1.1" )]
+    
     //[XmlRoot( "FatturaElettronica", Namespace = "http://www.fatturapa.gov.it/sdi/fatturapa/v1.1", IsNullable = false )]
     //[XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public class FatturaElettronicaHeaderType : BaseEntityFpa

@@ -3,22 +3,22 @@ using System;
 namespace FaPA.Core.FaPa
 {
     [Serializable]
-    //[XmlType( Namespace = "http://www.fatturapa.gov.it/sdi/fatturapa/v1.1" )]
+    
     public class CedentePrestatoreType : BaseEntityFpa
     {
         #region fields
 
-        private DatiAnagraficiCedenteType datiAnagraficiField;
+        private DatiAnagraficiCedenteType _datiAnagraficiField;
 
-        private IndirizzoType sedeField;
+        private IndirizzoType _sedeField;
 
-        private IndirizzoType stabileOrganizzazioneField;
+        private IndirizzoType _stabileOrganizzazioneField;
 
-        private IscrizioneREAType iscrizioneREAField;
+        private IscrizioneREAType _iscrizioneReaField;
 
-        private ContattiType contattiField;
+        private ContattiType _contattiField;
 
-        private string riferimentoAmministrazioneField;
+        private string _riferimentoAmministrazioneField;
 
         #endregion
 
@@ -26,11 +26,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return datiAnagraficiField;
+                return _datiAnagraficiField;
             }
             set
             {
-                datiAnagraficiField = value;
+                _datiAnagraficiField = value;
             }
         }
 
@@ -38,11 +38,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return sedeField;
+                return _sedeField;
             }
             set
             {
-                sedeField = value;
+                _sedeField = value;
             }
         }
 
@@ -50,11 +50,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return stabileOrganizzazioneField;
+                return _stabileOrganizzazioneField;
             }
             set
             {
-                stabileOrganizzazioneField = value;
+                _stabileOrganizzazioneField = value;
             }
         }
 
@@ -62,11 +62,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return iscrizioneREAField;
+                return _iscrizioneReaField;
             }
             set
             {
-                iscrizioneREAField = value;
+                _iscrizioneReaField = value;
             }
         }
 
@@ -74,11 +74,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return contattiField;
+                return _contattiField;
             }
             set
             {
-                contattiField = value;
+                _contattiField = value;
             }
         }
 
@@ -86,11 +86,11 @@ namespace FaPA.Core.FaPa
         {
             get
             {
-                return riferimentoAmministrazioneField;
+                return _riferimentoAmministrazioneField;
             }
             set
             {
-                riferimentoAmministrazioneField = value;
+                _riferimentoAmministrazioneField = value;
             }
         }
     }

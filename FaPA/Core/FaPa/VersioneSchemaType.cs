@@ -6,7 +6,7 @@ namespace FaPA.Core.FaPa
     [Serializable]
     public enum VersioneSchemaType
     {
-        [XmlEnum( "1.1" )]
+        [XmlEnum( "FPA12" )]
         Item11
     }
 }

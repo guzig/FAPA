@@ -67,6 +67,9 @@ namespace FaPA.Core.FaPa
         MP20,
 
         [Description("SEPA Direct Debit B2B")]
-        MP21
+        MP21,
+
+        [Description( "Trattenuta su somme già riscosse" )]
+        MP22
     }
 }
