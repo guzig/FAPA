@@ -45,6 +45,14 @@ namespace FaPA.Data
                 });
             });
 
+            Property(x => x.FormatoTrasmissioneDB, d =>
+            {
+                d.Column(c =>
+                {
+                    c.NotNullable(true);
+                });
+            });
+
             Property(x => x.NumeroFatturaDB, d =>
             {
                 d.Column(c =>

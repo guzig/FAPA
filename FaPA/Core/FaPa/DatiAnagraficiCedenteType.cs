@@ -4,7 +4,6 @@ using System.Xml.Serialization;
 namespace FaPA.Core.FaPa
 {
     [Serializable]
-    
     public class DatiAnagraficiCedenteType: BaseEntityFpa
     {
         private IdFiscaleType _idFiscaleIvaField;

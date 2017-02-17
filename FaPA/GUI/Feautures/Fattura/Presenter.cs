@@ -33,7 +33,7 @@ namespace FaPA.GUI.Feautures.Fattura
             {
                 return QueryOver.Of<Core.Fattura>().Fetch( f => f.AnagraficaCedenteDB ).Eager.
                   Fetch( f => f.AnagraficaCommittenteDB ).Eager.
-              OrderBy( f => f.DataFatturaDB ).Asc;
+              OrderBy( f => f.DataCaricamentoDB ).Asc;
             }
             //.Cacheable().CacheMode(CacheMode.Normal)
         }
@@ -85,8 +85,7 @@ namespace FaPA.GUI.Feautures.Fattura
 
             var anagrafiche = new ReferenceDataFactory().GetReferenceCollection<Core.Anagrafica>(); 
 
-            Fornitori = anagrafiche.Where(a => !string.IsNullOrWhiteSpace( a.PIva ) ).
-                OrderBy(f=>f.Denominazione + f.Cognome + f.Nome ).ToList();
+            Fornitori = anagrafiche.OrderBy(f=>f.Denominazione + f.Cognome + f.Nome ).ToList();
 
             Committenti = anagrafiche.OrderBy(f => f.Denominazione + f.Cognome + f.Nome).ToList();
         }

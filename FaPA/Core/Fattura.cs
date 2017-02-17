@@ -44,6 +44,8 @@ namespace FaPA.Core
 
         public virtual int ProgFile { get; set; }
 
+        public virtual FormatoTrasmissioneType FormatoTrasmissioneDB { get; set; }
+
         public virtual FatturaElettronicaType FatturaPa { get; set; }
 
         #endregion

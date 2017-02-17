@@ -1,8 +1,20 @@
 ver 1.2
 
+scrollviewer datagrid dettagli fattura
+
+rapp fiscale committente
+
+ricerca immediata hidyng
+
 ricerca style
 
 Style bacckUp
+
+print pdf
+
+default browser
+
+
 
 SetResultTransformer( new DistinctRootEntityResultTransformer() );
 
