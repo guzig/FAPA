@@ -63,7 +63,7 @@
 
             <Button Name="Cancel" Command="{Binding PerformCancel}"                           
                     ToolTip="Annulla le modifiche apportate"
-                    Width="25" HorizontalAlignment="Left" IsEnabled="{Binding Path=IsInEditing}">
+                     HorizontalAlignment="Left" IsEnabled="{Binding Path=IsInEditing}">
 
                 <Image Source="\GUI\Design\Styles\Images\cancel.png" Width="25"/>
 
@@ -159,6 +159,12 @@
 
 
             </DockPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Margin="10,0,0,0" Height="20">
+                <TextBlock Text="Fattura Id: "  />
+                <TextBlock Text="{Binding CurrentEntity.Id}"/>
+         </StackPanel>
+        
         </StackPanel>
     </StackPanel>
 </UserControl>

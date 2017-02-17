@@ -53,12 +53,6 @@ namespace FaPA.GUI.Feautures.Fattura
             _isOnInit = false;
         }
 
-        protected override void PersitEntity()
-        {
-            Instance.SyncFatturaPa();
-            base.PersitEntity();
-        }
-
         protected override void AddItemToUserCollection()
         {
             AddToArray();

@@ -413,6 +413,7 @@ namespace FaPA.GUI.Controls.MyTabControl
                 DisplayName = DisplayName.Replace("Crea","Dettaglio");
                 BasePresenter.RefreshSharedViewsAfterAddedNew( CurrentEntity );
                 PublishAddedNewEntityEvent(CurrentEntity);
+                LoadAndShowCurrentEntity();
                 SetContextAfterBindEntity();
             }
             else

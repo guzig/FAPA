@@ -12,6 +12,7 @@ using System.Linq;
 using FaPA.AppServices.CoreValidation;
 using FaPA.Core;
 using FaPA.Infrastructure;
+using FaPA.Infrastructure.Helpers;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
@@ -183,7 +184,6 @@ namespace FaPA.GUI.Feautures.Fattura
         {
             CurrentEntity.SyncFatturaPa();
             var result = base.TrySaveCurrentEntity();
-            //InitFatturaTabs( CurrentEntity );
             return result;
         }
 
@@ -205,7 +205,6 @@ namespace FaPA.GUI.Feautures.Fattura
         private void OnCurrentFatturaChanged(Core.Fattura currententity)
         {
             InitFatturaTabs( CurrentEntity );
-
         }
 
         private void InitFatturaTabs(Core.Fattura fattura )
@@ -293,7 +292,7 @@ namespace FaPA.GUI.Feautures.Fattura
 
         public override void PublishUpdateEntityEvent(BaseEntity dto)
         {
-            //EventPublisher.Publish(new FatturaUpdated {Dto = (FatturaDto) CurrentDtoEntity}, this);
+            //EventPublisher.Publish(new FatturaUpdated {e = (Core.Fattura) CurrentDtoEntity}, this);
         }
 
         public override void PublishDeletedEntityEvent(BaseEntity dto)

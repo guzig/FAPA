@@ -10,6 +10,10 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" MaxHeight="600"
         mc:Ignorable="d">
     <Grid >
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -34,12 +38,12 @@
         </DockPanel>
 
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Focusable="False" Grid.Row="1">
-            <DataGrid x:Name="FattureGridControl" Visibility="Hidden" 
+            <DataGrid x:Name="FattureGridControl" Visibility="Hidden" HorizontalContentAlignment="Stretch"
                         IsSynchronizedWithCurrentItem="True" HorizontalScrollBarVisibility="Auto" 
                         VerticalScrollBarVisibility="Auto" SelectionMode="Extended"
                         CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True"
                         CanUserResizeRows="False" CanUserSortColumns="True" AutoGenerateColumns="False"
-                        RowHeaderWidth="17" RowHeight="20" HorizontalAlignment="Left" 
+                        RowHeaderWidth="17" RowHeight="20" HorizontalAlignment="Stretch" 
                         ScrollViewer.CanContentScroll="True"
                         EnableRowVirtualization="True" EnableColumnVirtualization="True"
                         VirtualizingStackPanel.IsVirtualizing="True"

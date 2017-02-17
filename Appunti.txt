@@ -1,4 +1,8 @@
-1.2
+1.2 -- rapp . fisca
+
+vai a primo campo su nuova fattura
+
+exception after cancel first fattura
 
 ID IN CRUD VIEW MODEL
 
