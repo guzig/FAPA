@@ -1,4 +1,6 @@
-ver 1.2
+1.2
+
+ID IN CRUD VIEW MODEL
 
 scrollviewer datagrid dettagli fattura
 

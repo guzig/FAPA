@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace FaPA.Core.FaPa
 {
@@ -6,10 +7,10 @@ namespace FaPA.Core.FaPa
     
     public enum FormatoTrasmissioneType
     {
-        //Formato di Trasmissione fattura verso PA-ver. 1.2
+        [Description( "PA" )]
         FPA12,
 
-        //Formato di Trasmissione fattura verso privati-ver. 1.2
+        [Description( "Privato" )]
         FPR12
     }
 }

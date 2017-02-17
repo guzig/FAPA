@@ -10,7 +10,7 @@
     xmlns:f="clr-namespace:FaPA.Infrastructure.Finder"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:templates="clr-namespace:FaPA.GUI.Design.Templates"
-    mc:Ignorable="d" d:DesignWidth="1000">
+    mc:Ignorable="d" d:DesignWidth="1000" MaxHeight="300">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -54,28 +54,33 @@
                                         ActionCommandMessage="Aggiungi una riga di dettaglio"
                                         OnNullCommand="{Binding AddItemCommand}"/>
 
-        <DockPanel Grid.Row="1" HorizontalAlignment="Stretch" Width="Auto">
-            <DataGrid x:Name="DettagliFatturaGridControl"
+        <DockPanel HorizontalAlignment="Stretch" Focusable="False" Grid.Row="1">
+            <DataGrid x:Name="DettagliFatturaGridControl" 
                         ItemsSource="{Binding Path=DettagliFatturaViewModel.UserCollectionView, NotifyOnSourceUpdated=True, 
                                                    NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
                         Visibility="{Binding Path=DettagliFatturaViewModel.IsEmpty, Mode=OneWay, 
                                              Converter={StaticResource BoolToOppositeVisibilityConverter}}"
                         IsSynchronizedWithCurrentItem="True"
                         PreviewKeyDown="DettagliFatturaGridControl_OnPreviewKeyDown"
+                        HorizontalContentAlignment="Stretch"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        VerticalContentAlignment="Stretch"
+                        ScrollViewer.CanContentScroll="True"                      
                         FontSize="14"
-                        SelectionMode="Single"
+                        SelectionMode="Extended"
                         CanUserAddRows="False" 
                         CanUserDeleteRows="False"
                         IsReadOnly="false"
                         CanUserResizeRows="False" 
                         CanUserSortColumns="True"
                         AutoGenerateColumns="False"
+                      Width="Auto"
                         RowHeaderWidth="19" 
                         RowHeight="24"
-                        HorizontalAlignment="Left"
                         RowStyle="{StaticResource RowStyle}"
                         HorizontalScrollBarVisibility="Auto"
-                        VerticalScrollBarVisibility="Auto" MaxHeight="360" 
+                        VerticalScrollBarVisibility="Auto" 
                         EnableRowVirtualization="True" EnableColumnVirtualization="False"
                         VirtualizingStackPanel.IsVirtualizing="True"
                         VirtualizingStackPanel.VirtualizationMode="Standard">

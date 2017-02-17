@@ -4,38 +4,38 @@
              xmlns:controls="clr-namespace:FaPA.GUI.Controls"
              xmlns:templates="clr-namespace:FaPA.GUI.Design.Templates"
              xmlns:utils="clr-namespace:FaPA.GUI.Utils"
-             xmlns:enums="clr-namespace:FaPA.Core.FaPa"
+             xmlns:enums="clr-namespace:FaPA.Core.FaPa"     
              xmlns:f="clr-namespace:FaPA.GUI.Feautures.Fattura">
 
     <Border Margin="2,2,2,2" Padding="4,4,4,4" Style="{StaticResource MainBorderStyle}">
-    <Grid>
+        
+        <Grid HorizontalAlignment="Center">
+
             <Grid.Effect>
                 <DropShadowEffect Color="LightSteelBlue" Direction="280"/>
             </Grid.Effect>
-        
-        <Grid.RowDefinitions>
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="2" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="120"/>
-                <ColumnDefinition Width="80"/>
-                <ColumnDefinition Width="80"/>
-                <ColumnDefinition Width="80"/>
-                <ColumnDefinition Width="120"/>
-                <ColumnDefinition Width="120"/>
-                <ColumnDefinition Width="120"/>
-                <ColumnDefinition Width="240"/>
-                <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="45" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="8" x:Name="CrossCoupledPropsGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="180"/>
+                <ColumnDefinition Width="140"/>
+                <ColumnDefinition Width="140"/>
+                <ColumnDefinition Width="140"/>
 
-                <Grid.BindingGroup >
-                    <BindingGroup >
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" x:Name="CrossCoupledPropsGrid">
+
+                <Grid.BindingGroup  >
+                    <BindingGroup Name="myBindingGroup1">
                         <BindingGroup.ValidationRules>
                             <f:UniqueFatturaValidationRule  ValidationStep="CommittedValue"
                                                             ValidatesOnTargetUpdated="True"/>
@@ -44,18 +44,12 @@
                 </Grid.BindingGroup>
 
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="380"/>
+                    <ColumnDefinition Width="160"/>
                     <ColumnDefinition Width="120"/>
-                    <ColumnDefinition Width="120"/>
-                    <ColumnDefinition Width="120"/>
-                    <ColumnDefinition Width="120"/>
-                    <ColumnDefinition Width="120"/>
-                    <ColumnDefinition Width="120"/>
-                    <ColumnDefinition Width="120"/>
-                    <ColumnDefinition Width="120"/>
-                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Stretch">
+                <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch">
                     <TextBlock Text="Fornitore" />
                     <ComboBox   Margin="2,0,2,0" HorizontalAlignment="Stretch" Tag="EnterAsTab" 
                                 IsEditable="True"
@@ -65,94 +59,116 @@
                                 ComboBox.SelectionChanged="OnCommitBindingGroup"/>
                 </StackPanel>
 
-                <StackPanel Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" >
-                    <TextBlock Text="Committente" />
-                    <ComboBox   Margin="0,0,2,0" HorizontalAlignment="Stretch" Tag="EnterAsTab" 
-                                IsEditable="True"
-                                ItemsSource="{Binding  Path=Presenter.Committenti, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-                                SelectedItem="{Binding CurrentEntity.AnagraficaCommittenteDB, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" 
-                                DisplayMemberPath="Denom" />
-                </StackPanel>
-
-                <StackPanel Grid.Row="0" Grid.Column="6" Margin="2,0,2,0">
+                <StackPanel Grid.Row="0" Grid.Column="1" Margin="2,0,2,0" >
                     <TextBlock Text="Numero " />
                     <TextBox   Text="{Binding CurrentEntity.NumeroFatturaDB, Mode=TwoWay,ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True}" 
                                MaxLength="20"
                                LostFocus="OnCommitBindingGroup"
                                HorizontalAlignment="Stretch"/>
-                </StackPanel>                
-                
-                <StackPanel  Margin="2,0,2,0" Grid.Row="0" Grid.Column="7">
+                </StackPanel>
+
+                <StackPanel  Margin="2,0,2,0" Grid.Row="0" Grid.Column="2" >
                     <TextBlock Text="Data fattura" />
-                    <DatePicker   SelectedDate="{Binding CurrentEntity.DataFatturaDB, Mode=TwoWay, StringFormat='{}{0:d}',
+                    <DatePicker   SelectedDate="{Binding Path=CurrentEntity.DataFatturaDB, Mode=TwoWay, StringFormat='{}{0:d}',
                                                          UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, NotifyOnValidationError=True}" 
                                   
                                   HorizontalAlignment="Stretch"/>
                 </StackPanel>
-        
+
             </Grid>
-               
-            <StackPanel Grid.Row="1" Grid.Column="0"  Margin="2,0,2,0">
+
+            <StackPanel Grid.Row="0" Grid.Column="5"  Margin="2,0,2,0">
                 <TextBlock Text="Totale" />
                 <TextBox   Text="{Binding CurrentEntity.TotaleFatturaDB, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus, NotifyOnSourceUpdated=True, NotifyOnValidationError=True}" HorizontalAlignment="Stretch" />
             </StackPanel>
 
-            <StackPanel Grid.Row="1" Grid.Column="1"  Margin="2,0,2,0">
-                <TextBlock Text="CIG" />
-                <TextBox   Text="{Binding CurrentEntity.CigDB, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus, NotifyOnSourceUpdated=True, NotifyOnValidationError=True}" 
-                           HorizontalAlignment="Stretch" MaxLength="15"/>
+            <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" >
+                <TextBlock Text="Committente" />
+                <ComboBox   Margin="0,0,2,0" HorizontalAlignment="Stretch" Tag="EnterAsTab" 
+                                IsEditable="True"
+                                ItemsSource="{Binding  Path=Presenter.Committenti, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                                SelectedItem="{Binding CurrentEntity.AnagraficaCommittenteDB, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" 
+                                DisplayMemberPath="Denom" />
             </StackPanel>
 
-            <StackPanel Grid.Row="1" Grid.Column="2"  Margin="2,0,2,0">
-                <TextBlock Text="CUP" />
-                <TextBox   Text="{Binding CurrentEntity.CupDB, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus, NotifyOnSourceUpdated=True, NotifyOnValidationError=True}" 
-                           HorizontalAlignment="Stretch" MaxLength="15" />
+            <StackPanel Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2"  Margin="2,0,2,0">
+                <TextBlock Text="PEC committente" />
+                <TextBox   Text="{Binding CurrentEntity.PECDestinatario, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus, NotifyOnSourceUpdated=True, NotifyOnValidationError=True}" HorizontalAlignment="Stretch" />
             </StackPanel>
 
-            <StackPanel Grid.Row="1" Grid.Column="3"  Margin="2,0,2,0">
-                <TextBlock Text="Ufficio" />
-                <TextBox   Text="{Binding CurrentEntity.CodUfficioDB, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus, NotifyOnSourceUpdated=True, NotifyOnValidationError=True}" 
-                           HorizontalAlignment="Stretch" MaxLength="6"/>
-            </StackPanel>
-
-            <StackPanel Grid.Row="1" Grid.Column="4"  Margin="2,0,2,0">
+            <StackPanel Grid.Row="1" Grid.Column="5"  Margin="2,0,2,0">
                 <TextBlock Text="Regime fiscale" />
                 <!--TextSearch.TextPath="Description" DisplayMemberPath="Description"-->
                 <ComboBox Tag="EnterAsTab"
 						    HorizontalAlignment="Stretch"
                             IsEditable="true"
                             IsTextSearchEnabled="True"
-                            TextSearch.TextPath="Value"
-                            SelectedValuePath="Value"
+                            TextSearch.TextPath="Description"
+                            DisplayMemberPath="Description"
+                            SelectedValuePath="Value"                          
 						    ItemsSource="{Binding Source={utils:Enumeration {x:Type enums:RegimeFiscaleType}}}"
                             SelectedValue="{Binding CurrentEntity.RegimeFiscale,  Mode=TwoWay, 
-                                                    UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}"
-                            DisplayMemberPath="Value" />
+                                                    UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}"/>
             </StackPanel>
 
-            <StackPanel Grid.Row="1" Grid.Column="5" Margin="2,0,2,0">
+            <StackPanel Grid.Row="2" Grid.Column="0"  Margin="2,0,2,0">
+                <TextBlock Text="CIG" />
+                <TextBox   Text="{Binding CurrentEntity.CigDB, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus, NotifyOnSourceUpdated=True, NotifyOnValidationError=True}" 
+                           HorizontalAlignment="Stretch" MaxLength="15"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="2" Grid.Column="1"  Margin="2,0,2,0">
+                <TextBlock Text="CUP" />
+                <TextBox   Text="{Binding CurrentEntity.CupDB, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus, NotifyOnSourceUpdated=True, NotifyOnValidationError=True}" 
+                           HorizontalAlignment="Stretch" MaxLength="15" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="2" Grid.Column="2"  Margin="2,0,2,0">
+                <TextBlock Text="Ufficio" />
+                <TextBox   Text="{Binding CurrentEntity.CodUfficioDB, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus, NotifyOnSourceUpdated=True, NotifyOnValidationError=True}" 
+                           HorizontalAlignment="Stretch" MaxLength="6"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="2" Grid.Column="3"  Margin="2,0,2,0">
+                <TextBlock Text="Formato" />
+                <!--TextSearch.TextPath="Description" DisplayMemberPath="Description"-->
+                <ComboBox Tag="EnterAsTab"
+						    HorizontalAlignment="Stretch"
+                            IsEditable="true"
+                            IsTextSearchEnabled="True"
+                            TextSearch.TextPath="Description"
+                            DisplayMemberPath="Description"
+                            SelectedValuePath="Value"                          
+						    ItemsSource="{Binding Source={utils:Enumeration {x:Type enums:FormatoTrasmissioneType}}}"
+                            SelectedValue="{Binding CurrentEntity.FormatoTrasmissioneDB,  Mode=TwoWay, 
+                                                    UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" />
+            </StackPanel>
+
+            <!--<StackPanel Grid.Row="2" Grid.Column="5" Margin="2,0,2,0">
                 <TextBlock Text="Id" />
                 <TextBox  Text="{Binding CurrentEntity.Id, Mode=OneWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus, NotifyOnTargetUpdated=True}"
                           HorizontalAlignment="Stretch" Margin="2,0,2,0"
                           IsEnabled="False"/>
-            </StackPanel>
-        
-            <StackPanel Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="2"  Margin="2,0,2,0">
+            </StackPanel>-->
+
+            <StackPanel Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2"  Margin="2,0,2,0">
                 <TextBlock Text="Riferimento Amm." />
                 <TextBox   Text="{Binding CurrentEntity.RiferimentoAmmDB, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus, NotifyOnSourceUpdated=True, NotifyOnValidationError=True}" 
                            HorizontalAlignment="Stretch" MaxLength="20" TextWrapping="Wrap"/>
             </StackPanel>
-                       
-            <GroupBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="8" Header="Dettagli fattura"  Margin="2,2,2,2" Padding="4,4,4,4"
+
+            <GroupBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="6" Header="Dettagli fattura"  Margin="2,2,2,2" Padding="4,4,4,4"
                       HorizontalAlignment="Stretch" Width="Auto" Height="Auto">
-                
-                    <templates:DettagliFattura  />
-            
+
+                <templates:DettagliFattura  />
+
             </GroupBox>
 
             <!--<StackPanel Grid.Row="2" Grid.Column="4"  Margin="2,0,-2,0">
                 <TextBlock Text="Formato" />
-                --><!--TextSearch.TextPath="Description" DisplayMemberPath="Description"--><!--
+                -->
+            <!--TextSearch.TextPath="Description" DisplayMemberPath="Description"-->
+            <!--
                 <ComboBox Tag="EnterAsTab"
 						    HorizontalAlignment="Stretch" IsEditable="true"
                             IsTextSearchEnabled="True"
@@ -163,7 +179,7 @@
                                                     UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}"
                             DisplayMemberPath="Value" />
             </StackPanel>-->
-        
-    </Grid>
+
+        </Grid>
     </Border>
 </controls:BaseCustomControl>

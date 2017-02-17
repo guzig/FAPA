@@ -38,8 +38,7 @@ namespace FaPA.GUI.Feautures.Fattura
 
         public DettagliFatturaViewModel( IRepository repository, Core.Fattura instance ) :
             base( f => f.DettaglioLinee, repository, instance, "", false )
-        {
-        }
+        {}
 
         public override void Init()
         {

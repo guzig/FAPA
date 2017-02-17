@@ -18,7 +18,10 @@ namespace FaPA.Core.FaPa
         public string PECDestinatario
         {
             get { return _pecDestinatarioField; }
-            set { _pecDestinatarioField = value; }
+            set
+            {
+                _pecDestinatarioField = value;
+            }
         }
 
         [XmlIgnore]
@@ -57,6 +60,7 @@ namespace FaPA.Core.FaPa
             set
             {
                 _formatoTrasmissioneField = value;
+                PECDestinatarioSpecified = _formatoTrasmissioneField == FormatoTrasmissioneType.FPR12;
             }
         }
 

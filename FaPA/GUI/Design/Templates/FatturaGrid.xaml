@@ -7,7 +7,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:controls="clr-namespace:FaPA.GUI.Controls"
         xmlns:myRecordNavigator="clr-namespace:FaPA.GUI.Controls.MyRecordNavigator"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" MaxHeight="600"
         mc:Ignorable="d">
     <Grid >
 
@@ -33,7 +33,7 @@
 
         </DockPanel>
 
-        <DockPanel Grid.Row="1">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Focusable="False" Grid.Row="1">
             <DataGrid x:Name="FattureGridControl" Visibility="Hidden" 
                         IsSynchronizedWithCurrentItem="True" HorizontalScrollBarVisibility="Auto" 
                         VerticalScrollBarVisibility="Auto" SelectionMode="Extended"
@@ -111,7 +111,7 @@
                 </DataGrid.Columns>
 
             </DataGrid>
-        </DockPanel>
+        </ScrollViewer>
 
         <DockPanel Grid.Row="2">
             <Expander Header="Filtra/Raggruppa" Margin="4" Visibility="{Binding ElementName=FattureGridControl, Path=Visibility}">

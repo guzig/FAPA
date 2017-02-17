@@ -51,6 +51,7 @@ namespace FaPA.Data.ValidationMaps
 
             //Define(l => l.DettagliFattura).HasValidElements();
             //Define(l => l.DataCaricamento).Satisfy(d => d != DateTime.MinValue && d != DateTime.MaxValue).WithMessage("Data caricamento fattura è un campo richiesto"); ;
+            Define( l => l.PecDestinatarioDB ).IsEmail();
             Define( l => l.CigDB ).MaxLength(15).WithMessage( "Lunghezza massima 15 caratteri" );
             Define( l => l.CupDB ).MaxLength( 15 ).WithMessage( "Lunghezza massima 15 caratteri" );
             Define(l => l.CodUfficioDB).NotNullableAndNotEmpty().WithMessage("Specificare un codice ufficio PA");

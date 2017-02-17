@@ -46,6 +46,8 @@ namespace FaPA.Core
 
         public virtual FormatoTrasmissioneType FormatoTrasmissioneDB { get; set; }
 
+        public virtual string PecDestinatarioDB { get; set; }
+
         public virtual FatturaElettronicaType FatturaPa { get; set; }
 
         #endregion
@@ -298,9 +300,8 @@ namespace FaPA.Core
                             Anagrafica = new AnagraficaType()
                         }
                     }
-                }
+                } 
             };
-
 
             DatiGeneraliDocumento.Divisa = "EUR";
             
@@ -314,6 +315,11 @@ namespace FaPA.Core
                 return;
 
             IsValidating = false;
+
+            if ( e.PropertyName == nameof( FormatoTrasmissioneDB ) )
+            {
+                DatiTrasmissione.FormatoTrasmissione = FormatoTrasmissioneDB;
+            }
 
             if (e.PropertyName == nameof(NumeroFatturaDB))
             {
@@ -362,6 +368,12 @@ namespace FaPA.Core
             }
             CessionarioCommittente.DatiAnagrafici.Anagrafica = anag;
             CessionarioCommittente.DatiAnagrafici.CodiceFiscale = AnagraficaCommittenteDB.CodiceFiscale;
+
+            if ( FormatoTrasmissioneDB == FormatoTrasmissioneType.FPR12 &&
+                 string.IsNullOrWhiteSpace( DatiTrasmissione.PECDestinatario ) )
+            {
+                DatiTrasmissione.PECDestinatario = PecDestinatarioDB;
+            }
         }
 
         private void SyncFornitore()
@@ -397,9 +409,14 @@ namespace FaPA.Core
             FatturaElettronicaHeader.DatiTrasmissione = new DatiTrasmissioneType
             {
                 CodiceDestinatario = CodUfficioDB,
-                FormatoTrasmissione = FormatoTrasmissioneType.FPA12,
+                FormatoTrasmissione = FormatoTrasmissioneDB,
                 ProgressivoInvio = ProgFile.ToString("00000")
             };
+
+            if ( FormatoTrasmissioneDB == FormatoTrasmissioneType.FPR12 )
+            {
+                FatturaElettronicaHeader.DatiTrasmissione.PECDestinatario = PecDestinatarioDB;
+            }
        
             if ( AnagraficaCedenteDB != null )
             {

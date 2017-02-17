@@ -126,6 +126,14 @@ namespace FaPA.Data
                 });
             });
 
+            Property( x => x.PecDestinatarioDB, d =>
+            {
+                d.Column( c =>
+                {
+                    c.Length( 256 );
+                } );
+            } );
+
 
             ManyToOne(x => x.AnagraficaCedenteDB, m =>
             {
