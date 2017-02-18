@@ -16,7 +16,7 @@
         <KeyBinding Key="F11" Command="{Binding PerformCancelCommand}" />
     </UserControl.InputBindings>
 
-    <Grid Margin="2,2,2,2" Background="Gainsboro" x:Name="LayoutRoot" >
+    <Grid Margin="2,10,2,2" Background="#D3F1ECEC" x:Name="LayoutRoot" >
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -26,7 +26,7 @@
             <ColumnDefinition MaxWidth="32"/>
         </Grid.ColumnDefinitions>
 
-        <Border Margin="1,1,1,1" Padding="2,5,4,4" Height="32" Grid.Column="0" Width="Auto"
+        <Border Margin="1,1,1,1"  Height="25" Grid.Column="0" Width="Auto"
                 Visibility="{Binding UserCollectionView, Converter={StaticResource NullToVisibiltyConverter}}"
                 IsEnabled="{Binding UserCollectionView.IsEmpty, Mode=OneWay, Converter={StaticResource InverseBooleanConverter}}">
 
@@ -48,6 +48,7 @@
                 Visibility="{Binding SaveCommand, Converter={StaticResource NullToVisibiltyConverter}}">
 
             <Image Source="\GUI\Design\Styles\Images\save(1).png" Width="25"/>
+            
         </Button>
 
         <Button  Width="Auto" Grid.Column="3" Margin="2,0,0,0"       

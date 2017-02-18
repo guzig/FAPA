@@ -1,5 +1,7 @@
 1.2 -- rapp fiscale committente
 
+validazione privato
+
 se aggiungi un dettaglio fattura non valido salva
 
 wrap collection view on curent change and use it as itemchanged

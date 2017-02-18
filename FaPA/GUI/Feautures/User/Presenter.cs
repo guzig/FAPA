@@ -136,11 +136,8 @@ namespace FaPA.GUI.Feautures.User
             IsBusy = false;
         }
 
-        protected override QueryOver QueryCriteria
-        {
-            get { return QueryOver.Of<UserData>().Where(u=>u.UserName != "em"); }
-        }
-
+        protected override QueryOver QueryCriteria { get; set; } = QueryOver.Of<UserData>().Where( u => u.UserName != "em" );
+        
         protected override BaseCrudModel CreateNewModel()
         {
             return new Model();

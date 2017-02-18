@@ -27,16 +27,11 @@ namespace FaPA.GUI.Feautures.Fattura
 
         #region props
 
-        protected override QueryOver QueryCriteria
-        {
-            get
-            {
-                return QueryOver.Of<Core.Fattura>().Fetch( f => f.AnagraficaCedenteDB ).Eager.
-                  Fetch( f => f.AnagraficaCommittenteDB ).Eager.
-              OrderBy( f => f.DataCaricamentoDB ).Asc;
-            }
-            //.Cacheable().CacheMode(CacheMode.Normal)
-        }
+        protected override QueryOver QueryCriteria { get; set; } = QueryOver.Of<Core.Fattura>().
+            Fetch( f => f.AnagraficaCedenteDB ).Eager.
+            Fetch( f => f.AnagraficaCommittenteDB ).Eager.
+            OrderBy( f => f.DataCaricamentoDB ).Asc;
+
 
         private IList<Core.Anagrafica> _fornitori;
         public IList<Core.Anagrafica> Fornitori

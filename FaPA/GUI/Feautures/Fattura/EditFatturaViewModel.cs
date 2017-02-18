@@ -11,6 +11,7 @@ using NHibernate;
 using System.Linq;
 using FaPA.AppServices.CoreValidation;
 using FaPA.Core;
+using FaPA.Core.FaPa;
 using FaPA.Infrastructure;
 
 namespace FaPA.GUI.Feautures.Fattura
@@ -217,9 +218,8 @@ namespace FaPA.GUI.Feautures.Fattura
 
             DettagliFatturaViewModel = new DettagliFatturaViewModel(this, fattura );
             DettagliFatturaViewModel.Init();
-            DettagliFatturaViewModel.CurrentEntityChanged += OnDettaglioFatturaPropertyChanged;
-            if ( DettagliFatturaViewModel.UserCollectionView  != null )
-                DettagliFatturaViewModel.UserCollectionView.CurrentChanged += OnDettaglioFatturaCurrentChanged;
+            DettagliFatturaViewModel.CurrentEntityPropChanged += OnDettaglioFatturaPropertyPropChanged;
+            DettagliFatturaViewModel.CurrentEntityChanged += OnDettaglioFatturaCurrentChanged;
 
             DatiGeneraliViewModel = new DatiGeneraliViewModel( this, fattura.FatturaElettronicaBody );
             AddTabViewModel<DatiGeneraliViewModel>( DatiGeneraliViewModel );
@@ -266,12 +266,12 @@ namespace FaPA.GUI.Feautures.Fattura
 
         }
 
-        private void OnDettaglioFatturaCurrentChanged( object sender, EventArgs eventArgs )
+        private void OnDettaglioFatturaCurrentChanged( object currententity )
         {
             OnChildChanged();
         }
 
-        private void OnDettaglioFatturaPropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void OnDettaglioFatturaPropertyPropChanged(object sender, PropertyChangedEventArgs e)
         {
 
             OnChildChanged();
@@ -279,13 +279,13 @@ namespace FaPA.GUI.Feautures.Fattura
 
         private void OnChildChanged()
         {
+            Validate();
             if ( DettagliFatturaViewModel.IsEditing )
             {
                 LockMessage = EditViewModel<BaseEntity>.OnEditingLockMessage;
                 IsInEditing = true;
+                AllowSave = IsValidate();
             }
-            Validate();
-            AllowSave = IsValidate();
         }
 
         private bool IsValidate()
@@ -316,6 +316,32 @@ namespace FaPA.GUI.Feautures.Fattura
 
         #region UI commands
 
+
+        private ICommand _showAnagraficaCommand;
+        public ICommand ShowAnagraficaCommand
+        {
+            get
+            {
+                if ( _showAnagraficaCommand != null )
+                    return _showAnagraficaCommand;
+                _showAnagraficaCommand = new RelayCommand( ShowAnagrafica, r=>true );
+                return _showAnagraficaCommand;
+            }
+        }
+
+        private void ShowAnagrafica(object c )
+        {
+            string param = ( string ) c;
+
+            long id;
+            if ( param != null && param == "Fornitore" )
+                id = CurrentEntity.AnagraficaCedenteDB.Id;
+            else if ( param != null && param == "Committente" )
+                id = CurrentEntity.AnagraficaCommittenteDB.Id;
+            else return;
+
+            Presenters.Show("Anagrafica", new Action<GUI.Feautures.Anagrafica.Presenter>( p => p.CreateNewModel( 1, id )  ) );
+        }
 
         private void AddTabViewModel<TV>(WorkspaceViewModel tabViewModel)
         {

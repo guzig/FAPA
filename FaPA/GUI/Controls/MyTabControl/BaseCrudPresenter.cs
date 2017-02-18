@@ -66,7 +66,7 @@ namespace FaPA.GUI.Controls.MyTabControl
             return Model.SelectedPage;
         }
 
-        protected abstract QueryOver QueryCriteria { get; }
+        protected abstract QueryOver QueryCriteria { get; set; }
 
         public abstract void CreateNewModel( QueryOver queryOver );
 

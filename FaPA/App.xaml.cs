@@ -21,8 +21,6 @@ namespace FaPA
             // as the culture, regardless of the system settings.
             FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement),
               new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
-
-            //BootStrapper.Initialize();
         }
 
         protected override void OnStartup(StartupEventArgs e)

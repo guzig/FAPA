@@ -17,10 +17,7 @@ namespace FaPA.GUI.Feautures.Anagrafica
         private FinderConfirmSearchEventArgs _dataFiltered;
         private Action<Presenter> _onLoaded;
 
-        protected override QueryOver QueryCriteria
-        {
-            get { return QueryOver.Of<Core.Anagrafica>(); }
-        }
+        protected override QueryOver QueryCriteria { get; set; } = QueryOver.Of<Core.Anagrafica>();
 
         public GenericsObservable<bool> AllowEditing { get; set; }
 
@@ -80,13 +77,20 @@ namespace FaPA.GUI.Feautures.Anagrafica
             //viewModel.SetUpCollectionView(Model.UserEntities, Model.UserCollectionView);
         }
 
+        public void CreateNewModel( int activeTab, long id )
+        {
+            QueryCriteria = QueryOver.Of<Core.Anagrafica>().Where( a=>a.Id == id );
+            CreateNewModel( activeTab );
+        }
+
         public override void CreateNewModel(int activeTab)
         {
             IsBusy = true;
             var entities = GetExeCriteria<Core.Anagrafica>(QueryCriteria);
             var entitiesdto = entities == null ? new ObservableCollection<Core.Anagrafica>()
                 : new ObservableCollection<Core.Anagrafica>(entities);
-            SetUpNewModel(0, entitiesdto);
+            SetUpNewModel( 0, entitiesdto);
+            SetActiveWorkSpace( 1 );
             IsBusy = false;
         }
 

@@ -21,6 +21,10 @@
             <KeyBinding Key="F10" Command="{Binding SaveEntity}" />
             <KeyBinding Key="F11" Command="{Binding AddNewEntity}" />
             <KeyBinding Key="F11"  Command="{Binding PerformCancel}" />
+            <KeyBinding Key="F11"  Command="{Binding PerformCancel}" />
+
+            <KeyBinding Key="F"  Modifiers="Ctrl"  Command="{Binding ShowAnagraficaCommand}" CommandParameter="Fornitore" />
+            <KeyBinding Key="O"  Modifiers="Ctrl"  Command="{Binding ShowAnagraficaCommand}" CommandParameter="Committente" />
 
             <KeyBinding Key="T" Modifiers="Ctrl"  Command="{Binding ShowXmlIntoTreeViewCommand}" />
             <KeyBinding Key="B"  Modifiers="Ctrl" Command="{Binding ShowXmlIntoBrowserCommand}" />

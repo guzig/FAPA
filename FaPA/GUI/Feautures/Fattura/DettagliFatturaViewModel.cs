@@ -79,23 +79,22 @@ namespace FaPA.GUI.Feautures.Fattura
 
             base.OnCurrentChanged( sender, e );
 
-            AllowSave = IsValidate();
         }
 
         private void InitAltriChildViewModel( DettaglioLineeType dettaglio )
         {
             AltridatiViewModel = new AltriDatiViewModel( this, dettaglio );
             AltridatiViewModel.Init();
-            AltridatiViewModel.CurrentEntityChanged += OnAltriDatiPropertyChanged;
+            AltridatiViewModel.CurrentEntityPropChanged += OnAltriDatiPropertyPropChanged;
 
             ScontoMaggiorazioneViewModel = new ScontoMaggiorazioneViewModel( this, dettaglio );
             ScontoMaggiorazioneViewModel.Init();
-            ScontoMaggiorazioneViewModel.CurrentEntityChanged += OnScontoMaggiorazionePropertyChanged;
+            ScontoMaggiorazioneViewModel.CurrentEntityPropChanged += OnScontoMaggiorazionePropertyPropChanged;
 
             AllowSave = IsValidate();
         }
 
-        private void OnAltriDatiPropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void OnAltriDatiPropertyPropChanged(object sender, PropertyChangedEventArgs e)
         {
             LockMessage = EditViewModel<BaseEntity>.OnEditingLockMessage;
             
@@ -110,7 +109,7 @@ namespace FaPA.GUI.Feautures.Fattura
 
         }
 
-        private void OnScontoMaggiorazionePropertyChanged( object sender, PropertyChangedEventArgs e )
+        private void OnScontoMaggiorazionePropertyPropChanged( object sender, PropertyChangedEventArgs e )
         {
             LockMessage = EditViewModel<BaseEntity>.OnEditingLockMessage;
 

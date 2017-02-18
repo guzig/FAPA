@@ -323,11 +323,11 @@ namespace FaPA.GUI.Controls
 
         public event Action Disposed = delegate { };
         public delegate void OnCurrentChangedhandler(object sender, PropertyChangedEventArgs eventArg);
-        public event OnCurrentChangedhandler CurrentEntityChanged;
+        public event OnCurrentChangedhandler CurrentEntityPropChanged;
 
         protected void OnPropertyChanged(object sender, PropertyChangedEventArgs eventArg)
         {
-            var handler = CurrentEntityChanged;
+            var handler = CurrentEntityPropChanged;
             handler?.Invoke(sender, eventArg);
         }
 

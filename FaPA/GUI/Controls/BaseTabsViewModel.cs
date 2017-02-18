@@ -35,7 +35,13 @@ namespace FaPA.GUI.Controls
             }
         }
 
+        public delegate void OnCurrentChangedhandler( object currententity );
+
+        public event OnCurrentChangedhandler CurrentEntityChanged;
+
         #endregion
+
+
 
         //ctor
         protected BaseTabsViewModel( Expression<Func<T, TProperty>> getter, IRepository repository, T instance, 
@@ -130,13 +136,13 @@ namespace FaPA.GUI.Controls
 
             AddItemToUserCollection( );
 
-            InitCollectionView();
-            UserCollectionView.MoveCurrentToLast();
-
             IsEditing = true;
             AllowDelete = true;
             Validate();
             AllowSave = IsValid;
+
+            InitCollectionView();
+            UserCollectionView.MoveCurrentToLast();
         }
         
         
@@ -213,6 +219,7 @@ namespace FaPA.GUI.Controls
             AllowSave = IsValid;
             AllowDelete = true;
             HookChanged( CurrentPoco );
+            OnCurrentChanged( CurrentPoco );
         }
 
         protected void RemoveItem()
@@ -316,6 +323,12 @@ namespace FaPA.GUI.Controls
             }
 
             base.OnRequestClose();
+        }
+
+        private void OnCurrentChanged( object sender )
+        {
+            var handler = CurrentEntityChanged;
+            handler?.Invoke( sender );
         }
 
     }

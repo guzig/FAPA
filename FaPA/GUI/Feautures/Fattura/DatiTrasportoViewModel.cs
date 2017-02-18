@@ -51,11 +51,11 @@ namespace FaPA.GUI.Feautures.Fattura
                 DatiIndirizzoViewModel.Init();
             }
 
-            DatiAnagraficiVettoreViewModel.CurrentEntityChanged += OnChildViewModelChanged;
-            DatiIndirizzoViewModel.CurrentEntityChanged += OnChildViewModelChanged;
+            DatiAnagraficiVettoreViewModel.CurrentEntityPropChanged += OnChildViewModelPropChanged;
+            DatiIndirizzoViewModel.CurrentEntityPropChanged += OnChildViewModelPropChanged;
         }
 
-        private void OnChildViewModelChanged( object sender, PropertyChangedEventArgs eventarg )
+        private void OnChildViewModelPropChanged( object sender, PropertyChangedEventArgs eventarg )
         {
             if ( !( sender is BaseEntity ) ) return ;
 
