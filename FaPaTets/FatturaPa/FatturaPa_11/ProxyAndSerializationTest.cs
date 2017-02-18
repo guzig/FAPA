@@ -12,30 +12,53 @@ namespace FaPaTets.FatturaPa.FatturaPa_11
     public class ProxyAndSerializationTest 
     {
         [Test]
+        public void can_serialize_nested_proxies0()
+        {
+            var fattura = new Fattura();
+            fattura.Init();
+            var fattPa = fattura.FatturaPa;
+
+            UtilsPA.FillFatturaPa( fattPa );
+
+            // Proxing
+            object proxied = ObjectExplorer.DeepProxiedCopyOfType<FaPA.Core.BaseEntity>( fattura );
+
+            UtilsPA.CheckAllTypesAreUnProxied<FaPA.Core.BaseEntity>( fattura );
+
+            UtilsPA.CheckAllTypesAreProxied<FaPA.Core.BaseEntity>( proxied );
+            
+            var f = ObjectExtensions.Copy( proxied );
+
+            UtilsPA.CheckAllTypesAreProxied<FaPA.Core.BaseEntity>( f );
+
+        }
+
+
+        [Test]
         public void can_serialize_nested_proxies()
         {
             var fattura = new Fattura();
             fattura.Init();
             var fattPa = fattura.FatturaPa;
 
-            FillFatturaPa( fattPa );
+            UtilsPA.FillFatturaPa( fattPa );
 
             // Proxing
             object proxied = ObjectExplorer.DeepProxiedCopyOfType<FaPA.Core.BaseEntityFpa>( fattPa );
 
-            CheckAllTypesAreUnProxied<FaPA.Core.BaseEntityFpa>( fattPa );
+            UtilsPA.CheckAllTypesAreUnProxied<FaPA.Core.BaseEntityFpa>( fattPa );
 
-            CheckAllTypesAreProxied<FaPA.Core.BaseEntityFpa>( proxied );
+            UtilsPA.CheckAllTypesAreProxied<FaPA.Core.BaseEntityFpa>( proxied );
 
 
             //Unproxing
             var unProxy = ObjectExplorer.UnProxiedDeepCopy( proxied );
 
-            CheckAllTypesAreUnProxied<FaPA.Core.BaseEntityFpa>( unProxy );
+            UtilsPA.CheckAllTypesAreUnProxied<FaPA.Core.BaseEntityFpa>( unProxy );
 
-            CheckAllTypesAreProxied<FaPA.Core.BaseEntityFpa>( proxied );
+            UtilsPA.CheckAllTypesAreProxied<FaPA.Core.BaseEntityFpa>( proxied );
 
-            CheckAllTypesAreUnProxied<FaPA.Core.BaseEntityFpa>( fattPa );
+            UtilsPA.CheckAllTypesAreUnProxied<FaPA.Core.BaseEntityFpa>( fattPa );
 
 
             //Copying
@@ -46,11 +69,11 @@ namespace FaPaTets.FatturaPa.FatturaPa_11
 
             Assert.AreEqual( origSer, copySer );
 
-            CheckNestedRefEquals<FaPA.Core.BaseEntityFpa>( proxied, copy, false );
+            UtilsPA.CheckNestedRefEquals<FaPA.Core.BaseEntityFpa>( proxied, copy, false );
 
-            CheckAllTypesAreUnProxied<FaPA.Core.BaseEntityFpa>( copy );
+            UtilsPA.CheckAllTypesAreUnProxied<FaPA.Core.BaseEntityFpa>( copy );
 
-            CheckAllTypesAreProxied<FaPA.Core.BaseEntityFpa>( proxied );
+            UtilsPA.CheckAllTypesAreProxied<FaPA.Core.BaseEntityFpa>( proxied );
 
             var xml = fattura.GetXmlFatturaPA();
 
@@ -69,21 +92,21 @@ namespace FaPaTets.FatturaPa.FatturaPa_11
             var fattPa = fattura.FatturaPa;
             //new FaPA.Core.FaPa.FatturaElettronicaType();
 
-            #region 
+            #region
 
-            FillFatturaPa( fattPa );
+            UtilsPA.FillFatturaPa( fattPa );
 
             #endregion
 
             object currentHeader = ObjectExplorer.DeepProxiedCopyOfType<FaPA.Core.BaseEntityFpa>( fattPa.FatturaElettronicaHeader );
             fattPa.FatturaElettronicaHeader = ( FaPA.Core.FaPa.FatturaElettronicaHeaderType ) currentHeader;
 
-            CheckAllTypesAreProxied<FaPA.Core.BaseEntityFpa>( currentHeader );
+            UtilsPA.CheckAllTypesAreProxied<FaPA.Core.BaseEntityFpa>( currentHeader );
 
             object currentBody = ObjectExplorer.DeepProxiedCopyOfType<FaPA.Core.BaseEntityFpa>( fattPa.FatturaElettronicaBody );
             fattPa.FatturaElettronicaBody = ( FaPA.Core.FaPa.FatturaElettronicaBodyType ) currentBody;
 
-            CheckAllTypesAreProxied<FaPA.Core.BaseEntityFpa>( currentBody );
+            UtilsPA.CheckAllTypesAreProxied<FaPA.Core.BaseEntityFpa>( currentBody );
 
             var nameSpaceFatturaPa = new XmlSerializerNamespaces();
             nameSpaceFatturaPa.Add( "p", "http://www.fatturapa.gov.it/sdi/fatturapa/v1.1" );
@@ -128,11 +151,11 @@ namespace FaPaTets.FatturaPa.FatturaPa_11
             var fattPa = fattura.FatturaPa;
             //new FaPA.Core.FaPa.FatturaElettronicaType();
 
-            FillFatturaPa( fattPa );
+            UtilsPA.FillFatturaPa( fattPa );
 
             object current = ObjectExplorer.DeepProxiedCopyOfType<FaPA.Core.BaseEntityFpa>( fattPa);
 
-            CheckAllTypesAreProxied<FaPA.Core.BaseEntityFpa>( current );
+            UtilsPA.CheckAllTypesAreProxied<FaPA.Core.BaseEntityFpa>( current );
 
             var nameSpaceFatturaPa = new XmlSerializerNamespaces();
             nameSpaceFatturaPa.Add("p", "http://www.fatturapa.gov.it/sdi/fatturapa/v1.1");
@@ -167,65 +190,6 @@ namespace FaPaTets.FatturaPa.FatturaPa_11
             
             Assert.IsNotNull( result );
 
-        }
-
-        private static void CheckNestedRefEquals<T>( object orig, object copy, bool condition ) where T : class
-        {
-            var instances = ObjectExplorer.FindAllInstancesDeep<T>( orig ).ToArray();
-            var others = ObjectExplorer.FindAllInstancesDeep<T>( copy ).ToArray();
-
-            for ( int index = 0; index < instances.Length; index++ )
-            {
-                var instance = instances[index];
-                var other = others[index];
-                Assert.AreEqual( condition, ReferenceEquals( instance, other ) );
-            }
-        }
-
-        private static void CheckAllTypesAreProxied<T>( object current ) where T : class
-        {
-            var instances = ObjectExplorer.FindAllInstancesDeep<T>( current ).ToArray();
-
-            foreach ( var instance in instances )
-            {
-                Assert.AreEqual( true, instance.GetType().Name.EndsWith( "Proxy" ) );
-            }
-        }
-
-        private static void CheckAllTypesAreUnProxied<T>(object current) where T : class 
-        {
-            var instances = ObjectExplorer.FindAllInstancesDeep<T>(current).ToArray();
-
-            foreach (var instance in instances)
-            {
-                Assert.AreEqual(false, instance.GetType().Name.EndsWith("Proxy"));
-            }
-        }
-
-        public static void FillFatturaPa( FatturaElettronicaType fattPa )
-        {
-            fattPa.FatturaElettronicaHeader.CedentePrestatore = new FaPA.Core.FaPa.CedentePrestatoreType();
-
-            fattPa.FatturaElettronicaHeader.CedentePrestatore.DatiAnagrafici =
-                new FaPA.Core.FaPa.DatiAnagraficiCedenteType();
-
-            fattPa.FatturaElettronicaHeader.CedentePrestatore.DatiAnagrafici.Anagrafica =
-                new FaPA.Core.FaPa.AnagraficaType();
-            fattPa.FatturaElettronicaHeader.CedentePrestatore.Sede =
-                new FaPA.Core.FaPa.IndirizzoType() { Comune = "PortoBello" };
-            fattPa.FatturaElettronicaBody = new FaPA.Core.FaPa.FatturaElettronicaBodyType()
-            {
-                DatiGenerali = new FaPA.Core.FaPa.DatiGeneraliType()
-                {
-                    DatiGeneraliDocumento = new FaPA.Core.FaPa.DatiGeneraliDocumentoType()
-                }, DatiBeniServizi = new FaPA.Core.FaPa.DatiBeniServiziType()
-
-
-            };
-            fattPa.FatturaElettronicaBody.DatiPagamento = new[ ]
-            {
-                new FaPA.Core.FaPa.DatiPagamentoType() { CondizioniPagamento = FaPA.Core.FaPa.CondizioniPagamentoType.TP03 }
-            };
         }
     }
 }

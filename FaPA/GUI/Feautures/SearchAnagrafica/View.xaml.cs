@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Threading;
+using System.Windows;
 using System.Windows.Input;
 using FaPA.GUI.Utils;
 
@@ -15,27 +16,26 @@ namespace FaPA.GUI.Feautures.SearchAnagrafica
         {
             InitializeComponent();
 
-            //AnagraficaSearchTemplate.ImpegnoExpander.Expanded += ExpanderExpanded;
+            Loaded += SetFocusOnFirstFocusableElement;
 
         }
 
-        private void ExpanderExpanded( object sender, RoutedEventArgs e )
+        private void SetFocusOnFirstFocusableElement( object sender, RoutedEventArgs routedEventArgs )
         {
-            var scrollViwer = AnagraficaScrollViewer;
-
-            if ( scrollViwer != null )
-            {
-                // Logical Scrolling by Item
-                // scrollViwer.LineUp();
-                // Physical Scrolling by Offset
-                scrollViwer.ScrollToVerticalOffset( scrollViwer.VerticalOffset + 210 );
-            }
-
+            ThreadPool.QueueUserWorkItem(
+                               a =>
+                               {
+                                   Thread.Sleep( 100 );
+                                   Query.Dispatcher.Invoke( () =>
+                                   {
+                                       if ( Query.IsEnabled ) Query.Focus();
+                                   } );
+                               } );
         }
 
         private void AnagraficaGridSearch_OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
-            //DataGridHelpers.DataGridKeyUpEventHandler( e, AnagraficaGridSearch );
+            DataGridHelpers.DataGridKeyUpEventHandler( e, AnagraficaGridSearch );
         }
     }
 }

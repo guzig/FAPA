@@ -560,21 +560,25 @@ namespace FaPA.Core
         
         public virtual Fattura Copy()
         {
-            var other = ( Fattura ) this.MemberwiseClone();
-            other.Id = 0;
-
-            other.FatturaPa = FatturaPa.DeepCopy();
-            AnagraficaCedenteDB = ( Anagrafica ) other.AnagraficaCedenteDB.Unproxy();
-            AnagraficaCommittenteDB = ( Anagrafica ) other.AnagraficaCommittenteDB.Unproxy();
-            other.DomainResult = new DomainResult( DomainResult.Success, DomainResult.Errors );
-            other.NumeroFatturaDB = string.Copy( NumeroFatturaDB );
-            other.CigDB = CigDB == null ? null : string.Copy( CigDB );
-            other.CupDB = CupDB == null ? null : string.Copy( CupDB );
-            other.CodUfficioDB = CodUfficioDB == null ? null : string.Copy( CodUfficioDB );
-            other.RiferimentoAmmDB = RiferimentoAmmDB == null ? null : string.Copy( RiferimentoAmmDB );
-            other.ProgFile = 0;
-            other.Version = 0;
-            return other;
+            var copy = new Fattura(); 
+            
+            copy.FatturaPa = ( FatturaElettronicaType ) ObjectExplorer.UnProxiedDeepCopy( this.FatturaPa );
+            copy.AnagraficaCedenteDB = ( Anagrafica ) AnagraficaCedenteDB.Unproxy();
+            copy.AnagraficaCommittenteDB = ( Anagrafica ) AnagraficaCommittenteDB.Unproxy();
+            copy.DomainResult = new DomainResult( DomainResult.Success, DomainResult.Errors );
+            copy.NumeroFatturaDB = string.Copy( NumeroFatturaDB );
+            copy.DataFatturaDB = DataFatturaDB;
+            copy.TotaleFatturaDB = TotaleFatturaDB;
+            copy.CigDB = CigDB == null ? null : string.Copy( CigDB );
+            copy.CupDB = CupDB == null ? null : string.Copy( CupDB );
+            copy.CodUfficioDB = CodUfficioDB == null ? null : string.Copy( CodUfficioDB );
+            copy.PecDestinatarioDB = PecDestinatarioDB == null ? null : string.Copy( PecDestinatarioDB );
+            copy.DataCaricamentoDB = DateTime.Now.Date;
+            copy.RiferimentoAmmDB = RiferimentoAmmDB == null ? null : string.Copy( RiferimentoAmmDB );
+            copy.FormatoTrasmissioneDB = FormatoTrasmissioneDB;
+            copy.ProgFile = 0;
+            copy.Version = 0;
+            return copy;
         }
 
     }

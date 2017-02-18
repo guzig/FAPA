@@ -4,24 +4,19 @@
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:myRecordNavigator="clr-namespace:FaPA.GUI.Controls.MyRecordNavigator"
              xmlns:utils="clr-namespace:FaPA.GUI.Utils">
-    
+
+
     <StackPanel Orientation="Vertical" Height="Auto"  Margin="2,2,2,2" 
                 utils:FocusAdvancement.AdvancesByEnterKey="True">
-
         <StackPanel.InputBindings>
             <KeyBinding Key="Enter" Modifiers="Ctrl" Command="{Binding EnterKey}" />
-
-
             <KeyBinding Key="Add"  Modifiers="Ctrl" Command="{Binding AddCopy}" />
-            
-            <!--
-                            Command="{Binding RelativeSource={RelativeSource FindAncestor, 
-                                              AncestorType={x:Type Window}},
-                                              Path=Presenter.SearchOnSite}"             
-            -->
-            
             <KeyBinding Key="F9" Command="{Binding SearchOnSite}" />
-            
+            <KeyBinding Key="P" Modifiers="Ctrl"  Command="{Binding Path=Presenter.Search, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" />
+            <KeyBinding Key="F6" Command="{Binding DeleteEntityCommand}" />
+            <KeyBinding Key="F10" Command="{Binding SaveEntity}" />
+            <KeyBinding Key="F11" Command="{Binding AddNewEntity}" />
+            <KeyBinding Key="F11" Command="{Binding PerformCancel}" />
         </StackPanel.InputBindings>
 
         <DockPanel>
@@ -37,26 +32,27 @@
         <DockPanel Height="25" Margin="2,5,2,2" Background="{StaticResource Brush_ToolBar}">
 
             <Button Name="Delete" Command="{Binding DeleteEntityCommand}"                        
-                    ToolTip="Elimina definitivamente l'oggetto dal database" >
+                    ToolTip="Elimina definitivamente l'oggetto dal database (Tasto scelta rapida F6)" >
                 <Image Source="\GUI\Design\Styles\Images\delete(1).png" Width="25"/>
             </Button>
 
             <Button Name="CreateNew" Command="{Binding Path=AddNewEntity}"
-                    ToolTip="Crea nuovo oggetto"  IsEnabled="{Binding Path=AllowInsertNewEntity}">
+                    ToolTip="Crea nuovo oggetto (Tasto scelta rapida F10"  
+                    IsEnabled="{Binding Path=AllowInsertNewEntity}">
                 
                 <Image Source="\GUI\Design\Styles\Images\1343547225_file_add.png" Width="25"/>
                 
             </Button>
 
             <Button Name="Save" Command="{Binding SaveEntity}"
-                    ToolTip="Salva le modifiche apportate all'oggetto"
+                    ToolTip="Salva le modifiche apportate all'oggetto (Tasto scelta rapida F10)"
                     Width="Auto" IsEnabled="{Binding AllowSave}">
 
                 <Image Source="\GUI\Design\Styles\Images\save(1).png" Width="25"/>
             </Button>
 
             <Button Name="Cancel" Command="{Binding PerformCancel}"                           
-                    ToolTip="Annulla le modifiche apportate"
+                    ToolTip="Annulla le modifiche apportate (Tasto scelta rapida F2)"
                     Width="25" HorizontalAlignment="Left" IsEnabled="{Binding Path=IsInEditing}">
 
                 <Image Source="\GUI\Design\Styles\Images\cancel.png" Width="25"/>
@@ -70,7 +66,7 @@
                                    IsEnabled="{Binding Path=AllowRecordsNavigation}"/>
             
             <xctk:SplitButton  x:Name="Search"
-                    ToolTip= "Apre la finestra per la ricerca estesa"
+                    ToolTip= "Apre la finestra per la ricerca estesa (Tasto di scelta rapida Ctrl P)"
                     Command="{Binding Path=Presenter.Search, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"   
                     Width="Auto" HorizontalAlignment="Left">
 

@@ -1,14 +1,12 @@
-1.2 -- rapp . fisca
+1.2 -- rapp fiscale committente
 
-vai a primo campo su nuova fattura
+se aggiungi un dettaglio fattura non valido salva
+
+wrap collection view on curent change and use it as itemchanged
 
 exception after cancel first fattura
 
-ID IN CRUD VIEW MODEL
-
-scrollviewer datagrid dettagli fattura
-
-rapp fiscale committente
+vies with style in three viwew
 
 ricerca immediata hidyng
 
@@ -20,6 +18,8 @@ print pdf
 
 default browser
 
+
+on add new dettaflio set focus
 
 
 SetResultTransformer( new DistinctRootEntityResultTransformer() );

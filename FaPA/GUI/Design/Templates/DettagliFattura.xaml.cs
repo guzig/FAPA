@@ -28,7 +28,11 @@ namespace FaPA.GUI.Design.Templates
         //   ShowCursor.Show();
         //}
 
-
-
+        //private void DettagliFatturaGridControl_OnAddingNewItem( object sender, AddingNewItemEventArgs e )
+        //{dataGrid1.Focus()
+        //    dataGrid1.CurrentCell = new DataGridCellInfo(
+        //        dataGrid1.Items[0], dataGrid1.Columns[3] );
+        //    dataGrid1.BeginEdit();
+        //}
     }
 }

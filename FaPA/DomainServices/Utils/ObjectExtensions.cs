@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Reflection;
 
 namespace FaPA.DomainServices.Utils
@@ -57,23 +55,12 @@ namespace FaPA.DomainServices.Utils
         {
             foreach ( FieldInfo fieldInfo in typeToReflect.GetFields( bindingFlags ) )
             {
-                //if ( ExistSpecifiedPropValue( originalObject, fieldInfo ) ) continue;
                 if ( filter != null && filter( fieldInfo ) == false ) continue;
                 if ( IsPrimitive( fieldInfo.FieldType ) ) continue;
                 var originalFieldValue = fieldInfo.GetValue( originalObject );
                 var clonedFieldValue = InternalCopy( originalFieldValue, visited );
                 fieldInfo.SetValue( cloneObject, clonedFieldValue );
             }
-        }
-
-        private static bool ExistSpecifiedPropValue( object originalObject, FieldInfo fieldInfo )
-        {
-            var part1 = fieldInfo.Name.Replace( "_","" ).Substring( 0, 1 ).ToUpper();
-            var part2 = fieldInfo.Name.Substring( 1 ).Replace( "Field","" );
-            var name = part1+part2 + "Specified";
-            const BindingFlags bf = BindingFlags.Instance | BindingFlags.Public  | BindingFlags.FlattenHierarchy;
-            var fieldInfos = originalObject.GetType().GetProperty( name, bf );
-            return fieldInfos?.GetValue( originalObject ) as bool? == false;
         }
 
 

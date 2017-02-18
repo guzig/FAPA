@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using FaPA.Core.FaPa;
-using Xceed.Wpf.Toolkit;
 
 namespace FaPA.AppServices.CoreValidation
 {

@@ -84,7 +84,7 @@
                         EnableRowVirtualization="True" EnableColumnVirtualization="False"
                         VirtualizingStackPanel.IsVirtualizing="True"
                         VirtualizingStackPanel.VirtualizationMode="Standard">
-                
+
                 <!--<DataGrid.Resources>
                     <finder:BindingProxy x:Key="proxy" Data="{Binding Path=Presenter, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" />
                 </DataGrid.Resources>-->
@@ -93,13 +93,13 @@
                     <f:BindingProxy x:Key="proxyFVM" Data="{Binding Path=.}" />
                 </DataGrid.Resources>
 
-                <!--<DataGrid.RowValidationRules>
+                <DataGrid.RowValidationRules>
 
                     <DataErrorValidationRule  ValidationStep="CommittedValue" ValidatesOnTargetUpdated="True" />
 
-                </DataGrid.RowValidationRules>-->
+                </DataGrid.RowValidationRules>
 
-                <DataGrid.Columns >
+                <DataGrid.Columns  >
 
                     <DataGridTextColumn Header="Num" Width="Auto" u:TextBoxBehavior.MaxLength="4"
                                         Binding="{Binding NumeroLinea,  Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnSourceUpdated=True, 

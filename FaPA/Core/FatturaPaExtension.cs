@@ -1,3 +1,4 @@
+using FaPA.AppServices.CoreValidation;
 using FaPA.Core.FaPa;
 
 namespace FaPA.Core
@@ -8,8 +9,7 @@ namespace FaPA.Core
         {
             if ( toCopy == null )
                 return null;
-            var xmlStream = SerializerHelpers.ObjectToXml( ( FatturaElettronicaType ) toCopy );
-            return SerializerHelpers.XmlToObject( xmlStream );
+            return ( FatturaElettronicaType ) ObjectExplorer.UnProxiedDeepCopy( toCopy ); 
         }
     }
 }

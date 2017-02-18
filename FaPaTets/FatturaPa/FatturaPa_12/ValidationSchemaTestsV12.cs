@@ -1,5 +1,4 @@
 using System;
-using FaPA.Core.FaPa;
 using NUnit.Framework;
 
 namespace FaPaTets.FatturaPa.FatturaPa_11

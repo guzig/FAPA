@@ -3,13 +3,27 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:myRecordNavigator="clr-namespace:FaPA.GUI.Controls.MyRecordNavigator"
+             xmlns:m="clr-namespace:FaPA.GUI.Controls.MyRecordNavigator"
              mc:Ignorable="d" >
 
     <WrapPanel 
-        Height="{Binding RelativeSource={RelativeSource AncestorType={x:Type myRecordNavigator:MyRecordNavigator}}, Path=Height}"  
+        Height="{Binding RelativeSource={RelativeSource AncestorType={x:Type m:MyRecordNavigator}}, Path=Height}"  
         Width="Auto" >
+        <WrapPanel.InputBindings>
 
+            <KeyBinding Key="L"  Modifiers="Ctrl"  Command="{Binding MovePreviousCommand,   RelativeSource={RelativeSource FindAncestor, 
+                                                                                        AncestorType={x:Type  m:MyRecordNavigator}}}" />
+
+            <KeyBinding Key="F12"  Command="{Binding MoveNextCommand, RelativeSource={RelativeSource FindAncestor, 
+                                                                                                 AncestorType={x:Type  m:MyRecordNavigator}}}" />
+
+            <KeyBinding Key="I"  Modifiers="Ctrl"  Command="{Binding MoveFirstCommand, RelativeSource={RelativeSource FindAncestor, 
+                                                                                   AncestorType={x:Type  m:MyRecordNavigator}}}" />
+
+            <KeyBinding Key="F"  Modifiers="Ctrl" Command="{Binding MoveLastCommand, RelativeSource={RelativeSource FindAncestor, 
+                                                                                 AncestorType={x:Type  m:MyRecordNavigator}}}" />
+
+        </WrapPanel.InputBindings>
         <ListBox x:Name="PART_List" 
                  Visibility="Collapsed"
                  IsSynchronizedWithCurrentItem="True" />

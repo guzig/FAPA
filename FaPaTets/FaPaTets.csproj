@@ -175,6 +175,7 @@
     <Compile Include="DbSetUp\AbstractTestFixtureFixture.cs" />
     <Compile Include="DbSetUp\Class1.cs" />
     <Compile Include="DbSetUp\DataTestFactory.cs" />
+    <Compile Include="FatturaPa\FatturaPa_11\UtilsPA.cs" />
     <Compile Include="FatturaPa\FatturaPa_12\ValidationSchemaTestsV12.cs" />
     <Compile Include="Misc\NumberFormatTests.cs" />
     <Compile Include="PersistanceTests\QueriesTest.cs" />

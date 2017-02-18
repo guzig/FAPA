@@ -12,7 +12,6 @@ using System.Linq;
 using FaPA.AppServices.CoreValidation;
 using FaPA.Core;
 using FaPA.Infrastructure;
-using FaPA.Infrastructure.Helpers;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
@@ -162,8 +161,13 @@ namespace FaPA.GUI.Feautures.Fattura
                 var copy = CurrentEntity.Copy();
                 copy.DataFatturaDB = DateTime.Now.Date;
                 copy.NumeroFatturaDB = CurrentEntity.NumeroFatturaDB + " ? ";
-
-                CurrentEntity = ( Core.Fattura ) ObjectExplorer.DeepProxiedCopyOfType<FaPA.Core.BaseEntity>( copy ); 
+                var ana1 = copy.AnagraficaCedenteDB;
+                var ana2 = copy.AnagraficaCommittenteDB;
+                copy.AnagraficaCedenteDB = null;
+                copy.AnagraficaCommittenteDB = null;
+                CurrentEntity = ( Core.Fattura ) ObjectExplorer.DeepProxiedCopyOfType<FaPA.Core.BaseEntity>( copy );
+                CurrentEntity.AnagraficaCedenteDB = ana1;
+                CurrentEntity.AnagraficaCommittenteDB = ana2;
             }
             else
             {
@@ -214,6 +218,8 @@ namespace FaPA.GUI.Feautures.Fattura
             DettagliFatturaViewModel = new DettagliFatturaViewModel(this, fattura );
             DettagliFatturaViewModel.Init();
             DettagliFatturaViewModel.CurrentEntityChanged += OnDettaglioFatturaPropertyChanged;
+            if ( DettagliFatturaViewModel.UserCollectionView  != null )
+                DettagliFatturaViewModel.UserCollectionView.CurrentChanged += OnDettaglioFatturaCurrentChanged;
 
             DatiGeneraliViewModel = new DatiGeneraliViewModel( this, fattura.FatturaElettronicaBody );
             AddTabViewModel<DatiGeneraliViewModel>( DatiGeneraliViewModel );
@@ -260,18 +266,24 @@ namespace FaPA.GUI.Feautures.Fattura
 
         }
 
+        private void OnDettaglioFatturaCurrentChanged( object sender, EventArgs eventArgs )
+        {
+            OnChildChanged();
+        }
+
         private void OnDettaglioFatturaPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if ( DettagliFatturaViewModel.IsEditing )
-            {
-               LockMessage = EditViewModel<BaseEntity>.OnEditingLockMessage;
-               IsInEditing = true;
-            }
+
             OnChildChanged();
         }
 
         private void OnChildChanged()
         {
+            if ( DettagliFatturaViewModel.IsEditing )
+            {
+                LockMessage = EditViewModel<BaseEntity>.OnEditingLockMessage;
+                IsInEditing = true;
+            }
             Validate();
             AllowSave = IsValidate();
         }

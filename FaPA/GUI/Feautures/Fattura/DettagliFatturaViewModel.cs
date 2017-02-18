@@ -78,6 +78,8 @@ namespace FaPA.GUI.Feautures.Fattura
             InitAltriChildViewModel( dettaglio );
 
             base.OnCurrentChanged( sender, e );
+
+            AllowSave = IsValidate();
         }
 
         private void InitAltriChildViewModel( DettaglioLineeType dettaglio )
@@ -133,7 +135,7 @@ namespace FaPA.GUI.Feautures.Fattura
         {
             var isValidAltriDatiViewModel = AltridatiViewModel == null || AltridatiViewModel.IsValid;
             var isValidScontoMaggiorazioneViewModel = ScontoMaggiorazioneViewModel == null || ScontoMaggiorazioneViewModel.IsValid;
-            return isValidAltriDatiViewModel && isValidScontoMaggiorazioneViewModel ;
+            return IsValid && isValidAltriDatiViewModel && isValidScontoMaggiorazioneViewModel ;
         }
 
 
