@@ -71,10 +71,10 @@ namespace FaPA.Core
 
         public static string ObjectToXml(FatturaElettronicaType objectInstance)
         {
-            var customCulture = (CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
-            customCulture.NumberFormat.NumberDecimalSeparator = ".";
-
+            var customCulture = ( CultureInfo ) System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
+            customCulture.NumberFormat.NumberDecimalSeparator = ",";
             System.Threading.Thread.CurrentThread.CurrentCulture = customCulture;
+
             string utf8;
             using ( StringWriter writer = new Utf8StringWriter() )
             {

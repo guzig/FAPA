@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Threading;
 using System.Windows;
 using System.Windows.Markup;
 using FaPA.AppServices;
@@ -19,8 +20,10 @@ namespace FaPA
             // Ensure the current culture passed into bindings 
             // is the OS culture. By default, WPF uses en-US 
             // as the culture, regardless of the system settings.
-            FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement),
-              new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
+            Thread.CurrentThread.CurrentCulture = new CultureInfo( "it-IT" );
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo( "it-IT" );
+            FrameworkElement.LanguageProperty.OverrideMetadata( typeof( FrameworkElement ), new FrameworkPropertyMetadata(
+                        XmlLanguage.GetLanguage( CultureInfo.CurrentCulture.IetfLanguageTag ) ) );
         }
 
         protected override void OnStartup(StartupEventArgs e)

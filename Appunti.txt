@@ -1,10 +1,8 @@
 1.2 -- rapp fiscale committente
 
-validazione privato
+xsl privato
 
-se aggiungi un dettaglio fattura non valido salva
-
-wrap collection view on curent change and use it as itemchanged
+pagamento NON salva
 
 exception after cancel first fattura
 

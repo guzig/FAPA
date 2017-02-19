@@ -404,7 +404,11 @@ namespace FaPA.GUI.Controls.MyTabControl
             var isNewEntityAdded = IsNewEntity( _currentEntity );
             _isOnBind = true;
 
-            if ( !TryPersistEntity() ) return;
+            if ( !TryPersistEntity() )
+            {
+                _isOnBind = false;
+                return;
+            }
 
             Load();
 

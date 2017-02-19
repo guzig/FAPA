@@ -1,6 +1,8 @@
 using System;
+using System.Globalization;
 using System.Xml.Schema;
 using System.Xml.Serialization;
+using FaPA.DomainServices.Utils;
 
 namespace FaPA.Core.FaPa
 {
@@ -93,8 +95,7 @@ namespace FaPA.Core.FaPa
             }
         }
 
-        //[XmlIgnore]
-        //public virtual bool DatiRitenutaSpecified { get; set; }  
+
         
         public virtual DatiRitenutaType DatiRitenuta
         {
@@ -153,9 +154,11 @@ namespace FaPA.Core.FaPa
             get
             {
                 return _importoTotaleDocumentoField;
+                //_importoTotaleDocumentoField.ToString("0.000",CultureInfo.InvariantCulture);
             }
             set
             {
+                //_importoTotaleDocumentoField = value.ToCustomFormatDecimal();
                 _importoTotaleDocumentoField = value;
                 ImportoTotaleDocumentoSpecified = _importoTotaleDocumentoField > (decimal) 0.0 ||
                     _importoTotaleDocumentoField < (decimal) 0.0;

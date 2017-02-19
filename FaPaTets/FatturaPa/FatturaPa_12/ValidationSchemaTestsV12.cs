@@ -81,7 +81,7 @@ namespace FaPaTets.FatturaPa.FatturaPa_11
                         Numero = "01",
                         //Causale = new string[] { "causale" } ,
                         Data = DateTime.Now,
-                        ImportoTotaleDocumento = importo
+                        //ImportoTotaleDocumento = importo.ToString("c")
                     }
                 }
                 

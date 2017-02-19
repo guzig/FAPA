@@ -176,6 +176,7 @@ namespace FaPA.GUI.Controls
             CurrentPoco = ObjectExplorer.DeepProxiedCopyOfType<FaPA.Core.BaseEntity>( userProperty ); 
 
             HookChanged( CurrentPoco );
+
             UserProperty = (TProperty)CurrentPoco;
 
             IsEditing = true;
@@ -313,6 +314,7 @@ namespace FaPA.GUI.Controls
             if (notifyPropertyChanged == null) return;
             notifyPropertyChanged.PropertyChanged -= OnPropChanged;
             notifyPropertyChanged.PropertyChanged += OnPropChanged;
+            ( ( BaseEntity ) poco ).IsValidating = true;
         }
 
         protected static bool GetDeleteConfirmation()

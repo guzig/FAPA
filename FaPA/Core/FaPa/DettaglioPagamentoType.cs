@@ -8,6 +8,7 @@ namespace FaPA.Core.FaPa
     public class DettaglioPagamentoType : BaseEntityFpa
     {
         private decimal _importoPagamento;
+        
         public virtual  string Beneficiario { get; set; }
 
         [XmlElement( Form = XmlSchemaForm.Unqualified )]

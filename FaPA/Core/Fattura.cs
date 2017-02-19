@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using FaPA.Core.FaPa;
 using System.Linq;
 using System.Text;
@@ -337,7 +338,8 @@ namespace FaPA.Core
                 {
                     DatiGeneraliDocumento.Divisa = "EUR";
                 }
-                DatiGeneraliDocumento.ImportoTotaleDocumento = decimal.Parse(string.Format("{0:0.00}", TotaleFatturaDB));
+                DatiGeneraliDocumento.ImportoTotaleDocumento = decimal.Parse( string.Format( "{0:0.00}", TotaleFatturaDB ) );
+                //TotaleFatturaDB.ToString(CultureInfo.InvariantCulture) ;
             }
 
             if (e.PropertyName == nameof(AnagraficaCedenteDB))
@@ -354,6 +356,8 @@ namespace FaPA.Core
 
         private void SyncCommittente()
         {
+            if ( AnagraficaCommittenteDB == null ) return;
+
             var anag = new AnagraficaType
             {
                 Denominazione = AnagraficaCommittenteDB.Denominazione,
@@ -378,6 +382,8 @@ namespace FaPA.Core
 
         private void SyncFornitore()
         {
+            if ( AnagraficaCedenteDB == null ) return;
+
             var anag = new AnagraficaType
             {
                 Denominazione = AnagraficaCedenteDB.Denominazione,
@@ -422,20 +428,13 @@ namespace FaPA.Core
             {
                 FatturaElettronicaHeader.DatiTrasmissione.IdTrasmittente = new IdFiscaleType
                 {
-                    IdCodice = AnagraficaCedenteDB.CodiceFiscale,
+                    IdCodice = AnagraficaCedenteDB.PIva,
                     IdPaese = AnagraficaCedenteDB.Nazione
                 };
             }
 
-            if ( AnagraficaCommittenteDB == null ) return;
-
-            CessionarioCommittente.DatiAnagrafici.CodiceFiscale = AnagraficaCommittenteDB.CodiceFiscale;
-
-            CessionarioCommittente.DatiAnagrafici.IdFiscaleIVA = new IdFiscaleType()
-            {
-                IdCodice = AnagraficaCommittenteDB.PIva,
-                IdPaese = AnagraficaCommittenteDB.Nazione
-            };
+            SyncFornitore();
+            SyncCommittente();
         }
 
         private static IndirizzoType SyncSede( Anagrafica source )
@@ -491,11 +490,7 @@ namespace FaPA.Core
 
             var err = new Dictionary<string, IEnumerable<string>>();
 
-            //if ( !string.IsNullOrWhiteSpace( resultFatturaPa ) )
-            //{
-            //    err.Add( nameof( FatturaPa ), new[] { resultFatturaPa } );
-            //}
-
+            //omitt prop name to force validation al instance level
             GetPersistentErrors( err );
 
             DomainResult = new DomainResult( !err.Any(), err );
@@ -513,7 +508,7 @@ namespace FaPA.Core
             //}
 
            
-            GetPersistentErrors( err, prop );
+            GetPersistentErrors( err );
 
             DomainResult = new DomainResult( !err.Any(), err );
 

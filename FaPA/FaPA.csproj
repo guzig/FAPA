@@ -333,7 +333,7 @@
     <Compile Include="AppServices\CoreValidation\CoreValidatorService.cs" />
     <Compile Include="AppServices\CoreValidation\DatiRitenutaValidator.cs" />
     <Compile Include="AppServices\CoreValidation\DettaglioLineeValidator.cs" />
-    <Compile Include="AppServices\CoreValidation\DettaglioPagamentoValidator.cs" />
+    <Compile Include="AppServices\CoreValidation\DatiPagamentoValidator.cs" />
     <Compile Include="AppServices\CoreValidation\ICoreValidator.cs" />
     <Compile Include="AppServices\CoreValidation\DatiCorrelatiValidator.cs" />
     <Compile Include="AppServices\CoreValidation\NhValidator.cs" />
@@ -467,6 +467,7 @@
     <Compile Include="DomainServices\AuthenticationServices\IAuthenticationService.cs" />
     <Compile Include="DomainServices\NHibernateStaticContainer.cs" />
     <Compile Include="DomainServices\Utils\ArrayExtensions.cs" />
+    <Compile Include="DomainServices\Utils\FormatUtils.cs" />
     <Compile Include="DomainServices\Utils\IO.cs" />
     <Compile Include="DomainServices\Utils\ObjectExtensions.cs" />
     <Compile Include="DomainServices\Utils\SqlActionUtil.cs" />

@@ -195,6 +195,7 @@ namespace FaPA.GUI.Controls
         {
             UserCollectionView = CollectionViewSource.GetDefaultView(UserProperty);
             CurrentPoco = UserCollectionView.CurrentItem;
+            ( ( BaseEntity ) CurrentPoco ).IsValidating = true;
             UserCollectionView.CurrentChanged -= OnCurrentChanged;
             UserCollectionView.CurrentChanged += OnCurrentChanged;
             IsEmpty = UserProperty == null || UserCollectionView == null || UserCollectionView.IsEmpty;
@@ -215,10 +216,15 @@ namespace FaPA.GUI.Controls
             CurrentPoco = UserCollectionView.CurrentItem;
             if ( CurrentPoco == null) return;
             Debug.Assert( CurrentPoco is IProxy );
+            ( ( BaseEntity ) CurrentPoco ).IsValidating = true;
+
+            HookChanged( CurrentPoco );
+
             Validate();
+
             AllowSave = IsValid;
             AllowDelete = true;
-            HookChanged( CurrentPoco );
+
             OnCurrentChanged( CurrentPoco );
         }
 
@@ -287,6 +293,7 @@ namespace FaPA.GUI.Controls
             ( ( IValidatable ) proxy ).Validate();
 
             UserProperty = userProperty;
+
         }
 
         protected override void CancelEdit()

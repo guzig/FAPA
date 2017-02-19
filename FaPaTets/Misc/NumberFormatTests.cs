@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Globalization;
+using System.Threading;
+using FaPA.DomainServices.Utils;
 using NUnit.Framework;
 
 namespace FaPaTets.Misc
@@ -9,16 +11,18 @@ namespace FaPaTets.Misc
         [Test]
         public void Test1()
         {
-            var customCulture = (CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
-            customCulture.NumberFormat.NumberDecimalSeparator = ".";
+            string value = "1,50";
+            var dd = decimal.Parse( value.Replace( "€", "" ).Replace( "$", "" ) );
 
-            System.Threading.Thread.CurrentThread.CurrentCulture = customCulture;
+            //NumberFormatInfo nfi = new NumberFormatInfo();
+            //nfi.NumberDecimalSeparator = ".";
 
-            decimal d = (decimal) 5.5;
-            decimal imp = decimal.Parse(string.Format("{0:0.00}", d));
-            Console.Write(imp);
+
+            //Thread.CurrentThread.CurrentCulture = new CultureInfo( "en-US" );
+
+            Console.Write(dd.ToString("0.000"), CultureInfo.InvariantCulture );
 
         }
-        
+
     }
 }

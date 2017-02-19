@@ -20,9 +20,11 @@ namespace FaPA.AppServices.CoreValidation
         }
 
         protected static void TryGetLengthErrors( string propName, string field, Dictionary<string, IEnumerable<string>> errors,
-            int maxLength, int minLength = 0 )
+            int maxLength, int minLength = 0, bool isNullAllowed = false )
         {
             var propErrors = new List<string>();
+
+            if ( string.IsNullOrWhiteSpace( field ) && isNullAllowed ) return;
 
             if ( minLength > 0 && ( string.IsNullOrWhiteSpace( field ) || field.Length < minLength ) )
             {
