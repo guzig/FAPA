@@ -11,17 +11,17 @@
         </Grid.Effect>
         
         <Grid.RowDefinitions>
-            <RowDefinition Height="45" />
-            <RowDefinition Height="45" />
-            <RowDefinition Height="45" />
-            <RowDefinition Height="45" />
-            <RowDefinition Height="45" />
-            <RowDefinition Height="45" />
-            <RowDefinition Height="45" />
-            <RowDefinition Height="45" />
-            <RowDefinition Height="45" />
-            <RowDefinition Height="45" />
-            <RowDefinition Height="45" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
@@ -134,7 +134,7 @@
                            HorizontalAlignment="Stretch" />
             </StackPanel>
 
-            <StackPanel Margin="2,0,2,0" MinWidth="50">
+            <StackPanel Margin="2,0,2,0" MinWidth="80">
                 <TextBlock Text="Uff. PA" />
                 <TextBox   Text="{Binding CurrentEntity.CodUfficioPa, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True}" MaxLength="6" 
                            HorizontalAlignment="Stretch" />

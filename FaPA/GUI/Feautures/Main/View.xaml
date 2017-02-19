@@ -19,7 +19,7 @@
 
         <Ribbon x:Name="Ribbon" IsMinimized="True">
             <Ribbon.ApplicationMenu>
-                <RibbonApplicationMenu KeyTip="Z" SmallImageSource="\GUI\Design\Styles\Images\Circled Chevron Down-26.png">
+                <RibbonApplicationMenu KeyTip="Z" SmallImageSource="/GUI\Design\Styles\Images\Circled Chevron Down-26.png">
 
                     <!--<RibbonApplicationMenuItem Header="Fatture recenti" 
                                                ImageSource="/GUI/Design/Styles/Images\List_bullets.png" 
@@ -119,7 +119,7 @@
 
                 <RibbonGroup Header="Copia e ripristino"  >
                     <RibbonButton Height="Auto" 
-                                  LargeImageSource="\GUI\Design\Styles\Images\1462459533_backup-restore.ico"
+                                  LargeImageSource="/GUI\Design\Styles\Images\1462459533_backup-restore.ico"
                                 Label="Copia e ripristino banca dati" KeyTip="B"
                                 ToolTipTitle="Crea o ripristina una copia della banca dati"
                                 ToolTipDescription="Permette di creare o ripristinare una copia della banca dati"
@@ -129,7 +129,7 @@
 
                 <RibbonGroup Header="Operatori"  >
                     <RibbonButton Height="Auto" 
-                                  LargeImageSource="\GUI\Design\Styles\Images\1462461626_users.ico"
+                                  LargeImageSource="/GUI\Design\Styles\Images\1462461626_users.ico"
                                 Label="Gestione operatori" KeyTip="O"
                                 ToolTipTitle="Gestione operatori"
                                 ToolTipDescription="Configurazione operatori con privilegi di accesso e gestione"
@@ -143,10 +143,10 @@
                              HorizontalAlignment="Center">
                     <RibbonButton Height="Auto" 
                                    VerticalAlignment="Center"
-                             VerticalContentAlignment="Center"
-                             HorizontalContentAlignment="Center"
-                             HorizontalAlignment="Center"
-                                  LargeImageSource="\GUI\Design\Styles\Images\preferences_desktop_user_password.ico"
+                                 VerticalContentAlignment="Center"
+                                 HorizontalContentAlignment="Center"
+                                 HorizontalAlignment="Center"
+                                  LargeImageSource="/GUI\Design\Styles\Images\preferences_desktop_user_password.ico"
                                 Label="Cambio password utente corrente" KeyTip="U"
                                 ToolTipTitle="Cambio password utente corrente"
                                 ToolTipDescription="Cambio password utente corrente"
@@ -157,7 +157,7 @@
 
             <RibbonTab Header="Opzioni" KeyTip="O">
                 <RibbonGroup Header="Impostazioni e opzioni">
-                    <RibbonButton LargeImageSource="/GUI/Design/Styles/Images\Actions-system-run-icon.png"
+                    <!--<RibbonButton LargeImageSource="/GUI/Design/Styles/Images\Actions-system-run-icon.png"
                                 Label="Settings Folder" 
                                 ToolTipTitle="Settings Folder"
                                 ToolTipDescription="Helps you change settings of the folder and also allows you to change certain system settings"
@@ -166,7 +166,7 @@
                     <RibbonButton SmallImageSource="/GUI/Design/Styles/Images\Settings.ico"
                                          Label="Config" 
                                          ToolTipTitle="Configuration Settings"
-                                         ToolTipDescription="ttings for the current selection"/>
+                                         ToolTipDescription="ttings for the current selection"/>-->
                 </RibbonGroup>
 
             </RibbonTab>
@@ -180,7 +180,7 @@
 
             <!-- Forcing Contextual Tab to Visible -->
             <Ribbon.ContextualTabGroups>
-                <RibbonContextualTabGroup Header="ContextualHeader" Visibility="Visible" Background="Orange" />
+                <RibbonContextualTabGroup Header="Menù contestuale" Visibility="Visible" Background="Orange" />
                 <!--Visibility="{Binding ElementName=rchMain, Path=Selection, Converter={StaticResource vconverter}}"-->
             </Ribbon.ContextualTabGroups>
 

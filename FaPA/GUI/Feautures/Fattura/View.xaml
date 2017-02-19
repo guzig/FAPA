@@ -6,7 +6,7 @@
         Width="870" MaxWidth="870" MinWidth="870" MaxHeight="650"
         HorizontalAlignment="Stretch" VerticalAlignment ="Stretch"  >
 
-    <Grid>
+    <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*">
             </ColumnDefinition>
@@ -20,7 +20,7 @@
 		<TextBlock Text="Fatture" Style="{StaticResource Title}" Grid.Row="0" TextAlignment="Center"
 				   VerticalAlignment="Top"/>
 
-        <Border Height="Auto" Grid.Row="1" Width="Auto" Style="{StaticResource MainBorderStyle}" >
+        <Border Height="Auto" Grid.Row="1" Width="Auto" Style="{StaticResource MainBorderStyle}"  >
             
             <cc:MyTabControl />
 

@@ -81,6 +81,7 @@ namespace FaPA.GUI.Feautures.Anagrafica
         {
             QueryCriteria = QueryOver.Of<Core.Anagrafica>().Where( a=>a.Id == id );
             CreateNewModel( activeTab );
+            SetActiveWorkSpace( 1 );
         }
 
         public override void CreateNewModel(int activeTab)
@@ -90,7 +91,6 @@ namespace FaPA.GUI.Feautures.Anagrafica
             var entitiesdto = entities == null ? new ObservableCollection<Core.Anagrafica>()
                 : new ObservableCollection<Core.Anagrafica>(entities);
             SetUpNewModel( 0, entitiesdto);
-            SetActiveWorkSpace( 1 );
             IsBusy = false;
         }
 

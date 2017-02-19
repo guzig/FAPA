@@ -86,7 +86,7 @@
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type a:DatiRappresentanteFiscaleViewModel}">
-        <t1:DatiAnagrafici/>
+        <t1:DatiAnagraficiCedente/>
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type a:DatiTerzoIntermediarioViewModel}">

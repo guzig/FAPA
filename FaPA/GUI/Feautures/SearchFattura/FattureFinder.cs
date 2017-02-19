@@ -20,21 +20,28 @@ namespace FaPA.GUI.Feautures.SearchFattura
 
         public IQueryCriteria TotaleFattura { get; set; }
 
+        public IQueryCriteria CigDB { get; set; }
 
-        //public PodFinder PoDFinder { get; set; }
-        
-        //public LiquidazioneFinder LiquidazioneFinder { get; set; }
+        public IQueryCriteria CupDB { get; set; }
 
-        //public DettaglioFatturaFinder DettaglioFatturaFinder { get; set; }
+        public IQueryCriteria CodUfficioDB { get; set; }
+
+        public IQueryCriteria RiferimentoAmmDB { get; set; }
+
+        public IQueryCriteria ProgFile { get; set; }
+
+        public IQueryCriteria FormatoTrasmissioneDB { get; set; }
+
+        public IQueryCriteria PecDestinatarioDB { get; set; }
+
 
         public FattureFinder(Type rootType, Action<string> callBackOnCriteria)
             : base(rootType, callBackOnCriteria)
         {
-            ////PoDFinder = new PodFinder(typeof(PoD), "CodicePoD", JoinType.InnerJoin, callBackOnCriteria);
 
             QueryCriteria = QueryOver.Of<Core.Fattura>().Fetch( f => f.AnagraficaCedenteDB ).Eager.
                 Fetch( f => f.AnagraficaCommittenteDB ).Eager.
-                    OrderBy( f => f.DataFatturaDB ).Asc;
+                OrderBy( f => f.DataFatturaDB ).Asc;
             
             SetUpFinderProps();
         }
@@ -47,7 +54,7 @@ namespace FaPA.GUI.Feautures.SearchFattura
 
             DataFattura = CreateSearchProperty( ( Core.Fattura f ) => f.DataFatturaDB, "Data" );
 
-            //DataCaricamento = CreateSearchProperty( ( Core.Fattura f ) => f.DataCaricamento, "Data caricamento" );
+            DataCaricamento = CreateSearchProperty( ( Core.Fattura f ) => f.DataCaricamentoDB, "Data caricamento" );
 
             Committente = CreateSearchProperty( ( Core.Fattura f ) => f.AnagraficaCommittenteDB, typeof( CommittenteSearchProperty ),
                 ( Core.Fattura f ) => f.AnagraficaCommittenteDB.Denom, "Committente" );
@@ -56,6 +63,14 @@ namespace FaPA.GUI.Feautures.SearchFattura
                 ( Core.Fattura f ) => f.AnagraficaCedenteDB.Denom, "Fornitore" );
 
             TotaleFattura = CreateSearchProperty( ( Core.Fattura f ) => f.TotaleFatturaDB, "Totale fattura" );
+
+            CigDB = CreateSearchProperty( ( Core.Fattura f ) => f.CigDB, "CIG" );
+            CupDB = CreateSearchProperty( ( Core.Fattura f ) => f.CupDB, "CUP" );
+            CodUfficioDB = CreateSearchProperty( ( Core.Fattura f ) => f.CodUfficioDB, "Cod. Ufficio" );
+            PecDestinatarioDB = CreateSearchProperty( ( Core.Fattura f ) => f.PecDestinatarioDB, "PEC destin." );
+            ProgFile = CreateSearchProperty( ( Core.Fattura f ) => f.ProgFile, "Progr. invio" );
+            FormatoTrasmissioneDB = CreateSearchProperty( ( Core.Fattura f ) => f.FormatoTrasmissioneDB, "Formato" );
+            RiferimentoAmmDB = CreateSearchProperty( ( Core.Fattura f ) => f.RiferimentoAmmDB, "Rif. Amm." );
 
             //StatoFattura = CreateSearchProperty( ( Core.Fattura f ) => f.StatoFattura, "Stato fattura" );
         }

@@ -14,7 +14,7 @@
         <StackPanel.InputBindings>
             <KeyBinding Key="Enter" Modifiers="Ctrl" Command="{Binding EnterKey}" />
             <KeyBinding Key="Add"  Modifiers="Ctrl" Command="{Binding AddCopy}" />
-            <KeyBinding Key="P" Modifiers="Ctrl"  Command="{Binding Path=Presenter.Search, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" />
+            <KeyBinding Key="R" Modifiers="Ctrl"  Command="{Binding Path=Presenter.Search, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" />
             <KeyBinding Key="F9" Command="{Binding SearchOnSite}" />
             <KeyBinding Key="F9" Command="{Binding SearchOnSite}" />
             <KeyBinding Key="F6" Command="{Binding DeleteEntityCommand}" />
@@ -82,34 +82,34 @@
                                                                                         AncestorType={x:Type  Window}}}"
                                    IsEnabled="{Binding Path=AllowRecordsNavigation}"/>
 
-                <xctk:SplitButton  x:Name="Search" Margin="5,0,0,0"
-                    ToolTip= "Apre la finestra per la ricerca estesa (Tasto di scelta rapida Ctrl P)"
-                    Command="{Binding Path=Presenter.Search, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"   
-                    Width="Auto" HorizontalAlignment="Left">
+            <xctk:SplitButton  x:Name="Search" Margin="5,0,0,0"
+                ToolTip= "Apre la finestra per la ricerca estesa (Tasto di scelta rapida Ctrl R)"
+                Command="{Binding Path=Presenter.Search, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"   
+                Width="Auto" HorizontalAlignment="Left">
 
-                <Image Source="\GUI\Design\Styles\Images\1351794424_file_search.png" Width="32"/>
-                <xctk:SplitButton.DropDownContent>
-                    <Border  Background="CornflowerBlue" >
-                        <CheckBox Name="McCheckBox"
-                                  IsChecked="{Binding IsIncrementalSearch}"
-                                  Margin="3,3,3,3"
-                                  Foreground="Black"
-                                  Canvas.Left="20" 
-                                  Canvas.Top="10" 
-                                  Content="Ricerca incrementale"
-                                  FontSize="15"  >
-                        </CheckBox>
-                    </Border>
-                </xctk:SplitButton.DropDownContent>
-            </xctk:SplitButton>
+            <Image Source="\GUI\Design\Styles\Images\1351794424_file_search.png" Width="32"/>
+            <xctk:SplitButton.DropDownContent>
+                <Border  Background="CornflowerBlue" >
+                    <CheckBox Name="McCheckBox"
+                                IsChecked="{Binding IsIncrementalSearch}"
+                                Margin="3,3,3,3"
+                                Foreground="Black"
+                                Canvas.Left="20" 
+                                Canvas.Top="10" 
+                                Content="Ricerca incrementale"
+                                FontSize="15"  >
+                    </CheckBox>
+                </Border>
+            </xctk:SplitButton.DropDownContent>
+        </xctk:SplitButton>
 
-                <Button x:Name="SearchOnSite" Command="{Binding SearchOnSite}" Margin="2,0,0,0"
-                    ToolTip= "Abilita la modalità ricerca immediata sul posto (tasto scorciatoia: F9)&#x0a;Per eseguire la ricerca, dopo aver abilitato la ricerca immediata ed aver immesso i dati, premere Ctrl-Invio"
-                    Width="32" HorizontalAlignment="Left" IsEnabled="{Binding AllowFastSearch}">
+            <Button x:Name="SearchOnSite" Command="{Binding SearchOnSite}" Margin="2,0,0,0"
+                ToolTip= "Abilita la modalità ricerca immediata sul posto (tasto scorciatoia: F9)&#x0a;Per eseguire la ricerca, dopo aver abilitato la ricerca immediata ed aver immesso i dati, premere Ctrl-Invio"
+                Width="32" HorizontalAlignment="Left" IsEnabled="{Binding AllowFastSearch}">
 
-                <Image Source="\GUI\Design\Styles\Images\find.png" Width="32"/>
+            <Image Source="\GUI\Design\Styles\Images\find.png" Width="32"/>
 
-            </Button>
+        </Button>
 
             <Button Name="CreateNewCopy" Margin="5,0,0,0"
                     Command="{Binding AddCopy}"

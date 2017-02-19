@@ -3,7 +3,7 @@ using System;
 namespace FaPA.Core.FaPa
 {
     [Serializable]
-    public class RappresentanteCessionarioType: BaseEntityFpa
+    public class RappresentanteFiscaleCessionarioType: BaseEntityFpa
     {
         private IdFiscaleType _idFiscaleIvaField;
         private string _denominazioneField;

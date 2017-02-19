@@ -12,7 +12,7 @@
             <KeyBinding Key="Enter" Modifiers="Ctrl" Command="{Binding EnterKey}" />
             <KeyBinding Key="Add"  Modifiers="Ctrl" Command="{Binding AddCopy}" />
             <KeyBinding Key="F9" Command="{Binding SearchOnSite}" />
-            <KeyBinding Key="P" Modifiers="Ctrl"  Command="{Binding Path=Presenter.Search, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" />
+            <KeyBinding Key="R" Modifiers="Ctrl"  Command="{Binding Path=Presenter.Search, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" />
             <KeyBinding Key="F6" Command="{Binding DeleteEntityCommand}" />
             <KeyBinding Key="F10" Command="{Binding SaveEntity}" />
             <KeyBinding Key="F11" Command="{Binding AddNewEntity}" />
@@ -66,7 +66,7 @@
                                    IsEnabled="{Binding Path=AllowRecordsNavigation}"/>
             
             <xctk:SplitButton  x:Name="Search"
-                    ToolTip= "Apre la finestra per la ricerca estesa (Tasto di scelta rapida Ctrl P)"
+                    ToolTip= "Apre la finestra per la ricerca estesa (Tasto di scelta rapida Ctrl R)"
                     Command="{Binding Path=Presenter.Search, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"   
                     Width="Auto" HorizontalAlignment="Left">
 

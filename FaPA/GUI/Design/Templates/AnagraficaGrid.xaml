@@ -4,8 +4,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:FaPA.GUI.Design.Templates"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:controls="clr-namespace:FaPA.GUI.Controls"
         xmlns:myRecordNavigator="clr-namespace:FaPA.GUI.Controls.MyRecordNavigator"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
@@ -63,26 +62,17 @@
 
                 <DataGrid.Columns >
 
-                    <DataGridTextColumn Header="Codice"
-                                        Width="Auto">
-                        <DataGridTextColumn.Binding>
-                            <Binding Path="Id" />
-                        </DataGridTextColumn.Binding>
-                    </DataGridTextColumn>
-
-                    <DataGridTextColumn Header="Denominazione"
-                                        Width="Auto">
-                        <DataGridTextColumn.Binding>
-                            <Binding Path="Denom"/>
-                        </DataGridTextColumn.Binding>
-                    </DataGridTextColumn>
-
-                    <DataGridTextColumn Header="Codice fiscale"
-                                        Width="Auto">
-                        <DataGridTextColumn.Binding>
-                            <Binding Path="CodiceFiscale"/>
-                        </DataGridTextColumn.Binding>
-                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Codice" Width="Auto" Binding="{Binding Id}"/>
+                    <DataGridTextColumn Header="Denominazione" Width="Auto" Binding="{Binding Denom}"/>
+                    <DataGridTextColumn Header="Codice fiscale" Width="Auto" Binding="{Binding CodiceFiscale}"/>
+                    <DataGridTextColumn Header="P. IVA" Width="Auto" Binding="{Binding PIva}"/>
+                    <DataGridTextColumn Header="Indirizzo" Width="Auto" Binding="{Binding Indirizzo}"/>
+                    <DataGridTextColumn Header="Civico" Width="Auto" Binding="{Binding Civico}"/>
+                    <DataGridTextColumn Header="Cap" Width="Auto" Binding="{Binding Cap}"/>
+                    <DataGridTextColumn Header="Comune" Width="Auto" Binding="{Binding Comune}"/>
+                    <DataGridTextColumn Header="Cod. Ufficio PA" Width="Auto" Binding="{Binding CodUfficioPa}"/>
+                    <DataGridTextColumn Header="PEC" Width="Auto" Binding="{Binding Pec}"/>
+                    <DataGridTextColumn Header="Email" Width="Auto" Binding="{Binding Email}"/>
 
                 </DataGrid.Columns>
 

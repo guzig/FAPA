@@ -8,8 +8,8 @@
              xmlns:f="clr-namespace:FaPA.GUI.Feautures.Fattura">
 
     <Border Margin="2,2,2,2" Padding="4,4,4,4" Style="{StaticResource MainBorderStyle}">
-        
-        <Grid HorizontalAlignment="Center">
+
+        <Grid HorizontalAlignment="Center" >
 
             <Grid.Effect>
                 <DropShadowEffect Color="LightSteelBlue" Direction="280"/>
@@ -150,13 +150,15 @@
                            HorizontalAlignment="Stretch" MaxLength="20" TextWrapping="Wrap"/>
             </StackPanel>
 
-            <GroupBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="6" Header="Dettagli fattura"  Margin="2,8,2,2" Padding="4,4,4,4"
-                      HorizontalAlignment="Stretch" Width="Auto" Height="Auto">
+            <GroupBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="6" Header="Dettagli fattura"  Margin="2,8,2,18" Padding="4,4,4,4"
+                      HorizontalAlignment="Stretch" Width="Auto" Height="Auto"
+                      Visibility="{Binding IsSearchModality, Converter={StaticResource BoolToOppositeVisibilityConverter},Mode=OneWay}">
 
                 <templates:DettagliFattura  />
 
             </GroupBox>
 
         </Grid>
+    
     </Border>
 </controls:BaseCustomControl>

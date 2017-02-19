@@ -5,9 +5,9 @@ namespace FaPA.GUI.Design.Templates
     /// <summary>
     /// Interaction logic for Ritenuta.xaml
     /// </summary>
-    public partial class DatiAnagrafici : UserControl
+    public partial class DatiAnagraficiCedente : UserControl
     {
-        public DatiAnagrafici()
+        public DatiAnagraficiCedente()
         {
             InitializeComponent();
         }

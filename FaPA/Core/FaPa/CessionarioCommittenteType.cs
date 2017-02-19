@@ -3,13 +3,12 @@ using System;
 namespace FaPA.Core.FaPa
 {
     [Serializable]
-    
     public class CessionarioCommittenteType: BaseEntityFpa 
     {
         private DatiAnagraficiCessionarioType _datiAnagraficiField;
         private IndirizzoType _stabileOrganizzazioneField;
         private IndirizzoType _sedeField;
-        private RappresentanteCessionarioType _rappresentanteCessionarioTypeField;
+        private RappresentanteFiscaleCessionarioType _rappresentanteFiscaleCessionarioTypeField;
 
         public virtual DatiAnagraficiCessionarioType DatiAnagrafici
         {
@@ -53,15 +52,15 @@ namespace FaPA.Core.FaPa
         /// <summary>
         /// può essere valorizzato solo se la fattura è destinata ad un privato (FormatoTrasmissione = ‘FPR12’)
         /// </summary>
-        public virtual RappresentanteCessionarioType RappresentanteFiscale
+        public virtual RappresentanteFiscaleCessionarioType RappresentanteFiscaleFiscale
         {
             get
             {
-                return _rappresentanteCessionarioTypeField;
+                return _rappresentanteFiscaleCessionarioTypeField;
             }
             set
             {
-                _rappresentanteCessionarioTypeField = value;
+                _rappresentanteFiscaleCessionarioTypeField = value;
             }
         }
     }

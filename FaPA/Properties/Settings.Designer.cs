@@ -106,7 +106,7 @@ namespace FaPA.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("firefox.exe")]
+        [global::System.Configuration.DefaultSettingValueAttribute("FireFox.exe")]
         public string DefaultBrowser {
             get {
                 return ((string)(this["DefaultBrowser"]));

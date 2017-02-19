@@ -727,6 +727,7 @@ namespace FaPA.GUI.Controls.MyTabControl
         {
             _onCancelDelegate = CancelOnFastSearchAction;
             CurrentEntity = CreateInstance();
+            CurrentEntity.IsValidating = false;
             //CurrentDtoEntity = CreateDtoInstance();
             DisplayName = DisplayName.Replace("Schede", "Cerca");
             AllowFastSearch = false;
@@ -761,6 +762,7 @@ namespace FaPA.GUI.Controls.MyTabControl
 
             FreeLock(OnFastSearchLockMessage);
             LoadAndShowCurrentEntity();
+            CurrentEntity.IsValidating = true;
             //IsSearchModality = false;
 
         }
@@ -789,7 +791,7 @@ namespace FaPA.GUI.Controls.MyTabControl
                             //info.PropertyType, 
                             exampleInstance, propName);
                         //add criteria for association type
-                        if (association is BaseEntity)
+                        if (association is BaseEntity && ! ( association is BaseEntityFpa ) )
                         {
                             //detachedCriteria.SetFetchMode(propName, FetchMode.Eager);
                             _queryByExample.Add(Restrictions.Eq(propName, association));
@@ -815,8 +817,9 @@ namespace FaPA.GUI.Controls.MyTabControl
                 return CriteriaTransformer.TransformToRowCount(_queryByExample.GetExecutableCriteria(_session))
                     .UniqueResult<int>();
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Debug.Print( e.Message );
                 const string caption = "La ricerca ha generato un errore imprevisto";
                 const string msg = "Interrogazione fallita";
                 MessageBox.Show(caption, msg, MessageBoxButton.OK, MessageBoxImage.Exclamation);

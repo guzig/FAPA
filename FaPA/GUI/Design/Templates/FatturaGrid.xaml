@@ -69,7 +69,7 @@
 
                 <DataGrid.Columns >
 
-                    <DataGridTextColumn Header="Codice" Width="Auto">
+                    <DataGridTextColumn Header="Id" Width="Auto">
                         <DataGridTextColumn.Binding>
                             <Binding Path="Id" />
                         </DataGridTextColumn.Binding>
@@ -111,6 +111,38 @@
                             <Binding Path="AnagraficaCommittenteDB.Denom"/>
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Cod. Ufficio" Width="Auto">
+                        <DataGridTextColumn.Binding>
+                            <Binding Path="CodUfficioDB"/>
+                        </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Cig" Width="Auto">
+                        <DataGridTextColumn.Binding>
+                            <Binding Path="CigDB"/>
+                        </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Cup" Width="Auto">
+                        <DataGridTextColumn.Binding>
+                            <Binding Path="CupDB"/>
+                        </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Formato" Width="Auto">
+                        <DataGridTextColumn.Binding>
+                            <Binding Path="FormatoTrasmissioneDB"/>
+                        </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Pec destinatario" Width="Auto">
+                        <DataGridTextColumn.Binding>
+                            <Binding Path="PecDestinatarioDB"/>
+                        </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+
+
 
                 </DataGrid.Columns>
 

@@ -1,5 +1,9 @@
 
 
-completamento
-DatiAnagraficiType
-CedentePrestare
+1.2 -- rapp fiscale committente
+
+Style bacckUp
+
+print pdf
+
+on add new dettaflio set focus

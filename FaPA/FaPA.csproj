@@ -197,7 +197,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GUI\Design\Templates\DatiAnagrafici.xaml">
+    <Page Include="GUI\Design\Templates\DatiAnagraficiCedente.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -342,7 +342,7 @@
     <Compile Include="Core\Anagrafica.cs" />
     <Compile Include="Core\BaseEntity.cs" />
     <Compile Include="Core\BaseEntityFpa.cs" />
-    <Compile Include="Core\FaPa\RappresentanteCessionarioType.cs" />
+    <Compile Include="Core\FaPa\RappresentanteFiscaleCessionarioType.cs" />
     <Compile Include="Core\FatturaPaExtension.cs" />
     <Compile Include="Core\PasswordHasher.cs" />
     <Compile Include="Core\UserData.cs" />
@@ -506,8 +506,8 @@
     <Compile Include="GUI\Design\Templates\DatiGenerali.xaml.cs">
       <DependentUpon>DatiGenerali.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Design\Templates\DatiAnagrafici.xaml.cs">
-      <DependentUpon>DatiAnagrafici.xaml</DependentUpon>
+    <Compile Include="GUI\Design\Templates\DatiAnagraficiCedente.xaml.cs">
+      <DependentUpon>DatiAnagraficiCedente.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\Design\Templates\DatiRiepilogo.xaml.cs">
       <DependentUpon>DatiRiepilogo.xaml</DependentUpon>
@@ -661,7 +661,6 @@
     <Compile Include="GUI\Feautures\SearchAnagrafica\Presenter.cs" />
     <Compile Include="GUI\Feautures\SearchAnagrafica\View.xaml.cs" />
     <Compile Include="GUI\Feautures\SearchFattura\CommittenteSearchProperty.cs" />
-    <Compile Include="GUI\Feautures\SearchFattura\DettaglioFatturaFinder.cs" />
     <Compile Include="GUI\Feautures\SearchFattura\FattureFinder.cs" />
     <Compile Include="GUI\Feautures\SearchFattura\FornitoreSearchProperty.cs" />
     <Compile Include="GUI\Feautures\SearchFattura\Model.cs" />

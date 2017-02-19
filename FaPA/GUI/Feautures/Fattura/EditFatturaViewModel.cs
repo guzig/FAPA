@@ -14,6 +14,7 @@ using FaPA.AppServices.CoreValidation;
 using FaPA.Core;
 using FaPA.Core.FaPa;
 using FaPA.Infrastructure;
+using FaPA.Properties;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
@@ -201,13 +202,7 @@ namespace FaPA.GUI.Feautures.Fattura
 
         #endregion
 
-        //public override void OnPageGotFocus()
-        //{
-        //    base.OnPageGotFocus();
-
-        //    InitFatturaTabs();
-        //}
-
+        
         private void OnCurrentFatturaChanged(Core.Fattura currententity)
         {
             InitFatturaTabs( CurrentEntity );
@@ -215,8 +210,6 @@ namespace FaPA.GUI.Feautures.Fattura
 
         private void InitFatturaTabs(Core.Fattura fattura )
         {
-            //var fattura = CurrentEntity;
-
             DettagliFatturaViewModel = new DettagliFatturaViewModel(this, fattura );
             DettagliFatturaViewModel.Init();
             DettagliFatturaViewModel.CurrentEntityPropChanged += OnDettaglioFatturaPropertyPropChanged;
@@ -406,9 +399,9 @@ namespace FaPA.GUI.Feautures.Fattura
 
             var isValid = ValidateAndCreateXmlStream( CurrentEntity, path, out error);
 
-            const string browser = "FireFox.exe";
             try
             {
+                var browser = Settings.Default.DefaultBrowser;
                 Process.Start(browser, path);
             }
             catch (Exception)

@@ -21,6 +21,13 @@
                 <RowDefinition />
                 <RowDefinition />
                 <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
             </Grid.RowDefinitions>
 
         <DockPanel  Width="Auto" HorizontalAlignment="Stretch"  Grid.Row="0">
@@ -52,25 +59,76 @@
         </DockPanel>
 
         <DockPanel  Width="Auto" HorizontalAlignment="Stretch"  Grid.Row="4" >
-            <ContentControl Content="{Binding Path=FatturaFinder.TotaleDaPagare, ElementName=Root,  Mode=TwoWay}"
+                <ContentControl Content="{Binding Path=FatturaFinder.DataCaricamento, ElementName=Root,  Mode=TwoWay}"
                             Width="Auto"
                             IsEnabled="{Binding AllowEditing.Value}">
             </ContentControl>
         </DockPanel>
 
         <DockPanel Width="Auto" Grid.Row="5" HorizontalAlignment="Left" >
-            <ContentControl Content="{Binding Path=FatturaFinder.Anagrafica,  ElementName=Root, Mode=TwoWay}"
+                <ContentControl Content="{Binding Path=FatturaFinder.Committente,  ElementName=Root, Mode=TwoWay}"
                                                     IsEnabled="{Binding AllowEditing.Value}">
             </ContentControl>
         </DockPanel>
 
         <DockPanel Width="Auto" Grid.Row="6" HorizontalAlignment="Left" >
-            <ContentControl Content="{Binding Path=FatturaFinder.Anagrafica,  ElementName=Root, Mode=TwoWay}"
+                <ContentControl Content="{Binding Path=FatturaFinder.Fornitore,  ElementName=Root, Mode=TwoWay}"
                                                 IsEnabled="{Binding AllowEditing.Value}">
             </ContentControl>
         </DockPanel>
-       
-    </Grid>
+
+            <DockPanel  Width="Auto" HorizontalAlignment="Stretch"  Grid.Row="7" >
+                <ContentControl Content="{Binding Path=FatturaFinder.ProgFile, ElementName=Root,  Mode=TwoWay}"
+                            Width="Auto"                                         
+                            IsEnabled="{Binding AllowEditing.Value}">
+                </ContentControl>
+            </DockPanel>
+
+            <DockPanel  Width="Auto" HorizontalAlignment="Stretch"  Grid.Row="8" >
+                <ContentControl Content="{Binding Path=FatturaFinder.CigDB, ElementName=Root,  Mode=TwoWay}"
+                            Width="Auto"                                         
+                            IsEnabled="{Binding AllowEditing.Value}">
+                </ContentControl>
+            </DockPanel>
+
+            <DockPanel  Width="Auto" HorizontalAlignment="Stretch"  Grid.Row="9" >
+                <ContentControl Content="{Binding Path=FatturaFinder.CupDB, ElementName=Root,  Mode=TwoWay}"
+                            Width="Auto"                                         
+                            IsEnabled="{Binding AllowEditing.Value}">
+                </ContentControl>
+            </DockPanel>
+
+            <DockPanel  Width="Auto" HorizontalAlignment="Stretch"  Grid.Row="10" >
+                <ContentControl Content="{Binding Path=FatturaFinder.CodUfficioDB, ElementName=Root,  Mode=TwoWay}"
+                            Width="Auto"                                         
+                            IsEnabled="{Binding AllowEditing.Value}">
+                </ContentControl>
+            </DockPanel>
+
+
+            <DockPanel  Width="Auto" HorizontalAlignment="Stretch"  Grid.Row="11" >
+                <ContentControl Content="{Binding Path=FatturaFinder.RiferimentoAmmDB, ElementName=Root,  Mode=TwoWay}"
+                            Width="Auto"                                         
+                            IsEnabled="{Binding AllowEditing.Value}">
+                </ContentControl>
+            </DockPanel>
+
+            <DockPanel  Width="Auto" HorizontalAlignment="Stretch"  Grid.Row="12" >
+                <ContentControl Content="{Binding Path=FatturaFinder.FormatoTrasmissioneDB, ElementName=Root,  Mode=TwoWay}"
+                            Width="Auto"                                         
+                            IsEnabled="{Binding AllowEditing.Value}">
+                </ContentControl>
+            </DockPanel>
+
+            <DockPanel  Width="Auto" HorizontalAlignment="Stretch"  Grid.Row="13" >
+                <ContentControl Content="{Binding Path=FatturaFinder.PecDestinatarioDB, ElementName=Root,  Mode=TwoWay}"
+                            Width="Auto"                                         
+                            IsEnabled="{Binding AllowEditing.Value}">
+                </ContentControl>
+            </DockPanel>
+
+
+        </Grid>
         
    </Border>
 

@@ -101,7 +101,7 @@ namespace FaPA.GUI.Feautures.SearchFattura
             }
         }
 
-        void OnQueryCriteria(string associationPath)
+        private void OnQueryCriteria(string associationPath)
         {
             if (string.IsNullOrWhiteSpace(AllowedGridProperties) || !AllowedGridProperties.Contains(associationPath))
             {

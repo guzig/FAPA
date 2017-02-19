@@ -8,7 +8,7 @@
     xmlns:myRecordNavigator1="clr-namespace:FaPA.GUI.Controls.MyRecordNavigator"
     TextOptions.TextFormattingMode="Display"
     SizeToContent="WidthAndHeight"
-
+    Width="820" MaxWidth="820"
     Title="Ricerca fatture" 
     mc:Ignorable="d" d:DesignWidth="707">
 
@@ -49,11 +49,7 @@
         <Border Style="{StaticResource MainBorderStyle}"
                 Margin="5 5 5 5"
                 Height="Auto">
-            <ScrollViewer MaxHeight="290" x:Name="ScrollViewer"
-                          Width="Auto" 
-                          Margin="0 0 0 15"
-                          HorizontalScrollBarVisibility="Auto" 
-                          VerticalScrollBarVisibility="Auto">
+            <ScrollViewer MaxHeight="210" x:Name="ScrollViewer" Width="Auto"  Margin="0 0 0 15">
 
                 <templates:FatturaSearchTemplate FatturaFinder="{Binding FattureFinder}"
                                                  x:Name="FatturaFinder"/>
@@ -69,13 +65,8 @@
             </ProgressBar>
         </DockPanel>
 
-        <Border	Margin="5 5 5 5" 
-                DockPanel.Dock="Left" 
-                Background="WhiteSmoke" 
-                BorderBrush="#0F72DC" 
-                BorderThickness="1" 
-                CornerRadius="5" 
-                Opacity="0.75">
+        <Border	Margin="5 5 5 5" DockPanel.Dock="Left"  Background="WhiteSmoke"  BorderBrush="#0F72DC" 
+                BorderThickness="1" CornerRadius="5" Opacity="0.75">
 
             <StackPanel Margin="5 5 5 5" HorizontalAlignment="Left" >
 
@@ -107,35 +98,80 @@
 
                             <DataGrid.Columns >
 
-                                <DataGridTextColumn Header="Id"
-                                        Width="Auto"
-                                        Binding="{Binding Id, Mode=OneWay, UpdateSourceTrigger=LostFocus}">
+                                <DataGridTextColumn Header="Id" Width="Auto">
+                                    <DataGridTextColumn.Binding>
+                                        <Binding Path="Id" />
+                                    </DataGridTextColumn.Binding>
                                 </DataGridTextColumn>
 
-                                <DataGridTextColumn Header="Numero"
-                                        Width="Auto"
-                                        Binding="{Binding NumeroFatturaDB, UpdateSourceTrigger=LostFocus}">
+                                <DataGridTextColumn Header="Prog." Width="Auto">
+                                    <DataGridTextColumn.Binding>
+                                        <Binding Path="ProgFile" />
+                                    </DataGridTextColumn.Binding>
                                 </DataGridTextColumn>
 
-                                <DataGridTextColumn Header="Data"
-                                        Width="Auto"
-                                        Binding="{Binding DataFatturaDB, StringFormat='{}{0:dd.MM.yyyy}', UpdateSourceTrigger=LostFocus}">
+                                <DataGridTextColumn Header="Data" Width="Auto">
+                                    <DataGridTextColumn.Binding>
+                                        <Binding Path="DataFatturaDB" StringFormat='{}{0:d}'/>
+
+                                    </DataGridTextColumn.Binding>
                                 </DataGridTextColumn>
 
-                                <DataGridTextColumn Header="Data caricamento"
-                                        Width="Auto"
-                                        Binding="{Binding DataCaricamentoDB, StringFormat='{}{0:dd.MM.yyyy}', UpdateSourceTrigger=LostFocus}">
+                                <DataGridTextColumn Header="Numero fattura" Width="Auto">
+                                    <DataGridTextColumn.Binding>
+                                        <Binding Path="NumeroFatturaDB"/>
+                                    </DataGridTextColumn.Binding>
                                 </DataGridTextColumn>
 
-                                <DataGridTextColumn Header="Totale Fattura"
-                                        Width="Auto"
-                                        Binding="{Binding TotaleFatturaDB, UpdateSourceTrigger=LostFocus}">
+                                <DataGridTextColumn Header="Totale fattura" Width="Auto">
+                                    <DataGridTextColumn.Binding>
+                                        <Binding Path="TotaleFatturaDB"/>
+                                    </DataGridTextColumn.Binding>
                                 </DataGridTextColumn>
 
-                                <DataGridTextColumn Header="Codice cliente"
-                                        Width="Auto"
-                                        Binding="{Binding AnagraficaCedenteDB.Denom, UpdateSourceTrigger=LostFocus}">
+                                <DataGridTextColumn Header="Fornitore" Width="Auto">
+                                    <DataGridTextColumn.Binding>
+                                        <Binding Path="AnagraficaCedenteDB.Denom"/>
+                                    </DataGridTextColumn.Binding>
                                 </DataGridTextColumn>
+
+                                <DataGridTextColumn Header="Committente" Width="Auto">
+                                    <DataGridTextColumn.Binding>
+                                        <Binding Path="AnagraficaCommittenteDB.Denom"/>
+                                    </DataGridTextColumn.Binding>
+                                </DataGridTextColumn>
+
+                                <DataGridTextColumn Header="Cod. Ufficio" Width="Auto">
+                                    <DataGridTextColumn.Binding>
+                                        <Binding Path="CodUfficioDB"/>
+                                    </DataGridTextColumn.Binding>
+                                </DataGridTextColumn>
+
+                                <DataGridTextColumn Header="Cig" Width="Auto">
+                                    <DataGridTextColumn.Binding>
+                                        <Binding Path="CigDB"/>
+                                    </DataGridTextColumn.Binding>
+                                </DataGridTextColumn>
+
+                                <DataGridTextColumn Header="Cup" Width="Auto">
+                                    <DataGridTextColumn.Binding>
+                                        <Binding Path="CupDB"/>
+                                    </DataGridTextColumn.Binding>
+                                </DataGridTextColumn>
+
+                                <DataGridTextColumn Header="Formato" Width="Auto">
+                                    <DataGridTextColumn.Binding>
+                                        <Binding Path="FormatoTrasmissioneDB"/>
+                                    </DataGridTextColumn.Binding>
+                                </DataGridTextColumn>
+
+                                <DataGridTextColumn Header="Pec destinatario" Width="Auto">
+                                    <DataGridTextColumn.Binding>
+                                        <Binding Path="PecDestinatarioDB"/>
+                                    </DataGridTextColumn.Binding>
+                                </DataGridTextColumn>
+
+
 
                             </DataGrid.Columns>
 
