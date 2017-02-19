@@ -9,6 +9,7 @@ using FaPA.GUI.Controls.MyTabControl;
 using FaPA.GUI.Utils;
 using NHibernate;
 using System.Linq;
+using FaPA.AppServices;
 using FaPA.AppServices.CoreValidation;
 using FaPA.Core;
 using FaPA.Core.FaPa;
@@ -426,7 +427,10 @@ namespace FaPA.GUI.Feautures.Fattura
         private void OnOpendXml()
         {
             if (CurrentEntity == null) return;
-            Presenters.Show("ShowXmlToTreeView", CurrentEntity.GetXmlFatturaPA());
+
+           var xmlFatturaPa = CurrentEntity.GetXmlDocFatturaPA();
+
+            Presenters.Show("ShowXmlToTreeView", xmlFatturaPa);
         }
 
 
@@ -479,8 +483,10 @@ namespace FaPA.GUI.Feautures.Fattura
             {
                 error = "Fattura non validata: " + Environment.NewLine + string.Join("; ", DomainResultFatturaPA );
             }
-            var xmlDoc = CurrentEntity.GetXmlFatturaPA();
+            var xmlDoc = CurrentEntity.GetXmlDocFatturaPA();
             xmlDoc.Save(outPath);
+
+            //fattura.ApplyXlsTrasfOnDisk( outPath, StoreAccess.FatturaPaXslPaSchemaPath );
             return true;
         }
 

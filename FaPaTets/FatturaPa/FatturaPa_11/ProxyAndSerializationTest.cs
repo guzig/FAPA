@@ -75,7 +75,7 @@ namespace FaPaTets.FatturaPa.FatturaPa_11
 
             UtilsPA.CheckAllTypesAreProxied<FaPA.Core.BaseEntityFpa>( proxied );
 
-            var xml = fattura.GetXmlFatturaPA();
+            var xml = fattura.GetXmlDocFatturaPA();
 
             Assert.IsNotNull( xml );
 

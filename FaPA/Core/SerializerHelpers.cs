@@ -2,6 +2,7 @@ using System.Globalization;
 using System.IO;
 using System.Xml.Schema;
 using System.Xml.Serialization;
+using FaPA.AppServices;
 using FaPA.Core.FaPa;
 using FaPA.DomainServices.Utils;
 
@@ -11,7 +12,8 @@ namespace FaPA.Core
     {
         private static readonly XmlAttributes XmlAttributes = new XmlAttributes() { XmlIgnore = true };
         private static readonly XmlAttributeOverrides Overrides = new XmlAttributeOverrides();
-        private static readonly string FatturaPaXsdSchema = AppServices.StoreAccess.DataPath + @"\fatturapa_v1.2.xsd";
+
+
         private static readonly XmlSerializer Serializer ;
         private static XmlSerializerNamespaces _nameSpaceFatturaPa;
         private static XmlSchemaSet _fatturaPaXmlSchema;
@@ -63,7 +65,7 @@ namespace FaPA.Core
                 if (_fatturaPaXmlSchema != null) return _fatturaPaXmlSchema;
 
                 _fatturaPaXmlSchema = new XmlSchemaSet();
-                _fatturaPaXmlSchema.Add( "http://ivaservizi.agenziaentrate.gov.it/docs/xsd/fatture/v1.2", FatturaPaXsdSchema);
+                _fatturaPaXmlSchema.Add( "http://ivaservizi.agenziaentrate.gov.it/docs/xsd/fatture/v1.2", StoreAccess.FatturaPaXsdSchema );
 
                 return _fatturaPaXmlSchema;
             } 

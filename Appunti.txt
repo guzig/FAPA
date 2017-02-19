@@ -1,12 +1,6 @@
 1.2 -- rapp fiscale committente
 
-xsl privato
-
-pagamento NON salva
-
 exception after cancel first fattura
-
-vies with style in three viwew
 
 ricerca immediata hidyng
 

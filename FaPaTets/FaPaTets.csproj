@@ -178,6 +178,7 @@
     <Compile Include="FatturaPa\FatturaPa_11\UtilsPA.cs" />
     <Compile Include="FatturaPa\FatturaPa_12\ValidationSchemaTestsV12.cs" />
     <Compile Include="Misc\NumberFormatTests.cs" />
+    <Compile Include="Misc\XmlStuff.cs" />
     <Compile Include="PersistanceTests\QueriesTest.cs" />
     <Compile Include="DbSetUp\SqlServerTests.cs" />
     <Compile Include="DbSetUp\SQLiteDatabaseScope.cs" />

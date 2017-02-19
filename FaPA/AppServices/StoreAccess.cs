@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.IO;
 using FaPA.GUI.Utils;
 using FaPA.Properties;
 
@@ -15,6 +16,15 @@ namespace FaPA.AppServices
         public static readonly string DbFullPath = DataPath + @"\FEPA.MDF";
         public static readonly string DbLogFullPath = DataPath + @"\FEPA_Log.LOG";
         //public static readonly string StreamFullPath = DataPath + @"\STREAMS";
+
+
+        public static readonly string FatturaPaXsdSchema = DataPath + @"\fatturapa_v1.2.xsd";
+
+        public const string FatturaPaXslPaSchema = "fatturapa_v1.2.xsl";
+        public const string FatturaPaXslOrdSchema = "fatturaordinaria_v1.2.xsl";
+
+        public static readonly string FatturaPaXslPaSchemaPath = Path.Combine( DataPath, FatturaPaXslPaSchema );
+        public static readonly string FatturaPaXslOrdSchemaPath = Path.Combine( DataPath, FatturaPaXslOrdSchema );
 
         static StoreAccess()
         { }

@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.IO;
 using FaPA.Core.FaPa;
 using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
+using System.Xml.Xsl;
+using FaPA.AppServices;
 using FaPA.AppServices.CoreValidation;
 using FaPA.Infrastructure.Helpers;
 
@@ -516,20 +519,25 @@ namespace FaPA.Core
 
         }
 
-        public virtual XmlDocument GetXmlFatturaPA( )
-        {
-            var xmlData = GetXmlStream();
-            var doc = new XmlDocument();
-            doc.LoadXml(xmlData);
-            doc.InsertBefore(doc.CreateProcessingInstruction("xml-stylesheet",
-                "type=\"text/xsl\" href=\"fatturapa_v1.2.xsl\""), doc.DocumentElement);
-            return doc;
-        }
-
         protected virtual string GetXmlStream()
         {
             var unProxy = ObjectExplorer.UnProxiedDeepCopy( FatturaPa );
             return SerializerHelpers.ObjectToXml( ( FatturaElettronicaType ) unProxy );
+        }
+
+        public virtual XmlDocument GetXmlDocFatturaPA( )
+        {
+            var xmlData = GetXmlStream() ;
+            var doc = new XmlDocument();
+            doc.LoadXml(xmlData);
+
+            var xslPath =  DatiTrasmissione.FormatoTrasmissione == FormatoTrasmissioneType.FPA12 
+                ? StoreAccess.FatturaPaXslPaSchema : StoreAccess.FatturaPaXslOrdSchema;
+
+            doc.InsertBefore(doc.CreateProcessingInstruction("xml-stylesheet",
+                $"type=\"text/xsl\" href=\"{xslPath}\"" ), doc.DocumentElement);
+
+            return doc;
         }
 
         public virtual string ValidateByXsdFatturaPA(  )
@@ -543,7 +551,8 @@ namespace FaPA.Core
             } );
             return sb.ToString();
         }
-        
+
+
         bool IFlyFetch.TryUnproxyFlyFetch
         {
             get
