@@ -12,8 +12,6 @@ namespace FaPA.Core
     {
         private static readonly XmlAttributes XmlAttributes = new XmlAttributes() { XmlIgnore = true };
         private static readonly XmlAttributeOverrides Overrides = new XmlAttributeOverrides();
-
-
         private static readonly XmlSerializer Serializer ;
         private static XmlSerializerNamespaces _nameSpaceFatturaPa;
         private static XmlSchemaSet _fatturaPaXmlSchema;

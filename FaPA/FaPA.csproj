@@ -880,12 +880,12 @@
     <Resource Include="GUI\Design\Styles\Images\Verified.png" />
     <Resource Include="GUI\Design\Styles\Images\Actions-dialog-ok-apply-icon.png" />
     <Resource Include="GUI\Design\Styles\Images\Button-Ok-icon.png" />
-    <Resource Include="fatturaordinaria_v1.2.xsl">
+    <EmbeddedResource Include="fatturaordinaria_v1.2.xsl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="fatturapa_v1.2.xsl">
+    </EmbeddedResource>
+    <EmbeddedResource Include="fatturapa_v1.2.xsl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </EmbeddedResource>
     <Content Include="nhibernate.cfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

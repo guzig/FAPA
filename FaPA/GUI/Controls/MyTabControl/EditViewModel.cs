@@ -453,8 +453,9 @@ namespace FaPA.GUI.Controls.MyTabControl
                 try
                 {
                     _session.Clear();
-                    var typeName = ProxyInspector.GuessType( CurrentEntity ).FullName;
-                    _session.SaveOrUpdate(typeName, CurrentEntity);
+                    //var typeName = ProxyInspector.GuessType( CurrentEntity ).FullName;
+                    //_session.SaveOrUpdate(typeName, CurrentEntity.Unproxy());
+                    _session.SaveOrUpdate(CurrentEntity.Unproxy());
                     _session.Flush();
                     tx.Commit();
                     return true;
