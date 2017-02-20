@@ -29,7 +29,7 @@ namespace FaPA.Core
 
         public abstract DomainResult ValidatePropertyValue( string prop );
 
-        protected void GetPersistentErrors( IDictionary<string, IEnumerable<string>> errors, string propName )
+        protected void GetPersistentErrors( IDictionary<string, List<string>> errors, string propName )
         {
             //get persistent layer validation
             var err = CoreValidatorService.GetValidationErrors(propName, this);
@@ -39,7 +39,7 @@ namespace FaPA.Core
                 errors.Add(keyValuePair.Key, keyValuePair.Value);
         }
 
-        protected void GetPersistentErrors(IDictionary<string, IEnumerable<string>> errors)
+        protected void GetPersistentErrors(IDictionary<string, List<string>> errors)
         {
             //get persistent layer validation
             var validationErrors = CoreValidatorService.GetValidationErrors(this);

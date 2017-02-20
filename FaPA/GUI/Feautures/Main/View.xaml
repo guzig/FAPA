@@ -95,7 +95,7 @@
                 </RibbonGroup>
 
                 <RibbonGroup Header="Fatture" >
-                    <RibbonButton LargeImageSource="/GUI/Design/Styles/Images\fpa.jpg"
+                    <RibbonButton LargeImageSource="/GUI/Design/Styles/Images\fpa.jpg" Width="60"
                                 Label="Apri" KeyTip="F"
                                 ToolTipTitle="Archivio anagrafiche fatture"
                                 ToolTipDescription="Visualizza l'archivio fatture"

@@ -4,7 +4,7 @@ namespace FaPA.AppServices.CoreValidation
 {
     public interface ICoreValidator
     {
-        IDictionary<string, IEnumerable<string>> GetValidationErrors(object instance);
-        IDictionary<string, IEnumerable<string>> GetValidationErrors(string columnName, object instance);
+        IDictionary<string, List<string>> GetValidationErrors(object instance);
+        IDictionary<string, List<string>> GetValidationErrors(string columnName, object instance);
     }
 }

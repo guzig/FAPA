@@ -6,9 +6,9 @@ namespace FaPA.AppServices.CoreValidation
 {
     public class DatiCorrelatiValidator : BaseCoreValidator
     {
-        public override IDictionary<string, IEnumerable<string>> GetValidationErrors(object instance)
+        public override IDictionary<string, List<string>> GetValidationErrors(object instance)
         {
-            var errors = new Dictionary<string, IEnumerable<string>>();
+            var errors = new Dictionary<string, List<string>>();
             var instnce = instance as DatiDocumentiCorrelatiType;
             var propErrors = new List<string>();
 
@@ -16,10 +16,7 @@ namespace FaPA.AppServices.CoreValidation
 
             const string iddocumento = nameof(instnce.IdDocumento);
 
-            if ( string.IsNullOrWhiteSpace(instnce.IdDocumento))
-                propErrors.Add( "IdDocumento deve essere valorizzato" );
-            else if (instnce.IdDocumento.Length > 20)
-                propErrors.Add("IdDocumento deve essere lungo max 20 caratteri");
+            TryGetLengthErrors(nameof(instnce.IdDocumento), instnce.IdDocumento, errors, 28, 0, false);
 
             if ( propErrors.Any() )
                 errors.Add( iddocumento, propErrors );

@@ -5,22 +5,15 @@ namespace FaPA.AppServices.CoreValidation
 {
     public class IdFiscaleValidator : BaseCoreValidator
     {
-        public override IDictionary<string, IEnumerable<string>> GetValidationErrors( object instance )
+        public override IDictionary<string, List<string>> GetValidationErrors( object instance )
         {
-            var errors = new Dictionary<string, IEnumerable<string>>();
+            var errors = new Dictionary<string, List<string>>();
             var instnce = instance as IdFiscaleType;
 
             if ( instnce == null ) return errors;
 
-            if ( TryAddNotNullError( nameof( instnce.IdCodice ), instnce.IdCodice, errors ) )
-            {
-                TryGetLengthErrors(nameof(instnce.IdCodice), instnce.IdCodice, errors, 11, 11); 
-            }
-
-            if ( !TryAddNotNullError( nameof( instnce.IdPaese ), instnce.IdPaese, errors ) )
-            {
-                TryGetLengthErrors( nameof(instnce.IdPaese), instnce.IdPaese, errors, 28 );
-            }
+            TryGetLengthErrors(nameof(instnce.IdCodice), instnce.IdCodice, errors, 28, 0, false); 
+            TryGetLengthErrors( nameof(instnce.IdPaese), instnce.IdPaese, errors, 2, 0, false);
 
             return errors;
         }

@@ -6,7 +6,7 @@ namespace FaPA.Core
 {
     public class DomainResult
     {
-        public DomainResult(IDictionary<string, IEnumerable<string>> errors )
+        public DomainResult(IDictionary<string, List<string>> errors )
         {
             if ( errors == null || !errors.Any() )
                 Success = true;
@@ -16,7 +16,7 @@ namespace FaPA.Core
             Errors = errors;
         }
 
-        public DomainResult(bool success, IDictionary<string, IEnumerable<string>> errors = null)
+        public DomainResult(bool success, IDictionary<string, List<string>> errors = null)
         {
             Success = success;
             Errors = errors;
@@ -24,6 +24,6 @@ namespace FaPA.Core
 
         public bool Success { get; }
 
-        public IDictionary<string, IEnumerable<string>> Errors { get; }
+        public IDictionary<string, List<string>> Errors { get; }
     }
 }

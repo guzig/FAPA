@@ -60,7 +60,7 @@ namespace FaPA.Core
 
         public override DomainResult Validate()
         {
-            var errors = new Dictionary<string, IEnumerable<string>>();
+            var errors = new Dictionary<string, List<string>>();
 
             GetPersistentErrors( errors );
 

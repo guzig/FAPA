@@ -8,9 +8,9 @@ namespace FaPA.AppServices.CoreValidation
     {
         protected override IEnumerable<string> ItemLevelValidationGroup => new[] { "NumeroFatturaDB", "DataFatturaDB", "AnagraficaCedenteDB" };
 
-        public override IDictionary<string, IEnumerable<string>> GetValidationErrors(string columnName, object instance)
+        public override IDictionary<string, List<string>> GetValidationErrors(string columnName, object instance)
         {
-            if ( Validator == null ) return new Dictionary<string, IEnumerable<string>>();
+            if ( Validator == null ) return new Dictionary<string, List<string>>();
 
             if ( ItemLevelValidationGroup.Contains(columnName))
                 return GetValidationErrors(instance);
@@ -18,8 +18,8 @@ namespace FaPA.AppServices.CoreValidation
             var errors =  Validator.ValidatePropertyValue(instance, columnName).
                 DistinctBy(d => d.Message).Select(d => d.Message).ToList();
 
-            return errors.Any() ? new Dictionary<string, IEnumerable<string>> { { columnName, errors } } : 
-                                  new Dictionary<string, IEnumerable<string>>();
+            return errors.Any() ? new Dictionary<string, List<string>> { { columnName, errors } } : 
+                                  new Dictionary<string, List<string>>();
         }
     }
 }

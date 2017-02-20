@@ -536,7 +536,7 @@
     <Compile Include="GUI\Feautures\Fattura\BaseDatiCorrelatiViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\DatiRiepilogoIvaViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\DatiTerzoIntermediarioViewModel.cs" />
-    <Compile Include="GUI\Feautures\Fattura\DatiAnagraficiViewModel.cs" />
+    <Compile Include="GUI\Feautures\Fattura\DatiAnagraficiVettoreViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\DatiBolloViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\DatiCassaPrevViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\DatiDdtTabViewModel.cs" />

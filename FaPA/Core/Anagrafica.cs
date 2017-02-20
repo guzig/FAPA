@@ -60,10 +60,10 @@ namespace FaPA.Core
         
         public override DomainResult Validate()
         {
-            var errors = new Dictionary<string, IEnumerable<string>>();
+            var errors = new Dictionary<string, List<string>>();
 
             if ( Email.IsValidEmail() )
-                errors.Add("Email", new[] { "Email non valida" } );
+                errors.Add("Email", new List<string>() { "Email non valida" } );
 
             GetPersistentErrors(errors);
 

@@ -5,9 +5,9 @@ namespace FaPA.AppServices.CoreValidation
 {
     public class AnagraficaValidator : BaseCoreValidator
     {
-        public override IDictionary<string, IEnumerable<string>> GetValidationErrors( object instance )
+        public override IDictionary<string, List<string>> GetValidationErrors( object instance )
         {
-            var errors = new Dictionary<string, IEnumerable<string>>();
+            var errors = new Dictionary<string, List<string>>();
             var instnce = instance as AnagraficaType;
 
             if ( instnce == null ) return errors;
@@ -20,16 +20,9 @@ namespace FaPA.AppServices.CoreValidation
                 return errors;
             }
 
-            if (TryAddNotNullError(nameof(instnce.Nome), instnce.Nome, errors))
-            {
-                TryGetLengthErrors(nameof(instnce.Nome), instnce.Nome, errors, 60);
-            }
-
-            if (TryAddNotNullError(nameof(instnce.Cognome), instnce.Cognome, errors ) )
-            {
-                TryGetLengthErrors(nameof(instnce.Cognome), instnce.Cognome, errors, 60 );
-            }
-
+            TryGetLengthErrors(nameof(instnce.Nome), instnce.Nome, errors, 60, 0, false);
+            TryGetLengthErrors(nameof(instnce.Cognome), instnce.Cognome, errors, 60, 0, false );
+ 
             return errors;
         }
     }

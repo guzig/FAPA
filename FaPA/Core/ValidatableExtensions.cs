@@ -23,9 +23,9 @@ namespace FaPA.Core
         public static DomainResult ValidationResult(this IValidatable input)
         {
             // This avoids needing a null check in our code when we validate nullable objects
-            var err = new Dictionary<string, IEnumerable<string>>
+            var err = new Dictionary<string, List<string>>
             {
-                { "Null input is invalid.", new[] { "Null input is invalid." } }
+                { "Null input is invalid.", new List<string> { "Null input is invalid." } }
             };
             if ( input == null ) return new DomainResult( false, err );
             input.Validate();
@@ -44,10 +44,18 @@ namespace FaPA.Core
                 if ( input.Errors == null )
                     yield break;
 
-                foreach ( var err in input.Errors.SelectMany( error => error.Value ) )
+                foreach (var error in input.Errors)
                 {
-                    yield return err;
+                    foreach (var er in error.Value)
+                    {
+                        yield return er;
+                    }
                 }
+
+                //foreach ( var err in err1 )
+                //{
+                //    yield return err;
+                //}
             }
 
             if ( input.Success ) yield break;
@@ -60,7 +68,7 @@ namespace FaPA.Core
             }
         }
 
-        public static string ToValidationResult(this IDictionary<string, IEnumerable<string>> input)
+        public static string ToValidationResult(this IDictionary<string, List<string>> input)
         {
             if (input == null)
                 return string.Empty;

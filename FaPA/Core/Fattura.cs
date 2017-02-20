@@ -491,7 +491,7 @@ namespace FaPA.Core
             //DomainResultFatturaPA = new DomainResult( new Dictionary<string, IEnumerable<string>>()
             //{ { nameof(FatturaPa), new[] { resultFatturaPa } } } );
 
-            var err = new Dictionary<string, IEnumerable<string>>();
+            var err = new Dictionary<string, List<string>>();
 
             //omitt prop name to force validation al instance level
             GetPersistentErrors( err );
@@ -503,7 +503,7 @@ namespace FaPA.Core
 
         public override DomainResult ValidatePropertyValue( string prop )
         {
-            var err = new Dictionary<string, IEnumerable<string>>();
+            var err = new Dictionary<string, List<string>>();
 
             //if ( !string.IsNullOrWhiteSpace( resultFatturaPa ) )
             //{

@@ -5,17 +5,23 @@ namespace FaPA.AppServices.CoreValidation
 {
     public class DettaglioLineeValidator : BaseCoreValidator
     {
-        public override IDictionary<string, IEnumerable<string>> GetValidationErrors(object instance)
+        public override IDictionary<string, List<string>> GetValidationErrors(object instance)
         {
-            var errors = new Dictionary<string, IEnumerable<string>>();
+            var errors = new Dictionary<string, List<string>>();
             var instnce = instance as DettaglioLineeType;
             if (instnce == null) return errors;
 
-            TryGetLengthErrors( nameof(instnce.NumeroLinea) , instnce.NumeroLinea, errors, 4, 1 );
-            TryGetLengthErrors( nameof( instnce.Descrizione ), instnce.Descrizione, errors, 1000, 1 );
-            TryGetLengthErrors( nameof( instnce.PrezzoUnitario ), instnce.PrezzoUnitario.ToString( "{0:###0.00}" ), errors, 21, 4 );
-            TryGetLengthErrors( nameof( instnce.PrezzoTotale ), instnce.PrezzoTotale.ToString( "{0:###0.00}" ), errors, 21, 4 );
-            TryGetLengthErrors( nameof( instnce.AliquotaIVA ), instnce.AliquotaIVA.ToString( "{0:###0.00}" ), errors, 21, 4 );
+            TryGetLengthErrors( nameof(instnce.NumeroLinea) , instnce.NumeroLinea, errors, 4, 1, false);
+            TryGetLengthErrors( nameof( instnce.Descrizione ), instnce.Descrizione, errors, 1000, 1, false);
+
+            TryGetLengthErrors( nameof( instnce.PrezzoUnitario ), instnce.PrezzoUnitario.ToString( "{0:###0.00}" ), 
+                errors, 21, 4 );
+
+            TryGetLengthErrors( nameof( instnce.PrezzoTotale ), instnce.PrezzoTotale.ToString( "{0:###0.00}" ), 
+                errors, 21, 4 );
+
+            TryGetLengthErrors( nameof( instnce.AliquotaIVA ), instnce.AliquotaIVA.ToString( "{0:###0.00}" ), 
+                errors, 21, 4);
             TryGetMinMaxValueErrors( nameof( instnce.AliquotaIVA ), instnce.AliquotaIVA, errors, 1 );
 
             TryGetLengthErrors( nameof( instnce.Quantita ), instnce.Quantita.ToString( "{0:###0.00}" ), errors, 21 );

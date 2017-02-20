@@ -67,19 +67,18 @@ namespace FaPA.GUI.Feautures.Fattura
 
             ( (IValidatable) CurrentPoco ).HandleValidationResults( "DatiTrasporto" );
 
-            if ( sender is DatiAnagraficiVettoreType )
+            if ( sender is DatiAnagraficiVettoreType || sender is AnagraficaType)
             {
                 ( ( CurrentPoco as DatiTrasportoType ).DatiAnagraficiVettore as IValidatable ).
                     HandleValidationResults( "DatiAnagraficiVettore" );
             }
-
+            
             if ( sender is IndirizzoType )
             {
                 ( ( CurrentPoco as DatiTrasportoType ).IndirizzoResa as IValidatable ).
                     HandleValidationResults( "IndirizzoResa" );
             }
-
-
+            
             ProcessChangedEvent( CurrentPoco );
         }
 

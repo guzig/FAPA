@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using FaPA.Core.FaPa;
 
@@ -7,22 +8,19 @@ namespace FaPA.AppServices.CoreValidation
 
     public class AltriDatiGestionaliValidator : BaseCoreValidator
     {
-        public override IDictionary<string, IEnumerable<string>> GetValidationErrors(object instance)
+        public override IDictionary<string, List<string>> GetValidationErrors(object instance)
         {
-            var errors = new Dictionary<string, IEnumerable<string>>();
+            var errors = new Dictionary<string, List<string>>();
             var instnce = instance as AltriDatiGestionaliType;
             var propErrors = new List<string>();
 
             if ( instnce == null ) return errors;
 
-            if ( string.IsNullOrWhiteSpace( instnce.TipoDato ) )
-                propErrors.Add( "TipoDato deve essere valorizzato" );
-            else if ( instnce.TipoDato.Length > 20 )
-                propErrors.Add( "TipoDato deve essere lungo max 20 caratteri" );
+            TryGetLengthErrors(nameof(instnce.TipoDato), instnce.TipoDato, errors, 20, 0, false );
+            TryGetLengthErrors(nameof(instnce.RiferimentoTesto), instnce.TipoDato, errors, 60 );
+            TryGetLengthErrors(nameof(instnce.RiferimentoNumero), instnce.
+                RiferimentoNumero.ToString( CultureInfo.InvariantCulture ), errors, 4, 21);
 
-            //opt
-            //rif. testo 60
-            //RiferimentoNumero: 4-21
 
             if ( propErrors.Any() )
             {

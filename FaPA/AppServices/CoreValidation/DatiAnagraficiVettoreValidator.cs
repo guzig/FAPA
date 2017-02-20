@@ -6,9 +6,9 @@ namespace FaPA.AppServices.CoreValidation
 {
     public class DatiAnagraficiVettoreValidator : BaseCoreValidator
     {
-        public override IDictionary<string, IEnumerable<string>> GetValidationErrors( object instance )
+        public override IDictionary<string, List<string>> GetValidationErrors( object instance )
         {
-            var errors = new Dictionary<string, IEnumerable<string>>();
+            var errors = new Dictionary<string, List<string>>();
             var instnce = instance as DatiAnagraficiVettoreType;
 
             if ( instnce == null ) return errors;
@@ -17,7 +17,7 @@ namespace FaPA.AppServices.CoreValidation
             {
                 var idFiscaleResult = instnce.IdFiscaleIVA.Validate();
                 if ( !idFiscaleResult.Success )
-                    errors.Add( "IdFiscaleIVA", idFiscaleResult.Errors.Values.SelectMany( s => s ) );
+                    errors.Add( "IdFiscaleIVA", idFiscaleResult.Errors.Values.SelectMany( s => s ).ToList() );
             }
             else
             {
@@ -28,7 +28,7 @@ namespace FaPA.AppServices.CoreValidation
             {
                 var anagResult = instnce.Anagrafica.Validate();
                 if (!anagResult.Success)
-                    errors.Add("Anagrafica", anagResult.Errors.Values.SelectMany(s => s));
+                    errors.Add("Anagrafica", anagResult.Errors.Values.SelectMany(s => s).ToList() );
             }
             else
             {

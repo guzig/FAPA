@@ -5,9 +5,9 @@ namespace FaPA.AppServices.CoreValidation
 {
     public class IndirizzoValidator : BaseCoreValidator
     {
-        public override IDictionary<string, IEnumerable<string>> GetValidationErrors( object instance )
+        public override IDictionary<string, List<string>> GetValidationErrors( object instance )
         {
-            var errors = new Dictionary<string, IEnumerable<string>>();
+            var errors = new Dictionary<string, List<string>>();
             var instnce = instance as IndirizzoType;
 
             if ( instnce == null ) return errors;

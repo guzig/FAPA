@@ -6,25 +6,30 @@ namespace FaPA.AppServices.CoreValidation
     public abstract class BaseCoreValidator : ICoreValidator
     {
       
-        public abstract IDictionary<string, IEnumerable<string>> GetValidationErrors(object instance);
+        public abstract IDictionary<string, List<string>> GetValidationErrors(object instance);
 
-        public virtual IDictionary<string, IEnumerable<string>> GetValidationErrors(string columnName, object instance)
+        public virtual IDictionary<string, List<string>> GetValidationErrors(string columnName, object instance)
         {
             var errors = GetValidationErrors(instance);
 
-            return new Dictionary<string, IEnumerable<string>>
+            return new Dictionary<string, List<string>>
             {
                 {columnName, errors[columnName]}
             };
             
         }
 
-        protected static void TryGetLengthErrors( string propName, string field, Dictionary<string, IEnumerable<string>> errors,
-            int maxLength, int minLength = 0, bool isNullAllowed = false )
+        protected static void TryGetLengthErrors( string propName, string field, Dictionary<string, List<string>> errors,
+            int maxLength, int minLength=0, bool isNullAllowed=true )
         {
             var propErrors = new List<string>();
 
-            if ( string.IsNullOrWhiteSpace( field ) && isNullAllowed ) return;
+            if (string.IsNullOrWhiteSpace(field) && isNullAllowed) return;
+
+            if (string.IsNullOrWhiteSpace(field) && !isNullAllowed)
+            {
+                propErrors.Add($" il campo {propName} è obbligatorio");
+            }
 
             if ( minLength > 0 && ( string.IsNullOrWhiteSpace( field ) || field.Length < minLength ) )
             {
@@ -42,7 +47,7 @@ namespace FaPA.AppServices.CoreValidation
             }
         }
 
-        protected static void TryGetMinMaxValueErrors( string propName, decimal value, Dictionary<string, IEnumerable<string>> errors,
+        protected static void TryGetMinMaxValueErrors( string propName, decimal value, Dictionary<string, List<string>> errors,
             decimal? minLength, decimal?  maxLength= null )
         {
             var propErrors = new List<string>();
@@ -63,10 +68,9 @@ namespace FaPA.AppServices.CoreValidation
             }
         }
 
-        protected static bool TryAddNotNullError( string propName, object propValue, Dictionary<string, IEnumerable<string>> errors )
+        protected static bool TryAddNotNullError( string propName, string propValue, Dictionary<string, List<string>> errors )
         {
-            if ( propValue == null ) return false;
-            if ( !string.IsNullOrWhiteSpace( propValue as string ) ) return false;
+            if ( !string.IsNullOrWhiteSpace( propValue ) ) return false;
 
             var errorMsg = $"Il campo {propName} ritenuta deve essere valorizzato";
             errors.Add( propName, new List<string> { errorMsg } );
@@ -74,7 +78,7 @@ namespace FaPA.AppServices.CoreValidation
         }
 
         protected static void ValidateChild<T>(object instance, string propName, 
-            Dictionary<string, IEnumerable<string>> errors ) where T : class
+            Dictionary<string, List<string>> errors ) where T : class
         {
             var childs = ObjectExplorer.FindAllInstancesDeep<T>( instance );
             if ( childs == null || !childs.Any() ) return;

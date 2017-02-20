@@ -49,14 +49,14 @@ namespace FaPA.AppServices.CoreValidation
                 s.Exists( x => !string.IsNullOrWhiteSpace( x ) ) );
         }
         
-        public static IDictionary<string, IEnumerable<string>> GetValidationErrors( object instance )
+        public static IDictionary<string, List<string>> GetValidationErrors( object instance )
         {
             if ( instance == null ) return null;
             var validator = TryGetValidator( instance.NhUnproxyType() );
             return validator?.GetValidationErrors( instance );
         }
 
-        public static IDictionary<string, IEnumerable<string>> GetValidationErrors( string columnName, object instance )
+        public static IDictionary<string, List<string>> GetValidationErrors( string columnName, object instance )
         {
             if ( instance == null ) return null;
             var validator = TryGetValidator( instance.NhUnproxyType() );
