@@ -1,4 +1,5 @@
-
+info is clicked
+dati sal validator
 
 exception after cancel first fattura
 

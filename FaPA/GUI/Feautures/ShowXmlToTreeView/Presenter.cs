@@ -1,5 +1,6 @@
 ﻿using System.Windows.Data;
 using System.Xml;
+using FaPA.GUI.Utils;
 using FaPA.Infrastructure;
 
 namespace FaPA.GUI.Feautures.ShowXmlToTreeView
@@ -8,15 +9,19 @@ namespace FaPA.GUI.Feautures.ShowXmlToTreeView
     {
         public void Initialize( XmlDocument document )
         {
-            Model = new Model() ;
-            //Use the XDP that has been created as one of the Window's resources ...
-            XmlDataProvider dp = (XmlDataProvider)View.FindResource("xmlDP");
-            //... and assign the XDoc to it, using the XDoc's root.
-            dp.Document = document;
-            dp.XPath = "*";
+            Model = new Model(document);
 
         }
 
+        public void OnLoaded()
+        {
+            ShowCursor.Show();
+            //Use the XDP that has been created as one of the Window's resources ...
+            var dp = (XmlDataProvider)View.FindResource("xmlDP");
+            //... and assign the XDoc to it, using the XDoc's root.
+            dp.Document = Model.Document;
+            dp.XPath = "*";
+        }
 
     }
 }

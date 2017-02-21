@@ -14,9 +14,8 @@
 
             <TabControl TabStripPlacement="Top" Style="{StaticResource SubTabControlStyle}" >
 
-                <TabItem Header="Fattura principale" Style="{StaticResource SubTabItemStyle}"
-                         DataContext="{Binding DatiFatturaPrincipaleViewModel}">
-                    <Grid Margin="2,2,2,2" >
+                <TabItem Header="Fattura principale" Style="{StaticResource SubTabItemStyle}">
+                    <Grid Margin="2,2,2,2" DataContext="{Binding DatiFatturaPrincipaleViewModel}">
                         
                         <t:InstanceNullManager Grid.Row="0" Grid.ColumnSpan="2"
                                                BindedInstance="{Binding CurrentPoco}"
@@ -59,10 +58,9 @@
                     </Grid>
                 </TabItem>
 
-                <TabItem Header="Trasporto" Style="{StaticResource SubTabItemStyle}"
-                         DataContext="{Binding DatiTrasportoViewModel}">
-                    
-                    <Grid Margin="2,2,2,2" >
+                <TabItem Header="Trasporto" Style="{StaticResource SubTabItemStyle}">
+
+                    <Grid Margin="2,2,2,2"  DataContext="{Binding DatiTrasportoViewModel}">
                         
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>

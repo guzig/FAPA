@@ -116,7 +116,6 @@ namespace FaPA.GUI.Controls.MyTabControl
 
         public virtual void RefreshSharedViewsAfterUpdated( BaseEntity dto )
         {
-
             ReferenceDataFactory.LazyRefresh( typeof( T ) );
 
             var viewModel = Model.Workspaces[1] as EditViewModel<T>;

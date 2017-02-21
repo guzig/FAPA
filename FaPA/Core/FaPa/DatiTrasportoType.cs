@@ -115,6 +115,7 @@ namespace FaPA.Core.FaPa
             }
         }
 
+        [XmlIgnore]
         public virtual bool PesoLordoSpecified
         {
             get

@@ -9,10 +9,8 @@ using FaPA.GUI.Controls.MyTabControl;
 using FaPA.GUI.Utils;
 using NHibernate;
 using System.Linq;
-using FaPA.AppServices;
 using FaPA.AppServices.CoreValidation;
 using FaPA.Core;
-using FaPA.Core.FaPa;
 using FaPA.Infrastructure;
 using FaPA.Properties;
 

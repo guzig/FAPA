@@ -423,7 +423,10 @@ namespace FaPA.GUI.Controls.MyTabControl
             else
             {
                 PublishUpdateEntityEvent(CurrentEntity); // -> LoadAndShowCurrent
+                UserEntitiesView.CurrentChanged -= OnCurrentSelectionChanged;
                 BasePresenter.RefreshSharedViewsAfterUpdated( CurrentEntity );
+                UserEntitiesView.CurrentChanged += OnCurrentSelectionChanged;
+                LoadAndShowCurrentEntity();
             }
 
             _isOnBind = false;
