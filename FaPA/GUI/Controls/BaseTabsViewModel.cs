@@ -40,9 +40,7 @@ namespace FaPA.GUI.Controls
         public event OnCurrentChangedhandler CurrentEntityChanged;
 
         #endregion
-
-
-
+        
         //ctor
         protected BaseTabsViewModel( Expression<Func<T, TProperty>> getter, IRepository repository, T instance, 
             string dispName, bool isClosable ) : base( repository, instance, getter, dispName, isClosable)
@@ -58,9 +56,7 @@ namespace FaPA.GUI.Controls
             if ( Instance != null && UserProperty != null )
             {
                 AllowDelete = true;
-
                 InitCollectionView();
-
                 Validate();
             }
             else
@@ -82,6 +78,8 @@ namespace FaPA.GUI.Controls
             }
 
             LockMessage = null;
+
+            base.Read();
         }
 
         protected override void MakeTransient()
@@ -145,7 +143,6 @@ namespace FaPA.GUI.Controls
             UserCollectionView.MoveCurrentToLast();
         }
         
-        
         //helpers
         protected void RemoveFromFixedArray()
         {
@@ -194,6 +191,7 @@ namespace FaPA.GUI.Controls
         private void InitCollectionView()
         {
             UserCollectionView = CollectionViewSource.GetDefaultView(UserProperty);
+            UserCollectionView.MoveCurrentToFirst();
             CurrentPoco = UserCollectionView.CurrentItem;
             ( ( BaseEntity ) CurrentPoco ).IsValidating = true;
             UserCollectionView.CurrentChanged -= OnCurrentChanged;
@@ -222,7 +220,7 @@ namespace FaPA.GUI.Controls
 
             Validate();
 
-            AllowSave = IsValid;
+            AllowSave = IsEditing && IsValid;
             AllowDelete = true;
 
             OnCurrentChanged( CurrentPoco );

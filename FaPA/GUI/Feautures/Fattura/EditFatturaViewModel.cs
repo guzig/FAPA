@@ -135,7 +135,7 @@ namespace FaPA.GUI.Feautures.Fattura
 
         #endregion
 
-
+        //ctor
         public EditFatturaViewModel(IBasePresenter baseCrudPresenter, IList userEntities, 
             ICollectionView userCollectionView, ISession session): base(baseCrudPresenter, userEntities, userCollectionView)
         {           
@@ -199,11 +199,12 @@ namespace FaPA.GUI.Feautures.Fattura
         }
 
         #endregion
-
         
         private void OnCurrentFatturaChanged(Core.Fattura currententity)
         {
-            InitFatturaTabs( CurrentEntity );
+            InitFatturaTabs(CurrentEntity);
+            var f = CurrentEntity.DatiPagamento?[0].DettaglioPagamento?[0].ImportoPagamento;
+            var p = f - _f2;
         }
 
         private void InitFatturaTabs(Core.Fattura fattura )
@@ -223,9 +224,11 @@ namespace FaPA.GUI.Feautures.Fattura
             TrasmittenteViewModel.Init();
             AddTabViewModel<TrasmittenteTabViewModel>( TrasmittenteViewModel );
 
+            DatiPagamentoViewModel = null;
             DatiPagamentoViewModel = new DatiPagamentoTabViewModel( this, fattura );
             DatiPagamentoViewModel.Init();
             AddTabViewModel<DatiPagamentoTabViewModel>( DatiPagamentoViewModel );
+            DatiPagamentoViewModel.CurrentEntityPropChanged += KK;
 
             AllegatiViewModel = new AllegatiViewModel( this, fattura.FatturaElettronicaBody);
             AllegatiViewModel.Init();
@@ -255,6 +258,29 @@ namespace FaPA.GUI.Feautures.Fattura
                 IconXsdValidationState = XsdValidationErrorIcon;
                 DomainResultFatturaPA = isValidatedByXsd;
             }
+
+        }
+
+        private void KK(object sender, PropertyChangedEventArgs eventarg)
+        {
+            var dettaglioPagamentoType = DatiPagamentoViewModel.Instance.DatiPagamento[0].DettaglioPagamento[0];
+            var pagamentoType = CurrentEntity.DatiPagamento[0].DettaglioPagamento[0];
+
+
+            //true
+            var ffff = ReferenceEquals(CurrentEntity, DatiPagamentoViewModel.Instance);
+
+            //false
+            var fffx = ReferenceEquals(dettaglioPagamentoType, sender);
+            
+            //false
+            var fff0 = ReferenceEquals(pagamentoType, sender);
+
+            var fffc = ReferenceEquals(pagamentoType, dettaglioPagamentoType);
+
+            var fff1 = ReferenceEquals(CurrentEntity.DatiPagamento, DatiPagamentoViewModel.UserProperty);
+            var f1 = pagamentoType.ImportoPagamento;
+            _f2 = DatiPagamentoViewModel.UserProperty[0].DettaglioPagamento[0].ImportoPagamento;
 
         }
 
@@ -511,7 +537,7 @@ namespace FaPA.GUI.Feautures.Fattura
         private DatiRiepilogoIvaViewModel _datiRiepilogoIvaViewModel;
         private string _domainResultFatturaPa;
         private string _iconXsdValidationState;
-
+        private decimal _f2;
 
         #endregion
     }

@@ -37,9 +37,7 @@ namespace FaPA.GUI.Controls.MyTabControl
 
         #endregion
 
-        public virtual string EditTemplateName { get; }
-
-        public IBasePresenter BasePresenter { get; }
+        #region events
 
         public delegate void OnCurrentChangedhandler(T currententity);
 
@@ -51,10 +49,10 @@ namespace FaPA.GUI.Controls.MyTabControl
 
         //public event OnCurrentChangedhandler CurrentChanging;
 
-        private void OnCurrentChanged( T sender )
+        private void OnCurrentChanged(T sender)
         {
             var handler = CurrentEntityChanged;
-            handler?.Invoke( sender );
+            handler?.Invoke(sender);
         }
 
         private void OnCurrentPropChanged(T sender, PropertyChangedEventArgs eventArgs)
@@ -63,14 +61,21 @@ namespace FaPA.GUI.Controls.MyTabControl
             handler?.Invoke(sender, eventArgs);
         }
 
+        #endregion
+        
         //void OnCurrentChanging(T sender)
         //{
         //    var handler = CurrentChanging;
         //    if (handler != null)
         //        handler(sender);
         //}
-       
+
         #region props
+
+        public IBasePresenter BasePresenter { get; }
+
+        public virtual string EditTemplateName { get; }
+
         private bool _isValid=true;
         public bool IsValid
         {
@@ -307,43 +312,6 @@ namespace FaPA.GUI.Controls.MyTabControl
             
         }
         
-        #region Validation stuff
-
-        private readonly HashSet<string> _entityLevelPropsValidation = new HashSet<string>();
-
-        public IEditViewModel AddEntityLevelPropValidation<TEntity, TProp>( Expression<Func<TEntity, TProp>> property)
-        {
-            var propertyName = ReflHelpers.GetPropertyName(property);
-
-            _entityLevelPropsValidation.Add(propertyName);
-
-            return this;
-        }
-
-        protected virtual bool IsValidEntity()
-        {
-            IsValid =  HibHelpers.Validator.IsValid( CurrentEntity );
-            return IsValid;
-        }
-
-        protected virtual string Validate()
-        {
-            if ( IsValidEntity() ) return null;
-
-            var errors = HibHelpers.Validator.Validate(CurrentEntity);
-
-            var listError = new List<string> {"ELENCO ERRORI RILEVATI:"};
-
-            var enumerable = errors.Where(e=>!string.IsNullOrWhiteSpace(e.Message)).
-                Select(e => e.PropertyName.Replace("DB","").ToUpper() + ": " + e.Message).ToList();
-
-            listError.AddRange(enumerable);
-
-            return string.Join(Environment.NewLine, listError);
-        }
-
-        #endregion
-        
         protected virtual void SetContextAfterEntityDeleted()
         {          
             var currentPos = UserEntitiesView.CurrentPosition;
@@ -395,13 +363,15 @@ namespace FaPA.GUI.Controls.MyTabControl
                 throw new Exception();
             }
         }
-                
-        #region Public Methods   
-     
+
+        #region Persist
+
         public virtual void Persist()
         {
             AllowSave = false;
+
             var isNewEntityAdded = IsNewEntity( _currentEntity );
+
             _isOnBind = true;
 
             if ( !TryPersistEntity() )
@@ -456,11 +426,15 @@ namespace FaPA.GUI.Controls.MyTabControl
                 try
                 {
                     _session.Clear();
-                    //var typeName = ProxyInspector.GuessType( CurrentEntity ).FullName;
-                    //_session.SaveOrUpdate(typeName, CurrentEntity.Unproxy());
-                    _session.SaveOrUpdate(CurrentEntity.Unproxy());
+                    CurrentEntity.IsNotyfing = false;
+                    CurrentEntity.IsValidating = false;
+                    //_session.SaveOrUpdate(CurrentEntity.Unproxy());
+                    var typeName = ProxyInspector.GuessType( CurrentEntity ).FullName;
+                    _session.SaveOrUpdate(typeName, CurrentEntity);
                     _session.Flush();
                     tx.Commit();
+                    CurrentEntity.IsNotyfing = true;
+                    CurrentEntity.IsValidating = true;
                     return true;
                 }
                 catch ( Exception e )
@@ -472,6 +446,12 @@ namespace FaPA.GUI.Controls.MyTabControl
                 }
             }
         }
+
+        public abstract void PublishUpdateEntityEvent(BaseEntity dto);
+
+        #endregion
+
+        #region Delete
 
         public virtual void MakeTransient()
         {
@@ -490,7 +470,7 @@ namespace FaPA.GUI.Controls.MyTabControl
             
         }
 
-        public bool DeleteEntity()
+        private bool DeleteEntity()
         {
             try
             {
@@ -510,6 +490,59 @@ namespace FaPA.GUI.Controls.MyTabControl
                 return false;
             }
             return true;
+        }
+
+        public abstract void PublishDeletedEntityEvent( BaseEntity dto );
+        
+        #endregion
+
+        #region Cancel
+
+        private bool CancelEditCanExecuted()
+        {
+            return IsNewEntity(CurrentEntity) || IsInEditing || _isSearchModality;
+        }
+
+        private delegate void OnCancelAction();
+
+        private OnCancelAction _onCancelDelegate = delegate { };
+
+        private void CancelOnFastSearchAction()
+        {
+            AllowFastSearch = true;
+            FreeLock(OnFastSearchLockMessage);
+            BasePresenter.SetActiveWorkSpace(0);
+        }
+
+        protected virtual void DefaultCancelOnEditAction()
+        {
+           _session.Clear();
+            
+            if (IsNewEntity(CurrentEntity))
+            {
+                UserCollection.Remove(UserEntitiesView.CurrentItem);
+            }
+            
+            FreeLock(OnEditingLockMessage);
+            
+            if (UserEntitiesView == null || UserEntitiesView.CurrentItem == null ||
+                ((UserEntitiesView.CurrentItem as BaseEntity).Id == 0L && 
+                (UserEntitiesView as ListCollectionView).Count == 0))
+            {
+                BasePresenter.SetActiveWorkSpace(0);
+                BasePresenter.Workspaces.RemoveAt(1);
+            }
+            else
+                LoadAndShowCurrentEntity();
+        }
+
+        #endregion
+
+        #region Create
+
+        private static bool IsNewEntity(T entity)
+        {
+            return entity == null || entity.Id == 0L;
         }
 
         public virtual void CreateNewEntity()
@@ -556,14 +589,7 @@ namespace FaPA.GUI.Controls.MyTabControl
             AllowRecordsNavigation = false;
             AllowDelete = false;
         }
-
-        private static void ValidateAndShow( IValidatable validtor )
-        {
-            if ( validtor == null ) return;
-            validtor.Validate();
-            validtor.HandleValidationResults();
-        }
-
+        
         protected virtual T CreateInstance()
         {
             T entity;
@@ -575,13 +601,12 @@ namespace FaPA.GUI.Controls.MyTabControl
 
             return entity;
         }
-
-
+        
         public abstract void PublishAddedNewEntityEvent(BaseEntity dto);
 
-        public abstract void PublishUpdateEntityEvent(BaseEntity dto);
+        #endregion
 
-        public abstract void PublishDeletedEntityEvent( BaseEntity dto );
+        #region Bind  
 
         public virtual void OnPageGotFocus()
         {
@@ -589,7 +614,7 @@ namespace FaPA.GUI.Controls.MyTabControl
             SetContextAfterBindEntity();
         }
 
-        public void LoadAndShowCurrentEntity()
+        private void LoadAndShowCurrentEntity()
         {
             BindCurrent();
             SetContextAfterBindEntity();
@@ -610,7 +635,7 @@ namespace FaPA.GUI.Controls.MyTabControl
             OnCurrentChanged( CurrentEntity );
         }
 
-        public virtual void Load()
+        protected virtual void Load()
         {
             if (UserEntitiesView.CurrentItem == null) return;
 
@@ -625,7 +650,9 @@ namespace FaPA.GUI.Controls.MyTabControl
                     throw new Exception("fail to unproxied entities");
             }
 
-            object current = LoadEntity(currentItem.Id);
+            var id = currentItem.Id;
+            CurrentEntity = null;
+            object current = LoadEntity(id);
 
             ( ( IValidatable ) current).HandleValidationResults();
             ( ( BaseEntity ) current).IsValidating = true;
@@ -641,87 +668,67 @@ namespace FaPA.GUI.Controls.MyTabControl
             DecorateEntity();
 
         }
-
-        #endregion // Public Methods
-
+        
         protected virtual void DecorateEntity()
         {
             //CurrentEntity.OnDataErrorInfo += OnDataErrorInfo;
 
             var notifyPropertyChanged = CurrentEntity as INotifyPropertyChanged;
-            if ( notifyPropertyChanged != null )
+            if (notifyPropertyChanged != null)
                 notifyPropertyChanged.PropertyChanged += OnPropChanged;
         }
 
-        private void ReplaceSessionAfterError()
-        {
-            if (_session != null)
-            {
-                _session.Clear();
-                //ReplaceEntitiesLoadedByFaultedSession();
-            }
-        }
-
-        private void EnterKeyHandler()
-        {
-            if (IsSearchModality)
-            {
-                _searchBackgroundWorker.RunWorkerAsync();
-            }
-        }
-       
         private void FreeLock(string lockMessage)
         {
-            if (LockMessage!=null && LockMessage.Equals(lockMessage))
+            if (LockMessage != null && LockMessage.Equals(lockMessage))
                 LockMessage = "";
         }
 
-        private static bool IsNewEntity(T entity)
-        {
-            return entity == null || entity.Id == 0L;
-        }
-
-        #region Cancel stuff
-
-        private bool CancelEditCanExecuted()
-        {
-            return IsNewEntity(CurrentEntity) || IsInEditing || _isSearchModality;
-        }
-
-        private delegate void OnCancelAction();
-
-        private OnCancelAction _onCancelDelegate = delegate { };
-
-        private void CancelOnFastSearchAction()
-        {
-            AllowFastSearch = true;
-            FreeLock(OnFastSearchLockMessage);
-            BasePresenter.SetActiveWorkSpace(0);
-        }
-
-        protected virtual void DefaultCancelOnEditAction()
-        {
-           _session.Clear();
-            
-            if (IsNewEntity(CurrentEntity))
-            {
-                UserCollection.Remove(UserEntitiesView.CurrentItem);
-            }
-            
-            FreeLock(OnEditingLockMessage);
-            
-            if (UserEntitiesView == null || UserEntitiesView.CurrentItem == null ||
-                ((UserEntitiesView.CurrentItem as BaseEntity).Id == 0L && 
-                (UserEntitiesView as ListCollectionView).Count == 0))
-            {
-                BasePresenter.SetActiveWorkSpace(0);
-                BasePresenter.Workspaces.RemoveAt(1);
-            }
-            else
-                LoadAndShowCurrentEntity();
-        }
-
         #endregion
+
+        #region Validation
+
+        private static void ValidateAndShow( IValidatable validtor )
+        {
+            if ( validtor == null ) return;
+            validtor.Validate();
+            validtor.HandleValidationResults();
+        }
+
+        private readonly HashSet<string> _entityLevelPropsValidation = new HashSet<string>();
+
+        public IEditViewModel AddEntityLevelPropValidation<TEntity, TProp>( Expression<Func<TEntity, TProp>> property)
+        {
+            var propertyName = ReflHelpers.GetPropertyName(property);
+
+            _entityLevelPropsValidation.Add(propertyName);
+
+            return this;
+        }
+
+        protected virtual bool IsValidEntity()
+        {
+            IsValid =  HibHelpers.Validator.IsValid( CurrentEntity );
+            return IsValid;
+        }
+
+        protected virtual string Validate()
+        {
+            if ( IsValidEntity() ) return null;
+
+            var errors = HibHelpers.Validator.Validate(CurrentEntity);
+
+            var listError = new List<string> {"ELENCO ERRORI RILEVATI:"};
+
+            var enumerable = errors.Where(e=>!string.IsNullOrWhiteSpace(e.Message)).
+                Select(e => e.PropertyName.Replace("DB","").ToUpper() + ": " + e.Message).ToList();
+
+            listError.AddRange(enumerable);
+
+            return string.Join(Environment.NewLine, listError);
+        }
+
+        #endregion      
 
         #region Search on site stuff
 
@@ -831,32 +838,41 @@ namespace FaPA.GUI.Controls.MyTabControl
             }
         }
 
+        private void EnterKeyHandler()
+        {
+            if (IsSearchModality)
+            {
+                _searchBackgroundWorker.RunWorkerAsync();
+            }
+        }
+
+        #endregion
+        
+        #region IRepository
+
+        public virtual object Read()
+        {
+            //CurrentEntity =  LoadEntity( CurrentEntity.Id );
+            BindCurrent();
+            return CurrentEntity;
+        }
+
+        public bool Persist(object entity)
+        {
+            return TryPersistEntity();
+        }
+
+        public bool Delete()
+        {
+            DeleteEntity();
+            return true;
+        }
+
         #endregion
 
-        //public bool TryGetUnproxiedEntity( long maxWait=9000 )
-        //{
-        //    int pos = UserEntitiesView.CurrentPosition;
-        //    var sw = new Stopwatch();
-        //    sw.Start();
-        //    var instance = UserCollection[pos] as BaseEntity;
-        //    //var list = UserCollection as List<BaseEntity>;
-        //    //var instance = list[pos].As<BaseEntity>();
-        //    UnProxy(instance);
-        //    while ( instance is INHibernateProxy && sw.ElapsedMilliseconds < maxWait )
-        //    {
-        //        Thread.Sleep( 250 );
-        //        sw.Stop();
-        //        if ( sw.ElapsedMilliseconds > maxWait )
-        //            return false;
-        //        sw.Start();
-        //        instance = (BaseEntity) UserCollection[pos];
-        //        UnProxy(instance);
-        //    }
-        //    sw.Stop();
-        //    return true;
-        //}
+        #region helpers
 
-        private bool TryGetUnproxiedEntity(long maxWait=3000)
+        private bool TryGetUnproxiedEntity(long maxWait = 3000)
         {
             ShowCursor.Show();
             int pos = UserEntitiesView.CurrentPosition;
@@ -864,7 +880,7 @@ namespace FaPA.GUI.Controls.MyTabControl
             sw.Start();
             var instance = UserCollection[pos] as IFlyFetch;
             if (instance == null) return true;
-            while ( !instance.TryUnproxyFlyFetch  && sw.ElapsedMilliseconds < maxWait)
+            while (!instance.TryUnproxyFlyFetch && sw.ElapsedMilliseconds < maxWait)
             {
                 Thread.Sleep(250);
                 sw.Stop();
@@ -895,10 +911,44 @@ namespace FaPA.GUI.Controls.MyTabControl
             Disposed();
         }
 
-        private void OnClose( object sender, EventArgs args )
+        private void OnClose(object sender, EventArgs args)
         {
             UserEntitiesView.CurrentChanged -= OnCurrentSelectionChanged;
         }
+
+        private void ReplaceSessionAfterError()
+        {
+            if (_session != null)
+            {
+                _session.Clear();
+                //ReplaceEntitiesLoadedByFaultedSession();
+            }
+        }
+
+        //public bool TryGetUnproxiedEntity( long maxWait=9000 )
+        //{
+        //    int pos = UserEntitiesView.CurrentPosition;
+        //    var sw = new Stopwatch();
+        //    sw.Start();
+        //    var instance = UserCollection[pos] as BaseEntity;
+        //    //var list = UserCollection as List<BaseEntity>;
+        //    //var instance = list[pos].As<BaseEntity>();
+        //    UnProxy(instance);
+        //    while ( instance is INHibernateProxy && sw.ElapsedMilliseconds < maxWait )
+        //    {
+        //        Thread.Sleep( 250 );
+        //        sw.Stop();
+        //        if ( sw.ElapsedMilliseconds > maxWait )
+        //            return false;
+        //        sw.Start();
+        //        instance = (BaseEntity) UserCollection[pos];
+        //        UnProxy(instance);
+        //    }
+        //    sw.Stop();
+        //    return true;
+        //}
+
+        #endregion
 
         #region command
 
@@ -998,26 +1048,7 @@ namespace FaPA.GUI.Controls.MyTabControl
 
         #endregion
 
-        #region IRepository
 
-        public object Read()
-        {
-            CurrentEntity =  LoadEntity( CurrentEntity.Id );
-            return CurrentEntity;
-        }
-
-        public bool Persist(object entity)
-        {
-            return TryPersistEntity();
-        }
-
-        public bool Delete()
-        {
-            DeleteEntity();
-            return true;
-        }
-
-        #endregion
 
     }
 }

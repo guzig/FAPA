@@ -34,7 +34,7 @@ namespace FaPA.GUI.Controls
         protected readonly Func<T, TProperty> GetterPropExp;
         protected readonly IRepository Repository;
 
-        protected T Instance { get; set; }
+        public T Instance { get; set; }
 
         public TProperty UserProperty
         {
@@ -198,8 +198,7 @@ namespace FaPA.GUI.Controls
                 SetterPropExp( Instance, value );
             NotifyOfPropertyChange( () => UserProperty );
         }
-
-
+        
         public TProperty GetUserProperty()
         {
             if ( Instance != null )
@@ -324,7 +323,11 @@ namespace FaPA.GUI.Controls
         }
 
         public event Action Disposed = delegate { };
+
+        #region INPC stuff
+
         public delegate void OnCurrentChangedhandler(object sender, PropertyChangedEventArgs eventArg);
+
         public event OnCurrentChangedhandler CurrentEntityPropChanged;
 
         protected void OnPropertyChanged(object sender, PropertyChangedEventArgs eventArg)
@@ -333,6 +336,8 @@ namespace FaPA.GUI.Controls
             handler?.Invoke(sender, eventArg);
         }
 
+        #endregion
+        
         protected virtual void PersitEntity()
         {
             ShowCursor.Show();
