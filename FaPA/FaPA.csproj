@@ -201,6 +201,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="GUI\Design\Templates\DatiPagamentoViewModel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GUI\Design\Templates\DatiRiepilogo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -508,6 +512,9 @@
     </Compile>
     <Compile Include="GUI\Design\Templates\DatiAnagraficiCedente.xaml.cs">
       <DependentUpon>DatiAnagraficiCedente.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Design\Templates\DatiPagamentoViewModel.xaml.cs">
+      <DependentUpon>DatiPagamentoViewModel.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\Design\Templates\DatiRiepilogo.xaml.cs">
       <DependentUpon>DatiRiepilogo.xaml</DependentUpon>

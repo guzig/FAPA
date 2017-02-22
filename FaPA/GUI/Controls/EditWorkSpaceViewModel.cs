@@ -362,6 +362,11 @@ namespace FaPA.GUI.Controls
 
             if (Repository == null) return;
 
+            Reload();
+        }
+
+        public virtual void Reload()
+        {
             Instance = ReadInstance();
             UserProperty = GetUserProperty();
             CurrentPoco = UserProperty;

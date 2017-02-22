@@ -11,6 +11,8 @@ using NHibernate;
 using System.Linq;
 using FaPA.AppServices.CoreValidation;
 using FaPA.Core;
+using FaPA.Core.FaPa;
+using FaPA.GUI.Design.Templates;
 using FaPA.Infrastructure;
 using FaPA.Properties;
 
@@ -54,7 +56,6 @@ namespace FaPA.GUI.Feautures.Fattura
             get { return _datiGeneraliViewModel; }
             set
             {
-                if (Equals(value, _datiGeneraliViewModel)) return;
                 _datiGeneraliViewModel = value;
                 NotifyOfPropertyChange(() => DatiGeneraliViewModel);
             }
@@ -85,9 +86,25 @@ namespace FaPA.GUI.Feautures.Fattura
             }
         }
 
-        public TrasmittenteTabViewModel TrasmittenteViewModel { get; set; }
+        public TrasmittenteTabViewModel TrasmittenteViewModel
+        {
+            get { return _trasmittenteViewModel; }
+            set
+            {
+                _trasmittenteViewModel = value;
+                NotifyOfPropertyChange( () => TrasmittenteViewModel );
+            }
+        }
 
-        public DatiPagamentoTabViewModel DatiPagamentoViewModel { get; set; }
+        public DatiPagamentoTabViewModel DatiPagamentoViewModel
+        {
+            get { return _datiPagamentoViewModel; }
+            set
+            {
+                _datiPagamentoViewModel = value;
+                NotifyOfPropertyChange( () => DatiPagamentoViewModel );
+            }
+        }
 
         public AllegatiViewModel AllegatiViewModel
         {
@@ -209,7 +226,7 @@ namespace FaPA.GUI.Feautures.Fattura
 
         private void InitFatturaTabs(Core.Fattura fattura )
         {
-            DettagliFatturaViewModel = new DettagliFatturaViewModel(this, fattura );
+            DettagliFatturaViewModel = new DettagliFatturaViewModel( this, fattura );
             DettagliFatturaViewModel.Init();
             DettagliFatturaViewModel.CurrentEntityPropChanged += OnDettaglioFatturaPropertyPropChanged;
             DettagliFatturaViewModel.CurrentEntityChanged += OnDettaglioFatturaCurrentChanged;
@@ -217,47 +234,47 @@ namespace FaPA.GUI.Feautures.Fattura
             DatiGeneraliViewModel = new DatiGeneraliViewModel( this, fattura.FatturaElettronicaBody );
             AddTabViewModel<DatiGeneraliViewModel>( DatiGeneraliViewModel );
 
-            DatiDocumentoViewModel = new DatiDocumentoViewModel(this, fattura.DatiGenerali );
-            AddTabViewModel<DatiDocumentoViewModel>(DatiDocumentoViewModel);
+            DatiDocumentoViewModel = new DatiDocumentoViewModel( this, fattura.DatiGenerali );
+            AddTabViewModel<DatiDocumentoViewModel>( DatiDocumentoViewModel );
 
-            TrasmittenteViewModel = new TrasmittenteTabViewModel(this, fattura);
+            TrasmittenteViewModel = new TrasmittenteTabViewModel( this, fattura );
             TrasmittenteViewModel.Init();
             AddTabViewModel<TrasmittenteTabViewModel>( TrasmittenteViewModel );
 
-            DatiPagamentoViewModel = null;
+            BasePresenter.Workspaces.Remove( DatiPagamentoViewModel );
             DatiPagamentoViewModel = new DatiPagamentoTabViewModel( this, fattura );
             DatiPagamentoViewModel.Init();
             AddTabViewModel<DatiPagamentoTabViewModel>( DatiPagamentoViewModel );
             DatiPagamentoViewModel.CurrentEntityPropChanged += KK;
 
-            AllegatiViewModel = new AllegatiViewModel( this, fattura.FatturaElettronicaBody);
+            AllegatiViewModel = new AllegatiViewModel( this, fattura.FatturaElettronicaBody );
             AllegatiViewModel.Init();
             AddTabViewModel<AllegatiViewModel>( AllegatiViewModel );
 
             RappresentanteFiscaleViewModel = new DatiRappresentanteFiscaleViewModel( this, fattura );
             RappresentanteFiscaleViewModel.Init();
             AddTabViewModel<DatiRappresentanteFiscaleViewModel>( RappresentanteFiscaleViewModel );
-            
+
             TerzoIntermediarioViewModel = new DatiTerzoIntermediarioViewModel( this, fattura );
             TerzoIntermediarioViewModel.Init();
             AddTabViewModel<DatiTerzoIntermediarioViewModel>( TerzoIntermediarioViewModel );
 
-            DatiRiepilogoIvaViewModel = new DatiRiepilogoIvaViewModel(this, fattura.DatiBeniServizi);
+            DatiRiepilogoIvaViewModel = new DatiRiepilogoIvaViewModel( this, fattura.DatiBeniServizi );
             DatiRiepilogoIvaViewModel.Init();
-            AddTabViewModel<DatiRiepilogoIvaViewModel>(DatiRiepilogoIvaViewModel);
+            AddTabViewModel<DatiRiepilogoIvaViewModel>( DatiRiepilogoIvaViewModel );
 
-            var isValidatedByXsd = fattura.ValidateByXsdFatturaPA( );
+            //var isValidatedByXsd = fattura.ValidateByXsdFatturaPA( );
 
-            if ( string.IsNullOrWhiteSpace( isValidatedByXsd ) )
-            {
-                IconXsdValidationState = XsdValidationPassedIcon;
-                DomainResultFatturaPA = "Validazione riuscita";
-            }
-            else
-            {
-                IconXsdValidationState = XsdValidationErrorIcon;
-                DomainResultFatturaPA = isValidatedByXsd;
-            }
+            //if ( string.IsNullOrWhiteSpace( isValidatedByXsd ) )
+            //{
+            //    IconXsdValidationState = XsdValidationPassedIcon;
+            //    DomainResultFatturaPA = "Validazione riuscita";
+            //}
+            //else
+            //{
+            //    IconXsdValidationState = XsdValidationErrorIcon;
+            //    DomainResultFatturaPA = isValidatedByXsd;
+            //}
 
         }
 
@@ -269,6 +286,7 @@ namespace FaPA.GUI.Feautures.Fattura
 
             //true
             var ffff = ReferenceEquals(CurrentEntity, DatiPagamentoViewModel.Instance);
+            Debug.Assert( ReferenceEquals( CurrentEntity.DatiPagamento, DatiPagamentoViewModel.UserProperty ) );
 
             //false
             var fffx = ReferenceEquals(dettaglioPagamentoType, sender);
@@ -278,7 +296,12 @@ namespace FaPA.GUI.Feautures.Fattura
 
             var fffc = ReferenceEquals(pagamentoType, dettaglioPagamentoType);
 
-            var fff1 = ReferenceEquals(CurrentEntity.DatiPagamento, DatiPagamentoViewModel.UserProperty);
+            var fff1 = ReferenceEquals( DatiPagamentoViewModel.UserProperty[0], sender );
+            var fff2 = ReferenceEquals( CurrentEntity.DatiPagamento[0], sender );
+            var fff3 = ReferenceEquals( CurrentEntity.DatiPagamento[0], DatiPagamentoViewModel.UserProperty[0] );
+            var id1 = CurrentEntity.DatiPagamento[0].Id;
+            var id2 = ((DatiPagamentoType)sender).Id;
+
             var f1 = pagamentoType.ImportoPagamento;
             _f2 = DatiPagamentoViewModel.UserProperty[0].DettaglioPagamento[0].ImportoPagamento;
 
@@ -367,6 +390,7 @@ namespace FaPA.GUI.Feautures.Fattura
             //{
             //    BasePresenter.Workspaces.Add( _ritenutaViewModel = ritenutaViewModel );          
             //} ));
+
             var vm = BasePresenter.Workspaces.FirstOrDefault(a => a is TV);
             if (vm == null)
                 BasePresenter.Workspaces.Add(tabViewModel);
@@ -538,6 +562,8 @@ namespace FaPA.GUI.Feautures.Fattura
         private string _domainResultFatturaPa;
         private string _iconXsdValidationState;
         private decimal _f2;
+        private DatiPagamentoTabViewModel _datiPagamentoViewModel;
+        private TrasmittenteTabViewModel _trasmittenteViewModel;
 
         #endregion
     }

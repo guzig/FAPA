@@ -8,7 +8,6 @@ namespace FaPA.GUI.Feautures.Fattura
 {
     public class DatiPagamentoTabViewModel : BaseTabsViewModel<Core.Fattura, DatiPagamentoType[]>
     {
-        private decimal _importoPagamento;
         //ctor
         public DatiPagamentoTabViewModel(IRepository repository, Core.Fattura instance) :
             base(f => f.DatiPagamento, repository, instance, "Pagamenti", false)
@@ -31,17 +30,14 @@ namespace FaPA.GUI.Feautures.Fattura
             //ImportoPagamento = UserProperty[0].DettaglioPagamento[0].ImportoPagamento;
         }
 
-        //public decimal ImportoPagamento
-        //{
-        //    get { return _importoPagamento; }
-        //    set
-        //    {
-        //        if (value == _importoPagamento) return;
-        //        _importoPagamento = value;
-        //        UserProperty[0].DettaglioPagamento[0].ImportoPagamento = _importoPagamento;
-        //        NotifyOfPropertyChange(() => ImportoPagamento);
-        //    }
-        //}
+        protected override object CreateInstance()
+        {
+            var instance = new DatiPagamentoType()
+            {
+                DettaglioPagamento = new [] { new DettaglioPagamentoType() } 
+            };
+            return instance;
+        }
 
         protected override void AddItemToUserCollection()
         {

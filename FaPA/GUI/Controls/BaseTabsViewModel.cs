@@ -28,7 +28,7 @@ namespace FaPA.GUI.Controls
         public ICollectionView UserCollectionView
         {
             get { return _userCollectionView; }
-            private set
+            set
             {
                 _userCollectionView = value;
                 NotifyOfPropertyChange( () => UserCollectionView );
@@ -190,8 +190,11 @@ namespace FaPA.GUI.Controls
 
         private void InitCollectionView()
         {
+            UserCollectionView = null;
             UserCollectionView = CollectionViewSource.GetDefaultView(UserProperty);
             UserCollectionView.MoveCurrentToFirst();
+            UserCollectionView.Refresh();
+            CurrentPoco = null;
             CurrentPoco = UserCollectionView.CurrentItem;
             ( ( BaseEntity ) CurrentPoco ).IsValidating = true;
             UserCollectionView.CurrentChanged -= OnCurrentChanged;
@@ -253,6 +256,12 @@ namespace FaPA.GUI.Controls
             }           
         }
 
+        protected override object CreateInstance()
+        {
+            var elementType = typeof( TProperty ).GetElementType();
+            return  Activator.CreateInstance( elementType );
+        }
+
         protected  void AddToArray()
         {
             Array array = null;
@@ -282,7 +291,9 @@ namespace FaPA.GUI.Controls
             }
 
             //append new instance
-            var newInstance = Activator.CreateInstance( elementType );
+            var newInstance = CreateInstance();
+                
+
             var proxy = ObjectExplorer.DeepProxiedCopyOfType<FaPA.Core.BaseEntity>( newInstance );
             _userAddedNewPocos.Add( proxy );
             HookChanged( proxy );

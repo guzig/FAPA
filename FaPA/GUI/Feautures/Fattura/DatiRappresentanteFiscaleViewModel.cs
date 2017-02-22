@@ -20,11 +20,10 @@ namespace FaPA.GUI.Feautures.Fattura
             var entity = poco as RappresentanteFiscaleType;
             if ( entity == null ) return;
 
-            HookChanged( entity );
+            base.HookChanged( entity );
 
             if ( entity.DatiAnagrafici == null ) return;
 
-            base.HookChanged( entity );
             base.HookChanged( entity.DatiAnagrafici );
             base.HookChanged( entity.DatiAnagrafici.Anagrafica );
             base.HookChanged( entity.DatiAnagrafici.IdFiscaleIVA );

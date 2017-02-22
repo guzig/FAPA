@@ -11,7 +11,6 @@ namespace FaPA.Core.FaPa
         
         public virtual  string Beneficiario { get; set; }
 
-        [XmlElement( Form = XmlSchemaForm.Unqualified )]
         public virtual  ModalitaPagamentoType ModalitaPagamento{ get; set; }
 
         [XmlElement( Form = XmlSchemaForm.Unqualified, DataType = "date" )]
@@ -29,7 +28,6 @@ namespace FaPA.Core.FaPa
         [XmlIgnore]
         public virtual  bool DataScadenzaPagamentoSpecified { get; set; }
 
-        [XmlElement( Form = XmlSchemaForm.Unqualified )]
         public virtual  decimal ImportoPagamento
         {
             get { return _importoPagamento; }
@@ -43,37 +41,26 @@ namespace FaPA.Core.FaPa
             }
         }
 
-        [XmlElement( Form = XmlSchemaForm.Unqualified, DataType = "normalizedString" )]
         public virtual  string CodUfficioPostale { get; set; }
 
-        [XmlElement( Form = XmlSchemaForm.Unqualified, DataType = "normalizedString" )]
         public virtual  string CognomeQuietanzante { get; set; }
 
-        [XmlElement( Form = XmlSchemaForm.Unqualified, DataType = "normalizedString" )]
         public virtual  string NomeQuietanzante { get; set; }
 
-        [XmlElement( Form = XmlSchemaForm.Unqualified )]
         public virtual  string CfQuietanzante { get; set; }
 
-        [XmlElement( Form = XmlSchemaForm.Unqualified, DataType = "normalizedString" )]
         public virtual  string TitoloQuietanzante { get; set; }
 
-        [XmlElement( Form = XmlSchemaForm.Unqualified, DataType = "normalizedString" )]
         public virtual  string IstitutoFinanziario { get; set; }
 
-        [XmlElement( Form = XmlSchemaForm.Unqualified )]
         public virtual  string Iban { get; set; }
 
-        [XmlElement( Form = XmlSchemaForm.Unqualified )]
         public virtual  string Abi { get; set; }
 
-        [XmlElement( Form = XmlSchemaForm.Unqualified )]
         public virtual  string Cab { get; set; }
 
-        [XmlElement( Form = XmlSchemaForm.Unqualified )]
         public virtual  string Bic { get; set; }
 
-        [XmlElement( Form = XmlSchemaForm.Unqualified )]
         public virtual  decimal ScontoPagamentoAnticipato { get; set; }
 
         [XmlIgnore]
@@ -85,7 +72,6 @@ namespace FaPA.Core.FaPa
         [XmlIgnore]
         public virtual  bool DataLimitePagamentoAnticipatoSpecified { get; set; }
 
-        [XmlElement( Form = XmlSchemaForm.Unqualified )]
         public virtual  decimal PenalitaPagamentiRitardati { get; set; }
 
         [XmlIgnore]
@@ -97,7 +83,6 @@ namespace FaPA.Core.FaPa
         [XmlIgnore]
         public virtual  bool DataDecorrenzaPenaleSpecified { get; set; }
 
-        [XmlElement( Form = XmlSchemaForm.Unqualified, DataType = "normalizedString" )]
         public virtual  string CodicePagamento { get; set; }
     }
 }

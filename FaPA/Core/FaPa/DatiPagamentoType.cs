@@ -8,7 +8,7 @@ namespace FaPA.Core.FaPa
     public class DatiPagamentoType : BaseEntityFpa
     {
         private CondizioniPagamentoType _condizioniPagamentoField;
-        private DettaglioPagamentoType[] _dettaglioPagamentoField = { new DettaglioPagamentoType() };
+        private DettaglioPagamentoType[] _dettaglioPagamentoField;
 
         [XmlElement( Form = XmlSchemaForm.Unqualified )]
         public virtual CondizioniPagamentoType CondizioniPagamento

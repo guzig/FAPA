@@ -223,11 +223,11 @@ namespace FaPA.AppServices.CoreValidation
                         baseEntity.IsValidating = false;
                     }
 
-                    ((BaseEntity)value).IsNotyfing = false;
+                    //((BaseEntity)value).IsNotyfing = false;
                     ((BaseEntity)value).IsValidating = false;
                     property.SetValue(value, unproxied);
                     ((BaseEntity)value).IsNotyfing = true;
-                    ((BaseEntity)value).IsValidating = true;
+                    //((BaseEntity)value).IsValidating = true;
                     
                     if (baseEntity != null)
                     {
