@@ -12,7 +12,7 @@ using Action = System.Action;
 
 namespace FaPA.GUI.Controls
 {
-    public abstract class EditWorkSpaceViewModel<T, TProperty> : WorkspaceViewModel, IRepository, IDispose 
+    public abstract class EditWorkSpaceViewModel<T, TProperty> : WorkspaceViewModel, IRepository, IViewModel, IDispose 
     {
         //ctor
         protected EditWorkSpaceViewModel(IRepository repository, T instance,
@@ -165,7 +165,7 @@ namespace FaPA.GUI.Controls
            return AllowInsertNew;
         }
 
-        protected virtual void AddEntity()
+        public virtual void AddEntity()
         {
             LockMessage = EditViewModel<BaseEntity>.OnEditingLockMessage;
 
@@ -244,7 +244,7 @@ namespace FaPA.GUI.Controls
             }
         }
 
-        protected virtual void MakeTransient()
+        public virtual void MakeTransient()
         {
             if ( !GetDeleteConfirmation() ) return;
 
@@ -337,8 +337,8 @@ namespace FaPA.GUI.Controls
         }
 
         #endregion
-        
-        protected virtual void PersitEntity()
+
+        public virtual void PersitEntity()
         {
             ShowCursor.Show();
 
@@ -355,7 +355,7 @@ namespace FaPA.GUI.Controls
         //private BaseEntity _backupCopy;
 
 
-        protected virtual void CancelEdit()
+        public virtual void CancelEdit()
         {
             if (!IsEditing ) return;
             _isEditing = false;

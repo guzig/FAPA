@@ -55,7 +55,6 @@ namespace FaPA.Core
         public virtual FatturaElettronicaType FatturaPa { get; set; }
 
         #endregion
-
         
         #region Header
 
@@ -92,7 +91,6 @@ namespace FaPA.Core
         }
 
         #endregion
-
         
         #region DatiGenerali
 
@@ -157,7 +155,6 @@ namespace FaPA.Core
         }
 
         #endregion
-
         
         #region Committente e Fornitore
 
@@ -192,8 +189,7 @@ namespace FaPA.Core
         }
 
         #endregion
-
-
+        
         #region DatiGeneraliDocumento
 
         public virtual DatiGeneraliDocumentoType DatiGeneraliDocumento
@@ -226,7 +222,6 @@ namespace FaPA.Core
 
         #endregion
         
-
         #region FatturaElettronicaBody
 
         public virtual FatturaElettronicaBodyType FatturaElettronicaBody
@@ -504,13 +499,7 @@ namespace FaPA.Core
         public override DomainResult ValidatePropertyValue( string prop )
         {
             var err = new Dictionary<string, List<string>>();
-
-            //if ( !string.IsNullOrWhiteSpace( resultFatturaPa ) )
-            //{
-            //    err.Add( nameof( FatturaPa ), new[] { resultFatturaPa } );
-            //}
-
-           
+            
             GetPersistentErrors( err );
 
             DomainResult = new DomainResult( !err.Any(), err );

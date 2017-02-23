@@ -11,24 +11,7 @@ namespace FaPA.GUI.Feautures.Fattura
         //ctor
         public DatiPagamentoTabViewModel(IRepository repository, Core.Fattura instance) :
             base(f => f.DatiPagamento, repository, instance, "Pagamenti", false)
-        {
-            CurrentEntityPropChanged += Kl;
-        }
-
-        private void Kl(object sender, PropertyChangedEventArgs eventarg)
-        {
-            var dettaglioPagamentoType = Instance.DatiPagamento[0].DettaglioPagamento[0];
-            var fff0 = ReferenceEquals(dettaglioPagamentoType, sender);
-        }
-
-        protected override void OnCurrentChanged(object sender, EventArgs eventArgs)
-        {
-            var dettaglioPagamentoType = Instance.DatiPagamento[0].DettaglioPagamento[0];
-            var fff0 = ReferenceEquals(dettaglioPagamentoType, sender);
-
-            base.OnCurrentChanged(sender, eventArgs);
-            //ImportoPagamento = UserProperty[0].DettaglioPagamento[0].ImportoPagamento;
-        }
+        {}
 
         protected override object CreateInstance()
         {

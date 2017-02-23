@@ -13,7 +13,7 @@ namespace FaPA.GUI.Feautures.Fattura
             IsCloseable = false;
         }
 
-        protected override void PersitEntity()
+        public override void PersitEntity()
         {
             Instance.FatturaElettronicaHeader.SoggettoEmittente = 
                 ( ( TerzoIntermediarioSoggettoEmittenteType  ) CurrentPoco).SoggettoEmittente;

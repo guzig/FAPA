@@ -21,21 +21,6 @@ namespace FaPA.GUI.Feautures.Fattura
             RemoveFromFixedArray();
         }
 
-        protected override void HookChanged(object poco )
-        {
-            var entity = poco as DatiGeneraliType;
-            if ( entity == null ) return;
-
-            base.HookChanged( entity );
-
-            if ( entity.DatiDDT == null ) return;
-
-            foreach ( var dettaglio in entity.DatiDDT )
-            {
-                base.HookChanged( dettaglio );
-            }
-        }
-
         public override DatiGeneraliType ReadInstance()
         {
             var root = Repository.Read();

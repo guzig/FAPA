@@ -17,7 +17,7 @@ using NHibernate.Util;
 
 namespace FaPA.GUI.Controls
 {
-    public abstract class BaseTabsViewModel<T, TProperty> : EditWorkSpaceViewModel<T, TProperty> 
+    public abstract class BaseTabsViewModel<T, TProperty> : EditWorkSpaceViewModel<T, TProperty>, IViewModel
     {
         #region data members
 
@@ -38,6 +38,20 @@ namespace FaPA.GUI.Controls
         public delegate void OnCurrentChangedhandler( object currententity );
 
         public event OnCurrentChangedhandler CurrentEntityChanged;
+
+        private bool _isEmpty = true;
+        public bool IsEmpty
+        {
+            get
+            {
+                return _isEmpty;
+            }
+            set
+            {
+                _isEmpty = value;
+                NotifyOfPropertyChange( () => IsEmpty );
+            }
+        }
 
         #endregion
         
@@ -68,7 +82,7 @@ namespace FaPA.GUI.Controls
             }
         }
 
-        protected override void PersitEntity()
+        public override void PersitEntity()
         {
             base.PersitEntity();
 
@@ -82,7 +96,7 @@ namespace FaPA.GUI.Controls
             base.Read();
         }
 
-        protected override void MakeTransient()
+        public override void MakeTransient()
         {
             if ( !GetDeleteConfirmation() ) return;
 
@@ -120,7 +134,7 @@ namespace FaPA.GUI.Controls
             return true;
         }
 
-        protected override void AddEntity()
+        public override void AddEntity()
         {
             LockMessage = EditViewModel<BaseEntity>.OnEditingLockMessage;
 
@@ -142,8 +156,87 @@ namespace FaPA.GUI.Controls
             InitCollectionView();
             UserCollectionView.MoveCurrentToLast();
         }
+
+        protected override object CreateInstance()
+        {
+            var elementType = typeof( TProperty ).GetElementType();
+            return  Activator.CreateInstance( elementType );
+        }
+        
+        public override void CancelEdit()
+        {
+            var currentIndx = -1;
+            if ( UserCollectionView != null && UserCollectionView.Any() )
+                currentIndx = UserCollectionView.CurrentPosition;
+
+            IsEditing = false;
+
+            if ( Repository != null )
+            {
+                Instance = ReadInstance();
+                if ( Instance != null )
+                    UserProperty = GetUserProperty();
+            }
+
+            Init();
+
+            if ( UserProperty == null ) return;
+            if ( currentIndx >= 0 )
+            {
+                UserCollectionView?.MoveCurrentToPosition( currentIndx );
+            }
+        }
+
+  
         
         //helpers
+
+        private void InitCollectionView()
+        {
+            UserCollectionView = CollectionViewSource.GetDefaultView(UserProperty);
+            UserCollectionView.MoveCurrentToFirst();
+            CurrentPoco = UserCollectionView.CurrentItem;
+            ( ( BaseEntity ) CurrentPoco ).IsValidating = true;
+            UserCollectionView.CurrentChanged -= OnCurrentChanged;
+            UserCollectionView.CurrentChanged += OnCurrentChanged;
+            IsEmpty = UserProperty == null || UserCollectionView == null || UserCollectionView.IsEmpty;
+
+            foreach ( var item in UserCollectionView )
+            {
+                Debug.Assert( item is INotifyPropertyChanged );
+
+                HookChanged( item );
+
+                ( ( BaseEntity ) item ).IsValidating = true;
+            }
+
+        }
+        
+
+        protected virtual void OnCurrentChanged( object sender, EventArgs eventArgs )
+        {
+            CurrentPoco = UserCollectionView.CurrentItem;
+            if ( CurrentPoco == null) return;
+            Debug.Assert( CurrentPoco is IProxy );
+            ( ( BaseEntity ) CurrentPoco ).IsValidating = true;
+
+            HookChanged( CurrentPoco );
+
+            Validate();
+
+            AllowSave = IsEditing && IsValid;
+            AllowDelete = true;
+
+            OnCurrentChanged( CurrentPoco );
+        }
+
+        private void OnCurrentChanged( object sender )
+        {
+            var handler = CurrentEntityChanged;
+            handler?.Invoke( sender );
+        }
+
+
         protected void RemoveFromFixedArray()
         {
             var current = ((BaseEntity) UserCollectionView.CurrentItem).Unproxy();
@@ -174,61 +267,6 @@ namespace FaPA.GUI.Controls
             UserProperty = (TProperty) (object) newArray;
         }
 
-        private bool _isEmpty = true;
-        public bool IsEmpty
-        {
-            get
-            {
-                return _isEmpty;
-            }
-            set
-            {
-                _isEmpty = value;
-                NotifyOfPropertyChange( () => IsEmpty );
-            }
-        }
-
-        private void InitCollectionView()
-        {
-            UserCollectionView = null;
-            UserCollectionView = CollectionViewSource.GetDefaultView(UserProperty);
-            UserCollectionView.MoveCurrentToFirst();
-            UserCollectionView.Refresh();
-            CurrentPoco = null;
-            CurrentPoco = UserCollectionView.CurrentItem;
-            ( ( BaseEntity ) CurrentPoco ).IsValidating = true;
-            UserCollectionView.CurrentChanged -= OnCurrentChanged;
-            UserCollectionView.CurrentChanged += OnCurrentChanged;
-            IsEmpty = UserProperty == null || UserCollectionView == null || UserCollectionView.IsEmpty;
-
-            foreach ( var item in UserCollectionView )
-            {
-                Debug.Assert( item is INotifyPropertyChanged );
-
-                HookChanged( item );
-
-                ( ( BaseEntity ) item ).IsValidating = true;
-            }
-
-        }
-
-        protected virtual void OnCurrentChanged( object sender, EventArgs eventArgs )
-        {
-            CurrentPoco = UserCollectionView.CurrentItem;
-            if ( CurrentPoco == null) return;
-            Debug.Assert( CurrentPoco is IProxy );
-            ( ( BaseEntity ) CurrentPoco ).IsValidating = true;
-
-            HookChanged( CurrentPoco );
-
-            Validate();
-
-            AllowSave = IsEditing && IsValid;
-            AllowDelete = true;
-
-            OnCurrentChanged( CurrentPoco );
-        }
-
         protected void RemoveItem()
         {
             RemoveItemFromUserCollection();
@@ -241,27 +279,7 @@ namespace FaPA.GUI.Controls
             Validate();
 
         }
-
-        protected void ValidateAll()
-        {
-            var sourcePocoList = UserProperty as ICollection<object>;
-            if (sourcePocoList == null) return;
-
-            IsValid = true;
-            foreach (var poco in sourcePocoList)
-            {
-                if ( !( ( IValidatable ) poco ).Validate().Success ) continue;
-                IsValid = false;
-                break;
-            }           
-        }
-
-        protected override object CreateInstance()
-        {
-            var elementType = typeof( TProperty ).GetElementType();
-            return  Activator.CreateInstance( elementType );
-        }
-
+        
         protected  void AddToArray()
         {
             Array array = null;
@@ -305,29 +323,6 @@ namespace FaPA.GUI.Controls
 
         }
 
-        protected override void CancelEdit()
-        {
-            var currentIndx = -1;
-            if ( UserCollectionView != null && UserCollectionView.Any() )
-                currentIndx = UserCollectionView.CurrentPosition;
-
-            IsEditing = false;
-
-            if ( Repository != null )
-            {
-                Instance = ReadInstance();
-                if ( Instance != null )
-                    UserProperty = GetUserProperty();
-            }
-
-            Init();
-
-            if ( UserProperty == null ) return;
-            if ( currentIndx >= 0 )
-            {
-                UserCollectionView?.MoveCurrentToPosition( currentIndx );
-            }
-        }
 
         protected void CloseIfNotEmpty()
         {
@@ -341,10 +336,18 @@ namespace FaPA.GUI.Controls
             base.OnRequestClose();
         }
 
-        private void OnCurrentChanged( object sender )
+        protected void ValidateAll()
         {
-            var handler = CurrentEntityChanged;
-            handler?.Invoke( sender );
+            var sourcePocoList = UserProperty as ICollection<object>;
+            if (sourcePocoList == null) return;
+
+            IsValid = true;
+            foreach (var poco in sourcePocoList)
+            {
+                if ( !( ( IValidatable ) poco ).Validate().Success ) continue;
+                IsValid = false;
+                break;
+            }           
         }
 
     }

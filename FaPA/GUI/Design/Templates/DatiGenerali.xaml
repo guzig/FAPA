@@ -12,7 +12,8 @@
         <GroupBox Grid.Row="0" Header="Dati generali" Padding="4,4,4,4" Margin="4,4,4,4"
                   FontSize="12" FontWeight="Bold" >
 
-            <TabControl TabStripPlacement="Top" Style="{StaticResource SubTabControlStyle}" >
+            <TabControl TabStripPlacement="Top" Style="{StaticResource SubTabControlStyle}" 
+                        SelectedIndex="{Binding TabIndex, Mode=TwoWay}" >
 
                 <TabItem Header="Fattura principale" Style="{StaticResource SubTabItemStyle}">
                     <Grid Margin="2,2,2,2" DataContext="{Binding DatiFatturaPrincipaleViewModel}">

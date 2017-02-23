@@ -88,7 +88,7 @@ namespace FaPA.GUI.Feautures.Fattura
             return ( ( Core.Fattura ) root ).DatiGenerali;
         }
 
-        protected override void AddEntity()
+        public override void AddEntity()
         {
             base.AddEntity();
             InitChildViewModel();

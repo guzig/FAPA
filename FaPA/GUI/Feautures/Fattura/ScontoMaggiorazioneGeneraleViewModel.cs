@@ -14,7 +14,7 @@ namespace FaPA.GUI.Feautures.Fattura
         }
 
         //persist change in the main tab view model
-        protected override void MakeTransient()
+        public override void MakeTransient()
         {
             //if ( !GetDeleteConfirmation() ) return;
 

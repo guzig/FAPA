@@ -482,6 +482,7 @@
     <Compile Include="DomainServices\Utils\LinqUtil.cs" />
     <Compile Include="GUI\Controls\BaseCustomControl.cs" />
     <Compile Include="GUI\Controls\BaseListViewControl.cs" />
+    <Compile Include="GUI\Controls\IViewModel.cs" />
     <Compile Include="GUI\Controls\PasswordBoxBinding.cs" />
     <Compile Include="GUI\Controls\LogOnMask\AdvancedUserControl.cs" />
     <Compile Include="GUI\Controls\LogOnMask\AttachedPropertiesManager.cs" />

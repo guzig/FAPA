@@ -164,7 +164,7 @@ namespace FaPA.GUI.Feautures.Fattura
             return !IsEditing;
         }
 
-        protected override void AddEntity()
+        public override void AddEntity()
         {
             FilePath = null;
             base.AddEntity();

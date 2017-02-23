@@ -7,7 +7,7 @@ namespace FaPA.GUI.Feautures.Fattura
     public class DatiDocumentoViewModel : WorkspaceViewModel
     {
         #region fields
-
+        private int _tabIndex = 0;
         private DatiBolloViewModel _datiBolloViewModel;
         private DatiRitenutaViewModel _ritenutaTabViewModel;
         private ScontoMaggiorazioneGeneraleViewModel _scontoMaggiorazioneGeneraleView;
@@ -15,7 +15,18 @@ namespace FaPA.GUI.Feautures.Fattura
         private DatiCassaPrevViewModel _datiCassaPrevViewModel;
 
         #endregion
-        
+
+        public int TabIndex
+        {
+            get { return _tabIndex; }
+            set
+            {
+                if (value == _tabIndex) return;
+                _tabIndex = value;
+                NotifyOfPropertyChange(() => TabIndex);
+            }
+        }
+
         public DatiRitenutaViewModel DatiRitenutaViewModel
         {
             get { return _ritenutaTabViewModel; }
@@ -71,8 +82,10 @@ namespace FaPA.GUI.Feautures.Fattura
         }
 
         //ctor
-        public DatiDocumentoViewModel(IRepository repository, DatiGeneraliType instance ) 
+        public DatiDocumentoViewModel(IRepository repository, DatiGeneraliType instance, int tabIndex)
         {
+            TabIndex = tabIndex;
+
             DisplayName = "Dati documento";
             IsCloseable = false;
 

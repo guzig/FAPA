@@ -16,6 +16,7 @@ namespace FaPA.GUI.Feautures.Fattura
         private DatiConvenzioneTabViewModel _datiConvenzione;
         private DatiFattureCollegateTabViewModel _datiFattureCollegate;
         private DatiRicezioneTabViewModel _datiRicezione;
+        private int _tabIndex=0;
 
         #endregion
 
@@ -121,44 +122,54 @@ namespace FaPA.GUI.Feautures.Fattura
         }
         #endregion
 
+        public int TabIndex
+        {
+            get { return _tabIndex; }
+            set
+            {
+                if (value == _tabIndex) return;
+                _tabIndex = value;
+                NotifyOfPropertyChange(() => TabIndex);
+            }
+        }
 
 
         //ctor
-        public DatiGeneraliViewModel( IRepository repository, FatturaElettronicaBodyType instance ) 
+        public DatiGeneraliViewModel( IRepository repository, FatturaElettronicaBodyType instance, int tabIndex ) 
         {
             DisplayName = "Dati generali";
             IsCloseable = false;
             InitChildViewModels(instance, repository);
+            TabIndex = tabIndex;
         }
-
 
         private void InitChildViewModels( FatturaElettronicaBodyType instance, IRepository repository )
         {
-            DatiFatturaPrincipaleViewModel = new DatiFatturaPrincipaleViewModel( repository, instance.DatiGenerali );
+            DatiFatturaPrincipaleViewModel = new DatiFatturaPrincipaleViewModel(repository, instance.DatiGenerali);
             DatiFatturaPrincipaleViewModel.Init();
 
-            DatiTrasportoViewModel = new DatiTrasportoViewModel( repository, instance.DatiGenerali );
+            DatiTrasportoViewModel = new DatiTrasportoViewModel(repository, instance.DatiGenerali);
             DatiTrasportoViewModel.Init();
 
-            DatiDdtViewModel = new DatiDdtTabViewModel( repository, instance.DatiGenerali);
+            DatiDdtViewModel = new DatiDdtTabViewModel(repository, instance.DatiGenerali);
             DatiDdtViewModel.Init();
 
             DatiSalViewModel = new DatiSalTabViewModel( repository, instance.DatiGenerali);
             DatiSalViewModel.Init();
 
-            DatiOrdini = new DatiOrdineTabViewModel( repository, instance.DatiGenerali );
+            DatiOrdini = new DatiOrdineTabViewModel(repository, instance.DatiGenerali);
             DatiOrdini.Init();
 
-            DatiContratto = new DatiContrattoTabViewModel( repository, instance.DatiGenerali );
+            DatiContratto = new DatiContrattoTabViewModel(repository, instance.DatiGenerali);
             DatiContratto.Init();
 
-            DatiConvenzione = new DatiConvenzioneTabViewModel( repository, instance.DatiGenerali );
+            DatiConvenzione = new DatiConvenzioneTabViewModel(repository, instance.DatiGenerali);
             DatiConvenzione.Init();
 
-            DatiFattureCollegate = new DatiFattureCollegateTabViewModel( repository, instance.DatiGenerali );
+            DatiFattureCollegate = new DatiFattureCollegateTabViewModel(repository, instance.DatiGenerali);
             DatiFattureCollegate.Init();
 
-            DatiRicezione = new DatiRicezioneTabViewModel( repository, instance.DatiGenerali );
+            DatiRicezione = new DatiRicezioneTabViewModel(repository, instance.DatiGenerali);
             DatiRicezione.Init();
         }
       

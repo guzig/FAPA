@@ -45,13 +45,13 @@ namespace FaPA.GUI.Feautures.Fattura
         { }
 
         //persist change in the main tab view model
-        protected override void PersitEntity()
+        public override void PersitEntity()
         {
             //base.PersitEntity();
         }
 
         //persist change in the main tab view model
-        protected override void MakeTransient()
+        public override void MakeTransient()
         {
             //if ( !GetDeleteConfirmation() ) return;
 

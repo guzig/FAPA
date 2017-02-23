@@ -83,11 +83,11 @@ namespace FaPA.GUI.Feautures.Fattura
 
         private void InitAltriChildViewModel( DettaglioLineeType dettaglio )
         {
-            AltridatiViewModel = new AltriDatiViewModel( this, dettaglio );
+            AltridatiViewModel = new AltriDatiViewModel(this, dettaglio);
             AltridatiViewModel.Init();
             AltridatiViewModel.CurrentEntityPropChanged += OnAltriDatiPropertyPropChanged;
 
-            ScontoMaggiorazioneViewModel = new ScontoMaggiorazioneViewModel( this, dettaglio );
+            ScontoMaggiorazioneViewModel = new ScontoMaggiorazioneViewModel(this, dettaglio);
             ScontoMaggiorazioneViewModel.Init();
             ScontoMaggiorazioneViewModel.CurrentEntityPropChanged += OnScontoMaggiorazionePropertyPropChanged;
 

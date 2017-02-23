@@ -49,8 +49,6 @@ namespace FaPA.GUI.Feautures.Fattura
 
         #region ViewModels
 
-        private DatiGeneraliViewModel _datiGeneraliViewModel;
-
         public DatiGeneraliViewModel DatiGeneraliViewModel
         {
             get { return _datiGeneraliViewModel; }
@@ -60,9 +58,7 @@ namespace FaPA.GUI.Feautures.Fattura
                 NotifyOfPropertyChange(() => DatiGeneraliViewModel);
             }
         }
-
-        private DatiDocumentoViewModel _datiDocumentoViewModel;
-
+        
         public DatiDocumentoViewModel DatiDocumentoViewModel
         {
             get { return _datiDocumentoViewModel; }
@@ -73,9 +69,7 @@ namespace FaPA.GUI.Feautures.Fattura
                 NotifyOfPropertyChange(() => DatiDocumentoViewModel);
             }
         }
-
-        private DettagliFatturaViewModel _dettagliFatturaViewModel;
-
+        
         public DettagliFatturaViewModel DettagliFatturaViewModel
         {
             get { return _dettagliFatturaViewModel; }
@@ -216,13 +210,6 @@ namespace FaPA.GUI.Feautures.Fattura
         }
 
         #endregion
-        
-        private void OnCurrentFatturaChanged(Core.Fattura currententity)
-        {
-            InitFatturaTabs(CurrentEntity);
-            var f = CurrentEntity.DatiPagamento?[0].DettaglioPagamento?[0].ImportoPagamento;
-            var p = f - _f2;
-        }
 
         private void InitFatturaTabs(Core.Fattura fattura )
         {
@@ -231,21 +218,25 @@ namespace FaPA.GUI.Feautures.Fattura
             DettagliFatturaViewModel.CurrentEntityPropChanged += OnDettaglioFatturaPropertyPropChanged;
             DettagliFatturaViewModel.CurrentEntityChanged += OnDettaglioFatturaCurrentChanged;
 
-            DatiGeneraliViewModel = new DatiGeneraliViewModel( this, fattura.FatturaElettronicaBody );
+            int tabIndex=0;
+            if (DatiGeneraliViewModel != null)
+                tabIndex = DatiGeneraliViewModel.TabIndex;
+            DatiGeneraliViewModel = new DatiGeneraliViewModel( this, fattura.FatturaElettronicaBody, tabIndex );
             AddTabViewModel<DatiGeneraliViewModel>( DatiGeneraliViewModel );
 
-            DatiDocumentoViewModel = new DatiDocumentoViewModel( this, fattura.DatiGenerali );
+            tabIndex = 0;
+            if (DatiDocumentoViewModel != null)
+                tabIndex = DatiDocumentoViewModel.TabIndex;
+            DatiDocumentoViewModel = new DatiDocumentoViewModel( this, fattura.DatiGenerali, tabIndex);
             AddTabViewModel<DatiDocumentoViewModel>( DatiDocumentoViewModel );
 
             TrasmittenteViewModel = new TrasmittenteTabViewModel( this, fattura );
             TrasmittenteViewModel.Init();
             AddTabViewModel<TrasmittenteTabViewModel>( TrasmittenteViewModel );
 
-            BasePresenter.Workspaces.Remove( DatiPagamentoViewModel );
             DatiPagamentoViewModel = new DatiPagamentoTabViewModel( this, fattura );
             DatiPagamentoViewModel.Init();
             AddTabViewModel<DatiPagamentoTabViewModel>( DatiPagamentoViewModel );
-            DatiPagamentoViewModel.CurrentEntityPropChanged += KK;
 
             AllegatiViewModel = new AllegatiViewModel( this, fattura.FatturaElettronicaBody );
             AllegatiViewModel.Init();
@@ -263,50 +254,26 @@ namespace FaPA.GUI.Feautures.Fattura
             DatiRiepilogoIvaViewModel.Init();
             AddTabViewModel<DatiRiepilogoIvaViewModel>( DatiRiepilogoIvaViewModel );
 
-            //var isValidatedByXsd = fattura.ValidateByXsdFatturaPA( );
+            var isValidatedByXsd = fattura.ValidateByXsdFatturaPA();
 
-            //if ( string.IsNullOrWhiteSpace( isValidatedByXsd ) )
-            //{
-            //    IconXsdValidationState = XsdValidationPassedIcon;
-            //    DomainResultFatturaPA = "Validazione riuscita";
-            //}
-            //else
-            //{
-            //    IconXsdValidationState = XsdValidationErrorIcon;
-            //    DomainResultFatturaPA = isValidatedByXsd;
-            //}
+            if (string.IsNullOrWhiteSpace(isValidatedByXsd))
+            {
+                IconXsdValidationState = XsdValidationPassedIcon;
+                DomainResultFatturaPA = "Validazione riuscita";
+            }
+            else
+            {
+                IconXsdValidationState = XsdValidationErrorIcon;
+                DomainResultFatturaPA = isValidatedByXsd;
+            }
 
         }
 
-        private void KK(object sender, PropertyChangedEventArgs eventarg)
+        private void OnCurrentFatturaChanged(Core.Fattura currententity)
         {
-            var dettaglioPagamentoType = DatiPagamentoViewModel.Instance.DatiPagamento[0].DettaglioPagamento[0];
-            var pagamentoType = CurrentEntity.DatiPagamento[0].DettaglioPagamento[0];
-
-
-            //true
-            var ffff = ReferenceEquals(CurrentEntity, DatiPagamentoViewModel.Instance);
-            Debug.Assert( ReferenceEquals( CurrentEntity.DatiPagamento, DatiPagamentoViewModel.UserProperty ) );
-
-            //false
-            var fffx = ReferenceEquals(dettaglioPagamentoType, sender);
-            
-            //false
-            var fff0 = ReferenceEquals(pagamentoType, sender);
-
-            var fffc = ReferenceEquals(pagamentoType, dettaglioPagamentoType);
-
-            var fff1 = ReferenceEquals( DatiPagamentoViewModel.UserProperty[0], sender );
-            var fff2 = ReferenceEquals( CurrentEntity.DatiPagamento[0], sender );
-            var fff3 = ReferenceEquals( CurrentEntity.DatiPagamento[0], DatiPagamentoViewModel.UserProperty[0] );
-            var id1 = CurrentEntity.DatiPagamento[0].Id;
-            var id2 = ((DatiPagamentoType)sender).Id;
-
-            var f1 = pagamentoType.ImportoPagamento;
-            _f2 = DatiPagamentoViewModel.UserProperty[0].DettaglioPagamento[0].ImportoPagamento;
-
+            InitFatturaTabs(CurrentEntity);
         }
-
+        
         private void OnDettaglioFatturaCurrentChanged( object currententity )
         {
             OnChildChanged();
@@ -355,9 +322,26 @@ namespace FaPA.GUI.Feautures.Fattura
 
         #endregion
 
+        private void AddTabViewModel<TV>(WorkspaceViewModel tabViewModel, bool skipIfExist=false)
+        {
+            // Dispatcher.CurrentDispatcher.BeginInvoke(new System.Action(() =>
+            //{
+            //    BasePresenter.Workspaces.Add( _ritenutaViewModel = ritenutaViewModel );          
+            //} ));
+
+            var vm = BasePresenter.Workspaces.FirstOrDefault(a => a is TV);
+            if (vm == null)
+            {
+                BasePresenter.Workspaces.Add( tabViewModel );
+                return;
+            }
+            if (skipIfExist) return;
+            var index = BasePresenter.Workspaces.IndexOf(vm);
+            BasePresenter.Workspaces[index] = tabViewModel;
+        }
+        
         #region UI commands
-
-
+        
         private ICommand _showAnagraficaCommand;
         public ICommand ShowAnagraficaCommand
         {
@@ -383,19 +367,7 @@ namespace FaPA.GUI.Feautures.Fattura
 
             Presenters.Show("Anagrafica", new Action<GUI.Feautures.Anagrafica.Presenter>( p => p.CreateNewModel( 1, id )  ) );
         }
-
-        private void AddTabViewModel<TV>(WorkspaceViewModel tabViewModel)
-        {
-            // Dispatcher.CurrentDispatcher.BeginInvoke(new System.Action(() =>
-            //{
-            //    BasePresenter.Workspaces.Add( _ritenutaViewModel = ritenutaViewModel );          
-            //} ));
-
-            var vm = BasePresenter.Workspaces.FirstOrDefault(a => a is TV);
-            if (vm == null)
-                BasePresenter.Workspaces.Add(tabViewModel);
-        }
-
+        
         private ICommand _generateXmlStreamCommand;
         public ICommand GenerateXmlStreamCommand
         {
@@ -473,8 +445,7 @@ namespace FaPA.GUI.Feautures.Fattura
 
             Presenters.Show("ShowXmlToTreeView", xmlFatturaPa);
         }
-
-
+        
         private ICommand _addCopy;
         public ICommand AddCopy
         {
@@ -554,17 +525,21 @@ namespace FaPA.GUI.Feautures.Fattura
             }
         }
 
-        private AllegatiViewModel _allegatiViewModel;
+        #endregion
 
+        #region fields
+
+        private AllegatiViewModel _allegatiViewModel;
         private DatiRappresentanteFiscaleViewModel _rappresentanteFiscaleViewModel;
         private DatiTerzoIntermediarioViewModel _terzoIntermediarioViewModel;
         private DatiRiepilogoIvaViewModel _datiRiepilogoIvaViewModel;
+        private DatiGeneraliViewModel _datiGeneraliViewModel;
+        private DettagliFatturaViewModel _dettagliFatturaViewModel;
+        private DatiDocumentoViewModel _datiDocumentoViewModel;
         private string _domainResultFatturaPa;
         private string _iconXsdValidationState;
-        private decimal _f2;
         private DatiPagamentoTabViewModel _datiPagamentoViewModel;
         private TrasmittenteTabViewModel _trasmittenteViewModel;
-
         #endregion
     }
 }

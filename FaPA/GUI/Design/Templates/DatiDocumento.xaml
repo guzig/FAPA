@@ -15,7 +15,8 @@
         <GroupBox Grid.Row="0" Header="Dati generali documento " Padding="4,4,4,4" Margin="4,4,4,4"
                   FontSize="12" FontWeight="Bold">
 
-            <TabControl TabStripPlacement="Top" Style="{StaticResource SubTabControlStyle}" x:Name="TabControl">
+            <TabControl TabStripPlacement="Top" SelectedIndex="{Binding TabIndex, Mode=TwoWay}"
+                        Style="{StaticResource SubTabControlStyle}" x:Name="TabControl">
 
                 <TabItem Header="Dati generali" Style="{StaticResource SubTabItemStyle}"
                          DataContext="{Binding DatiGeneraliDocumentoViewModel}"
