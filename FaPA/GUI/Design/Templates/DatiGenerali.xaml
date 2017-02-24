@@ -16,16 +16,16 @@
                         SelectedIndex="{Binding TabIndex, Mode=TwoWay}" >
 
                 <TabItem Header="Fattura principale" Style="{StaticResource SubTabItemStyle}">
-                    <Grid Margin="2,2,2,2" DataContext="{Binding DatiFatturaPrincipaleViewModel}">
+                    <Grid Margin="2,2,2,2" >
                         
                         <t:InstanceNullManager Grid.Row="0" Grid.ColumnSpan="2"
-                                               BindedInstance="{Binding CurrentPoco}"
+                                               BindedInstance="{Binding DatiFatturaPrincipaleViewModel.CurrentPoco}"
                                                EmptyMessage="Nessuna scheda fattura principale presente"
                                                ActionCommandMessage="Aggiungi una scheda fattura principale"
-                                               OnNullCommand="{Binding AddItemCommand}" 
+                                               OnNullCommand="{Binding DatiFatturaPrincipaleViewModel.AddItemCommand}" 
                                                ActionCommandParam="FatturaPrincipale"/>
 
-                        <Grid Visibility="{Binding CurrentPoco, Converter={StaticResource NullToVisibiltyConverter}}">
+                        <Grid Visibility="{Binding DatiFatturaPrincipaleViewModel.CurrentPoco, Converter={StaticResource NullToVisibiltyConverter}}">
                             <Grid.Effect>
                                 <DropShadowEffect Color="LightSteelBlue" Direction="280"/>
                             </Grid.Effect>
@@ -42,19 +42,19 @@
 
                             <StackPanel Grid.Row="0" Grid.Column="0" Margin="2,0,2,0">
                                 <TextBlock Text="Numero" />
-                                <TextBox   Text="{Binding CurrentPoco.NumeroFatturaPrincipale, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch"  />
+                                <TextBox   Text="{Binding DatiFatturaPrincipaleViewModel.CurrentPoco.NumeroFatturaPrincipale, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch"  />
                             </StackPanel>
 
                             <StackPanel Grid.Row="0" Grid.Column="1" Margin="2,0,2,0">
                                 <TextBlock Text="Data" />
-                                <DatePicker SelectedDate="{Binding CurrentPoco.DataFatturaPrincipale}"/>
+                                <DatePicker SelectedDate="{Binding DatiFatturaPrincipaleViewModel.CurrentPoco.DataFatturaPrincipale}"/>
                             </StackPanel>
 
                             <t:SaveCancelRemoveButtons Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left"
-                                                       Visibility="{Binding CurrentPoco, Converter={StaticResource NullToVisibiltyConverter}}"
-                                                       DeleteEntityCommand="{Binding DeleteEntityCommand}"
-                                                       SaveCommand="{Binding SaveEntity}"
-                                                       PerformCancelCommand="{Binding PerformCancel}"/>
+                                                       Visibility="{Binding DatiFatturaPrincipaleViewModel.CurrentPoco, Converter={StaticResource NullToVisibiltyConverter}}"
+                                                       DeleteEntityCommand="{Binding DatiFatturaPrincipaleViewModel.DeleteEntityCommand}"
+                                                       SaveCommand="{Binding DatiFatturaPrincipaleViewModel.SaveEntity}"
+                                                       PerformCancelCommand="{Binding DatiFatturaPrincipaleViewModel.PerformCancel}"/>
                         </Grid>
                     </Grid>
                 </TabItem>

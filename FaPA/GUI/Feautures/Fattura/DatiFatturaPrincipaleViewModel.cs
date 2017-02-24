@@ -1,3 +1,4 @@
+using System;
 using FaPA.Core.FaPa;
 using FaPA.GUI.Controls;
 using FaPA.Infrastructure;
@@ -10,6 +11,11 @@ namespace FaPA.GUI.Feautures.Fattura
         public DatiFatturaPrincipaleViewModel( IRepository repository, DatiGeneraliType instance ) :
             base( repository, instance, f => f.FatturaPrincipale, "Fattura principale", true )
         { }
+
+        protected override object CreateInstance()
+        {
+            return new FatturaPrincipaleType() {DataFatturaPrincipale = DateTime.Now.Date};
+        }
 
         public override DatiGeneraliType ReadInstance()
         {

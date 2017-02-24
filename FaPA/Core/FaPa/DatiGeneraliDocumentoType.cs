@@ -94,8 +94,6 @@ namespace FaPA.Core.FaPa
                 _numeroField = value;
             }
         }
-
-
         
         public virtual DatiRitenutaType DatiRitenuta
         {
@@ -120,9 +118,6 @@ namespace FaPA.Core.FaPa
                 _datiBolloField = value;
             }
         }
-
-        //[XmlIgnore]
-        //public virtual bool DatiCassaPrevidenzialeSpecified { get; set; }
 
         public virtual DatiCassaPrevidenzialeType DatiCassaPrevidenziale
         {

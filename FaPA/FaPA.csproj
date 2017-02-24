@@ -319,11 +319,12 @@
     </Compile>
     <Compile Include="AppServices\CoreValidation\AltriDatiGestionaliValidator.cs" />
     <Compile Include="AppServices\CoreValidation\AnagraficaValidator.cs" />
+    <Compile Include="AppServices\CoreValidation\IdFiscaleValidator.cs" />
     <Compile Include="AppServices\CoreValidation\DatiAnagraficiVettoreValidator.cs" />
     <Compile Include="AppServices\CoreValidation\DatiTerzoIntermdiarioValidator.cs" />
     <Compile Include="AppServices\CoreValidation\DatiTrasmittenteValidator.cs" />
     <Compile Include="AppServices\CoreValidation\DatiTrasportoValidator.cs" />
-    <Compile Include="AppServices\CoreValidation\IdFiscaleValidator.cs" />
+    <Compile Include="AppServices\CoreValidation\FatturaPrincipaleValidator.cs" />
     <Compile Include="AppServices\CoreValidation\IndirizzoValidator.cs" />
     <Compile Include="AppServices\CoreValidation\NhUserDataValidator.cs" />
     <Compile Include="AppServices\CoreValidation\RappFiscaleValidator.cs" />

@@ -213,21 +213,21 @@ namespace FaPA.GUI.Feautures.Fattura
 
         private void InitFatturaTabs(Core.Fattura fattura )
         {
+            var tabCurrent = BasePresenter.GetActiveWorkSpace();
+
             DettagliFatturaViewModel = new DettagliFatturaViewModel( this, fattura );
             DettagliFatturaViewModel.Init();
             DettagliFatturaViewModel.CurrentEntityPropChanged += OnDettaglioFatturaPropertyPropChanged;
             DettagliFatturaViewModel.CurrentEntityChanged += OnDettaglioFatturaCurrentChanged;
 
-            int tabIndex=0;
             if (DatiGeneraliViewModel != null)
-                tabIndex = DatiGeneraliViewModel.TabIndex;
-            DatiGeneraliViewModel = new DatiGeneraliViewModel( this, fattura.FatturaElettronicaBody, tabIndex );
+                _tabIndexDatGen = DatiGeneraliViewModel.TabIndex;
+            DatiGeneraliViewModel = new DatiGeneraliViewModel( this, fattura.FatturaElettronicaBody, _tabIndexDatGen);
             AddTabViewModel<DatiGeneraliViewModel>( DatiGeneraliViewModel );
 
-            tabIndex = 0;
             if (DatiDocumentoViewModel != null)
-                tabIndex = DatiDocumentoViewModel.TabIndex;
-            DatiDocumentoViewModel = new DatiDocumentoViewModel( this, fattura.DatiGenerali, tabIndex);
+                _tabIndexDatDoc = DatiDocumentoViewModel.TabIndex;
+            DatiDocumentoViewModel = new DatiDocumentoViewModel( this, fattura.DatiGenerali, _tabIndexDatDoc);
             AddTabViewModel<DatiDocumentoViewModel>( DatiDocumentoViewModel );
 
             TrasmittenteViewModel = new TrasmittenteTabViewModel( this, fattura );
@@ -266,6 +266,9 @@ namespace FaPA.GUI.Feautures.Fattura
                 IconXsdValidationState = XsdValidationErrorIcon;
                 DomainResultFatturaPA = isValidatedByXsd;
             }
+
+            if (tabCurrent is EditFatturaViewModel && tabCurrent != BasePresenter.GetActiveWorkSpace())
+                BasePresenter.SetActiveWorkSpace(1);
 
         }
 
@@ -505,7 +508,7 @@ namespace FaPA.GUI.Feautures.Fattura
         private string GetOutPath( string folderPath)
         {
             var nomeFile = CurrentEntity.FatturaPa.FatturaElettronicaHeader.DatiTrasmissione.IdTrasmittente.IdPaese +
-                           CurrentEntity.AnagraficaCedenteDB.CodiceFiscale + "_" +
+                           CurrentEntity.AnagraficaCedenteDB.PIva + "_" +
                            CurrentEntity.FatturaPa.FatturaElettronicaHeader.DatiTrasmissione.ProgressivoInvio + ".xml";
             var outPath = Path.Combine(folderPath, nomeFile);
             return outPath;
@@ -540,6 +543,9 @@ namespace FaPA.GUI.Feautures.Fattura
         private string _iconXsdValidationState;
         private DatiPagamentoTabViewModel _datiPagamentoViewModel;
         private TrasmittenteTabViewModel _trasmittenteViewModel;
+        private int _tabIndexDatGen;
+        private int _tabIndexDatDoc;
+
         #endregion
     }
 }

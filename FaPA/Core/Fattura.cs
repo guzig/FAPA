@@ -451,6 +451,16 @@ namespace FaPA.Core
 
         public virtual void SyncFatturaPa()
         {
+            DatiTrasmissione.FormatoTrasmissione = FormatoTrasmissioneDB;
+            DatiGeneraliDocumento.Numero = NumeroFatturaDB;
+            DatiGeneraliDocumento.Data = DataFatturaDB;
+            if (string.IsNullOrWhiteSpace(DatiGeneraliDocumento.Divisa))
+            {
+                DatiGeneraliDocumento.Divisa = "EUR";
+            }
+            DatiGeneraliDocumento.ImportoTotaleDocumento = decimal.Parse(string.Format("{0:0.00}", TotaleFatturaDB));
+
+
             SetTrasmittente();
             UpdateRiepilogoIva();
             CedenteFornitore.RiferimentoAmministrazione = RiferimentoAmmDB;

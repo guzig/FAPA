@@ -10,9 +10,8 @@ namespace FaPA.Core.FaPa
 
         private string _numeroFatturaPrincipaleField;
         private DateTime _dataFatturaPrincipaleField;
+        private bool _dataFatturaPrincipaleSpecified;
 
-        
-        [XmlElement( Form = XmlSchemaForm.Unqualified, DataType = "normalizedString" )]
         public virtual  string NumeroFatturaPrincipale
         {
             get
@@ -36,7 +35,15 @@ namespace FaPA.Core.FaPa
             set
             {
                 _dataFatturaPrincipaleField = value;
+                DataFatturaPrincipaleSpecified = _dataFatturaPrincipaleField != DateTime.MinValue;
             }
+        }
+
+        [XmlIgnore]
+        public bool DataFatturaPrincipaleSpecified
+        {
+            get { return _dataFatturaPrincipaleSpecified; }
+            set { _dataFatturaPrincipaleSpecified = value; }
         }
     }
 }

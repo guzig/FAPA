@@ -12,6 +12,7 @@ namespace FaPA.AppServices.CoreValidation
         private static readonly IDictionary<Type, ICoreValidator> Validators = new Dictionary<Type, ICoreValidator>()
         {
             { typeof ( DatiTrasmissioneType ), new DatiTrasmittenteValidator() },
+            { typeof ( FatturaPrincipaleType ), new FatturaPrincipaleValidator() },
             { typeof ( IdFiscaleType ), new IdFiscaleValidator() },
             { typeof ( AnagraficaType ), new AnagraficaValidator() },
             { typeof ( DatiAnagraficiVettoreType ), new DatiAnagraficiVettoreValidator() },
