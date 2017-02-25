@@ -42,12 +42,12 @@ namespace FaPA
             ShowCursor.Show();
             base.OnStartup( e );
 
-            AppDomain.CurrentDomain.SetThreadPrincipal( new CustomPrincipal() );
-            Presenters.Show( "Main" );
+            //AppDomain.CurrentDomain.SetThreadPrincipal( new CustomPrincipal() );
+            //Presenters.Show( "Main" );
 
 
             //Presenters.Show("Anagrafica", new Action<GUI.Feautures.Anagrafica.Presenter>(p => p.CreateNewModel(0)));
-            //Presenters.Show("Fattura", new Action<GUI.Feautures.Fattura.Presenter>(p => p.CreateNewModel(0)));
+            Presenters.Show("Fattura", new Action<GUI.Feautures.Fattura.Presenter>(p => p.CreateNewModel(0)));
 
             //Presenters.Show("SearchAnagrafica");
 

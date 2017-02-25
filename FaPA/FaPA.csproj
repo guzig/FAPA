@@ -319,6 +319,7 @@
     </Compile>
     <Compile Include="AppServices\CoreValidation\AltriDatiGestionaliValidator.cs" />
     <Compile Include="AppServices\CoreValidation\AnagraficaValidator.cs" />
+    <Compile Include="AppServices\CoreValidation\DatiCassaPrevidenziale.cs" />
     <Compile Include="AppServices\CoreValidation\IdFiscaleValidator.cs" />
     <Compile Include="AppServices\CoreValidation\DatiAnagraficiVettoreValidator.cs" />
     <Compile Include="AppServices\CoreValidation\DatiTerzoIntermdiarioValidator.cs" />

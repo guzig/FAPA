@@ -237,7 +237,7 @@
                 <TabItem Header="Cassa prev." Style="{StaticResource SubTabItemStyle}"
                          DataContext="{Binding DatiCassaPrevViewModel}"
                          PreviewMouseLeftButtonDown="UIElement_OnPreviewMouseLeftButtonDown">
-                    <Grid>
+                    <Grid Margin="2,5,2,2">
                         <t:InstanceNullManager BindedInstance="{Binding CurrentPoco}"
                                                EmptyMessage="Nessun scheda dati cassa previdenziale presente"
                                                ActionCommandMessage="Aggiungi una scheda dati cassa previdenziale"
@@ -250,40 +250,76 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="45" />
                                     <RowDefinition Height="45" />
-                                    <RowDefinition Height="45" />
+                                    <RowDefinition Height="5" />
                                     <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
+                                </Grid.RowDefinitions>
+                                
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
-                                <StackPanel  Grid.Row="0" Grid.Column="0" Margin="2,0,2,0">
-                                    <TextBlock Text="Tipo" />
-                                    <TextBox   Text="{Binding CurrentPoco.TipoCassa, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
+                                <StackPanel  Grid.Row="0" Grid.Column="0" Margin="2,0,2,0" Grid.ColumnSpan="6">
+                                    <TextBlock Text="Tipo cassa" />
+                                    <ComboBox Tag="EnterAsTab"
+						                      HorizontalAlignment="Stretch"
+                                              IsEditable="true"
+                                              IsTextSearchEnabled="True"
+                                              TextSearch.TextPath="Description"
+                                              SelectedValuePath="Value"
+						                      ItemsSource="{Binding Source={utils:Enumeration {x:Type enums:TipoCassaType}}}"
+                                              SelectedValue="{Binding CurrentPoco.TipoCassa,  Mode=TwoWay, 
+                                                                      UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                              DisplayMemberPath="Description" />                                    
                                 </StackPanel>
 
-                                <StackPanel  Grid.Row="0" Grid.Column="1" Margin="2,0,2,0">
+                                <StackPanel  Grid.Row="1" Grid.Column="0" Margin="2,0,2,0">
                                     <TextBlock Text="Aliquota" />
                                     <TextBox   Text="{Binding CurrentPoco.AlCassa, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch"/>
                                 </StackPanel>
 
-                                <StackPanel Grid.Row="1" Grid.Column="0" Margin="2,0,2,0">
+                                <StackPanel Grid.Row="1" Grid.Column="1" Margin="2,0,2,0">
                                     <TextBlock Text="Contributo" />
                                     <TextBox   Text="{Binding CurrentPoco.ImportoContributoCassa, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
                                 </StackPanel>
 
-                                <StackPanel Grid.Row="1" Grid.Column="1" Margin="2,0,2,0">
+                                <StackPanel Grid.Row="1" Grid.Column="2" Margin="2,0,2,0" >
                                     <TextBlock Text="Imponibile" />
                                     <TextBox   Text="{Binding CurrentPoco.ImponibileCassa, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
                                 </StackPanel>
 
-                                <StackPanel Grid.Row="2" Grid.Column="0" Margin="2,0,2,0">
-                                    <TextBlock Text="Aliquota" />
+                                <StackPanel Grid.Row="1" Grid.Column="3" Margin="2,0,2,0">
+                                    <TextBlock Text="Aliquota IVA" />
                                     <TextBox   Text="{Binding CurrentPoco.AliquotaIVA, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True}" HorizontalAlignment="Stretch" />
                                 </StackPanel>
 
-                                <t:SaveCancelRemoveButtons Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left"
+                            <StackPanel Grid.Row="1" Grid.Column="4" Margin="2,0,2,0" HorizontalAlignment="Stretch">
+                                <TextBlock Text="Rif. Amm." />
+                                <TextBox   Text="{Binding CurrentPoco.RiferimentoAmministrazione, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True}" 
+                                           MaxLength="20" />
+                            </StackPanel>
+
+
+                            <StackPanel  Grid.Row="1" Grid.Column="5" Margin="2,0,2,0" >
+                                <TextBlock Text="Natura" />
+                                <ComboBox     Tag="EnterAsTab"
+						                      HorizontalAlignment="Stretch"
+                                              IsEditable="true"
+                                              IsTextSearchEnabled="True"
+                                              TextSearch.TextPath="Description"
+                                              SelectedValuePath="Value"
+						                      ItemsSource="{Binding Source={utils:Enumeration {x:Type enums:NaturaType}}}"
+                                              SelectedValue="{Binding CurrentPoco.Natura, Mode=TwoWay, 
+                                                                      UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                              DisplayMemberPath="Description" />
+                            </StackPanel>
+
+
+                            <t:SaveCancelRemoveButtons Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left"
                                                        Visibility="{Binding CurrentPoco, Converter={StaticResource NullToVisibiltyConverter}}"
                                                        DeleteEntityCommand="{Binding DeleteEntityCommand}"
                                                        SaveCommand="{Binding SaveEntity}"

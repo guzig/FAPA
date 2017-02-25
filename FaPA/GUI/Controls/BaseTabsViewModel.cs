@@ -12,6 +12,7 @@ using FaPA.Infrastructure;
 using Remotion.Linq.Collections;
 using FaPA.Core;
 using FaPA.Infrastructure.Helpers;
+using NHibernate.Criterion;
 using NHibernate.Proxy.DynamicProxy;
 using NHibernate.Util;
 
@@ -100,16 +101,23 @@ namespace FaPA.GUI.Controls
         {
             if ( !GetDeleteConfirmation() ) return;
 
+            var curIndex = UserCollectionView.CurrentPosition;
+
             RemoveItem();
 
-            Persist( Instance );
-
-            Instance = ReadInstance();
-
-            UserProperty = GetUserProperty(); 
-            CurrentPoco = UserProperty;
-
+            //Persist( Instance );
+            //Instance = ReadInstance();
+            //UserProperty = GetUserProperty(); 
+            //CurrentPoco = UserProperty;
+            
             Init();
+
+            if ( curIndex > 0 )
+                UserCollectionView.MoveCurrentToPosition( curIndex - 1 );
+            else if ( UserCollectionView != null && UserCollectionView.IsEmpty )
+            {
+                UserCollectionView.Refresh();
+            }
 
             AllowDelete = UserCollectionView != null && !UserCollectionView.IsEmpty;
 
@@ -239,7 +247,7 @@ namespace FaPA.GUI.Controls
 
         protected void RemoveFromFixedArray()
         {
-            var current = ((BaseEntity) UserCollectionView.CurrentItem).Unproxy();
+            var current = ( BaseEntity ) ((BaseEntity) UserCollectionView.CurrentItem).Unproxy();
             if (current == null) return;
 
             var source = UserProperty as object[];
@@ -259,7 +267,7 @@ namespace FaPA.GUI.Controls
             var newArray=Array.CreateInstance(typeof(TProperty).GetElementType(), arrayLength);
 
             var index = 0;
-            foreach (var element in source.Where(e=>e.Unproxy()!=current))
+            foreach (var element in source.Cast<BaseEntity>().Where(e=> e.Id != current.Id) )
             {
                 newArray.SetValue(element,index++);
             }

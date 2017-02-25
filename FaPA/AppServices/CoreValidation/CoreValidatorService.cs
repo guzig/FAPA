@@ -13,6 +13,7 @@ namespace FaPA.AppServices.CoreValidation
         {
             { typeof ( DatiTrasmissioneType ), new DatiTrasmittenteValidator() },
             { typeof ( FatturaPrincipaleType ), new FatturaPrincipaleValidator() },
+            { typeof ( DatiCassaPrevidenzialeType ), new DatiCassaPrevidenzialeValidator() },
             { typeof ( IdFiscaleType ), new IdFiscaleValidator() },
             { typeof ( AnagraficaType ), new AnagraficaValidator() },
             { typeof ( DatiAnagraficiVettoreType ), new DatiAnagraficiVettoreValidator() },

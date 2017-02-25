@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:cc="clr-namespace:FaPA.GUI.Controls.MyTabControl"
         Title="Emissione fatture PA" SizeToContent="WidthAndHeight"
-        Width="870" MaxWidth="870" MinWidth="870" MaxHeight="650"
+        Width="870" MaxWidth="870" MinWidth="870" MaxHeight="680"
         HorizontalAlignment="Stretch" VerticalAlignment ="Stretch"  >
 
     <Grid >

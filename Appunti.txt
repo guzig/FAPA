@@ -1,3 +1,7 @@
+non salvare su eliminazione dettaglio fattura
+
+
+
 info is clicked
 dati sal validator
 

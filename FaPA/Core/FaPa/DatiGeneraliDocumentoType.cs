@@ -43,7 +43,6 @@ namespace FaPA.Core.FaPa
 
         private bool _art73FieldSpecified;
 
-
         #endregion
 
         public virtual TipoDocumentoType TipoDocumento
@@ -116,8 +115,12 @@ namespace FaPA.Core.FaPa
             set
             {
                 _datiBolloField = value;
+                DatiBolloSpecified = DatiBollo.BolloVirtuale == BolloVirtualeType.SI;
             }
         }
+
+        [XmlIgnore]
+        public bool DatiBolloSpecified { get; set; }
 
         public virtual DatiCassaPrevidenzialeType DatiCassaPrevidenziale
         {

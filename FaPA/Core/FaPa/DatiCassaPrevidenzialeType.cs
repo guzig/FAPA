@@ -1,4 +1,5 @@
 using System;
+using System.Xml.Serialization;
 
 namespace FaPA.Core.FaPa
 {
@@ -53,8 +54,7 @@ namespace FaPA.Core.FaPa
             }
             set
             {
-                if (value == _alCassaField) return;
-                _alCassaField = value;
+                _alCassaField = decimal.Parse( string.Format( "{0:0.00}", value ) );
             }
         }
 
@@ -66,8 +66,7 @@ namespace FaPA.Core.FaPa
             }
             set
             {
-                if (value == _importoContributoCassaField) return;
-                _importoContributoCassaField = value;
+                _importoContributoCassaField = decimal.Parse( string.Format( "{0:0.00}", value ) );
             }
         }
 
@@ -79,11 +78,11 @@ namespace FaPA.Core.FaPa
             }
             set
             {
-                if (value == _imponibileCassaField) return;
-                _imponibileCassaField = value;
+                _imponibileCassaField = decimal.Parse( string.Format( "{0:0.00}", value ) );
             }
         }
 
+        [XmlIgnore]
         public virtual bool ImponibileCassaSpecified
         {
             get
@@ -105,8 +104,7 @@ namespace FaPA.Core.FaPa
             }
             set
             {
-                if (value == _aliquotaIvaField) return;
-                _aliquotaIvaField = value;
+                _aliquotaIvaField = decimal.Parse( string.Format( "{0:0.00}", value ) ); 
             }
         }
 
@@ -123,6 +121,7 @@ namespace FaPA.Core.FaPa
             }
         }
 
+        [XmlIgnore]
         public virtual bool RitenutaSpecified
         {
             get
@@ -149,6 +148,7 @@ namespace FaPA.Core.FaPa
             }
         }
 
+        [XmlIgnore]
         public virtual bool NaturaSpecified
         {
             get
