@@ -11,6 +11,7 @@
     <c1:NullToVisibiltyConverter x:Key="NullToVisibiltyConverter"/>
     <c1:NullToInverseVisibiltyConverter x:Key="NullToInverseVisibiltyConverter"/>
     <c1:InvertVisibilityConverter x:Key="InvertVisibilityConverter"/>
+    <c1:StringArrayConverter x:Key="StringArrayConverter"/>
 
     <SolidColorBrush x:Key="GroubHeaderBackgroundBrush" Color="#FFB9D1EA"/>
 

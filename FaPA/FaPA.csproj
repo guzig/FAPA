@@ -319,7 +319,11 @@
     </Compile>
     <Compile Include="AppServices\CoreValidation\AltriDatiGestionaliValidator.cs" />
     <Compile Include="AppServices\CoreValidation\AnagraficaValidator.cs" />
-    <Compile Include="AppServices\CoreValidation\DatiCassaPrevidenziale.cs" />
+    <Compile Include="AppServices\CoreValidation\DatiCassaBolloValidator.cs" />
+    <Compile Include="AppServices\CoreValidation\DatiCassaPrevidenzialeValidator.cs" />
+    <Compile Include="AppServices\CoreValidation\DatiDdtValidator.cs" />
+    <Compile Include="AppServices\CoreValidation\DatiGeneraliDocumentoValidator.cs" />
+    <Compile Include="AppServices\CoreValidation\DatiSalValidator.cs" />
     <Compile Include="AppServices\CoreValidation\IdFiscaleValidator.cs" />
     <Compile Include="AppServices\CoreValidation\DatiAnagraficiVettoreValidator.cs" />
     <Compile Include="AppServices\CoreValidation\DatiTerzoIntermdiarioValidator.cs" />
@@ -491,6 +495,7 @@
     <Compile Include="GUI\Controls\LogOnMask\BrushPropertyAnimation.cs" />
     <Compile Include="GUI\Controls\LogOnMask\ChangePassword.cs" />
     <Compile Include="GUI\Controls\LogOnMask\SmartLoginOverlay.xaml.cs" />
+    <Compile Include="GUI\Design\Converters\StringArrayConverter.cs" />
     <Compile Include="GUI\Design\Converters\InvertVisibilityConverter.cs" />
     <Compile Include="GUI\Design\Converters\NullToBooleanConverter.cs" />
     <Compile Include="GUI\Design\Converters\NullToInverseVisibiltyConverter.cs" />
@@ -578,6 +583,7 @@
     <Compile Include="GUI\Feautures\User\Model.cs" />
     <Compile Include="GUI\Feautures\User\Presenter.cs" />
     <Compile Include="GUI\Feautures\User\View.xaml.cs" />
+    <Compile Include="GUI\Utils\NumberOnlyBehaviour.cs" />
     <Compile Include="GUI\Utils\DataGridHelpers.cs" />
     <Compile Include="GUI\Utils\ReflectionHelpers.cs" />
     <Compile Include="GUI\Utils\TextBoxBehavior.cs" />

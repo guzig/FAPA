@@ -6,8 +6,7 @@ using FaPA.DomainServices.Utils;
 
 namespace FaPA.Core.FaPa
 {
-    [Serializable]
-    
+    [Serializable]   
     public class DatiGeneraliDocumentoType : BaseEntityFpa
     {
 
@@ -37,11 +36,12 @@ namespace FaPA.Core.FaPa
 
         private bool _arrotondamentoFieldSpecified;
 
-        private string[] _causaleField;
+        private string[] _causaleField = new string[1];
 
         private Art73Type _art73Field;
 
         private bool _art73FieldSpecified;
+        private bool _causaleSpecified;
 
         #endregion
 
@@ -176,7 +176,6 @@ namespace FaPA.Core.FaPa
             }
         }
 
-        [XmlIgnore]
         public virtual decimal Arrotondamento
         {
             get
@@ -186,7 +185,7 @@ namespace FaPA.Core.FaPa
             set
             {
                 _arrotondamentoField = value;
-                ArrotondamentoSpecified = _arrotondamentoField > (decimal) 0.0;
+                ArrotondamentoSpecified = _arrotondamentoField > (decimal) 0.0 || _arrotondamentoField < ( decimal ) 0.0;
             }
         }
 
@@ -212,7 +211,15 @@ namespace FaPA.Core.FaPa
             set
             {
                 _causaleField = value;
+                CausaleSpecified = string.IsNullOrWhiteSpace( _causaleField[0] );
             }
+        }
+
+        [XmlIgnore]
+        public bool CausaleSpecified
+        {
+            get { return _causaleSpecified; }
+            set { _causaleSpecified = value; }
         }
 
         public virtual Art73Type Art73

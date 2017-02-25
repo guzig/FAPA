@@ -248,9 +248,11 @@ namespace FaPA.Core
 
         public virtual DettaglioLineeType[] DettaglioLinee
         {
-            get { return DatiBeniServizi.DettaglioLinee; }
+            get { return DatiBeniServizi?.DettaglioLinee; }
             set
             {
+                if ( DatiBeniServizi  == null)
+                    DatiBeniServizi = new DatiBeniServiziType();
                 DatiBeniServizi.DettaglioLinee = value;
             }
         }

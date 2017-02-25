@@ -1,7 +1,8 @@
 ﻿<UserControl x:Class="FaPA.GUI.Design.Templates.DatiGenerali"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:t="clr-namespace:FaPA.GUI.Design.Templates">
+             xmlns:t="clr-namespace:FaPA.GUI.Design.Templates"
+             xmlns:utils="clr-namespace:FaPA.GUI.Utils">
     
     <Grid Margin="2,2,2,2" MaxWidth="950">
         <Grid.RowDefinitions>
@@ -528,11 +529,20 @@
                                         </DataGridTemplateColumn>
 
                                         <DataGridTextColumn Header="Riferimento numero linee" Width="*" 
-                                                            Binding="{Binding RiferimentoNumeroLinea, ValidatesOnDataErrors =True,
-                                                                                        NotifyOnSourceUpdated=True,
-                                                                                        NotifyOnValidationError=True,
-                                                                                        UpdateSourceTrigger =LostFocus}"
+                                                            
+                                                            Binding="{Binding RiferimentoNumeroLinea, 
+                                                                              Converter={StaticResource StringArrayConverter},
+                                                                              ValidatesOnDataErrors =True,
+                                                                                NotifyOnSourceUpdated=True,
+                                                                                NotifyOnValidationError=True,
+                                                                                UpdateSourceTrigger =LostFocus}"
                                                             ElementStyle="{StaticResource errorStyle}">
+
+                                            <DataGridTextColumn.CellStyle>
+                                                <Style TargetType="DataGridCell" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                                                    <Setter Property="ToolTip" Value="Separare i numeri di linea dettaglio da una virgola. Lasciare vuoto se riferito a tutta la fattura" />
+                                                </Style>
+                                            </DataGridTextColumn.CellStyle>
 
                                         </DataGridTextColumn>
 

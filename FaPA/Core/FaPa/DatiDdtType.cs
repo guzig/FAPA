@@ -1,4 +1,7 @@
 using System;
+using System.ComponentModel;
+using System.Globalization;
+using System.Linq;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 
@@ -10,7 +13,8 @@ namespace FaPA.Core.FaPa
         private string _numeroDdtField;
         private DateTime _dataDdtField;
         private string[] _riferimentoNumeroLineaField;
-        
+        private bool _riferimentoNumeroLineaSpecified;
+
         public virtual string NumeroDDT
         {
             get
@@ -35,7 +39,8 @@ namespace FaPA.Core.FaPa
                 _dataDdtField = value;
             }
         }
-        
+
+        [XmlElement( Form = XmlSchemaForm.Unqualified, DataType = "string" )]
         public virtual string[] RiferimentoNumeroLinea
         {
             get
@@ -45,7 +50,16 @@ namespace FaPA.Core.FaPa
             set
             {
                 _riferimentoNumeroLineaField = value;
+                RiferimentoNumeroLineaSpecified = _riferimentoNumeroLineaField != null &&
+                                                  _riferimentoNumeroLineaField.Any( s => !string.IsNullOrWhiteSpace( s ) );
             }
+        }
+
+        [XmlIgnore]
+        public bool RiferimentoNumeroLineaSpecified
+        {
+            get { return _riferimentoNumeroLineaSpecified; }
+            set { _riferimentoNumeroLineaSpecified = value; }
         }
     }
 }

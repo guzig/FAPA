@@ -18,7 +18,6 @@ namespace FaPA.Core.FaPa
         private DatiTrasportoType _datiTrasportoField;
         private FatturaPrincipaleType _fatturaPrincipaleField;
         
-        [XmlElement( Form = XmlSchemaForm.Unqualified )]
         public virtual DatiGeneraliDocumentoType DatiGeneraliDocumento
         {
             get
@@ -122,7 +121,6 @@ namespace FaPA.Core.FaPa
             }
         }
         
-        [XmlElement( Form = XmlSchemaForm.Unqualified )]
         public virtual DatiTrasportoType DatiTrasporto
         {
             get
@@ -135,7 +133,6 @@ namespace FaPA.Core.FaPa
             }
         }
         
-        [XmlElement( Form = XmlSchemaForm.Unqualified )]
         public virtual FatturaPrincipaleType FatturaPrincipale
         {
             get

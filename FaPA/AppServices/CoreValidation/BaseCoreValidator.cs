@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace FaPA.AppServices.CoreValidation
 {
@@ -41,10 +43,19 @@ namespace FaPA.AppServices.CoreValidation
                 propErrors.Add( $" il campo {propName} deve avere una lunghezza massima di {maxLength} caratteri" );
             }
 
-            if ( propErrors.Any() )
+            TryAddError( propName, errors, propErrors );
+        }
+
+        protected static void ValidateByFunc<T>( string propName, T value, Dictionary<string, List<string>> errors,
+            Func<T, bool> func, string error )
+        {
+            var propErrors = new List<string>();
+
+            if ( func(value) )
             {
-                errors.Add( propName, propErrors );
+                propErrors.Add( error );
             }
+            TryAddError( propName, errors, propErrors );
         }
 
         protected static void TryGetMinMaxValueErrors( string propName, decimal value, Dictionary<string, List<string>> errors,
@@ -61,11 +72,8 @@ namespace FaPA.AppServices.CoreValidation
             {
                 propErrors.Add( $" il campo {propName} deve essere minore di {maxLength}" );
             }
-            
-            if ( propErrors.Any() )
-            {
-                errors.Add( propName, propErrors );
-            }
+
+            TryAddError( propName, errors, propErrors );
         }
 
         protected static bool TryAddNotNullError( string propName, string propValue, Dictionary<string, List<string>> errors )
@@ -98,6 +106,14 @@ namespace FaPA.AppServices.CoreValidation
                     else
                         errors.Add( propName, erro.Value );
                 }
+            }
+        }
+
+        private static void TryAddError( string propName, Dictionary<string, List<string>> errors, List<string> propErrors )
+        {
+            if ( propErrors.Any() )
+            {
+                errors.Add( propName, propErrors );
             }
         }
 

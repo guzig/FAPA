@@ -16,8 +16,8 @@ namespace FaPA.Core.FaPa
         private string _codiceCommessaConvenzioneField;
         private string _codiceCupField;
         private string _codiceCigField;
-        
-        //[XmlIgnore]
+        private bool _riferimentoNumeroLineaSpecified;
+
         public virtual string[] RiferimentoNumeroLinea
         {
             get
@@ -26,8 +26,18 @@ namespace FaPA.Core.FaPa
             }
             set
             {
-                _riferimentoNumeroLineaField = value != null && !value.Any() ? null : value;
+                _riferimentoNumeroLineaField = value;
+                RiferimentoNumeroLineaSpecified = _riferimentoNumeroLineaField != null &&
+                                                  _riferimentoNumeroLineaField.Any( s => !string.IsNullOrWhiteSpace( s ) );
+
             }
+        }
+
+        [XmlIgnore]
+        public bool RiferimentoNumeroLineaSpecified
+        {
+            get { return _riferimentoNumeroLineaSpecified; }
+            set { _riferimentoNumeroLineaSpecified = value; }
         }
 
         public virtual string IdDocumento

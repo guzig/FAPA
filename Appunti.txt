@@ -1,4 +1,8 @@
-non salvare su eliminazione dettaglio fattura
+causale fattura in dati generali documento as list string
+
+
+
+Articolo fornitore come sconto magg.
 
 
 
