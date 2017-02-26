@@ -60,19 +60,19 @@ namespace FaPA.GUI.Design.Templates
 
         #endregion
 
-        #region OnNullCommandProperty
+        #region OnAddEnterCommandProperty
 
-        public static readonly DependencyProperty OnNullCommandProperty = DependencyProperty.RegisterAttached(
-            "OnNullCommand", typeof (ICommand), typeof (InstanceNullManager), new PropertyMetadata(default(ICommand)));
+        public static readonly DependencyProperty OnAddEnterCommandProperty = DependencyProperty.RegisterAttached(
+            "OnAddEnterCommand", typeof (ICommand), typeof (InstanceNullManager), new PropertyMetadata(default(ICommand)));
 
-        public static void SetOnNullCommand(DependencyObject element, ICommand value)
+        public static void SetOnAddEnterCommand(DependencyObject element, ICommand value)
         {
-            element.SetValue(OnNullCommandProperty, value);
+            element.SetValue(OnAddEnterCommandProperty, value);
         }
 
-        public static ICommand GetOnNullCommand(DependencyObject element)
+        public static ICommand GetOnAddEnterCommand(DependencyObject element)
         {
-            return (ICommand) element.GetValue(OnNullCommandProperty);
+            return (ICommand) element.GetValue(OnAddEnterCommandProperty);
         }
 
         #endregion

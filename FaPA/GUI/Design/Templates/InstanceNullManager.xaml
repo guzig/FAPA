@@ -19,7 +19,7 @@
 
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,20"> 
                         <Hyperlink FontSize="14"  
-                                   Command="{Binding OnNullCommand}"
+                                   Command="{Binding OnAddEnterCommand}"
                                    CommandParameter="{Binding ActionCommandParam}">
                             <Run Text="{Binding ActionCommandMessage}" />
                         </Hyperlink>

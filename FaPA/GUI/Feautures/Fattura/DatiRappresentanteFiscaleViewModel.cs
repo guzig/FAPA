@@ -1,3 +1,5 @@
+using System.ComponentModel;
+using FaPA.Core;
 using FaPA.Core.FaPa;
 using FaPA.GUI.Controls;
 using FaPA.Infrastructure;
@@ -15,20 +17,21 @@ namespace FaPA.GUI.Feautures.Fattura
             IsCloseable = false;
         }
 
-        protected override void HookChanged( object poco )
+        protected override void HookChanged( INotifyPropertyChanged poco )
         {
             var entity = poco as RappresentanteFiscaleType;
             if ( entity == null ) return;
 
-            base.HookChanged( entity );
+            base.HookChanged( ( INotifyPropertyChanged ) entity );
 
             if ( entity.DatiAnagrafici == null ) return;
 
-            base.HookChanged( entity.DatiAnagrafici );
-            base.HookChanged( entity.DatiAnagrafici.Anagrafica );
-            base.HookChanged( entity.DatiAnagrafici.IdFiscaleIVA );
+            base.HookChanged( ( INotifyPropertyChanged ) entity.DatiAnagrafici );
+            base.HookChanged( ( INotifyPropertyChanged ) entity.DatiAnagrafici.Anagrafica );
+            base.HookChanged( ( INotifyPropertyChanged ) entity.DatiAnagrafici.IdFiscaleIVA );
 
         }
+
 
         protected override object CreateInstance()
         {

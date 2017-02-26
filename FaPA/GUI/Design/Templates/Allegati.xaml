@@ -15,7 +15,7 @@
                                     BindedInstance="{Binding CurrentPoco, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
                                     EmptyMessage="Nessun allegato è stato aggiunto"
                                     ActionCommandMessage="Aggiungi un allegato"
-                                    OnNullCommand="{Binding AddItemCommand}"
+                                    OnAddEnterCommand="{Binding AddItemCommand}"
                                     ActionCommandParam="DatiTrasporto"/>
 
         <GroupBox Grid.Row="0" Header="Allegati fattura" Margin="4,4,4,4" Padding="5,5,5,5"

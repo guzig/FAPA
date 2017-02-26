@@ -93,7 +93,7 @@
                                 BindedInstance="{Binding CurrentPoco}"
                                 EmptyMessage="Nessuna scheda dati correlati presente"
                                 ActionCommandMessage="Aggiungi una scheda dati correlati"
-                                OnNullCommand="{Binding AddItemCommand}" 
+                                OnAddEnterCommand="{Binding AddItemCommand}" 
                                 ActionCommandParam="FatturaPrincipale"/>
 
         <t:SaveCancelRemoveButtons  Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left"

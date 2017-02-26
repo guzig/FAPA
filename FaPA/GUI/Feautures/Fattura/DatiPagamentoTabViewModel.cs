@@ -32,18 +32,18 @@ namespace FaPA.GUI.Feautures.Fattura
             RemoveFromFixedArray();
         }
 
-        protected override void HookChanged(object poco)
+        protected override void HookChanged( INotifyPropertyChanged poco )
         {
             var entity = poco as DatiPagamentoType;
             if ( entity == null ) return;
 
-            base.HookChanged( entity );
+            base.HookChanged( ( INotifyPropertyChanged) entity );
 
             if ( entity.DettaglioPagamento == null ) return;
 
             foreach ( var dettaglio in entity.DettaglioPagamento )
             {
-                base.HookChanged(dettaglio);
+                base.HookChanged( ( INotifyPropertyChanged) dettaglio );
             }
         }
 

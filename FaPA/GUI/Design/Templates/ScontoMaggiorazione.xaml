@@ -20,7 +20,7 @@
                                 BindedInstance="{Binding CurrentPoco}"
                                 EmptyMessage="Nessuna scheda sconto/maggiorazione presente"
                                 ActionCommandMessage="Aggiungi una scheda sconto/maggiorazione"
-                                OnNullCommand="{Binding AddItemCommand}" 
+                                OnAddEnterCommand="{Binding AddItemCommand}" 
                                 ActionCommandParam="FatturaPrincipale"/>
 
         <DockPanel Grid.Row="1">

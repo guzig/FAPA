@@ -9,29 +9,29 @@ namespace FaPA.AppServices.CoreValidation
         public override IDictionary<string, List<string>> GetValidationErrors( object instance )
         {
             var errors = new Dictionary<string, List<string>>();
-            var instnce = instance as DatiAnagraficiTerzoIntermediarioType;
+            var instnce = instance as TerzoIntermediarioSoggettoEmittenteType;
 
             if ( instnce == null ) return errors;
-            
-            if ( instnce.Anagrafica != null  )
+
+            if ( instnce.DatiAnagrafici?.Anagrafica != null )
             {
-                var vettore = instnce.Anagrafica.Validate();
-                if ( !vettore.Success )
+                var result = instnce.DatiAnagrafici.Anagrafica.Validate();
+                if ( !result.Success )
                 {
-                    errors.Add( nameof(instnce.Anagrafica), vettore.Errors.Values.SelectMany( s => s ).ToList() );
+                    errors.Add( nameof( instnce.DatiAnagrafici.Anagrafica ), result.Errors.Values.SelectMany( s => s ).ToList() );
                 }
             }
 
-            if ( instnce.IdFiscaleIVA != null )
+            if ( instnce.DatiAnagrafici?.IdFiscaleIVA != null )
             {
-                var idfiscale = instnce.IdFiscaleIVA.Validate();
+                var idfiscale = instnce.DatiAnagrafici.IdFiscaleIVA.Validate();
                 if ( !idfiscale.Success )
                 {
-                    errors.Add( nameof( instnce.IdFiscaleIVA ), idfiscale.Errors.Values.SelectMany( s => s ).ToList() );
+                    errors.Add( nameof( instnce.DatiAnagrafici.IdFiscaleIVA ), idfiscale.Errors.Values.SelectMany( s => s ).ToList() );
                 }
             }
 
-            TryGetLengthErrors( nameof( instnce.CodiceFiscale ), instnce.CodiceFiscale, errors, 11, 16, false );
+            TryGetLengthErrors( nameof( instnce.DatiAnagrafici.CodiceFiscale ), instnce.DatiAnagrafici.CodiceFiscale, errors, 16, 11, false );
 
             return errors;
         }

@@ -52,7 +52,7 @@
                                         Visibility="{Binding IsEmpty, Mode=OneWay, Converter={StaticResourceExtension BoolToVisibilityConverter}}"
                                         EmptyMessage="Nessun dettaglio fattura presente"
                                         ActionCommandMessage="Aggiungi una riga di dettaglio"
-                                        OnNullCommand="{Binding AddItemCommand}"/>
+                                        OnAddEnterCommand="{Binding AddItemCommand}"/>
 
         <DockPanel HorizontalAlignment="Stretch" Focusable="False" Grid.Row="1" Margin="2,2,2,2">
             <DataGrid x:Name="DettagliFatturaGridControl" 

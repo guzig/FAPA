@@ -175,7 +175,7 @@ namespace FaPA.GUI.Controls
 
             CurrentPoco = ObjectExplorer.DeepProxiedCopyOfType<FaPA.Core.BaseEntity>( userProperty ); 
 
-            HookChanged( CurrentPoco );
+            HookChanged( ( INotifyPropertyChanged) CurrentPoco );
 
             UserProperty = (TProperty)CurrentPoco;
 
@@ -192,14 +192,14 @@ namespace FaPA.GUI.Controls
 
         #endregion
 
-        public void SetUserProperty( TProperty value)
+        protected void SetUserProperty( TProperty value)
         {
             if ( Instance != null )
                 SetterPropExp( Instance, value );
             NotifyOfPropertyChange( () => UserProperty );
         }
-        
-        public TProperty GetUserProperty()
+
+        protected TProperty GetUserProperty()
         {
             if ( Instance != null )
                 return GetterPropExp( Instance );
@@ -215,7 +215,7 @@ namespace FaPA.GUI.Controls
 
             if ( UserProperty == null ) return;
             CurrentPoco = UserProperty;
-            HookChanged( UserProperty );
+            HookChanged( ( INotifyPropertyChanged) UserProperty );
             ( ( BaseEntity ) CurrentPoco ).IsValidating = true;
         }
 
@@ -307,12 +307,11 @@ namespace FaPA.GUI.Controls
             return false;
         }
 
-        protected virtual void HookChanged(object poco)
+        protected virtual void HookChanged( INotifyPropertyChanged poco )
         {
-            var notifyPropertyChanged = poco as INotifyPropertyChanged;
-            if (notifyPropertyChanged == null) return;
-            notifyPropertyChanged.PropertyChanged -= OnPropChanged;
-            notifyPropertyChanged.PropertyChanged += OnPropChanged;
+            if (poco == null) return;
+            poco.PropertyChanged -= OnPropChanged;
+            poco.PropertyChanged += OnPropChanged;
             ( ( BaseEntity ) poco ).IsValidating = true;
         }
 
@@ -330,7 +329,7 @@ namespace FaPA.GUI.Controls
 
         public event OnCurrentChangedhandler CurrentEntityPropChanged;
 
-        protected void OnPropertyChanged(object sender, PropertyChangedEventArgs eventArg)
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs eventArg)
         {
             var handler = CurrentEntityPropChanged;
             handler?.Invoke(sender, eventArg);

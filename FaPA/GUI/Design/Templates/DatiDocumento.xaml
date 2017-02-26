@@ -26,7 +26,7 @@
                         <t:InstanceNullManager BindedInstance="{Binding DatiGeneraliDocumentoViewModel.CurrentPoco}"
                                                EmptyMessage="Nessuna scheda dati generali presente"
                                                ActionCommandMessage="Aggiungi una scheda dati generali"
-                                               OnNullCommand="{Binding DatiGeneraliDocumentoViewModel.AddItemCommand}" />
+                                               OnAddEnterCommand="{Binding DatiGeneraliDocumentoViewModel.AddItemCommand}" />
 
                         <Grid Margin="2,2,2,2" 
                               DataContext="{Binding DatiGeneraliDocumentoViewModel}"
@@ -129,7 +129,7 @@
                         <t:InstanceNullManager BindedInstance="{Binding CurrentPoco}"
                                                EmptyMessage="Nessun scheda dati bollo presente"
                                                ActionCommandMessage="Aggiungi una scheda dati bollo"
-                                               OnNullCommand="{Binding AddItemCommand}" />
+                                               OnAddEnterCommand="{Binding AddItemCommand}" />
 
                         <Grid Margin="2,2,2,2"
                               Visibility="{Binding CurrentPoco, Converter={StaticResource NullToVisibiltyConverter}}">
@@ -182,7 +182,7 @@
                         <t:InstanceNullManager BindedInstance="{Binding CurrentPoco}"
                                                EmptyMessage="Nessuna ritenuta presente"
                                                ActionCommandMessage="Aggiungi una ritenuta"
-                                               OnNullCommand="{Binding AddItemCommand}" />
+                                               OnAddEnterCommand="{Binding AddItemCommand}" />
 
                         <Grid Margin="2,2,2,2" 
                               Visibility="{Binding CurrentPoco, Converter={StaticResource NullToVisibiltyConverter}}">
@@ -243,7 +243,7 @@
                         <t:InstanceNullManager BindedInstance="{Binding CurrentPoco}"
                                                EmptyMessage="Nessun scheda dati cassa previdenziale presente"
                                                ActionCommandMessage="Aggiungi una scheda dati cassa previdenziale"
-                                               OnNullCommand="{Binding AddItemCommand}" />
+                                               OnAddEnterCommand="{Binding AddItemCommand}" />
                             <Grid Margin="2,2,2,2"
                                   Visibility="{Binding CurrentPoco, Converter={StaticResource NullToVisibiltyConverter}}">
                                 <Grid.Effect>
@@ -347,7 +347,7 @@
                         <t:InstanceNullManager BindedInstance="{Binding CurrentPoco}"
                                                EmptyMessage="Nessun scheda dati sconto maggiorazione presente"
                                                ActionCommandMessage="Aggiungi una scheda dati sconto maggiorazione"
-                                               OnNullCommand="{Binding AddItemCommand}" />
+                                               OnAddEnterCommand="{Binding AddItemCommand}" />
 
                         <Grid  Grid.Row="1" 
                                Grid.Column="0" 

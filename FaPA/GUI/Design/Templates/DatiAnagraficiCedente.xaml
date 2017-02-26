@@ -24,7 +24,7 @@
                                            BindedInstance="{Binding CurrentPoco, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
                                            EmptyMessage="Nessuna scheda dati anagrafici presente"
                                            ActionCommandMessage="Aggiungi una scheda dati anagrafici"
-                                           OnNullCommand="{Binding AddItemCommand}"
+                                           OnAddEnterCommand="{Binding AddItemCommand}"
                                            ActionCommandParam="DatiVettore"/>
 
                     <Grid Grid.Row="0" Grid.ColumnSpan="5" 

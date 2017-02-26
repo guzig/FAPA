@@ -213,7 +213,7 @@ namespace FaPA.GUI.Controls
             {
                 Debug.Assert( item is INotifyPropertyChanged );
 
-                HookChanged( item );
+                HookChanged( ( INotifyPropertyChanged) item );
 
                 ( ( BaseEntity ) item ).IsValidating = true;
             }
@@ -228,7 +228,7 @@ namespace FaPA.GUI.Controls
             Debug.Assert( CurrentPoco is IProxy );
             ( ( BaseEntity ) CurrentPoco ).IsValidating = true;
 
-            HookChanged( CurrentPoco );
+            HookChanged( ( INotifyPropertyChanged) CurrentPoco );
 
             Validate();
 
@@ -322,7 +322,7 @@ namespace FaPA.GUI.Controls
 
             var proxy = ObjectExplorer.DeepProxiedCopyOfType<FaPA.Core.BaseEntity>( newInstance );
             _userAddedNewPocos.Add( proxy );
-            HookChanged( proxy );
+            HookChanged( ( INotifyPropertyChanged) proxy );
             aray[aray.Length - 1] = proxy;
 
             ( ( IValidatable ) proxy ).Validate();

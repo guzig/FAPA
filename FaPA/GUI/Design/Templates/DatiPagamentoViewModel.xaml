@@ -23,7 +23,7 @@
                                     BindedInstance="{Binding CurrentPoco, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
                                     EmptyMessage="Nessuna scheda dati pagamento presente"
                                     ActionCommandMessage="Aggiungi una scheda dati pagamento"
-                                    OnNullCommand="{Binding AddItemCommand}"/>
+                                    OnAddEnterCommand="{Binding AddItemCommand}"/>
 
         <Grid utils:FocusAdvancement.AdvancesByEnterKey="True" Grid.Row="1" 
                   Visibility="{Binding IsEmpty, Mode=OneWay, Converter={StaticResource BoolToOppositeVisibilityConverter}}">

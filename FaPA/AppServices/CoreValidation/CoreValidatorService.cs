@@ -11,7 +11,7 @@ namespace FaPA.AppServices.CoreValidation
     {
         private static readonly IDictionary<Type, ICoreValidator> Validators = new Dictionary<Type, ICoreValidator>()
         {
-            { typeof ( DatiTrasmissioneType ), new DatiTrasmittenteValidator() },
+
             { typeof ( DatiGeneraliDocumentoType ), new DatiGeneraliDocumentoValidator() },
             { typeof ( DatiBolloType ), new DatiCassaBolloValidator() },
             { typeof ( FatturaPrincipaleType ), new FatturaPrincipaleValidator() },
@@ -21,7 +21,6 @@ namespace FaPA.AppServices.CoreValidation
             { typeof ( DatiAnagraficiVettoreType ), new DatiAnagraficiVettoreValidator() },
             { typeof ( IndirizzoType ), new IndirizzoValidator() },
             { typeof ( DatiTrasportoType ), new DatiTrasportoValidator() },
-            { typeof ( DatiPagamentoType ), new DatiPagamentoValidator() },
             { typeof ( DettaglioPagamentoType ), new DatiPagamentoValidator() },
             { typeof ( DatiDocumentiCorrelatiType ), new DatiCorrelatiValidator() },
             { typeof ( DatiRitenutaType ), new DatiRitenutaValidator() },
@@ -31,11 +30,17 @@ namespace FaPA.AppServices.CoreValidation
             { typeof ( Anagrafica ), new NhCommittenteValidator() },
             { typeof ( Fattura ), new NhFatturaValidator() },
             { typeof ( UserData ), new NhUserDataValidator() },
-            { typeof ( DatiAnagraficiTerzoIntermediarioType ), new DatiTerzoIntermdiarioValidator() },
-            { typeof ( DatiAnagraficiRappresentanteType ), new RappFiscaleValidator() },
             { typeof ( DatiSALType ), new DatiSalValidator() },
             { typeof ( DatiDDTType ), new DatiDdtValidator() },
-            
+
+            //TerzoIntermediarioSoggettoEmittenteType
+            { typeof ( DatiTrasmissioneType ), new DatiTrasmittenteValidator() },
+            { typeof ( TerzoIntermediarioSoggettoEmittenteType ), new DatiTerzoIntermdiarioValidator() },
+            { typeof ( DatiAnagraficiRappresentanteType ), new RappFiscaleValidator() },
+            { typeof ( DatiPagamentoType ), new DatiPagamentoValidator() },
+
+
+
 
         };
 

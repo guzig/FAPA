@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using FaPA.Core.FaPa;
 using FaPA.GUI.Controls;
 using FaPA.Infrastructure;
@@ -31,13 +32,13 @@ namespace FaPA.GUI.Feautures.Fattura
             return instance;
         }
 
-        protected override void HookChanged( object poco )
+        protected override void HookChanged( INotifyPropertyChanged poco )
         {
             var entity = poco as DatiAnagraficiVettoreType;
             if ( entity == null ) return;
-            base.HookChanged( entity );
-            base.HookChanged( entity.Anagrafica );
-            base.HookChanged( entity.IdFiscaleIVA );
+            base.HookChanged( ( INotifyPropertyChanged) entity );
+            base.HookChanged( ( INotifyPropertyChanged)entity.Anagrafica );
+            base.HookChanged( ( INotifyPropertyChanged ) entity.IdFiscaleIVA );
         }
     }
 }

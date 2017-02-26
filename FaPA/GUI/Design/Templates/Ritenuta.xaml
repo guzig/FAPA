@@ -14,7 +14,7 @@
                                 BindedInstance="{Binding CurrentPoco}"
                                 EmptyMessage="Nessuna scheda ritenuta presente"
                                 ActionCommandMessage="Aggiungi una scheda ritenuta"
-                                OnNullCommand="{Binding AddItemCommand}" 
+                                OnAddEnterCommand="{Binding AddItemCommand}" 
                                 ActionCommandParam="FatturaPrincipale"/>
 
         <GroupBox Grid.Row="0" Header="Ritenuta previdenziale"

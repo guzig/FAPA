@@ -14,7 +14,7 @@
                                     BindedInstance="{Binding CurrentPoco}"
                                     EmptyMessage="Nessuna scheda dati riepilogo"
                                     ActionCommandMessage="Aggiungi una scheda dati Riepilogo"
-                                    OnNullCommand="{Binding AddItemCommand}" />
+                                    OnAddEnterCommand="{Binding AddItemCommand}" />
 
         <Grid HorizontalAlignment="Stretch">
 

@@ -5,7 +5,7 @@
              xmlns:enums="clr-namespace:FaPA.Core.FaPa"
              xmlns:utils="clr-namespace:FaPA.GUI.Utils">
 
-    <Grid Margin="2,2,2,2">
+    <Grid Margin="2,2,2,2" >
 
         <Grid.Effect>
             <DropShadowEffect Color="LightSteelBlue" Direction="280"/>
@@ -16,7 +16,8 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <GroupBox Header="Anagrafica" Grid.Row="0" Grid.Column="0"  Margin="2,2,2,2" Padding="2,2,2,2">
+        <GroupBox Header="Anagrafica terzo intermediario soggetto emittente" 
+                  Grid.Row="0" Grid.Column="0"  Margin="2,2,2,2" Padding="2,2,2,2">
 
             <Border BorderThickness="1" Margin="2,2,2,2" Padding="2,2,2,2" >
 
@@ -26,7 +27,7 @@
                                            BindedInstance="{Binding CurrentPoco, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
                                            EmptyMessage="Nessuna scheda dati anagrafici presente"
                                            ActionCommandMessage="Aggiungi una scheda dati anagrafici"
-                                           OnNullCommand="{Binding AddItemCommand}"
+                                           OnAddEnterCommand="{Binding AddItemCommand}"
                                            ActionCommandParam="DatiVettore"/>
 
                     <Grid Grid.Row="0" Grid.ColumnSpan="5" 
@@ -55,14 +56,14 @@
                         <StackPanel  Grid.Row="0" Grid.Column="1" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
                             <TextBlock Text="Id codice" />
                             <TextBox   Text="{Binding CurrentPoco.DatiAnagrafici.IdFiscaleIVA.IdCodice, UpdateSourceTrigger=LostFocus}" 
-                                                      MaxLength="11"
-                                                      Margin="2,0,2,0"/>
+                                                      MaxLength="11" Margin="2,0,2,0"/>
                         </StackPanel>
 
-                        <StackPanel  Grid.Row="0" Grid.Column="2" Margin="2,0,2,0" Width="Auto"   HorizontalAlignment="Stretch" MinWidth="200">
+                        <StackPanel  Grid.Row="0" Grid.Column="2" Margin="2,0,2,0" Width="Auto" HorizontalAlignment="Stretch"  
+                                     DataContext="{Binding CurrentPoco.DatiAnagrafici}">
                             <TextBlock Text="Codice Fiscale" />
-                            <TextBox   Text="{Binding CurrentPoco.DatiAnagrafici.CodiceFiscale,  UpdateSourceTrigger=LostFocus}" MaxLength="16"
-                                       HorizontalAlignment="Stretch" Margin="2,0,2,0"/>
+                            <TextBox   Text="{Binding CodiceFiscale,  UpdateSourceTrigger=LostFocus}" 
+                                       MaxLength="16" Margin="2,0,2,0"/>
                         </StackPanel>
 
                         <StackPanel  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
@@ -77,7 +78,7 @@
                                        MaxLength="60" Margin="2,0,2,0"/>
                         </StackPanel>
 
-                        <StackPanel  Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
+                        <StackPanel  Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
                             <TextBlock Text="Nome" />
                             <TextBox   Text="{Binding CurrentPoco.DatiAnagrafici.Anagrafica.Nome, UpdateSourceTrigger=LostFocus}" 
                                        MaxLength="60" Margin="2,0,2,0"/>
@@ -87,9 +88,9 @@
                                     Margin="2,0,2,0" HorizontalAlignment="Stretch" Tag="EnterAsTab" >
                             <TextBlock Text="Soggetto emittente" />
                             <ComboBox   ItemsSource="{Binding Source={utils:Enumeration {x:Type enums:SoggettoEmittenteType}}, UpdateSourceTrigger=PropertyChanged}"  
-                                    DisplayMemberPath="Description" SelectedValuePath="Value" 
-                                    IsReadOnly="False"
-                                    SelectedValue="{Binding CurrentPoco.SoggettoEmittente, UpdateSourceTrigger=LostFocus}">
+                                        DisplayMemberPath="Description" SelectedValuePath="Value" 
+                                        IsReadOnly="False"
+                                        SelectedValue="{Binding CurrentPoco.SoggettoEmittente, UpdateSourceTrigger=LostFocus}">
                             </ComboBox>
 
                         </StackPanel>
@@ -105,6 +106,7 @@
         <t:SaveCancelRemoveButtons Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left"
                                    Visibility="{Binding CurrentPoco, Converter={StaticResource NullToVisibiltyConverter}}"
                                    SaveCommand="{Binding SaveEntity}"
+                                   DeleteEntityCommand="{Binding DeleteEntityCommand}"
                                    PerformCancelCommand="{Binding PerformCancel}"/>
 
     </Grid>
