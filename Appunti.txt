@@ -1,14 +1,5 @@
-causale fattura in dati generali documento as list string
-se ultimo elemento dove salvo dopo cancellazione?
+causale fattura in dati generali documento as list string: separatore?
 
-
-
-Articolo fornitore come sconto magg.
-
-
-
-info is clicked
-dati sal validator
 
 exception after cancel first fattura
 

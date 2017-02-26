@@ -39,7 +39,7 @@ namespace FaPA.GUI.Feautures.Fattura
             {
                 DatiAnagrafici = new DatiAnagraficiRappresentanteType()
                 {
-                    IdFiscaleIVA = new IdFiscaleType(),
+                    IdFiscaleIVA = new IdFiscaleType() {IdPaese = "IT"},
                     Anagrafica = new AnagraficaType()
                 }
             };

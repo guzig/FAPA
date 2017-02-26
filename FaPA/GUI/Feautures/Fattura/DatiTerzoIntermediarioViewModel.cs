@@ -18,9 +18,12 @@ namespace FaPA.GUI.Feautures.Fattura
 
         public override void PersitEntity()
         {
-            Instance.FatturaElettronicaHeader.SoggettoEmittente = 
-                ( ( TerzoIntermediarioSoggettoEmittenteType  ) CurrentPoco).SoggettoEmittente;
-          
+            if ( CurrentPoco != null )
+            {
+                Instance.FatturaElettronicaHeader.SoggettoEmittente = 
+                    ( ( TerzoIntermediarioSoggettoEmittenteType  ) CurrentPoco).SoggettoEmittente;
+            }   
+                   
             base.PersitEntity();
         }
 
@@ -36,7 +39,7 @@ namespace FaPA.GUI.Feautures.Fattura
             base.HookChanged( ( INotifyPropertyChanged) entity.DatiAnagrafici.IdFiscaleIVA );
 
             ( ( INotifyPropertyChanged ) entity.DatiAnagrafici ).PropertyChanged += OnPropertyChanged;
-            ( ( INotifyPropertyChanged ) entity.DatiAnagrafici.IdFiscaleIVA ).PropertyChanged += OnPropertyChanged;
+            //( ( INotifyPropertyChanged ) entity.DatiAnagrafici.IdFiscaleIVA ).PropertyChanged += OnPropertyChanged;
             ( ( INotifyPropertyChanged ) entity.DatiAnagrafici.Anagrafica ).PropertyChanged += OnPropertyChanged;
         }
 
@@ -50,11 +53,14 @@ namespace FaPA.GUI.Feautures.Fattura
 
             //validatable.HandleValidationResults();
 
-            ( ( IValidatable ) validatable ).HandleValidationResults( "CodiceFiscale" );
+            if ( sender is DatiAnagraficiTerzoIntermediarioType )
+                ( ( IValidatable ) validatable ).HandleValidationResults( "CodiceFiscale" );
 
-            ( ( IValidatable ) validatable ).HandleValidationResults( "CurrentPoco.DatiAnagrafici.IdFiscaleIVA" );
+            //if ( sender is IdFiscaleType )
+            //    ( ( IValidatable ) validatable ).HandleValidationResults( "CurrentPoco.DatiAnagrafici.IdFiscaleIVA" );
 
-            ( ( IValidatable ) validatable ).HandleValidationResults( "DatiAnagrafici.DatiAnagrafici.Anagrafica" );
+            if ( sender is AnagraficaType )
+                ( ( IValidatable ) validatable ).HandleValidationResults( "DatiAnagrafici.DatiAnagrafici.Anagrafica" );
 
         }
 
@@ -64,7 +70,7 @@ namespace FaPA.GUI.Feautures.Fattura
             {
                 DatiAnagrafici = new DatiAnagraficiTerzoIntermediarioType()
                 {
-                    IdFiscaleIVA = new IdFiscaleType() {IdPaese = "IT"},
+                    //IdFiscaleIVA = new IdFiscaleType() ,
                     Anagrafica = new AnagraficaType() 
                 }
             };

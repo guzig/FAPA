@@ -10,7 +10,9 @@ namespace FaPA.Core.FaPa
         private IdFiscaleType _idFiscaleIvaField;
         private string _codiceFiscaleField;
         private AnagraficaType _anagraficaField;
-        
+        private bool _idFiscaleIvaSpecified;
+        private bool _codiceFiscaleSpecified;
+
         [XmlElement( Form = XmlSchemaForm.Unqualified )]
         public virtual IdFiscaleType IdFiscaleIVA
         {
@@ -21,7 +23,16 @@ namespace FaPA.Core.FaPa
             set
             {
                 _idFiscaleIvaField = value;
+                IdFiscaleIVASpecified = IdFiscaleIVA != null && ( !string.IsNullOrWhiteSpace(IdFiscaleIVA.IdCodice ) || 
+                    !string.IsNullOrWhiteSpace( IdFiscaleIVA.IdPaese ) );
             }
+        }
+
+        [XmlIgnore]
+        public bool IdFiscaleIVASpecified
+        {
+            get { return _idFiscaleIvaSpecified; }
+            set { _idFiscaleIvaSpecified = value; }
         }
 
         public virtual string CodiceFiscale
@@ -33,9 +44,17 @@ namespace FaPA.Core.FaPa
             set
             {
                 _codiceFiscaleField = value;
+                CodiceFiscaleSpecified = !string.IsNullOrWhiteSpace( _codiceFiscaleField );
             }
         }
-        
+
+        [XmlIgnore]
+        public bool CodiceFiscaleSpecified
+        {
+            get { return _codiceFiscaleSpecified; }
+            set { _codiceFiscaleSpecified = value; }
+        }
+
         [XmlElement( Form = XmlSchemaForm.Unqualified )]
         public virtual AnagraficaType Anagrafica
         {

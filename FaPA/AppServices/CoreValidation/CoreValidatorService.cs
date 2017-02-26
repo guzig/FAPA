@@ -35,6 +35,7 @@ namespace FaPA.AppServices.CoreValidation
 
             //TerzoIntermediarioSoggettoEmittenteType
             { typeof ( DatiTrasmissioneType ), new DatiTrasmittenteValidator() },
+            { typeof ( DatiAnagraficiTerzoIntermediarioType ), new DatiTerzoIntermdiarioValidator() },
             { typeof ( TerzoIntermediarioSoggettoEmittenteType ), new DatiTerzoIntermdiarioValidator() },
             { typeof ( DatiAnagraficiRappresentanteType ), new RappFiscaleValidator() },
             { typeof ( DatiPagamentoType ), new DatiPagamentoValidator() },

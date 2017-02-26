@@ -91,7 +91,7 @@ namespace FaPA.Core
         }
 
         #endregion
-        
+
         #region DatiGenerali
 
         public virtual DatiGeneraliType DatiGenerali

@@ -18,6 +18,7 @@ namespace FaPA.Core.FaPa
         private string _codiceCigField;
         private bool _riferimentoNumeroLineaSpecified;
 
+        [XmlElement( Form = XmlSchemaForm.Unqualified, DataType = "string" )]
         public virtual string[] RiferimentoNumeroLinea
         {
             get

@@ -47,22 +47,21 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <StackPanel  Grid.Row="0" Grid.Column="0" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
+                        <!--<StackPanel  Grid.Row="0" Grid.Column="0" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
                             <TextBlock Text="Id Paese" />
                             <TextBox   Text="{Binding CurrentPoco.DatiAnagrafici.IdFiscaleIVA.IdPaese, UpdateSourceTrigger=LostFocus}" 
                                        MaxLength="2"  Margin="2,0,2,0"/>
                         </StackPanel>
 
-                        <StackPanel  Grid.Row="0" Grid.Column="1" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="200">
+                        <StackPanel  Grid.Row="0" Grid.Column="1" Margin="2,0,2,0" Width="Auto"  HorizontalAlignment="Stretch" MinWidth="400">
                             <TextBlock Text="Id codice" />
                             <TextBox   Text="{Binding CurrentPoco.DatiAnagrafici.IdFiscaleIVA.IdCodice, UpdateSourceTrigger=LostFocus}" 
                                                       MaxLength="11" Margin="2,0,2,0"/>
-                        </StackPanel>
+                        </StackPanel>-->
 
-                        <StackPanel  Grid.Row="0" Grid.Column="2" Margin="2,0,2,0" Width="Auto" HorizontalAlignment="Stretch"  
-                                     DataContext="{Binding CurrentPoco.DatiAnagrafici}">
+                        <StackPanel  Grid.Row="0" Grid.Column="0" Margin="2,0,2,0" Grid.ColumnSpan="3" Width="Auto" HorizontalAlignment="Stretch" >
                             <TextBlock Text="Codice Fiscale" />
-                            <TextBox   Text="{Binding CodiceFiscale,  UpdateSourceTrigger=LostFocus}" 
+                            <TextBox   Text="{Binding CurrentPoco.DatiAnagrafici.CodiceFiscale,  UpdateSourceTrigger=LostFocus}" 
                                        MaxLength="16" Margin="2,0,2,0"/>
                         </StackPanel>
 

@@ -2,6 +2,9 @@
 
 1.2 -- rapp fiscale committente
 
+Articolo fornitore come sconto magg.
+IdFiscale in TerzoSoggetto
+
 Style bacckUp
 
 print pdf

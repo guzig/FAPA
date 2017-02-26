@@ -105,18 +105,23 @@ namespace FaPA.GUI.Controls
 
             RemoveItem();
 
-            //Persist( Instance );
-            //Instance = ReadInstance();
-            //UserProperty = GetUserProperty(); 
-            //CurrentPoco = UserProperty;
-            
             Init();
 
-            if ( curIndex > 0 )
-                UserCollectionView.MoveCurrentToPosition( curIndex - 1 );
-            else if ( UserCollectionView != null && UserCollectionView.IsEmpty )
+            if ( UserCollectionView == null )
             {
-                UserCollectionView.Refresh();
+                Persist( Instance );
+                Instance = ReadInstance();
+                UserProperty = GetUserProperty();
+                CurrentPoco = UserProperty;
+            }
+            else
+            {
+                if ( curIndex > 0 )
+                    UserCollectionView.MoveCurrentToPosition( curIndex - 1 );
+                else if ( UserCollectionView != null && UserCollectionView.IsEmpty )
+                {
+                    UserCollectionView.Refresh();
+                }
             }
 
             AllowDelete = UserCollectionView != null && !UserCollectionView.IsEmpty;
