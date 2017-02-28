@@ -148,11 +148,6 @@ namespace FaPA.GUI.Feautures.Fattura
         //    EventPublisher.Register<FatturaUpdated>( RefreshAfterUpdated );
         //}
 
-        //private void RefreshAfterAddedNew( FatturaAddedNew fattura )
-        //{
-        //    Model.UserEntities.Add( fattura.Dto );
-        //    Model.UserCollectionView.MoveCurrentToLast();
-        //}
 
         //private void RefreshAfterUpdated( FatturaUpdated fattura )
         //{

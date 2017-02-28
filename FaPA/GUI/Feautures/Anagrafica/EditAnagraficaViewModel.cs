@@ -29,7 +29,7 @@ namespace FaPA.GUI.Feautures.Anagrafica
             //EventPublisher.Publish(new CategoriaUpdated { Dto = (CentroDiCostoDto)CurrentDtoEntity }, this);
         }
 
-        public override void PublishDeletedEntityEvent( BaseEntity dto )
+        protected override void PublishDeletedEntityEvent( BaseEntity dto )
         {
             //EventPublisher.Publish(new CategoriaDeleted { Dto = (CentroDiCostoDto)dto }, this);
         }

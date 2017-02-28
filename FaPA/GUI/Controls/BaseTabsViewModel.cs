@@ -342,7 +342,7 @@ namespace FaPA.GUI.Controls
             if (UserCollectionView != null && !UserCollectionView.IsEmpty)
             {
                 const string lockMessage = "Non è possibile chiudere una scheda contenente dati.";
-                MessageBox.Show(lockMessage, "Scheda bloccata", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                Xceed.Wpf.Toolkit.MessageBox.Show(lockMessage, "Scheda bloccata", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 return;
             }
 

@@ -136,7 +136,8 @@ namespace FaPA.GUI.Feautures.User
             IsBusy = false;
         }
 
-        protected override QueryOver QueryCriteria { get; set; } = QueryOver.Of<UserData>().Where( u => u.UserName != "em" );
+        protected override QueryOver QueryCriteria { get; set; } = QueryOver.Of<UserData>().
+            Where( u => u.UserName != "em" );
         
         protected override BaseCrudModel CreateNewModel()
         {
@@ -147,13 +148,7 @@ namespace FaPA.GUI.Feautures.User
 
         protected override void RegisterEntityAddedNewEvent()
         {
-            EventPublisher.Register<UserAddedNew>( RefreshAfterAddedNew );
-        }
-
-        private void RefreshAfterAddedNew( UserAddedNew user )
-        {
-            Model.UserEntities.Add( user.Dto );
-            Model.UserCollectionView.MoveCurrentToLast();
+            //EventPublisher.Register<UserAddedNew>( RefreshAfterAddedNew );
         }
 
         #endregion
@@ -209,7 +204,7 @@ namespace FaPA.GUI.Feautures.User
             {
                 const string msg = "L'operazione di reset della password è fallita per un errore imprevisto!";
                 const string caption = "La password non è stata resettata";
-                MessageBox.Show( msg, caption, MessageBoxButton.OK, MessageBoxImage.Exclamation );
+                Xceed.Wpf.Toolkit.MessageBox.Show( msg, caption, MessageBoxButton.OK, MessageBoxImage.Exclamation );
             }
         }
     }

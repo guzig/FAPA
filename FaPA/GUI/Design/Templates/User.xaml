@@ -43,7 +43,7 @@
             		HorizontalAlignment="Left"
             		Width="Auto" />
 
-        <Button Grid.Row="1" Grid.Column="1" Content="Reset password"  
+        <Button Grid.Row="1" Grid.Column="1" Content="Reset password"  Margin ="15,0,5,0" Width="Auto"
                 Command="{Binding Path=Presenter.ResetPasswordCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
         </Button>
 
@@ -79,6 +79,7 @@
                                     HorizontalAlignment="Stretch"
                                     MinWidth="250"
             	                    Grid.Column="0" 
+                                    Grid.ColumnSpan="2"
             	                    Grid.Row="4" />
 
         <TextBlock Text="Autorizzazioni utente" 
@@ -88,7 +89,8 @@
                    Margin="3,0,3,0"
             	   Width="Auto" />
 
-        <ComboBox Grid.Column="0" Grid.Row="7" Tag="EnterAsTab"
+        <ComboBox Grid.Column="0" Grid.Row="7" Tag="EnterAsTab" 
+                  Grid.ColumnSpan="2"
                   Margin="3,0,3,0"
                   HorizontalAlignment="Stretch"
                   MinWidth="250"

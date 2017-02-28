@@ -52,7 +52,7 @@ namespace FaPA.GUI.Utils
         {
             const string msg = "L'operazione di salvataggio è fallita per un errore imprevisto!";
             var caption = "Errore irreversibile durante durante il salvataggio";
-            MessageBox.Show(msg, caption, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            Xceed.Wpf.Toolkit.MessageBox.Show(msg, caption, MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
 
         public static void ShowErrorDeletingMsg()
@@ -87,7 +87,7 @@ namespace FaPA.GUI.Utils
 
             e.Handled = true;
 
-            MessageBox.Show( currentWorkSpace.LockMessage, "Scheda bloccata", MessageBoxButton.OK, MessageBoxImage.Exclamation );
+            Xceed.Wpf.Toolkit.MessageBox.Show( currentWorkSpace.LockMessage, "Scheda bloccata", MessageBoxButton.OK, MessageBoxImage.Exclamation );
         }
 
     }

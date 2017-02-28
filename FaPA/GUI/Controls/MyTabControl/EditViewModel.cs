@@ -388,6 +388,7 @@ namespace FaPA.GUI.Controls.MyTabControl
                 BasePresenter.RefreshSharedViewsAfterAddedNew( CurrentEntity );
                 PublishAddedNewEntityEvent(CurrentEntity);
                 LoadAndShowCurrentEntity();
+                UserEntitiesView.Refresh();
                 SetContextAfterBindEntity();
             }
             else
@@ -409,7 +410,7 @@ namespace FaPA.GUI.Controls.MyTabControl
 
             if (!string.IsNullOrEmpty(errors))
             {
-                MessageBox.Show(errors, "Validazione fallita, salvataggio non consentito...", MessageBoxButton.OK,
+                Xceed.Wpf.Toolkit.MessageBox.Show(errors, "Validazione fallita, salvataggio non consentito...", MessageBoxButton.OK,
                     MessageBoxImage.Exclamation);
                 return false;
             }
@@ -455,7 +456,8 @@ namespace FaPA.GUI.Controls.MyTabControl
 
         public virtual void MakeTransient()
         {
-            if (MessageBox.Show("Conferma eliminazione?", "Conferma", MessageBoxButton.YesNo) == MessageBoxResult.No)
+            if ( Xceed.Wpf.Toolkit.MessageBox.Show("Conferma eliminazione?", "Conferma", 
+                MessageBoxButton.YesNo) == MessageBoxResult.No)
                 return ;
 
             ShowCursor.Show();
@@ -492,7 +494,7 @@ namespace FaPA.GUI.Controls.MyTabControl
             return true;
         }
 
-        public abstract void PublishDeletedEntityEvent( BaseEntity dto );
+        protected abstract void PublishDeletedEntityEvent( BaseEntity dto );
         
         #endregion
 
@@ -832,7 +834,7 @@ namespace FaPA.GUI.Controls.MyTabControl
                 Debug.Print( e.Message );
                 const string caption = "La ricerca ha generato un errore imprevisto";
                 const string msg = "Interrogazione fallita";
-                MessageBox.Show(caption, msg, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                Xceed.Wpf.Toolkit.MessageBox.Show(caption, msg, MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 return -1;
             }
         }

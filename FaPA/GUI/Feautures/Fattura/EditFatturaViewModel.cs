@@ -318,7 +318,7 @@ namespace FaPA.GUI.Feautures.Fattura
             //EventPublisher.Publish(new FatturaUpdated {e = (Core.Fattura) CurrentDtoEntity}, this);
         }
 
-        public override void PublishDeletedEntityEvent(BaseEntity dto)
+        protected override void PublishDeletedEntityEvent(BaseEntity dto)
         {
             //EventPublisher.Publish(new FatturaDeleted {Dto = (FatturaDto) dto}, this);
         }
@@ -429,14 +429,14 @@ namespace FaPA.GUI.Feautures.Fattura
             }
             catch (Exception)
             {
-                MessageBox.Show("Apertura file nel browser internet interrota",
+                Xceed.Wpf.Toolkit.MessageBox.Show("Apertura file nel browser internet interrota",
                                 "Errore durante l'apertura del file...", MessageBoxButton.OK);
             }
 
             if ( !isValid )
             {
                 const string caption = "Fattura non validata.";
-                MessageBox.Show(caption + Environment.NewLine + error, caption, MessageBoxButton.OK);
+                Xceed.Wpf.Toolkit.MessageBox.Show(caption + Environment.NewLine + error, caption, MessageBoxButton.OK);
             }
         }
 
@@ -474,13 +474,13 @@ namespace FaPA.GUI.Feautures.Fattura
             if ( ValidateAndCreateXmlStream(fattura, path, out error))
             {
                 var msg = "Fattura validata esportata." + Environment.NewLine + "Il file " + path + " è stato salvato sul desktop";
-                MessageBox.Show(msg, "Salvataggio completato", MessageBoxButton.OK, MessageBoxImage.Information);
+                Xceed.Wpf.Toolkit.MessageBox.Show(msg, "Salvataggio completato", MessageBoxButton.OK, MessageBoxImage.Information);
                 return true;
             }
             else
             {
                 var msg = "Fattura NON validata esportata." + Environment.NewLine + "Il file " + path + " è stato salvato sul desktop";
-                MessageBox.Show( msg, "Fattura non validata...", MessageBoxButton.OK, MessageBoxImage.Error);
+                Xceed.Wpf.Toolkit.MessageBox.Show( msg, "Fattura non validata...", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
         }

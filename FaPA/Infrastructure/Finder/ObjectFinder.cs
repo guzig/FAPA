@@ -248,7 +248,7 @@ namespace FaPA.Infrastructure.Finder
                 Debug.Print(e.Message);
                 const string text = "La ricerca ha generato un errore imprevisto";
                 const string caption = "Interrogazione fallita";
-                MessageBox.Show(text, caption,MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                Xceed.Wpf.Toolkit.MessageBox.Show(text, caption,MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 return false;
             }
                 

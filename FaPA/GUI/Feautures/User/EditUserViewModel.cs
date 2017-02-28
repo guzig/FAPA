@@ -28,7 +28,7 @@ namespace FaPA.GUI.Feautures.User
             EventPublisher.Publish( new UserUpdated { Dto = ( UserData ) CurrentEntity }, this );
         }
 
-        public override void PublishDeletedEntityEvent(BaseEntity dto)
+        protected override void PublishDeletedEntityEvent(BaseEntity dto)
         {
             EventPublisher.Publish( new UserDeleted { Dto = ( UserData ) dto }, this );
         }

@@ -159,7 +159,7 @@ namespace FaPA.Infrastructure.FlyFetch
 
         private static void OnReportError(Exception exc)
         {
-            Execute.OnUIThread(() => MessageBox.Show(GetMessage(exc), "ERROR!", MessageBoxButton.OK, MessageBoxImage.Error));
+            Execute.OnUIThread(() => Xceed.Wpf.Toolkit.MessageBox.Show(GetMessage(exc), "ERROR!", MessageBoxButton.OK, MessageBoxImage.Error));
         }
 
         private static string GetMessage(Exception exc)

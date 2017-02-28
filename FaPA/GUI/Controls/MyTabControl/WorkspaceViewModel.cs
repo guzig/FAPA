@@ -55,7 +55,7 @@ namespace FaPA.GUI.Controls.MyTabControl
         {
             if (!string.IsNullOrWhiteSpace(LockMessage))
             {
-                MessageBox.Show(LockMessage, "Scheda bloccata", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                Xceed.Wpf.Toolkit.MessageBox.Show(LockMessage, "Scheda bloccata", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 return;
             }
 

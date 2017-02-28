@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
 using Emule.GUI.Features.BackUpRestore;
 using FaPA.AppServices;
@@ -40,7 +41,7 @@ namespace FaPA.GUI.Feautures.BackUpRestore
             if ( Model?.IsEditingEnabled == null || Model.IsEditingEnabled.Value==true ) return;
             e.Cancel = true;
             const string msg = "Attendere la fine delle operazioni...";
-            MessageBox.Show( msg, "Trasferimento dati in corso, attendere..");
+            Xceed.Wpf.Toolkit.MessageBox.Show( msg, "Trasferimento dati in corso, attendere..");
         }
 
         private static void BackUp( DirectoryInfo backUpPath )
@@ -144,15 +145,14 @@ namespace FaPA.GUI.Feautures.BackUpRestore
                 if ( string.IsNullOrWhiteSpace(result) )
                 {
                     var msg = "Backup terminato.";
-                    MessageBox.Show( msg, "Backup completato", MessageBoxButtons.OK );
+                    Xceed.Wpf.Toolkit.MessageBox.Show(msg, "Backup completato", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
                     string msg = "Si è verificato un errore durante le operazioni di backup!" + Environment.NewLine +
                                  "Assicurarsi che MSSQLSERVER disponga dei diritti di scrittura sulla cartella di destinazione."
                                  + Environment.NewLine + result;
-
-                    MessageBox.Show( msg, "Backup fallito...", MessageBoxButtons.OK );
+                    Xceed.Wpf.Toolkit.MessageBox.Show(msg, "Backup fallito...", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
 
             }, TaskScheduler.FromCurrentSynchronizationContext() );
@@ -205,10 +205,12 @@ namespace FaPA.GUI.Feautures.BackUpRestore
                 Model.IsEditingEnabled.Value = true;
                 var result = (string) obj.Result;
                 if ( !string.IsNullOrWhiteSpace(result) && result.ToLower().Contains( "successfully" ) )
-                    MessageBox.Show( "La copia è stata ripristinata correttamente", "Ripristino terminato",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information );
+
+                    Xceed.Wpf.Toolkit.MessageBox.Show("La copia è stata ripristinata correttamente", 
+                        "Ripristino terminato", MessageBoxButton.OK, MessageBoxImage.Information);
                 else
-                    MessageBox.Show( result, "Ripristino fallito...", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                    Xceed.Wpf.Toolkit.MessageBox.Show( result, "Ripristino fallito...", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+
             }, TaskScheduler.FromCurrentSynchronizationContext() );
         }
 
@@ -216,9 +218,9 @@ namespace FaPA.GUI.Feautures.BackUpRestore
         {
             string msg = "Il ripristino di una copia del database deve essere effettuato dalla macchina server. " + Environment.NewLine + "Conferma operazione di ripristino della copia del database con quello corrente?";
 
-            var dialogResult = MessageBox.Show( msg, "Conferma ripristino...", MessageBoxButtons.YesNo );
+            var dialogResult = Xceed.Wpf.Toolkit.MessageBox.Show(msg, "Conferma ripristino...", MessageBoxButton.YesNo);
 
-            return dialogResult == DialogResult.Yes ? Restore( backUpFileNamePath ) : null;
+            return dialogResult == MessageBoxResult.Yes ? Restore( backUpFileNamePath ) : null;
         }
     }
 }

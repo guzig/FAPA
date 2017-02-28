@@ -50,8 +50,15 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch">
-                    <TextBlock Text="Fornitore" />
-                    <ComboBox   Margin="2,0,2,0" HorizontalAlignment="Stretch" Tag="EnterAsTab" x:Name="Fornitore"
+                    <TextBlock> 
+                    <Hyperlink FontSize="13"
+                               Command="{Binding ShowAnagraficaCommand}" 
+                               CommandParameter="Fornitore" 
+                               ToolTip="Apri la scheda del fornitore. (Tasto scelta rapida Ctrl F)">
+                        <Run Text="Fornitore" />
+                    </Hyperlink>
+                    </TextBlock>
+                    <ComboBox   Margin="2,2,2,0" HorizontalAlignment="Stretch" Tag="EnterAsTab" x:Name="Fornitore"
                                 IsEditable="True"
                                 ItemsSource="{Binding  Path=Presenter.Fornitori, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
                                 SelectedItem="{Binding CurrentEntity.AnagraficaCedenteDB, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" 
@@ -83,8 +90,15 @@
             </StackPanel>
 
             <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" >
-                <TextBlock Text="Committente" />
-                <ComboBox   Margin="0,0,2,0" HorizontalAlignment="Stretch" Tag="EnterAsTab" 
+                <TextBlock> 
+                    <Hyperlink FontSize="13"
+                               Command="{Binding ShowAnagraficaCommand}" 
+                               CommandParameter="Committente" 
+                               ToolTip="Apri la scheda del committente. (Tasto scelta rapida Ctrl O)">
+                        <Run Text="Committente" />
+                    </Hyperlink>
+                </TextBlock>
+                <ComboBox   Margin="0,2,2,0" HorizontalAlignment="Stretch" Tag="EnterAsTab" 
                                 IsEditable="True"
                                 ItemsSource="{Binding  Path=Presenter.Committenti, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
                                 SelectedItem="{Binding CurrentEntity.AnagraficaCommittenteDB, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" 

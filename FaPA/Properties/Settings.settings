@@ -12,10 +12,10 @@
       <Value Profile="(Default)">\FEPA\DATA</Value>
     </Setting>
     <Setting Name="SqlServerInstanceName" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">\PAWARE</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="ServerName" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">PC-t</Value>
+      <Value Profile="(Default)">CED</Value>
     </Setting>
     <Setting Name="LastBackUpPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

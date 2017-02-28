@@ -505,7 +505,7 @@ namespace FaPA.GUI.Controls.LogOnMask
 
 				string message = sb.ToString();
 
-				MessageBox.Show( message, "Useless implementation", MessageBoxButton.OK, MessageBoxImage.Information );
+				Xceed.Wpf.Toolkit.MessageBox.Show( message, "Useless implementation", MessageBoxButton.OK, MessageBoxImage.Information );
 				return;
 			}
 

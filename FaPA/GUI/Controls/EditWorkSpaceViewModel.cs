@@ -317,7 +317,7 @@ namespace FaPA.GUI.Controls
 
         protected static bool GetDeleteConfirmation()
         {
-            return MessageBox.Show("Conferma eliminazione?", "Conferma", MessageBoxButton.YesNo, 
+            return Xceed.Wpf.Toolkit.MessageBox.Show("Conferma eliminazione?", "Conferma", MessageBoxButton.YesNo, 
                 MessageBoxImage.Question) == MessageBoxResult.Yes;
         }
 

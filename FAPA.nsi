@@ -266,6 +266,7 @@ section "install"
 	file "C:\FAPAL\FaPA\bin\Release\System.Reactive.Linq.dll"
 	file "C:\FAPAL\FaPA\bin\Release\System.Reactive.PlatformServices.dll"
 	file "C:\FAPAL\FaPA\bin\Release\Xceed.Wpf.Toolkit.dll"
+	file "C:\FAPAL\FaPA\bin\Release\System.Windows.Interactivity.dll"
 	file "C:\FAPAL\FaPA\bin\Release\FaPA.exe.config"
 	file "C:\FAPAL\FaPA\bin\Release\fatturaordinaria_v1.2.xsl"
 	file "C:\FAPAL\FaPA\bin\Release\fatturapa_v1.2.xsl"
@@ -338,6 +339,7 @@ section "uninstall"
 	delete $INSTDIR\System.Reactive.Linq.dll
 	delete $INSTDIR\System.Reactive.PlatformServices.dll
 	delete $INSTDIR\Xceed.Wpf.Toolkit.dll
+	delete $INSTDIR\System.Windows.Interactivity.dll"
 	delete $INSTDIR\FaPA.exe.config
 	delete $INSTDIR\fatturaordinaria_v1.2.xsl
 	delete $INSTDIR\fatturapa_v1.2.xsl

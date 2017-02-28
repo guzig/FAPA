@@ -22,7 +22,7 @@ namespace FaPA.GUI.Feautures.Fattura
         //    if (UserProperty != null)
         //    {
         //        const string lockMessage = "Non è possibile chiudere una scheda contenente dati.";
-        //        MessageBox.Show(lockMessage, "Scheda bloccata", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+        //        Xceed.Wpf.Toolkit.MessageBox.Show(lockMessage, "Scheda bloccata", MessageBoxButton.OK, MessageBoxImage.Exclamation);
         //        return;
         //    }
         //    base.OnRequestClose();

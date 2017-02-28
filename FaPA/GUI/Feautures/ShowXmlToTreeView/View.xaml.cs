@@ -42,7 +42,7 @@ namespace FaPA.GUI.Feautures.ShowXmlToTreeView
          }
          catch (Exception ex)
          {
-            MessageBox.Show(ex.Message);
+            Xceed.Wpf.Toolkit.MessageBox.Show(ex.Message);
          }
       }
 
@@ -61,7 +61,7 @@ namespace FaPA.GUI.Feautures.ShowXmlToTreeView
       //   }
       //   catch (Exception ex)
       //   {
-      //      MessageBox.Show(ex.Message);
+      //      Xceed.Wpf.Toolkit.MessageBox.Show(ex.Message);
       //   }
       //}
 

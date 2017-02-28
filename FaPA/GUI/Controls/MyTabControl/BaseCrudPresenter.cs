@@ -13,6 +13,7 @@ using FaPA.Infrastructure;
 using FaPA.Infrastructure.FlyFetch;
 using FaPA.Infrastructure.Helpers;
 using NHibernate.Criterion;
+using NHibernate.Transform;
 
 namespace FaPA.GUI.Controls.MyTabControl
 {
@@ -281,7 +282,8 @@ namespace FaPA.GUI.Controls.MyTabControl
 
                 //pageProvider1.DetachedCriteria = DetachedCriteria.For<TE>();
 
-                pageProvider1.DetachedCriteria = QueryCriteria.DetachedCriteria;
+                pageProvider1.DetachedCriteria = QueryCriteria.DetachedCriteria.SetResultTransformer(new 
+                    DistinctRootEntityResultTransformer());
 
                 const int pageSize = 100;
                 CollectionFactory.Create( pageSize, pageProvider1, new GetbyIdsCountProvider( allowedIds.Count ),
