@@ -1,7 +1,5 @@
 info
 
-causale fattura in dati generali documento as list string: separatore?
-
 
 exception after cancel first fattura
 

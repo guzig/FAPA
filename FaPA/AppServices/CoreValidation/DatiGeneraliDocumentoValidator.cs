@@ -16,7 +16,7 @@ namespace FaPA.AppServices.CoreValidation
                 var instance = ( DatiGeneraliDocumentoType ) obj;
 
                 ValidateByFunc( nameof( instance.ImportoTotaleDocumento ), 
-                    instance.ImportoTotaleDocumento, errors, f=>f>0 || f<0, "Importo documento deve essere valorizzato");
+                    instance.ImportoTotaleDocumento, errors,  f=> !(f>0 || f<0 ), "Importo documento deve essere valorizzato");
 
                 ValidateByFunc( nameof( instance.Data ), instance.Data, errors, f => f == DateTime.MinValue, "Data documento deve essere valorizzato" );
                 TryGetMinMaxValueErrors( nameof( instance.ImportoTotaleDocumento ), instance.ImportoTotaleDocumento, errors, ( decimal? ) 0.01 );

@@ -3,13 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:utils="clr-namespace:FaPA.GUI.Utils"
              xmlns:enums="clr-namespace:FaPA.Core.FaPa"
-             xmlns:t="clr-namespace:FaPA.GUI.Design.Templates">
-    
-    <Grid Margin="2,2,2,2">
+             xmlns:t="clr-namespace:FaPA.GUI.Design.Templates"
+             xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <system:Double x:Key="adjMaxHeightRatio">0.4</system:Double>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Margin="2,2,2,2" x:Name="grdRoot">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <GroupBox Grid.Row="0" Header="Dati generali documento " Padding="4,4,4,4" Margin="4,4,4,4"
@@ -39,7 +44,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="45" />
                                 <RowDefinition Height="45" />
-                                <RowDefinition Height="45" />
+                                <RowDefinition Height="Auto" />
                                 <RowDefinition Height="45" />
                             </Grid.RowDefinitions>
 
@@ -48,7 +53,7 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
                             <StackPanel Grid.Row="0" Grid.Column="0" Margin="2,0,2,0">
@@ -103,12 +108,26 @@
                                             DisplayMemberPath="Value" />
                             </StackPanel>
 
-                            <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Margin="2,0,2,0">
-                                <TextBlock Text="Causale" />
-                                <TextBox   Text="{Binding CurrentPoco.Causale[0], UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" 
-                                           MaxLength="200"
-                                           HorizontalAlignment="Stretch" />
-                            </StackPanel>
+                            <ScrollViewer  Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="5"
+                                            MaxHeight="{Binding ElementName=grdRoot, Path=ActualHeight, 
+                                                                 Converter={StaticResource MaxHeightConverter}, 
+                                                                 ConverterParameter={StaticResource adjMaxHeightRatio}}">
+                                <StackPanel Margin="2,0,2,0">
+                                    <TextBlock Text="Causale" />
+                                    <TextBox TextWrapping="Wrap" AcceptsReturn="True" 
+                                             Height="Auto" HorizontalAlignment="Stretch">
+
+                                        <Binding Path="CurrentPoco.Causale" ValidatesOnExceptions="False"
+                                                     ValidatesOnDataErrors="False"
+                                                     NotifyOnValidationError="True"
+                                                     Converter="{StaticResource StringArrayConverter}">
+                                            </Binding>
+                                    
+                                    </TextBox>
+
+                                </StackPanel>
+                            </ScrollViewer>
+
 
                             <t:SaveCancelRemoveButtons Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Left"
                                                        Visibility="{Binding CurrentPoco, Converter={StaticResource NullToVisibiltyConverter}}"

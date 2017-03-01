@@ -495,6 +495,7 @@
     <Compile Include="GUI\Controls\LogOnMask\BrushPropertyAnimation.cs" />
     <Compile Include="GUI\Controls\LogOnMask\ChangePassword.cs" />
     <Compile Include="GUI\Controls\LogOnMask\SmartLoginOverlay.xaml.cs" />
+    <Compile Include="GUI\Design\Converters\MaxHeightConverter.cs" />
     <Compile Include="GUI\Design\Converters\StringArrayConverter.cs" />
     <Compile Include="GUI\Design\Converters\InvertVisibilityConverter.cs" />
     <Compile Include="GUI\Design\Converters\NullToBooleanConverter.cs" />

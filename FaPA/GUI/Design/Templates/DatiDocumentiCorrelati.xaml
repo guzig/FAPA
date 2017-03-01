@@ -2,7 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:utils="clr-namespace:FaPA.GUI.Utils"
-             xmlns:t="clr-namespace:FaPA.GUI.Design.Templates">
+             xmlns:t="clr-namespace:FaPA.GUI.Design.Templates"
+             xmlns:system="clr-namespace:System;assembly=mscorlib">
 
 
     <Grid utils:FocusAdvancement.AdvancesByEnterKey="True">
@@ -75,11 +76,21 @@
 
                         <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" Margin="2,0,2,0">
                             <TextBlock Text="Riferimento linea dettaglio fattura" />
-                            <TextBox   Text="{Binding CurrentPoco.RiferimentoNumeroLinea, Mode=TwoWay, 
-                                                      Converter={StaticResource StringArrayConverter}, 
-                                                      ValidatesOnDataErrors=True, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
-                                       ToolTip="Separare i numeri di linea dettaglio da una virgola. Lasciare vuoto se riferito a tutta la fattura"
-                                       HorizontalAlignment="Stretch"/>
+                            <TextBox
+                                ToolTip="Separare i numeri di linea dettaglio da una virgola. Lasciare vuoto se riferito a tutta la fattura"
+                                       HorizontalAlignment="Stretch">
+                                <TextBox.Text>
+                                    <Binding Path="CurrentPoco.RiferimentoNumeroLinea" Mode="TwoWay"
+                                             Converter="{StaticResource StringArrayConverter}" ValidatesOnDataErrors="True"
+                                             NotifyOnTargetUpdated="True" NotifyOnSourceUpdated="True" >
+                                        <Binding.ConverterParameter>
+                                            <x:Array Type="system:Char">
+                                                <system:Char >,</system:Char>
+                                            </x:Array>
+                                        </Binding.ConverterParameter>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
                         </StackPanel>
 
                     </Grid>

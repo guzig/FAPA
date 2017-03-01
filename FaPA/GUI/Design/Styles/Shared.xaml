@@ -12,7 +12,8 @@
     <c1:NullToInverseVisibiltyConverter x:Key="NullToInverseVisibiltyConverter"/>
     <c1:InvertVisibilityConverter x:Key="InvertVisibilityConverter"/>
     <c1:StringArrayConverter x:Key="StringArrayConverter"/>
-
+    <c1:MaxHeightConverter x:Key="MaxHeightConverter"/>
+    
     <SolidColorBrush x:Key="GroubHeaderBackgroundBrush" Color="#FFB9D1EA"/>
 
     <SolidColorBrush x:Key="DefaultControlBorderBrush" Color="#FF688CAF"/>

@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using System.Linq;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 using FaPA.DomainServices.Utils;
@@ -202,6 +203,7 @@ namespace FaPA.Core.FaPa
             }
         }
 
+        [XmlElement(Form = XmlSchemaForm.Unqualified, DataType = "string")]
         public virtual string[] Causale
         {
             get
@@ -211,7 +213,7 @@ namespace FaPA.Core.FaPa
             set
             {
                 _causaleField = value;
-                CausaleSpecified = string.IsNullOrWhiteSpace( _causaleField[0] );
+                CausaleSpecified = _causaleField != null && _causaleField.Any();
             }
         }
 
