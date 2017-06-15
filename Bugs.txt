@@ -1,4 +1,7 @@
 
+anagrafiche duplicate
+in dati riepilogo considerare campo natura in raggruppamento... natura va sempre valorizzato
+pulsante visualizza su scheda allegato
 
 
 

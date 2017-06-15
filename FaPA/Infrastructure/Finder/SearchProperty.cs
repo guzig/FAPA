@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using FaPA.GUI.Utils;
+using FaPA.Infrastructure.Utils;
 using NHibernate.Criterion;
 using NHibernate.SqlCommand;
 

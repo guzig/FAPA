@@ -4,7 +4,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Interop;
 
-namespace FaPA.GUI.Utils
+namespace FaPA.Infrastructure.Utils
 {
     public class WindowBase : Window
     {

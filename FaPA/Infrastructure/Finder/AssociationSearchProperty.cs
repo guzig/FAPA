@@ -56,9 +56,7 @@ namespace FaPA.Infrastructure.Finder
                 tx.Commit();
             }
 
-            Session.Clear();
-
-            Session.Disconnect();
+            Session.ClearAndDisconnectSession();
 
             return new ObservableCollection<T>( collection );
         }

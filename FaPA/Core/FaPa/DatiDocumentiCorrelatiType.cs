@@ -104,7 +104,7 @@ namespace FaPA.Core.FaPa
             }
         }
 
-        public virtual string CodiceCup
+        public virtual string CodiceCUP
         {
             get
             {
@@ -116,7 +116,7 @@ namespace FaPA.Core.FaPa
             }
         }
 
-        public virtual string CodiceCig
+        public virtual string CodiceCIG
         {
             get
             {

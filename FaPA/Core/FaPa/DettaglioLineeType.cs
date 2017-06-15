@@ -1,4 +1,5 @@
 using System;
+using System.Xml.Schema;
 using System.Xml.Serialization;
 
 namespace FaPA.Core.FaPa
@@ -157,6 +158,7 @@ namespace FaPA.Core.FaPa
             }
         }
 
+        [XmlElement( Form = XmlSchemaForm.Unqualified, DataType = "date" )]
         public virtual DateTime DataInizioPeriodo
         {
             get
@@ -183,6 +185,7 @@ namespace FaPA.Core.FaPa
             }
         }
 
+        [XmlElement( Form = XmlSchemaForm.Unqualified, DataType = "date" )]
         public virtual DateTime DataFinePeriodo
         {
             get

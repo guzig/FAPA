@@ -11,7 +11,7 @@ using System.Windows.Threading;
 using FaPA.Core;
 using FaPA.Infrastructure.Helpers;
 
-namespace FaPA.GUI.Utils
+namespace FaPA.Infrastructure.Utils
 {
     public static class DataGridHelpers
     {
@@ -98,7 +98,7 @@ namespace FaPA.GUI.Utils
                 return;
             }
             ShowCursor.Show();
-            ProxyHelpers.UnproxiedCollection<BaseEntity>( view.SourceCollection.Cast<BaseEntity>() );
+            NhProxyHelpers.UnproxiedCollection<BaseEntity>( view.SourceCollection.Cast<BaseEntity>() );
             var propertyGroupDescription = new PropertyGroupDescription( propName );
             view.GroupDescriptions.Add( propertyGroupDescription );
         }
@@ -112,7 +112,7 @@ namespace FaPA.GUI.Utils
 
             var collectionView = gridItemSource;
 
-            ProxyHelpers.UnproxiedCollection<BaseEntity>( gridItemSource.SourceCollection.Cast<BaseEntity>() );
+            NhProxyHelpers.UnproxiedCollection<BaseEntity>( gridItemSource.SourceCollection.Cast<BaseEntity>() );
 
             collectionView.Filter = item =>
             {

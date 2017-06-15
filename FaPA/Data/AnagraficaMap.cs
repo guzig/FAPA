@@ -16,7 +16,6 @@ namespace FaPA.Data
             Discriminator(x =>
             {
                 x.Force(true);
-                //x.Formula("arbitrary SQL expression");
                 x.Insert(true);
                 x.Length(50);
                 x.NotNullable(true);

@@ -15,6 +15,7 @@ namespace FaPA.Core.FaPa
         private DateTime _dataIscrizioneAlboField;
         private bool _dataIscrizioneAlboFieldSpecified;
         private RegimeFiscaleType _regimeFiscaleField;
+        private bool _codiceFiscaleSpecified;
 
         public virtual IdFiscaleType IdFiscaleIVA
         {
@@ -37,7 +38,15 @@ namespace FaPA.Core.FaPa
             set
             {
                 _codiceFiscaleField = value;
+                CodiceFiscaleSpecified = !string.IsNullOrWhiteSpace( _codiceFiscaleField );
             }
+        }
+
+        [XmlIgnore]
+        public bool CodiceFiscaleSpecified
+        {
+            get { return _codiceFiscaleSpecified; }
+            set { _codiceFiscaleSpecified = value; }
         }
 
         public virtual AnagraficaType Anagrafica

@@ -1,4 +1,4 @@
-﻿using FaPA.GUI.Utils;
+﻿using FaPA.Infrastructure.Utils;
 
 namespace FaPA.GUI.Feautures.User
 {

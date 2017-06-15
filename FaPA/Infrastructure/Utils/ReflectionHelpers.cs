@@ -2,7 +2,7 @@ using System;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace FaPA.GUI.Utils
+namespace FaPA.Infrastructure.Utils
 {
     public static class ReflectionHelpers
     {

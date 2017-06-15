@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FaPA.GUI.Utils
+namespace FaPA.Infrastructure.Utils
 {
     public class PropertyChangeEventArgs : EventArgs
     {

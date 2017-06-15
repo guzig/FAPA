@@ -1,7 +1,7 @@
 ﻿using System.Windows.Data;
 using System.Xml;
-using FaPA.GUI.Utils;
 using FaPA.Infrastructure;
+using FaPA.Infrastructure.Utils;
 
 namespace FaPA.GUI.Feautures.ShowXmlToTreeView
 {

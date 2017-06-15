@@ -1,9 +1,9 @@
 ﻿<utils:WindowBase x:Class="FaPA.GUI.Feautures.User.View"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:utils="clr-namespace:FaPA.GUI.Utils"
-        xmlns:m="clr-namespace:FaPA.GUI.Controls.MyTabControl"
-        SizeToContent="WidthAndHeight"
+                  xmlns:m="clr-namespace:FaPA.GUI.Controls.MyTabControl"
+                  xmlns:utils="clr-namespace:FaPA.Infrastructure.Utils"
+                  SizeToContent="WidthAndHeight"
         TextOptions.TextFormattingMode="Display"
         Title="Utenti" >
 

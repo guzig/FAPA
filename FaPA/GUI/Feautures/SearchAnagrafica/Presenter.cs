@@ -4,9 +4,9 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Data;
-using FaPA.GUI.Utils;
 using FaPA.Infrastructure;
 using FaPA.Infrastructure.Helpers;
+using FaPA.Infrastructure.Utils;
 
 namespace FaPA.GUI.Feautures.SearchAnagrafica
 {
@@ -14,7 +14,7 @@ namespace FaPA.GUI.Feautures.SearchAnagrafica
     {
         private readonly BackgroundWorker _queryBackgroundWorker;
 
-        private IList<Core.Anagrafica> _liquidazioniFounds;
+        private IList<Core.Anagrafica> _anagrafiche;
         private bool _isSelectedAll;
 
         public Presenter()
@@ -162,27 +162,27 @@ namespace FaPA.GUI.Feautures.SearchAnagrafica
 
         private void CompleteQuery()
         {
-            if ( _liquidazioniFounds == null )
-                _liquidazioniFounds = new Core.Anagrafica[] { };
+            if ( _anagrafiche == null )
+                _anagrafiche = new Core.Anagrafica[] { };
 
             Model.AnagraficheView = CollectionViewSource.GetDefaultView( new ObservableCollection<Core.Anagrafica>(
-                _liquidazioniFounds ) );
+                _anagrafiche ) );
 
             Model.AllowSearch.Value = true;
             Model.IsBusy.Value = false;
             Model.AllowEditing.Value = true;
-            Model.AllowConfirmResult.Value = _liquidazioniFounds.Count > 0;
+            Model.AllowConfirmResult.Value = _anagrafiche.Count > 0;
         }
 
         private void PerformActualQuery()
         {
             if (!Model.AnagraficaFinder.CreateDetachedQuery()) return;
 
-            _liquidazioniFounds = GetExeCriteriaAsReadOnly<Core.Anagrafica>( Model.AnagraficaFinder.DetachedQueryCriteria );
+            _anagrafiche = GetExeCriteriaAsReadOnly<Core.Anagrafica>( Model.AnagraficaFinder.DetachedQueryCriteria );
 
             Session.Clear();
 
-            Model.ResultEntryCount.Value = _liquidazioniFounds.Count;
+            Model.ResultEntryCount.Value = _anagrafiche.Count;
         }
 
         public override void Dispose()

@@ -36,8 +36,6 @@ namespace FaPaTets.PersistanceTests
 
             //object proxied = ObjectExtensions1.Copy( unproxy );
 
-
-
             //CheckAllTypesAreProxied<FaPA.Core.BaseEntity>( proxied );
 
             //var f = ObjectExtensions.Copy( proxied );
@@ -45,6 +43,8 @@ namespace FaPaTets.PersistanceTests
             //CheckAllTypesAreProxied<FaPA.Core.BaseEntity>( f );
 
         }
+
+
         [Test]
         public void Created_proxy_entity_should_be_persistable()
         {
@@ -70,10 +70,6 @@ namespace FaPaTets.PersistanceTests
 
             //var other = ( Fattura ) ObjectExtensions1.Copy( fattura );
 
-            var f1 = fattura as INotifyPropertyChanged;
-            if (f1 != null)
-                f1.PropertyChanged += OPM;
-
             Fattura read;
             using (var tx = session.BeginTransaction())
             {
@@ -93,19 +89,11 @@ namespace FaPaTets.PersistanceTests
                 transaction.Commit();
             }
 
-            f1 = read as INotifyPropertyChanged;
-            if (f1 != null)
-                f1.PropertyChanged += OPM;
-
 
             Assert.AreEqual(fattura.FatturaPa.FatturaElettronicaHeader.DatiTrasmissione.IdTrasmittente.IdCodice,
                             read.FatturaPa.FatturaElettronicaHeader.DatiTrasmissione.IdTrasmittente.IdCodice);
         }
 
-        private void OPM(object sender, PropertyChangedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
 
         [Test]
         public void Created_proxy_entity_should_handle_PropertyChanged()

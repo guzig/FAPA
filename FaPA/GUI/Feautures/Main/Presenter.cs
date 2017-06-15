@@ -1,6 +1,6 @@
 ﻿using System.Threading;
-using FaPA.GUI.Utils;
 using FaPA.Infrastructure;
+using FaPA.Infrastructure.Utils;
 
 namespace FaPA.GUI.Feautures.Main
 {

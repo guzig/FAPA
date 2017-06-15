@@ -1,8 +1,8 @@
 ﻿<UserControl x:Class="FaPA.GUI.Design.Templates.DatiDocumentiCorrelati"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:utils="clr-namespace:FaPA.GUI.Utils"
-             xmlns:t="clr-namespace:FaPA.GUI.Design.Templates">
+             xmlns:t="clr-namespace:FaPA.GUI.Design.Templates"
+             xmlns:utils="clr-namespace:FaPA.Infrastructure.Utils">
 
 
     <Grid utils:FocusAdvancement.AdvancesByEnterKey="True">
@@ -55,12 +55,12 @@
 
                         <StackPanel Grid.Row="0" Grid.Column="2" Margin="2,0,2,0" Width="25">
                             <TextBlock Text="CIG" />
-                            <TextBox   Text="{Binding CurrentPoco.CodiceCig, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True, ValidatesOnNotifyDataErrors=True}" HorizontalAlignment="Stretch" />
+                            <TextBox   Text="{Binding CurrentPoco.CodiceCIG, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True, ValidatesOnNotifyDataErrors=True}" HorizontalAlignment="Stretch" />
                         </StackPanel>
 
                         <StackPanel Grid.Row="0" Grid.Column="3" Margin="2,0,2,0" Width="25">
                             <TextBlock Text="CUP" />
-                            <TextBox   Text="{Binding CurrentPoco.CodiceCup, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True, ValidatesOnNotifyDataErrors=True}" HorizontalAlignment="Stretch" />
+                            <TextBox   Text="{Binding CurrentPoco.CodiceCUP, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True, ValidatesOnNotifyDataErrors=True}" HorizontalAlignment="Stretch" />
                         </StackPanel>
 
                         <StackPanel Grid.Row="0" Grid.Column="4" Margin="2,0,2,0" MinWidth="25">

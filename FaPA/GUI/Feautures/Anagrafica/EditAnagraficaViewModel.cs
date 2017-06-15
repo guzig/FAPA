@@ -12,26 +12,25 @@ namespace FaPA.GUI.Feautures.Anagrafica
             ICollectionView userCollectionView, ISession session ) : base( baseCrudPresenter, userEntities, userCollectionView )
         {
             SetUpSession( session, null );
-
         }
 
         public override string EditTemplateName => "AnagraficaTemplate";
 
-        #region Entity event
+        #region Entity event *TODO*
 
         public override void PublishAddedNewEntityEvent( BaseEntity dto )
         {
-            //EventPublisher.Publish(new CategoriaAdded { Dto = (CentroDiCostoDto)CurrentDtoEntity }, this);
+            //EventPublisher.Publish(new AnagraficaAdded { Dto = (CentroDiCostoDto)CurrentDtoEntity }, this);
         }
 
         public override void PublishUpdateEntityEvent( BaseEntity dto )
         {
-            //EventPublisher.Publish(new CategoriaUpdated { Dto = (CentroDiCostoDto)CurrentDtoEntity }, this);
+            //EventPublisher.Publish(new AnagraficaUpdated { Dto = (CentroDiCostoDto)CurrentDtoEntity }, this);
         }
 
         public override void PublishDeletedEntityEvent( BaseEntity dto )
         {
-            //EventPublisher.Publish(new CategoriaDeleted { Dto = (CentroDiCostoDto)dto }, this);
+            //EventPublisher.Publish(new AnagraficaDeleted { Dto = (CentroDiCostoDto)dto }, this);
         }
 
         #endregion        

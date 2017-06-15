@@ -2,9 +2,9 @@ using System.Linq;
 using System.Windows.Input;
 using FaPA.Core.FaPa;
 using FaPA.GUI.Controls;
-using FaPA.GUI.Utils;
 using FaPA.Infrastructure;
 using FaPA.Infrastructure.Helpers;
+using FaPA.Infrastructure.Utils;
 
 namespace FaPA.GUI.Feautures.Fattura
 {

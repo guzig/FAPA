@@ -6,7 +6,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using Caliburn.Micro;
 using FaPA.GUI.Controls.MyTabControl;
-using FaPA.GUI.Utils;
+using FaPA.Infrastructure.Utils;
 
 namespace FaPA.Infrastructure
 {

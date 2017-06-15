@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using FaPA.GUI.Utils;
 using FaPA.Infrastructure.Finder;
-using EnumerationExtension = FaPA.GUI.Utils.EnumerationExtension;
+using FaPA.Infrastructure.Utils;
+using EnumerationExtension = FaPA.Infrastructure.Utils.EnumerationExtension;
 
 namespace FaPA.GUI.Design.Templates.SearchTypeTemplates
 {

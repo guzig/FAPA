@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.IO;
-using FaPA.GUI.Utils;
+using FaPA.Infrastructure.Utils;
 using FaPA.Properties;
 
 namespace FaPA.AppServices
@@ -9,7 +9,11 @@ namespace FaPA.AppServices
     public static class StoreAccess
     {
         private static readonly string SqlServerInstanceName = Settings.Default.SqlServerInstanceName;
-        private static readonly string ServerName = Settings.Default.ServerName;
+
+        private static readonly string ServerName = string.IsNullOrWhiteSpace(Settings.Default.ServerName) || 
+            Settings.Default.ServerName.ToLower().Contains( "local" ) ? 
+            System.Environment.MachineName : Settings.Default.ServerName;
+
         private static readonly string DbSourcePath = ServerName + SqlServerInstanceName;
         public static readonly string DataPath = Settings.Default.LocalPath + Settings.Default.DataPath;
         public static readonly string BackUpPath = Settings.Default.LocalPath + Settings.Default.BackUpPath;
@@ -29,7 +33,7 @@ namespace FaPA.AppServices
         static StoreAccess()
         { }
         
-        private static readonly string Machine = Environment.MachineName;
+        //private static readonly string Machine = Environment.MachineName;
 
         public static string ConnString { get; } = @"Data Source=" + SourcePath + ";Database=FEPA" + 
             ";User ID=" + User + ";Password=" + Password + ";";
@@ -42,23 +46,7 @@ namespace FaPA.AppServices
                 if ( _serverName != null )
                     return _serverName;
 
-                switch ( Machine )
-                {
-                    //case "T":
-                    //case "TONIO":
-                    case "CED":
-                        _serverName = DbSourcePath;//"CED"; //"(local)";
-                        break;
-                    case "PC-DOMENICO":
-                        _serverName = @"PC-DOMENICO\SQLEXPRESS";
-                        break;
-                    case "TRIBUTI1":
-                        _serverName = @"TRIBUTI1\ENERGYMAN";
-                        break;
-                    default:
-                        _serverName = DbSourcePath;
-                        break;
-                }
+                _serverName = DbSourcePath;
 
                 return _serverName;
             }
@@ -72,23 +60,7 @@ namespace FaPA.AppServices
                 if ( _password != null )
                     return _password;
 
-                switch ( Machine )
-                {
-                    //case "T":
-                    case "TONIO":
-                    case "PC-DOMENICO":
-                        _password = "tonio";
-                        break;
-                    case "CED":
-                        _password = "scintillaat20";
-                        break;
-                    case "TRIBUTI1":
-                        _password = "zagot";
-                        break;
-                    default:
-                        _password = "scintillaat20";
-                        break;
-                }
+                _password = "t";
 
                 return _password;
             }
@@ -98,13 +70,7 @@ namespace FaPA.AppServices
         {
             get
             {
-                switch ( Machine )
-                {
-                    //case "CED":
-                    //return "tonio";
-                    default:
-                        return "empwr";
-                }
+                return "t";
             }
         }
 

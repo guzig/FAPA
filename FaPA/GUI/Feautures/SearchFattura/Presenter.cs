@@ -9,10 +9,10 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using Caliburn.Micro;
-using FaPA.GUI.Utils;
 using FaPA.Infrastructure;
 using FaPA.Infrastructure.FlyFetch;
 using FaPA.Infrastructure.Helpers;
+using FaPA.Infrastructure.Utils;
 using Action = System.Action;
 
 namespace FaPA.GUI.Feautures.SearchFattura
@@ -256,7 +256,7 @@ namespace FaPA.GUI.Feautures.SearchFattura
         public void UnproxyCollection()
         {
             if ( SearchFatturaPageProvider.IsFetchCompleted ) return;
-            ProxyHelpers.UnproxiedCollection( Model.PagedCollection );
+            NhProxyHelpers.UnproxiedCollection( Model.PagedCollection );
         }
 
         private static string GetMessage(Exception exc)

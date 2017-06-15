@@ -1,7 +1,7 @@
 using System;
 using System.Windows;
 
-namespace FaPA.GUI.Utils
+namespace FaPA.Infrastructure.Utils
 {
     public static class WindowsUtil
     {

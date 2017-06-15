@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Markup;
 
-namespace FaPA.GUI.Utils
+namespace FaPA.Infrastructure.Utils
 {
     public class EnumerationExtension : MarkupExtension
     {

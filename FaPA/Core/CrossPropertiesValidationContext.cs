@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using FaPA.GUI.Utils;
+using FaPA.Infrastructure.Utils;
 
 namespace FaPA.Core
 {

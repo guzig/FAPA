@@ -6,7 +6,6 @@ using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using FaPA.GUI.Controls.MyTabControl;
-using FaPA.GUI.Utils;
 using NHibernate;
 using System.Linq;
 using FaPA.AppServices.CoreValidation;
@@ -14,6 +13,7 @@ using FaPA.Core;
 using FaPA.Core.FaPa;
 using FaPA.GUI.Design.Templates;
 using FaPA.Infrastructure;
+using FaPA.Infrastructure.Utils;
 using FaPA.Properties;
 
 namespace FaPA.GUI.Feautures.Fattura

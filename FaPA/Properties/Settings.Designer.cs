@@ -61,7 +61,7 @@ namespace FaPA.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("PC-t")]
+        [global::System.Configuration.DefaultSettingValueAttribute("local")]
         public string ServerName {
             get {
                 return ((string)(this["ServerName"]));

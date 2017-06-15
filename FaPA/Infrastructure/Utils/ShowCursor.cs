@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 
-namespace FaPA.GUI.Utils
+namespace FaPA.Infrastructure.Utils
 {
     public static class ShowCursor
     {

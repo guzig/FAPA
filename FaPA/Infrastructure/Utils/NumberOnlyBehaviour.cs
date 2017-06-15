@@ -5,8 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-
-namespace FaPA.GUI.Utils
+namespace FaPA.Infrastructure.Utils
 {
     public static class NumberOnlyBehaviour
     {

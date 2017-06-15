@@ -9,6 +9,7 @@ using FaPA.Data;
 using FaPA.Infrastructure.Helpers;
 using NHibernate;
 using NHibernate.Criterion;
+using NHibernate.Transform;
 using Action = System.Action;
 
 namespace FaPA.Infrastructure
@@ -101,7 +102,8 @@ You must override ReplaceEntitiesLoadedByFaultedSession to call ReplaceSessionAf
             IList<T> entities;
             using (var tx = Session.BeginTransaction())
             {
-                entities = criteria.DetachedCriteria.GetExecutableCriteria( Session ).List<T>();
+                entities = criteria.DetachedCriteria.GetExecutableCriteria( Session ).
+                    SetResultTransformer( new DistinctRootEntityResultTransformer() ).List<T>();
                 tx.Commit();
             }
             return entities;
@@ -112,7 +114,8 @@ You must override ReplaceEntitiesLoadedByFaultedSession to call ReplaceSessionAf
             IList<T> entities;
             using ( var tx = Session.BeginTransaction() )
             {
-                entities = criteria.GetExecutableCriteria( Session ).SetReadOnly( true ).List<T>();
+                entities = criteria.GetExecutableCriteria( Session ).
+                    SetResultTransformer( new DistinctRootEntityResultTransformer() ).SetReadOnly( true ).List<T>();
                 tx.Commit();
             }
             return entities;
@@ -123,7 +126,8 @@ You must override ReplaceEntitiesLoadedByFaultedSession to call ReplaceSessionAf
             IList<T> entities;
             using (var tx = Session.BeginTransaction())
             {
-                entities = criteria.GetExecutableCriteria(Session).SetReadOnly(true).List<T>();
+                entities = criteria.GetExecutableCriteria(Session).
+                    SetResultTransformer( new DistinctRootEntityResultTransformer() ).SetReadOnly(true).List<T>();
                 tx.Commit();
             }
             return entities;
@@ -147,7 +151,7 @@ You must override ReplaceEntitiesLoadedByFaultedSession to call ReplaceSessionAf
             if ( isfetchCompleted || !isSelectedAll )
                 onLoadedCollection();
 
-            ProxyHelpers.UnproxiedCollection( collection );
+            NhProxyHelpers.UnproxiedCollection( collection );
         }
 
         protected void UnProxySelectedItems<T>( bool isSelectedAll, ObservableCollection<T> collection,
@@ -157,7 +161,7 @@ You must override ReplaceEntitiesLoadedByFaultedSession to call ReplaceSessionAf
                 Application.Current.Dispatcher.Invoke( () => WaitForNonStaleResults( true, true, 
                     onLoadedCollection, collection ) );
             else
-                Application.Current.Dispatcher.Invoke( ()=> ProxyHelpers.UnproxiedItems( grid ) );
+                Application.Current.Dispatcher.Invoke( ()=> NhProxyHelpers.UnproxiedItems( grid ) );
         }
 
 	}

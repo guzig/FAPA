@@ -4,12 +4,12 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Controls;
 using FaPA.Core;
-using FaPA.GUI.Utils;
+using FaPA.Infrastructure.Utils;
 using NHibernate.Proxy;
 
 namespace FaPA.Infrastructure.Helpers
 {
-    public static class ProxyHelpers
+    public static class NhProxyHelpers
     {
         public static void UnproxiedCollection<T>(IEnumerable<T> collection) where T : BaseEntity
         {

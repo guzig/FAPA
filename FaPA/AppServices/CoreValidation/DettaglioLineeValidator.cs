@@ -22,7 +22,8 @@ namespace FaPA.AppServices.CoreValidation
 
             TryGetLengthErrors( nameof( instnce.AliquotaIVA ), instnce.AliquotaIVA.ToString( "{0:###0.00}" ), 
                 errors, 21, 4);
-            TryGetMinMaxValueErrors( nameof( instnce.AliquotaIVA ), instnce.AliquotaIVA, errors, 1 );
+
+            //TryGetMinMaxValueErrors( nameof( instnce.AliquotaIVA ), instnce.AliquotaIVA, errors, 1 );
 
             TryGetLengthErrors( nameof( instnce.Quantita ), instnce.Quantita.ToString( "{0:###0.00}" ), errors, 21 );
             TryGetLengthErrors( nameof( instnce.UnitaMisura ), instnce.UnitaMisura, errors, 10 );

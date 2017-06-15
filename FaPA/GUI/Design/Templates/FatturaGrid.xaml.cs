@@ -2,8 +2,8 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using FaPA.GUI.Utils;
 using FaPA.Infrastructure.Helpers;
+using FaPA.Infrastructure.Utils;
 
 namespace FaPA.GUI.Design.Templates
 {
@@ -35,7 +35,7 @@ namespace FaPA.GUI.Design.Templates
         {
             ShowCursor.Show();
             var dgrid = sender as DataGrid;
-            ProxyHelpers.UnproxiedItems( dgrid );
+            NhProxyHelpers.UnproxiedItems( dgrid );
         }
 
         private void SetUpGrid()

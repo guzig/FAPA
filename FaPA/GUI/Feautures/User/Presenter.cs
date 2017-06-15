@@ -10,8 +10,8 @@ using FaPA.DomainServices.Utils;
 using FaPA.GUI.Controls.MyTabControl;
 using FaPA.GUI.Design.Events;
 using FaPA.GUI.Feautures.LogIn;
-using FaPA.GUI.Utils;
 using FaPA.Infrastructure.Helpers;
+using FaPA.Infrastructure.Utils;
 using NHibernate.Criterion;
 
 namespace FaPA.GUI.Feautures.User

@@ -3,7 +3,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace FaPA.GUI.Utils
+namespace FaPA.Infrastructure.Utils
 {
     public class TextBoxBehavior
     {

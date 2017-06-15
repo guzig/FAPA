@@ -371,7 +371,14 @@ namespace FaPA.Core
                 CessionarioCommittente.DatiAnagrafici = new DatiAnagraficiCessionarioType();
             }
             CessionarioCommittente.DatiAnagrafici.Anagrafica = anag;
+
             CessionarioCommittente.DatiAnagrafici.CodiceFiscale = AnagraficaCommittenteDB.CodiceFiscale;
+
+            CessionarioCommittente.DatiAnagrafici.IdFiscaleIVA = new IdFiscaleType()
+            {
+                IdCodice = AnagraficaCommittenteDB.PIva,
+                IdPaese = AnagraficaCommittenteDB.Nazione
+            };
 
             if ( FormatoTrasmissioneDB == FormatoTrasmissioneType.FPR12 &&
                  string.IsNullOrWhiteSpace( DatiTrasmissione.PECDestinatario ) )
@@ -428,7 +435,7 @@ namespace FaPA.Core
             {
                 FatturaElettronicaHeader.DatiTrasmissione.IdTrasmittente = new IdFiscaleType
                 {
-                    IdCodice = AnagraficaCedenteDB.PIva,
+                    IdCodice = AnagraficaCedenteDB.CodiceFiscale,
                     IdPaese = AnagraficaCedenteDB.Nazione
                 };
             }

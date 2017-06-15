@@ -53,13 +53,13 @@ namespace FaPA.Core.FaPa
 
         public virtual  string IstitutoFinanziario { get; set; }
 
-        public virtual  string Iban { get; set; }
+        public virtual  string IBAN { get; set; }
 
-        public virtual  string Abi { get; set; }
+        public virtual  string ABI { get; set; }
 
-        public virtual  string Cab { get; set; }
+        public virtual  string CAB { get; set; }
 
-        public virtual  string Bic { get; set; }
+        public virtual  string BIC { get; set; }
 
         public virtual  decimal ScontoPagamentoAnticipato { get; set; }
 

@@ -8,10 +8,10 @@ using System.Windows.Data;
 using System.Windows.Input;
 using FaPA.Core;
 using FaPA.DomainServices.Utils;
-using FaPA.GUI.Utils;
 using FaPA.Infrastructure;
 using FaPA.Infrastructure.FlyFetch;
 using FaPA.Infrastructure.Helpers;
+using FaPA.Infrastructure.Utils;
 using NHibernate.Criterion;
 
 namespace FaPA.GUI.Controls.MyTabControl

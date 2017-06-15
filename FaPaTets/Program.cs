@@ -38,10 +38,7 @@ namespace FaPaTets
 
             var sessionfactory = cfg.BuildSessionFactory();
             var databaseScope = new SQLiteDatabaseScope( cfg, sessionfactory );
-            
-            //the key point is pass your session.Connection here
-            //new SchemaExport( cfg ).Execute( true, true, false, session1.Connection, null );
-          
+                   
             using (ISession session1 = databaseScope.OpenSession() )
             using ( ITransaction tx = session1.BeginTransaction() )
             {
@@ -61,14 +58,6 @@ namespace FaPaTets
                 session1.Save( anagraficaCommittente );
                 session1.Save( fattura );
 
-                tx.Commit();
-            }
-
-            using (ISession session2 = databaseScope.OpenSession())
-            using (ITransaction tx = session2.BeginTransaction())
-            {
-                var l = session2.QueryOver<Anagrafica>().Fetch(f => f.Fatture).Eager.List<Anagrafica>();
-                var f1 = l.First().Fatture;
                 tx.Commit();
             }
 

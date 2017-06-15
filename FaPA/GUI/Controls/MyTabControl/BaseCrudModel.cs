@@ -6,7 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Data;
 using Caliburn.Micro;
-using FaPA.GUI.Utils;
+using FaPA.Infrastructure.Utils;
 using NHibernate;
 
 namespace FaPA.GUI.Controls.MyTabControl

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:finder="clr-namespace:FaPA.Infrastructure.Finder"
-             xmlns:utils="clr-namespace:FaPA.GUI.Utils">
+             xmlns:utils="clr-namespace:FaPA.Infrastructure.Utils">
     <UserControl.Resources>
 
         <DataTemplate x:Key="EmptyTemplate"/>

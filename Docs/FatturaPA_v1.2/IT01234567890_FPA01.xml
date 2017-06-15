@@ -7,7 +7,7 @@ xsi:schemaLocation="http://ivaservizi.agenziaentrate.gov.it/docs/xsd/fatture/v1.
     <DatiTrasmissione>
       <IdTrasmittente>
         <IdPaese>IT</IdPaese>
-        <IdCodice>01234567890</IdCodice>
+        <IdCodice>GZZMRA65R50D181Y</IdCodice>
       </IdTrasmittente>
       <ProgressivoInvio>00001</ProgressivoInvio>
       <FormatoTrasmissione>FPA12</FormatoTrasmissione>
@@ -17,7 +17,7 @@ xsi:schemaLocation="http://ivaservizi.agenziaentrate.gov.it/docs/xsd/fatture/v1.
       <DatiAnagrafici>
         <IdFiscaleIVA>
           <IdPaese>IT</IdPaese>
-          <IdCodice>01234567890</IdCodice>
+          <IdCodice>03462320791</IdCodice>
         </IdFiscaleIVA>
         <Anagrafica>
           <Denominazione>ALPHA SRL</Denominazione>
@@ -34,7 +34,7 @@ xsi:schemaLocation="http://ivaservizi.agenziaentrate.gov.it/docs/xsd/fatture/v1.
     </CedentePrestatore>
     <CessionarioCommittente>
       <DatiAnagrafici>
-        <CodiceFiscale>09876543210</CodiceFiscale>
+        <CodiceFiscale>GZZMRA65R50D181Y</CodiceFiscale>
         <Anagrafica>
           <Denominazione>AMMINISTRAZIONE BETA</Denominazione>
         </Anagrafica>

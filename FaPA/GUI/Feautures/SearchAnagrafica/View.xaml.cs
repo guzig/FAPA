@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Windows;
 using System.Windows.Input;
-using FaPA.GUI.Utils;
+using FaPA.Infrastructure.Utils;
 
 namespace FaPA.GUI.Feautures.SearchAnagrafica
 {

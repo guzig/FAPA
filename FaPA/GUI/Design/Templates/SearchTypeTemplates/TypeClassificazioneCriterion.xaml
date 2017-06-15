@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:finder="clr-namespace:FaPA.Infrastructure.Finder"
-             xmlns:utils="clr-namespace:FaPA.GUI.Utils"
+             xmlns:utils="clr-namespace:FaPA.Infrastructure.Utils"
              mc:Ignorable="d" >
     <UserControl.Resources>
 

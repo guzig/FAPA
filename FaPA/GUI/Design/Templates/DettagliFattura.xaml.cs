@@ -1,5 +1,5 @@
 ﻿using System.Windows.Input;
-using FaPA.GUI.Utils;
+using FaPA.Infrastructure.Utils;
 
 namespace FaPA.GUI.Design.Templates
 {

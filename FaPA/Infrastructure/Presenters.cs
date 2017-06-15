@@ -5,8 +5,8 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using FaPA.GUI.Design.Commands;
-using FaPA.GUI.Utils;
 using FaPA.Infrastructure.Helpers;
+using FaPA.Infrastructure.Utils;
 
 namespace FaPA.Infrastructure
 {

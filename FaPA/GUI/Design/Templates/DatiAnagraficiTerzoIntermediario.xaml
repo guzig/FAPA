@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:t="clr-namespace:FaPA.GUI.Design.Templates"
              xmlns:enums="clr-namespace:FaPA.Core.FaPa"
-             xmlns:utils="clr-namespace:FaPA.GUI.Utils">
+             xmlns:utils="clr-namespace:FaPA.Infrastructure.Utils">
 
     <Grid Margin="2,2,2,2" >
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using FaPA.GUI.Utils;
+using FaPA.Infrastructure.Utils;
 
 namespace FaPA.GUI.Design.Templates.SearchTypeTemplates
 {

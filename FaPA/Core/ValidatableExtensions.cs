@@ -10,22 +10,19 @@ namespace FaPA.Core
     {
         public static bool IsValid(this IValidatable input)
         {
-            // Sometimes all you care about is a boolean
             return input.ValidationResult().Success;
         }
 
         public static string ValidationMessage(this IValidatable input)
         {
-            // Other times you just want the message. This is much more rare.
             return input.ValidationResult().Errors.ToValidationResult();
         }
 
         public static DomainResult ValidationResult(this IValidatable input)
         {
-            // This avoids needing a null check in our code when we validate nullable objects
             var err = new Dictionary<string, List<string>>
             {
-                { "Null input is invalid.", new List<string> { "Null input is invalid." } }
+                { "Valori vuoti non ammessi", new List<string> { "Valori vuoti non ammessi" } }
             };
             if ( input == null ) return new DomainResult( false, err );
             input.Validate();
@@ -44,18 +41,10 @@ namespace FaPA.Core
                 if ( input.Errors == null )
                     yield break;
 
-                foreach (var error in input.Errors)
+                foreach ( var errors in input.Errors.SelectMany( error => error.Value ) )
                 {
-                    foreach (var er in error.Value)
-                    {
-                        yield return er;
-                    }
+                    yield return errors;
                 }
-
-                //foreach ( var err in err1 )
-                //{
-                //    yield return err;
-                //}
             }
 
             if ( input.Success ) yield break;

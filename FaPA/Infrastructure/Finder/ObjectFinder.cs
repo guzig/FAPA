@@ -6,8 +6,8 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Windows;
 using Caliburn.Micro;
-using FaPA.GUI.Utils;
 using FaPA.Infrastructure.Helpers;
+using FaPA.Infrastructure.Utils;
 using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.SqlCommand;
@@ -295,7 +295,7 @@ namespace FaPA.Infrastructure.Finder
             ISearchProperty searchProp;
             switch (propTypeName)
             {
-                 //todo:refactor with reflection
+                 //todo:refactor!!! with reflection or new C# feature...!!! 
                 case "SByte":
                 case "Byte":
                 case "Int16":
@@ -379,8 +379,6 @@ namespace FaPA.Infrastructure.Finder
                 if ( subcriteria == null )
                 {
                     detachedCriteria.CreateCriteria(associationName, associationName + AliasPrefix , objectFinder.JoinType);
-
-                    //detachedCriteria.CreateAlias( associationName, associationName +"_alias", objectFinder.JoinType );
                     
                     if ( objectFinder.NodeLevelHasCriteria )
                     {

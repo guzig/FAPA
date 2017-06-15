@@ -58,6 +58,7 @@ namespace FaPA.Core.FaPa
             set
             {
                 _naturaField = value;
+                NaturaSpecified = _naturaField != NaturaType.N;
             }
         }
 

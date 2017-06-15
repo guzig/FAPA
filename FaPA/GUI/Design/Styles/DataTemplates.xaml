@@ -6,7 +6,6 @@
                     xmlns:a="clr-namespace:FaPA.GUI.Feautures.Fattura"
                     xmlns:t1="clr-namespace:FaPA.GUI.Design.Templates"
                     xmlns:ctrls="clr-namespace:FaPA.GUI.Controls"
-                    xmlns:u="clr-namespace:FaPA.GUI.Utils"
                     xmlns:l="clr-namespace:FaPA.GUI.Feautures.Anagrafica"
                     xmlns:fp="clr-namespace:FaPA.Core.FaPa"
                     xmlns:user="clr-namespace:FaPA.GUI.Feautures.User">

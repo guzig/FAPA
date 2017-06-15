@@ -10,7 +10,6 @@ namespace FaPaTets.DbSetUp
 
         //private static readonly log4net.ILog Log = log4net.LogManager.GetLogger( typeof( SQLiteDatabaseScope ) );
 
-        private object sync = new object();
         private readonly NHibernate.Cfg.Configuration _config;
         private readonly NHibernate.ISessionFactory _sessionFactory;
         private readonly string _initialDataFilename;

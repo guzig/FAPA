@@ -6,7 +6,7 @@ using System.Windows.Threading;
 using Caliburn.Micro;
 using FaPA.GUI.Controls.MyTabControl;
 
-namespace FaPA.GUI.Utils
+namespace FaPA.Infrastructure.Utils
 {
     public static class WpfHelpers
     {

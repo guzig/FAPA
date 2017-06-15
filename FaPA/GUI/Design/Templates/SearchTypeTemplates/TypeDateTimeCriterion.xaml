@@ -6,7 +6,7 @@
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:finder="clr-namespace:FaPA.Infrastructure.Finder"
-             xmlns:utils="clr-namespace:FaPA.GUI.Utils"
+             xmlns:utils="clr-namespace:FaPA.Infrastructure.Utils"
              mc:Ignorable="d" >
     <UserControl.Resources>
 

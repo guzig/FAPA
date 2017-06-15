@@ -41,8 +41,7 @@ namespace FaPaTets.DbSetUp
             };
 
             entity.Id = 99999;
-
-
+            
             Assert.That(eventWasCalled);
             Assert.That(propertyName, Is.EqualTo("Id"));
             Assert.That(sender, Is.SameAs(entity));

@@ -3,8 +3,8 @@ using System.Threading;
 using System.Windows.Input;
 using FaPA.DomainServices.AuthenticationServices;
 using FaPA.DomainServices.Utils;
-using FaPA.GUI.Utils;
 using FaPA.Infrastructure;
+using FaPA.Infrastructure.Utils;
 
 namespace FaPA.GUI.Feautures.LogInManager
 {

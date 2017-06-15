@@ -9,12 +9,12 @@ namespace FaPA.AppServices
     {
         private static List<Comune> _comuni;
 
-        public static List<Core.Comune> Comuni
+        public static List<Comune> Comuni
         {
             get
             {
                 if ( _comuni != null ) return _comuni;
-                _comuni = new DomainServices.Utils.ReferenceDataFactory().GetReferenceCollection<Comune>().OrderBy( p => p.Denominazione ).ToList();
+                _comuni = new ReferenceDataFactory().GetReferenceCollection<Comune>().OrderBy( p => p.Denominazione ).ToList();
                 return _comuni;
             }
 

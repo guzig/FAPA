@@ -12,17 +12,16 @@ using System.Windows.Data;
 using System.Windows.Input;
 using FaPA.Core;
 using FaPA.Data;
-using FaPA.GUI.Utils;
 using FaPA.Infrastructure;
 using FaPA.Infrastructure.Helpers;
+using FaPA.Infrastructure.Utils;
 using NHibernate;
 using NHibernate.Criterion;
 using Action = System.Action;
 
 namespace FaPA.GUI.Controls.MyTabControl
 {
-    public abstract class EditViewModel<T> :  ListViewViewModel, IEditViewModel, 
-        IRepository, IDispose where T : BaseEntity
+    public abstract class EditViewModel<T> :  ListViewViewModel, IEditViewModel, IRepository, IDispose where T : BaseEntity
     {
         #region fields
 
@@ -63,13 +62,6 @@ namespace FaPA.GUI.Controls.MyTabControl
 
         #endregion
         
-        //void OnCurrentChanging(T sender)
-        //{
-        //    var handler = CurrentChanging;
-        //    if (handler != null)
-        //        handler(sender);
-        //}
-
         #region props
 
         public IBasePresenter BasePresenter { get; }
@@ -643,7 +635,7 @@ namespace FaPA.GUI.Controls.MyTabControl
 
             if ( !UserEntitiesView.IsEmpty )
             {
-                //we need to unproxy entity to get the Id;
+                //need to unproxy entity to get the Id;
                 if ( TryGetUnproxiedEntity() )
                     currentItem = (BaseEntity)UserCollection[UserEntitiesView.CurrentPosition]; 
                 else
@@ -720,6 +712,7 @@ namespace FaPA.GUI.Controls.MyTabControl
             var listError = new List<string> {"ELENCO ERRORI RILEVATI:"};
 
             var enumerable = errors.Where(e=>!string.IsNullOrWhiteSpace(e.Message)).
+                //TODO: ESEGUIRE L'OVVERRIDE DEL METODO ...REPLACE "DB" E' SPECIFICO DI UNA CONVENTION APPLICATA IN QUESTA APP
                 Select(e => e.PropertyName.Replace("DB","").ToUpper() + ": " + e.Message).ToList();
 
             listError.AddRange(enumerable);
@@ -751,7 +744,6 @@ namespace FaPA.GUI.Controls.MyTabControl
 
         private void SearchOnSitePerform(object sender, DoWorkEventArgs doWorkEventArgs)
         {
-            //MapFromDto(CurrentDtoEntity, ref _currentEntity);
             doWorkEventArgs.Result = GetQueryByExample(_currentEntity);
         }
 

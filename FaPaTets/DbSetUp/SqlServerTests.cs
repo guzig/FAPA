@@ -165,12 +165,11 @@ namespace FaPaTets.DbSetUp
             var validatorEngine = new ValidatorEngine();
             new BasicSharedEngineProvider(validatorEngine).UseMe();
             cfg.ConfigureNHibernateValidator(validatorEngine);
-            //cfg.CreateIndexesForForeignKeys();
+            cfg.CreateIndexesForForeignKeys();
             var sessionfactory = cfg.BuildSessionFactory();
 
             FaPA.DomainServices.NHibernateStaticContainer.SessionFactory = sessionfactory;
 
-            //new SchemaExport( cfg ).Execute( true, true, false  );
 
             using (ISession session1 = sessionfactory.OpenSession())
             using (ITransaction tx = session1.BeginTransaction())
@@ -292,8 +291,11 @@ namespace FaPaTets.DbSetUp
         {
             //BootStrapper.Initialize();
             //var session = BootStrapper.SessionFactory.OpenStatelessSession();
-            var nomeFileCap =  //@"C:\Users\tonio\Desktop\listacomuniConCAP.txt";
-                              @"C:\Users\Devs\Desktop\listacomuniConCAP.txt";
+
+            var path = System.IO.Path.GetDirectoryName( System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase );
+            var dir = System.IO.Path.Combine( new DirectoryInfo( new Uri( path ).LocalPath ).Parent.Parent.FullName, "DbSetUp" );
+
+            var nomeFileCap = System.IO.Path.Combine( dir, "listacomuniConCAP.txt" );
 
             var dictCap = new Dictionary<string,string>(); 
 
@@ -312,10 +314,10 @@ namespace FaPaTets.DbSetUp
 
             using (var tx = session.BeginTransaction())
             {
-                var nomeFile = //@"C:\Users\tonio\Desktop\elenco-comuni-italiani.csv";
-                               @"C:\Users\Devs\Desktop\elenco-comuni-italiani.csv";
-                            
-                using (TextReader readerComuni = new StreamReader(nomeFile))
+
+                var nomeFile = System.IO.Path.Combine( dir, "elenco-comuni-italiani.csv" );
+
+                using ( TextReader readerComuni = new StreamReader(nomeFile))
                 {
                     string line;
                     while ((line = readerComuni.ReadLine()) != null)

@@ -5,11 +5,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:enums="clr-namespace:FaPA.Core.FaPa"
-    xmlns:u="clr-namespace:FaPA.GUI.Utils"
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     xmlns:f="clr-namespace:FaPA.Infrastructure.Finder"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:templates="clr-namespace:FaPA.GUI.Design.Templates"
+    xmlns:utils="clr-namespace:FaPA.Infrastructure.Utils"
     mc:Ignorable="d" d:DesignWidth="1000" MaxHeight="300">
 
     <UserControl.Resources>
@@ -101,13 +101,13 @@
 
                 <DataGrid.Columns  >
 
-                    <DataGridTextColumn Header="Num" Width="Auto" u:TextBoxBehavior.MaxLength="4"
+                    <DataGridTextColumn Header="Num" Width="Auto" utils:TextBoxBehavior.MaxLength="4"
                                         Binding="{Binding NumeroLinea,  Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnSourceUpdated=True, 
                                                           NotifyOnTargetUpdated=True, NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True}"
                                         ElementStyle="{StaticResource CellErrorInfoStyle}">
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn Header="Descrizione"  u:TextBoxBehavior.MaxLength="1000"
+                    <DataGridTextColumn Header="Descrizione"  utils:TextBoxBehavior.MaxLength="1000"
                                         Width="Auto" 
                                         Binding="{Binding Descrizione, Mode=TwoWay, ValidatesOnDataErrors =True, 
                                                                                     NotifyOnSourceUpdated=True,
@@ -117,14 +117,14 @@
 
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn Header="Quantità" u:TextBoxBehavior.MaxLength="21"
+                    <DataGridTextColumn Header="Quantità" utils:TextBoxBehavior.MaxLength="21"
                                         Width="Auto" 
                                         Binding="{Binding Quantita, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus,  NotifyOnValidationError=True}"
                                         ElementStyle="{StaticResource CellErrorInfoStyle}">
 
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn Header="Unità" Width="Auto" u:TextBoxBehavior.MaxLength="10"
+                    <DataGridTextColumn Header="Unità" Width="Auto" utils:TextBoxBehavior.MaxLength="10"
                                         Binding="{Binding UnitaMisura, ValidatesOnDataErrors =True, UpdateSourceTrigger =LostFocus}"
                                         ElementStyle="{StaticResource CellErrorInfoStyle}">
 
@@ -162,66 +162,66 @@
                     </DataGridTextColumn>
                     
                     <DataGridComboBoxColumn Header="Ritenuta" 
-                                            ItemsSource="{Binding Source={u:Enumeration {x:Type enums:RitenutaType}}, UpdateSourceTrigger=PropertyChanged}"  
+                                            ItemsSource="{Binding Source={utils:Enumeration {x:Type enums:RitenutaType}}, UpdateSourceTrigger=PropertyChanged}"  
                                             DisplayMemberPath="Description" SelectedValuePath="Value" 
                                             SelectedValueBinding="{Binding Ritenuta, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus}">
 
                         <DataGridComboBoxColumn.ElementStyle>
                             <Style TargetType="ComboBox">
-                                <Setter Property="ItemsSource" Value="{Binding Source={u:Enumeration {x:Type enums:RitenutaType}}, UpdateSourceTrigger=PropertyChanged}"/>
+                                <Setter Property="ItemsSource" Value="{Binding Source={utils:Enumeration {x:Type enums:RitenutaType}}, UpdateSourceTrigger=PropertyChanged}"/>
                             </Style>
                         </DataGridComboBoxColumn.ElementStyle>
                         <DataGridComboBoxColumn.EditingElementStyle>
                             <Style TargetType="ComboBox">
-                                <Setter Property="ItemsSource" Value="{Binding Source={u:Enumeration {x:Type enums:RitenutaType}}, UpdateSourceTrigger=PropertyChanged}"/>
+                                <Setter Property="ItemsSource" Value="{Binding Source={utils:Enumeration {x:Type enums:RitenutaType}}, UpdateSourceTrigger=PropertyChanged}"/>
                             </Style>
                         </DataGridComboBoxColumn.EditingElementStyle>
                     </DataGridComboBoxColumn>
                     
                     <DataGridComboBoxColumn Header="Tipo cessione" 
-                                            ItemsSource="{Binding Source={u:Enumeration {x:Type enums:TipoCessionePrestazioneType}}, UpdateSourceTrigger=PropertyChanged}"  
+                                            ItemsSource="{Binding Source={utils:Enumeration {x:Type enums:TipoCessionePrestazioneType}}, UpdateSourceTrigger=PropertyChanged}"  
                                             DisplayMemberPath="Description" SelectedValuePath="Value" 
                                             SelectedValueBinding="{Binding TipoCessionePrestazione, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus}">
 
                         <DataGridComboBoxColumn.ElementStyle>
                             <Style TargetType="ComboBox">
-                                <Setter Property="ItemsSource" Value="{Binding Source={u:Enumeration {x:Type enums:TipoCessionePrestazioneType}}, UpdateSourceTrigger=PropertyChanged}"/>
+                                <Setter Property="ItemsSource" Value="{Binding Source={utils:Enumeration {x:Type enums:TipoCessionePrestazioneType}}, UpdateSourceTrigger=PropertyChanged}"/>
                             </Style>
                         </DataGridComboBoxColumn.ElementStyle>
                         <DataGridComboBoxColumn.EditingElementStyle>
                             <Style TargetType="ComboBox">
-                                <Setter Property="ItemsSource" Value="{Binding Source={u:Enumeration {x:Type enums:TipoCessionePrestazioneType}}, UpdateSourceTrigger=PropertyChanged}"/>
+                                <Setter Property="ItemsSource" Value="{Binding Source={utils:Enumeration {x:Type enums:TipoCessionePrestazioneType}}, UpdateSourceTrigger=PropertyChanged}"/>
                             </Style>
                         </DataGridComboBoxColumn.EditingElementStyle>
                     </DataGridComboBoxColumn>
 
                     <DataGridComboBoxColumn Header="Natura" 
-                                            ItemsSource="{Binding Source={u:Enumeration {x:Type enums:NaturaType}}, UpdateSourceTrigger=PropertyChanged}"  
+                                            ItemsSource="{Binding Source={utils:Enumeration {x:Type enums:NaturaType}}, UpdateSourceTrigger=PropertyChanged}"  
                                             DisplayMemberPath="Description" SelectedValuePath="Value" 
                                             SelectedValueBinding="{Binding Natura, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus}">
 
                         <DataGridComboBoxColumn.ElementStyle>
                             <Style TargetType="ComboBox">
-                                <Setter Property="ItemsSource" Value="{Binding Source={u:Enumeration {x:Type enums:NaturaType}}, UpdateSourceTrigger=PropertyChanged}"/>
+                                <Setter Property="ItemsSource" Value="{Binding Source={utils:Enumeration {x:Type enums:NaturaType}}, UpdateSourceTrigger=PropertyChanged}"/>
                             </Style>
                         </DataGridComboBoxColumn.ElementStyle>
                         <DataGridComboBoxColumn.EditingElementStyle>
                             <Style TargetType="ComboBox">
-                                <Setter Property="ItemsSource" Value="{Binding Source={u:Enumeration {x:Type enums:NaturaType}}, UpdateSourceTrigger=PropertyChanged}"/>
+                                <Setter Property="ItemsSource" Value="{Binding Source={utils:Enumeration {x:Type enums:NaturaType}}, UpdateSourceTrigger=PropertyChanged}"/>
                             </Style>
                         </DataGridComboBoxColumn.EditingElementStyle>
                     </DataGridComboBoxColumn>
 
                     <DataGridTextColumn Header="Data inizio"
                                         Width="Auto" 
-                                        Binding="{Binding DataInizioPeriodo, StringFormat='{}{0:d}', ValidatesOnDataErrors =True, UpdateSourceTrigger =LostFocus}"
+                                        Binding="{Binding DataInizioPeriodo, StringFormat=d, ValidatesOnDataErrors =True, UpdateSourceTrigger =LostFocus}"
                                         ElementStyle="{StaticResource CellErrorInfoStyle}">
 
                     </DataGridTextColumn>
 
                     <DataGridTextColumn Header="Data fine"
                                         Width="Auto" 
-                                        Binding="{Binding DataFinePeriodo, StringFormat='{}{0:d}', ValidatesOnDataErrors =True, UpdateSourceTrigger =LostFocus}"
+                                        Binding="{Binding DataFinePeriodo, StringFormat=d, ValidatesOnDataErrors =True, UpdateSourceTrigger =LostFocus}"
                                         ElementStyle="{StaticResource CellErrorInfoStyle}">
 
                     </DataGridTextColumn>

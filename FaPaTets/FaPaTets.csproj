@@ -173,11 +173,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DbSetUp\AbstractTestFixtureFixture.cs" />
-    <Compile Include="DbSetUp\Class1.cs" />
     <Compile Include="DbSetUp\DataTestFactory.cs" />
     <Compile Include="FatturaPa\FatturaPa_11\UtilsPA.cs" />
     <Compile Include="FatturaPa\FatturaPa_12\ValidationSchemaTestsV12.cs" />
-    <Compile Include="Misc\NumberFormatTests.cs" />
     <Compile Include="Misc\XmlStuff.cs" />
     <Compile Include="PersistanceTests\QueriesTest.cs" />
     <Compile Include="DbSetUp\SqlServerTests.cs" />
@@ -209,6 +207,9 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <EmbeddedResource Include="DbSetUp\elenco-comuni-italiani.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <None Include="FatturaPa\FatturaPa_11\fatturapa_v1.1.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -218,6 +219,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="DbSetUp\listacomuniConCAP.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Content Include="nhibernate.cfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
