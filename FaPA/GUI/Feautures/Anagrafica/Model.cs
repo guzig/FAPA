@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.ObjectModel;
+using System.Linq;
 using FaPA.GUI.Controls.MyTabControl;
 using NHibernate;
 
@@ -15,14 +16,17 @@ namespace FaPA.GUI.Feautures.Anagrafica
             _editViewModel = new EditAnagraficaViewModel(basePresenter, UserEntities, UserCollectionView, session);
             _editViewModel.DisplayName = "Dettaglio anagrafica";
 
-            var listViewViewModel = new AnagraficaListViewModel
+            //we want fisrt show user filtered collection to show end eventually process for CRUD
+            if ( Workspaces != null && !Workspaces.Any( w => w is AnagraficaListViewModel ) ) 
             {
-                DisplayName = DisplayName,
-                UserEntitiesView = UserCollectionView
-            };
+                Workspaces.Add( new AnagraficaListViewModel
+                {
+                    DisplayName = DisplayName,
+                    UserEntitiesView = UserCollectionView
+                } );
+            }
 
-            Workspaces.Add(listViewViewModel);
-
+            //after the mandatory workspace for editing purpose
             if ( UserEntities != null && UserEntities.Count > 0)
             {
                 Workspaces.Add( _editViewModel );

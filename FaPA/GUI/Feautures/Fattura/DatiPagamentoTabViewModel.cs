@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel;
 using FaPA.Core.FaPa;
 using FaPA.GUI.Controls;
@@ -6,7 +5,7 @@ using FaPA.Infrastructure;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
-    public class DatiPagamentoTabViewModel : BaseTabsViewModel<Core.Fattura, DatiPagamentoType[]>
+    public class DatiPagamentoTabViewModel : CrudListViewModel<Core.Fattura, DatiPagamentoType[]>
     {
         //ctor
         public DatiPagamentoTabViewModel(IRepository repository, Core.Fattura instance) :

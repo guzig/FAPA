@@ -11,11 +11,11 @@ using NHibernate;
 
 namespace FaPA.GUI.Controls.MyTabControl
 {
-    public abstract class BaseCrudModel : PropertyChangedBase
+    public abstract class BaseCrudModel : PropertyChangedBase, IDisposable
     {
-        public abstract WorkspaceViewModel EditViewModel { get; }
-
-        public abstract void SetEditViewModel(ISession session, IBasePresenter basePresenter);
+        public abstract string DisplayName { get; }
+        
+        #region user collection enetities to show and submit to crud operation
 
         private ICollectionView _userCollectionView;
         public ICollectionView UserCollectionView
@@ -24,48 +24,78 @@ namespace FaPA.GUI.Controls.MyTabControl
             set
             {
                 _userCollectionView = value;
-                NotifyOfPropertyChange(() => UserCollectionView);
+                NotifyOfPropertyChange( () => UserCollectionView );
                 UserCollectionView.MoveCurrentToFirst();
             }
         }
 
+        public abstract IList UserEntities { get; set; }
+
+        #endregion
+
+        #region Workspaces 
+
+        /// <summary>
+        /// Workspace is a single context (eg. a Tab in a ControlTab) used to manipulate user collection
+        /// by default we have a Workspace to show entities list filter for editing or other manipulation
+        /// and another workspace for the operation the CRUD operaration of a selected item...
+        /// other workspace can be added as context for other operation on a current item selected
+        /// </summary>
         public ObservableCollection<WorkspaceViewModel> Workspaces { get; private set; }
 
         public ICollectionView WorkspacesCollectionView { get; private set; }
+        
+        /// <summary>
+        /// Default mandatory workspace for CRUD operation
+        ///  </summary>
+        public abstract WorkspaceViewModel EditViewModel { get; }
 
-        public abstract IList UserEntities { get; set; }
 
-        public abstract string DisplayName { get; }
+        private WorkspaceViewModel _selectedPage;
+        /// <summary>
+        /// Current workspace to host manipulation to the selected item
+        /// </summary>
+        public WorkspaceViewModel SelectedPage
+        {
+            get { return _selectedPage; }
+            set
+            {
+                if ( value != null && value.Equals( _selectedPage ) )
+                    return;
 
+                var oldValue = _selectedPage;
+
+                _selectedPage = value;
+
+                var handler = SelectedPageChanged;
+                if ( handler != null )
+                    handler( SelectedPageChanged, new PropertyChangeEventArgs( "SelectedPage", oldValue, _selectedPage ) );
+            }
+        }
+        #endregion
+        
+
+        public delegate void PropertyChangeHandler( object sender, PropertyChangeEventArgs data );
+        public event PropertyChangeHandler SelectedPageChanged;
+
+
+        //ctor
         protected BaseCrudModel()
         {
             Workspaces = new ObservableCollection<WorkspaceViewModel>();
             Workspaces.CollectionChanged += OnWorkspacesChanged;
             WorkspacesCollectionView = CollectionViewSource.GetDefaultView(Workspaces);
         }
-        
-        public delegate void PropertyChangeHandler(object sender, PropertyChangeEventArgs data);
-        public event PropertyChangeHandler SelectedPageChanged;
 
-        private WorkspaceViewModel _selectedPage;
-        public WorkspaceViewModel SelectedPage
-        {
-            get { return _selectedPage; }
-            set
-            {
-                if (value != null && value.Equals(_selectedPage))
-                    return;
 
-                var oldValue = _selectedPage;
-                
-                _selectedPage = value;
+        /// <summary>
+        /// Setup default mandatory workspace for CRUD operation
+        /// </summary>
+        /// <param name="session"></param>
+        /// <param name="basePresenter"></param>
+        public abstract void SetEditViewModel( ISession session, IBasePresenter basePresenter );
 
-                var handler = SelectedPageChanged;
-                if (handler != null)
-                    handler(SelectedPageChanged, new PropertyChangeEventArgs("SelectedPage", oldValue, _selectedPage));
-            }
-        }
-        
+
         #region Workspaces
 
         /// <summary>
@@ -99,7 +129,16 @@ namespace FaPA.GUI.Controls.MyTabControl
             workspace.Dispose();
             Workspaces.Remove(workspace);
         }
-        
+
         #endregion // Workspaces
+
+
+        void IDisposable.Dispose()
+        {
+            foreach ( var f in this.Workspaces )
+                f.Dispose();
+
+            this.Workspaces.Clear();
+        }
     }
 }

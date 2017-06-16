@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Reflection;
 using FaPaTets.DbSetUp;
 using FaPaTets.FatturaPa.FatturaPa_11;
 using FaPA.Core;

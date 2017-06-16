@@ -1,9 +1,1 @@
 
-anagrafiche duplicate
-in dati riepilogo considerare campo natura in raggruppamento... natura va sempre valorizzato
-pulsante visualizza su scheda allegato
-
-
-
-in dettagliopagamento
-_importoPagamento = decimal.Parse( string.Format( "{0:0.00}", value ) ); -> exception when value is zero

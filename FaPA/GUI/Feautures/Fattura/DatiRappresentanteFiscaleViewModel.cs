@@ -1,5 +1,4 @@
 using System.ComponentModel;
-using FaPA.Core;
 using FaPA.Core.FaPa;
 using FaPA.GUI.Controls;
 using FaPA.Infrastructure;
@@ -7,7 +6,7 @@ using FaPA.Infrastructure;
 namespace FaPA.GUI.Feautures.Fattura
 {
 
-    public class DatiRappresentanteFiscaleViewModel : EditWorkSpaceViewModel<Core.Fattura, RappresentanteFiscaleType>
+    public class DatiRappresentanteFiscaleViewModel : CrudViewModel<Core.Fattura, RappresentanteFiscaleType>
     {
 
         //ctor

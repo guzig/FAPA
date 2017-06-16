@@ -1,11 +1,9 @@
-﻿<controls:BaseListViewControl
-    x:Class="FaPA.GUI.Design.Templates.AnagraficaGrid"
+﻿<UserControl x:Class="FaPA.GUI.Design.Templates.AnagraficaGrid"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        xmlns:controls="clr-namespace:FaPA.GUI.Controls"
         xmlns:myRecordNavigator="clr-namespace:FaPA.GUI.Controls.MyRecordNavigator"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d">
@@ -18,7 +16,8 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <DockPanel x:Name="emptyMessage" Grid.Row="0">
+        <DockPanel x:Name="emptyMessage" Grid.Row="0" 
+                   Visibility="{Binding Path=UserEntitiesView.IsEmpty, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
 
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,15,0,0"> 
                     <Hyperlink x:Name="hyperLink" FontSize="14"
@@ -30,8 +29,9 @@
 
         </DockPanel>
 
-        <DockPanel Grid.Row="1">
-            <DataGrid x:Name="AnagraficheGridControl" Visibility="Hidden"
+        <DockPanel Grid.Row="1" Visibility="{Binding Path=UserEntitiesView.IsEmpty, Mode=OneWay, Converter={StaticResource BoolToOppositeVisibilityConverter}}">
+            <DataGrid x:Name="AnagraficheGridControl" 
+                      ItemsSource="{Binding UserEntitiesView}"
                         IsSynchronizedWithCurrentItem="True" HorizontalScrollBarVisibility="Auto" 
                         VerticalScrollBarVisibility="Auto" SelectionMode="Extended"
                         CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True"
@@ -79,8 +79,8 @@
             </DataGrid>
         </DockPanel>
 
-        <DockPanel Grid.Row="2">
-            <Expander Header="Filtra/Raggruppa" Margin="4" Visibility="{Binding ElementName=FattureGridControl, Path=Visibility}">
+        <DockPanel Grid.Row="2" Visibility="{Binding Path=UserEntitiesView.IsEmpty, Mode=OneWay, Converter={StaticResource BoolToOppositeVisibilityConverter}}">
+            <Expander Header="Filtra/Raggruppa" Margin="4" >
                 <StackPanel Orientation="Horizontal">
                     <GroupBox Header="Filtra">
                         <StackPanel Orientation="Horizontal" >
@@ -105,33 +105,31 @@
 
         </DockPanel>
 
-        <DockPanel Width="Auto" Grid.Row="3" Height="25"  Visibility="Collapsed" x:Name="recordsToolBar" 
+        <DockPanel Width="Auto" Grid.Row="3" Height="25"
+                   Visibility="{Binding Path=UserEntitiesView.IsEmpty, Mode=OneWay, Converter={StaticResource BoolToOppositeVisibilityConverter}}"
                    Margin="0 05 0 0" Background="{StaticResource Brush_ToolBar}">
 
             <Button Name="CreateNew" 
                         Command="{Binding Presenter.OnGridEmptyCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-                        ToolTip="Crea una nuova categoria">
+                        ToolTip="Crea una nuova anagrafica">
 
-                <Image Source="\GUI\Design\Styles\Images\1343547225_file_add.png"
-                       
-                       Width="32"/>
+                <Image Source="\GUI\Design\Styles\Images\1343547225_file_add.png" Width="32"/>
             </Button>
 
             <Button Name="OpenEditingTab" 
                     Command="{Binding Presenter.ApriSchedaDettalio, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-                    ToolTip="Apre la scheda dettaglio categoria" 
+                    ToolTip="Apre la scheda dettaglio anagrafica" 
                     Width="25">
 
-                <Image Source="\GUI\Design\Styles\Images\find(2).png"
-                       Width="Auto"/>
+                <Image Source="\GUI\Design\Styles\Images\find(2).png" Width="Auto"/>
             </Button>
 
-            <myRecordNavigator:MyRecordNavigator x:Name="recordsNavigationToolBar"
-                                                 ItemsSource="{Binding GridItemSource}"
+            <myRecordNavigator:MyRecordNavigator Visibility="{Binding Path=UserEntitiesView.IsEmpty, Mode=OneWay, Converter={StaticResource BoolToOppositeVisibilityConverter}}"
+                                                 ItemsSource="{Binding UserEntitiesView}"
                                                  GridSource="{Binding ElementName=AnagraficheGridControl}"
                                                  Height="25"/>
         </DockPanel>
 
     </Grid>
     
-</controls:BaseListViewControl>
+</UserControl>

@@ -120,3 +120,13 @@ using(StreamWriter sw = new StreamWriter(fname, appendMode, encoding))
 {
     xml.Serialize(sw, transacao);
 }
+
+
+
+        private static FatturaElettronicaType Unproxy( object value  )
+        {
+            var interceptor = ( value as IProxy )?.Interceptor as PropChangedAndDataErrorDynProxyInterceptor;
+            if ( interceptor == null ) return ( FatturaElettronicaType ) value;
+            var proxy = interceptor.Proxy as FatturaElettronicaType;
+            return proxy;
+        }

@@ -1,34 +1,6 @@
 
-filter in datagrid
-
-button clone
-
-fix quick search
-
-Validator DatiCassa and other
-
-Dati di riepilogo
-
-
-p.iva codfiscale validazione
-
-DataGridHelpers.DataGridKeyUpEventHandler( e, FattureGridSearch );
-
-
---riepilogo per ogni dettaglio iva
-
-archivio comuni e provincie codifica - accenti lista comuni
+archivio comuni e provincie codifica - codepage accenti lista comuni
 verificare standard iso ..nazione etc
 
-ricerca immediata
-
-dati fattura pa: id trasmittente et all
-
-
-ultima fattura
-
-bug
-ricerca immeditata
-trigger pulsanti
 
 

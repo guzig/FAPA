@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Globalization;
-using System.IO;
 using FaPA.Core.FaPa;
 using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
-using System.Xml.Xsl;
 using FaPA.AppServices;
 using FaPA.AppServices.CoreValidation;
 using FaPA.Infrastructure.Helpers;

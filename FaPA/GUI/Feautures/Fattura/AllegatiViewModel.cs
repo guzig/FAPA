@@ -10,7 +10,7 @@ using Microsoft.Win32;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
-    public class AllegatiViewModel : BaseTabsViewModel<FatturaElettronicaBodyType, AllegatiType[]>
+    public class AllegatiViewModel : CrudListViewModel<FatturaElettronicaBodyType, AllegatiType[]>
     {
         private string _filePath;
         public string FilePath
@@ -30,7 +30,7 @@ namespace FaPA.GUI.Feautures.Fattura
             get
             {
                 if (_showAttach != null) return _showAttach;
-                _showAttach = new RelayCommand(param => OnShowAttach(), param => CanSaveExecuted() );
+                _showAttach = new RelayCommand(param => OnShowAttach(), param => CanShowAttachExecuted() );
                 return _showAttach;
             }
         }
@@ -157,6 +157,12 @@ namespace FaPA.GUI.Feautures.Fattura
         {
             var current = CurrentPoco as AllegatiType;
             return current?.Attachment != null && IsEditing;
+        }
+
+        protected bool CanShowAttachExecuted()
+        {
+            var current = CurrentPoco as AllegatiType;
+            return current?.Attachment != null ;
         }
 
         protected override bool CanAddEntity(object obj)

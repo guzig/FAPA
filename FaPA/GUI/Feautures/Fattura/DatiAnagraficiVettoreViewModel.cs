@@ -5,7 +5,7 @@ using FaPA.Infrastructure;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
-    public class DatiAnagraficiVettoreViewModel : EditWorkSpaceViewModel<DatiTrasportoType, DatiAnagraficiVettoreType>
+    public class DatiAnagraficiVettoreViewModel : CrudViewModel<DatiTrasportoType, DatiAnagraficiVettoreType>
     {
         //ctor
         public DatiAnagraficiVettoreViewModel( IRepository repository, DatiTrasportoType instance ) :

@@ -2,10 +2,12 @@
 using System.ComponentModel;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Emule.GUI.Features.BackUpRestore;
 using FaPA.AppServices;
+using FaPA.DomainServices.AuthenticationServices;
 using FaPA.DomainServices.Utils;
 using FaPA.Infrastructure;
 using FaPA.Infrastructure.Helpers;
@@ -19,15 +21,13 @@ namespace FaPA.GUI.Feautures.BackUpRestore
     {
 
         //ctor
-
         public Presenter()
         {
             //View.Presenter = this;
 
-            //var customPrincipal = Thread.CurrentPrincipal as CustomPrincipal;
-
-            //if ( customPrincipal == null || customPrincipal.Identity is AnonymousIdentity )
-            //    throw new ArgumentException( "Privilegi insufficenti" );
+            var customPrincipal = Thread.CurrentPrincipal as CustomPrincipal;
+            if ( customPrincipal == null || customPrincipal.Identity is AnonymousIdentity )
+                throw new ArgumentException( "L'utente corrente non è abilitato ad effettuare il backup" );
 
             Model = new Model( );
 
@@ -36,7 +36,6 @@ namespace FaPA.GUI.Feautures.BackUpRestore
 
         private void OnCloseView( object sender, CancelEventArgs e )
         {
-
             if ( Model?.IsEditingEnabled == null || Model.IsEditingEnabled.Value==true ) return;
             e.Cancel = true;
             const string msg = "Attendere la fine delle operazioni...";
@@ -61,7 +60,7 @@ namespace FaPA.GUI.Feautures.BackUpRestore
                          @"ALTER DATABASE [FEPA] SET Single_User WITH Rollback Immediate " +
                          @"RESTORE DATABASE FEPA FROM DISK = N'" + backUpFullPath + "' WITH REPLACE,  " +
                          @"MOVE 'FEPA_Data' TO '" + StoreAccess.DbFullPath + "' , " +
-                         @"MOVE 'FEPA_Log' TO '" + StoreAccess.DbLogFullPath + "' , " +
+                         @"MOVE 'FEPA_Log' TO '" + StoreAccess.DbLogFullPath + "' " +
                          //@"MOVE 'FEPA_STREAMS' TO '" + StoreAccess.StreamFullPath + "' , FILE=1 " +
                          @" ALTER DATABASE [FEPA] SET Multi_User";
 

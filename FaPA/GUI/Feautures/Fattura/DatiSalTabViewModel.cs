@@ -4,7 +4,7 @@ using FaPA.Infrastructure;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
-    public class DatiSalTabViewModel : BaseTabsViewModel<DatiGeneraliType, DatiSALType[]>
+    public class DatiSalTabViewModel : CrudListViewModel<DatiGeneraliType, DatiSALType[]>
     {
         //ctor
         public DatiSalTabViewModel( IRepository repository, DatiGeneraliType instance ) :

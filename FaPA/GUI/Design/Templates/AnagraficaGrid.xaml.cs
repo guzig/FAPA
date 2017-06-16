@@ -17,11 +17,8 @@ namespace FaPA.GUI.Design.Templates
         public AnagraficaGrid()
         {
             InitializeComponent();
-            GridControl = AnagraficheGridControl;
-            RecordsToolBar = recordsToolBar;
-            EmptyMessage = emptyMessage;
             SetUpGrid();
-            GridControl.PreviewKeyDown += AnagraficheGridControl_OnPreviewKeyDown;
+            AnagraficheGridControl.PreviewKeyDown += AnagraficheGridControl_OnPreviewKeyDown;
             AnagraficheGridControl.Sorting += OnSorting;
 
         }
@@ -54,14 +51,14 @@ namespace FaPA.GUI.Design.Templates
         private void btnFilter_Click( object sender, RoutedEventArgs e )
         {
             DataGridHelpers.DisableButtons( btnGroup, btnApplyFilter, btnClearFilter, btnClearGroup );
-            DataGridHelpers.ApplyFilter( txtFilter.Text, GridItemSource, _columns[cmbProperty.Text] );
+            DataGridHelpers.ApplyFilter( txtFilter.Text, AnagraficheGridControl.Items, _columns[cmbProperty.Text] );
             DataGridHelpers.EnableButtons( btnGroup, btnApplyFilter, btnClearFilter, btnClearGroup );
         }
 
         private void btnClear_Click( object sender, RoutedEventArgs e )
         {
             DataGridHelpers.DisableButtons( btnGroup, btnApplyFilter, btnClearFilter, btnClearGroup );
-            GridItemSource.Filter = item => true;
+            AnagraficheGridControl.Items.Filter = item => true;
             DataGridHelpers.EnableButtons( btnGroup, btnApplyFilter, btnClearFilter, btnClearGroup );
         }
 
@@ -71,7 +68,7 @@ namespace FaPA.GUI.Design.Templates
 
             DataGridHelpers.DisableButtons( btnGroup, btnApplyFilter, btnClearFilter, btnClearGroup );
 
-            DataGridHelpers.ApplyGroup( _columns[cmbGroups.Text], GridItemSource );
+            DataGridHelpers.ApplyGroup( _columns[cmbGroups.Text], AnagraficheGridControl.Items );
 
             DataGridHelpers.EnableButtons( btnGroup, btnApplyFilter, btnClearFilter, btnClearGroup );
         }
@@ -79,7 +76,7 @@ namespace FaPA.GUI.Design.Templates
         private void btnClearGr_Click( object sender, RoutedEventArgs e )
         {
             DataGridHelpers.DisableButtons( btnGroup, btnApplyFilter, btnClearFilter, btnClearGroup );
-            GridItemSource.GroupDescriptions.Clear();
+            AnagraficheGridControl.Items.GroupDescriptions.Clear();
             DataGridHelpers.EnableButtons( btnGroup, btnApplyFilter, btnClearFilter, btnClearGroup );
         }
     }

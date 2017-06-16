@@ -6,7 +6,7 @@ using FaPA.Infrastructure;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
-    public class DatiTerzoIntermediarioViewModel : EditWorkSpaceViewModel<Core.Fattura, TerzoIntermediarioSoggettoEmittenteType>
+    public class DatiTerzoIntermediarioViewModel : CrudViewModel<Core.Fattura, TerzoIntermediarioSoggettoEmittenteType>
     {
         //ctor
         public DatiTerzoIntermediarioViewModel( IRepository repository, Core.Fattura instance ) :

@@ -13,7 +13,7 @@ namespace FaPA.GUI.Controls.MyTabControl
 
         #region Constructor
 
-        public ListViewViewModel()
+        protected ListViewViewModel()
         {
             IsCloseable = false;
         }
@@ -79,43 +79,6 @@ namespace FaPA.GUI.Controls.MyTabControl
         }
 
         public bool NeedRefresh { get; set; }
-
-        //public void Refresh(BaseEntityDto entity)
-        //{
-        //    //UserCollection[UserEntitiesView.CurrentPosition] = entity;
-        //    UserEntitiesView.Refresh();            
-        //}
-
-        #region  Base Class Overrides
-
-        /*
-        protected override void OnDispose()
-        {
-            foreach (FornitoreViewModel f in this.FornitoriVM)
-                f.Dispose();
-
-            this.FornitoriVM.Clear();
-            this.FornitoriVM.CollectionChanged -= this.OnCollectionChanged;
-
-            //_customerRepository.CustomerAdded -= this.OnCustomerAddedToRepository;
-        }
-
-
-        void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            if (e.NewItems != null && e.NewItems.Count != 0)
-                foreach (FornitoreViewModel f in e.NewItems)
-                    f.PropertyChanged += this.OnCustomerViewModelPropertyChanged;
-
-            if (e.OldItems != null && e.OldItems.Count != 0)
-                foreach (FornitoreViewModel f in e.OldItems)
-                    f.PropertyChanged -= this.OnCustomerViewModelPropertyChanged;
-        }
-        
-       
-        */
-
-        #endregion 
 
     }
 }

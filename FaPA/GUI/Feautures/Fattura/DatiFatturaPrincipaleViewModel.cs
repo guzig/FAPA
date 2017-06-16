@@ -5,7 +5,7 @@ using FaPA.Infrastructure;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
-    public class DatiFatturaPrincipaleViewModel : EditWorkSpaceViewModel<DatiGeneraliType, FatturaPrincipaleType>
+    public class DatiFatturaPrincipaleViewModel : CrudViewModel<DatiGeneraliType, FatturaPrincipaleType>
     {
         //ctor
         public DatiFatturaPrincipaleViewModel( IRepository repository, DatiGeneraliType instance ) :

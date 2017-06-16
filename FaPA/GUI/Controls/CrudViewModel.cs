@@ -12,10 +12,10 @@ using Action = System.Action;
 
 namespace FaPA.GUI.Controls
 {
-    public abstract class EditWorkSpaceViewModel<T, TProperty> : WorkspaceViewModel, IRepository, IViewModel, IDispose 
+    public abstract class CrudViewModel<T, TProperty> : WorkspaceViewModel, IRepository, IViewModel, IDispose 
     {
         //ctor
-        protected EditWorkSpaceViewModel(IRepository repository, T instance,
+        protected CrudViewModel(IRepository repository, T instance,
             Expression<Func<T, TProperty>> getter, string dispName, bool isClosable) 
         {
             SetterPropExp = ReflectionHelpers.GetSetter(getter);

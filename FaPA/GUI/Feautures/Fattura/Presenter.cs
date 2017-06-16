@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -98,20 +99,7 @@ namespace FaPA.GUI.Feautures.Fattura
             var detachedCriteria = GetFattureByLastYearCriteria();
             pageProvider.DetachedCriteria = detachedCriteria.DetachedCriteria;
             const int pageSize = 100;
-            CreateNewModel(pageSize, pageProvider, pageProvider, c => { CreateModel(activeTab, c);});
-        }
-
-        private void CreateModel(int activeTab, ObservableCollection<Core.Fattura> c)
-        {
-
-            SetUpNewModel(activeTab, c);
-
-            //_currentDtoEntity.NotifyOfDataErrorInfo += OnDataErrorInfo;
-            //var notifyPropertyChanged = _currentDtoEntity as PropertyChangedBase;
-            //notifyPropertyChanged.PropertyChanged += OnPropChanged;
-
-            //Model.Workspaces.CollectionChanged += OnWorkspacesChanged;
-            //Model.SelectedPageChanged += OnPageChanged;
+            CreateNewModel(pageSize, pageProvider, pageProvider, c => { SetUpNewModel( activeTab, c );  });
         }
 
         public override void CreateNewModel(QueryOver queryByExample)
@@ -126,7 +114,7 @@ namespace FaPA.GUI.Feautures.Fattura
             IsBusy = true;
             var pageProvider = new SearchFatturaQueryObject(this);
             pageProvider.DetachedCriteria = queryByExample;
-            CreateNewModel(pageSize, pageProvider, pageProvider, c => { CreateModel(activeTab, c); });
+            CreateNewModel(pageSize, pageProvider, pageProvider, c => { SetUpNewModel( activeTab, c );  });
         }
 
         protected override BaseCrudModel CreateNewModel()
@@ -161,18 +149,6 @@ namespace FaPA.GUI.Feautures.Fattura
         #endregion
 
         #region command
-
-        //private ICommand _openPdf;
-        //public ICommand OpenPdf
-        //{
-        //    get
-        //    {
-        //        if ( _openPdf != null ) return _openPdf;
-        //        _openPdf = new RelayCommand( param => OnOpendPdf(), param => true );
-        //        return _openPdf;
-        //    }
-
-        //}
 
         private ICommand _search;
         public ICommand Search

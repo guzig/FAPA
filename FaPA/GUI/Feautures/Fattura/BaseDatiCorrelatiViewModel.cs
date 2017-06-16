@@ -6,7 +6,7 @@ using FaPA.Infrastructure;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
-    public class BaseDatiCorrelatiViewModel : BaseTabsViewModel<DatiGeneraliType, DatiDocumentiCorrelatiType[]>
+    public class BaseDatiCorrelatiViewModel : CrudListViewModel<DatiGeneraliType, DatiDocumentiCorrelatiType[]>
     {
         protected BaseDatiCorrelatiViewModel( Expression<Func<DatiGeneraliType, DatiDocumentiCorrelatiType[]>> getter, 
             IRepository repository, DatiGeneraliType instance, string dispName, bool isClosable ) : 

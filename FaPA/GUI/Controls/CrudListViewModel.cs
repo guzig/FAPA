@@ -12,13 +12,12 @@ using FaPA.Infrastructure;
 using Remotion.Linq.Collections;
 using FaPA.Core;
 using FaPA.Infrastructure.Helpers;
-using NHibernate.Criterion;
 using NHibernate.Proxy.DynamicProxy;
 using NHibernate.Util;
 
 namespace FaPA.GUI.Controls
 {
-    public abstract class BaseTabsViewModel<T, TProperty> : EditWorkSpaceViewModel<T, TProperty>, IViewModel
+    public abstract class CrudListViewModel<T, TProperty> : CrudViewModel<T, TProperty>
     {
         #region data members
 
@@ -57,7 +56,7 @@ namespace FaPA.GUI.Controls
         #endregion
         
         //ctor
-        protected BaseTabsViewModel( Expression<Func<T, TProperty>> getter, IRepository repository, T instance, 
+        protected CrudListViewModel( Expression<Func<T, TProperty>> getter, IRepository repository, T instance, 
             string dispName, bool isClosable ) : base( repository, instance, getter, dispName, isClosable)
         {}
         
@@ -119,9 +118,7 @@ namespace FaPA.GUI.Controls
                 if ( curIndex > 0 )
                     UserCollectionView.MoveCurrentToPosition( curIndex - 1 );
                 else if ( UserCollectionView != null && UserCollectionView.IsEmpty )
-                {
                     UserCollectionView.Refresh();
-                }
             }
 
             AllowDelete = UserCollectionView != null && !UserCollectionView.IsEmpty;
@@ -199,8 +196,7 @@ namespace FaPA.GUI.Controls
                 UserCollectionView?.MoveCurrentToPosition( currentIndx );
             }
         }
-
-  
+        
         
         //helpers
 
@@ -225,7 +221,6 @@ namespace FaPA.GUI.Controls
 
         }
         
-
         protected virtual void OnCurrentChanged( object sender, EventArgs eventArgs )
         {
             CurrentPoco = UserCollectionView.CurrentItem;

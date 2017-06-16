@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using FaPA.Core;
 using FaPA.Core.FaPa;
 
 namespace FaPA.AppServices.CoreValidation

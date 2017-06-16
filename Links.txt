@@ -74,11 +74,3 @@ http://prajeenkumar.blogspot.it/2013/06/creating-office-2010-style-minimize_8.ht
 https://github.com/fluentribbon/Fluent.Ribbon/issues/73
 
 http://stackoverflow.com/questions/19498485/proper-validation-with-mvvm
-
-        private static FatturaElettronicaType Unproxy( object value  )
-        {
-            var interceptor = ( value as IProxy )?.Interceptor as PropChangedAndDataErrorDynProxyInterceptor;
-            if ( interceptor == null ) return ( FatturaElettronicaType ) value;
-            var proxy = interceptor.Proxy as FatturaElettronicaType;
-            return proxy;
-        }

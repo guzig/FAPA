@@ -1,12 +1,10 @@
-causale fattura in dati generali documento as list string: separatore?
 
-
-exception after cancel first fattura
-
+in dati riepilogo considerare campo natura in raggruppamento... natura puo' essere valorizzato in automatica ora va fatto manualmente
 
 
 
-SetResultTransformer( new DistinctRootEntityResultTransformer() );
+
+
 
 
 

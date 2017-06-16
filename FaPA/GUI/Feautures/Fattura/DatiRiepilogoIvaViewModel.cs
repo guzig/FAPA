@@ -4,7 +4,7 @@ using FaPA.Infrastructure;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
-    public class DatiRiepilogoIvaViewModel : BaseTabsViewModel<DatiBeniServiziType, DatiRiepilogoType[]>
+    public class DatiRiepilogoIvaViewModel : CrudListViewModel<DatiBeniServiziType, DatiRiepilogoType[]>
     {
         //ctor
         public DatiRiepilogoIvaViewModel(IRepository repository, DatiBeniServiziType instance) :

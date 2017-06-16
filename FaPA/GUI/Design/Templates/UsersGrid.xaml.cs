@@ -8,10 +8,7 @@ namespace FaPA.GUI.Design.Templates
         public UsersGrid()
         {
             InitializeComponent();
-            GridControl = UsersGridControl;
-            GridControl.PreviewKeyDown += UsersGridControl_OnPreviewKeyDown;
-            RecordsToolBar = recordsToolBar;
-            EmptyMessage = emptyMessage;
+            UsersGridControl.PreviewKeyDown += UsersGridControl_OnPreviewKeyDown;
         }
 
         private void UsersGridControl_OnPreviewKeyDown( object sender, KeyEventArgs e )

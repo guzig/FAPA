@@ -9,7 +9,7 @@ using FaPA.Infrastructure;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
-    public class DettagliFatturaViewModel : BaseTabsViewModel<Core.Fattura, DettaglioLineeType[]>
+    public class DettagliFatturaViewModel : CrudListViewModel<Core.Fattura, DettaglioLineeType[]>
     {
         private bool _isOnInit;
 

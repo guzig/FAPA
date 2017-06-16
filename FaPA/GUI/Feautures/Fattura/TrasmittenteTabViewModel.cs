@@ -4,7 +4,7 @@ using FaPA.Infrastructure;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
-    public class TrasmittenteTabViewModel : EditWorkSpaceViewModel<Core.Fattura, DatiTrasmissioneType>
+    public class TrasmittenteTabViewModel : CrudViewModel<Core.Fattura, DatiTrasmissioneType>
     {
 
         //ctor

@@ -487,7 +487,6 @@
     <Compile Include="DomainServices\Utils\ReferenceDataFactory.cs" />
     <Compile Include="DomainServices\Utils\LinqUtil.cs" />
     <Compile Include="GUI\Controls\BaseCustomControl.cs" />
-    <Compile Include="GUI\Controls\BaseListViewControl.cs" />
     <Compile Include="GUI\Controls\IViewModel.cs" />
     <Compile Include="GUI\Controls\PasswordBoxBinding.cs" />
     <Compile Include="GUI\Controls\LogOnMask\AdvancedUserControl.cs" />
@@ -652,10 +651,10 @@
     <Compile Include="GUI\Feautures\Fattura\AltriDatiViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\DatiOrdineTabViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\DatiPagamentoTabViewModel.cs" />
-    <Compile Include="GUI\Controls\BaseTabsViewModel.cs" />
+    <Compile Include="GUI\Controls\CrudListViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\DettagliFatturaViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\TrasmittenteTabViewModel.cs" />
-    <Compile Include="GUI\Controls\EditWorkSpaceViewModel.cs" />
+    <Compile Include="GUI\Controls\CrudViewModel.cs" />
     <Compile Include="GUI\Feautures\Fattura\DatiRitenutaViewModel.cs" />
     <Compile Include="GUI\Feautures\Anagrafica\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>

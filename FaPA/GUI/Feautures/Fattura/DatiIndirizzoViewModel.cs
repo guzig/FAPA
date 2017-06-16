@@ -4,7 +4,7 @@ using FaPA.Infrastructure;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
-    public class DatiIndirizzoViewModel : EditWorkSpaceViewModel<DatiTrasportoType, IndirizzoType>
+    public class DatiIndirizzoViewModel : CrudViewModel<DatiTrasportoType, IndirizzoType>
     {
         //ctor
         public DatiIndirizzoViewModel( IRepository repository, DatiTrasportoType instance ) :

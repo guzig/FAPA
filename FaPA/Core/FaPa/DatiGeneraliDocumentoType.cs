@@ -1,8 +1,6 @@
 using System;
-using System.Globalization;
 using System.Xml.Schema;
 using System.Xml.Serialization;
-using FaPA.DomainServices.Utils;
 
 namespace FaPA.Core.FaPa
 {

@@ -4,7 +4,7 @@ using FaPA.Infrastructure;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
-    public class ScontoMaggiorazioneGeneraleViewModel : BaseTabsViewModel<DatiGeneraliDocumentoType, ScontoMaggiorazioneType[]>
+    public class ScontoMaggiorazioneGeneraleViewModel : CrudListViewModel<DatiGeneraliDocumentoType, ScontoMaggiorazioneType[]>
     {
 
         //ctor 

@@ -17,11 +17,8 @@ namespace FaPA.GUI.Design.Templates
         public FatturaGrid()
         {
             InitializeComponent();
-            GridControl = FattureGridControl;
-            RecordsToolBar = recordsToolBar;
-            EmptyMessage = emptyMessage;
             SetUpGrid();
-            GridControl.PreviewKeyDown += FattureGridControl_OnPreviewKeyDown;
+            FattureGridControl.PreviewKeyDown += FattureGridControl_OnPreviewKeyDown;
             FattureGridControl.Sorting += OnSorting;
 
         }
@@ -54,14 +51,14 @@ namespace FaPA.GUI.Design.Templates
         private void btnFilter_Click( object sender, RoutedEventArgs e )
         {
             DataGridHelpers.DisableButtons( btnGroup, btnApplyFilter, btnClearFilter, btnClearGroup );
-            DataGridHelpers.ApplyFilter( txtFilter.Text, GridItemSource, _columns[cmbProperty.Text] );
+            DataGridHelpers.ApplyFilter( txtFilter.Text, FattureGridControl.Items, _columns[cmbProperty.Text] );
             DataGridHelpers.EnableButtons( btnGroup, btnApplyFilter, btnClearFilter, btnClearGroup );
         }
 
         private void btnClear_Click( object sender, RoutedEventArgs e )
         {
             DataGridHelpers.DisableButtons( btnGroup, btnApplyFilter, btnClearFilter, btnClearGroup );
-            GridItemSource.Filter = item => true;
+            FattureGridControl.Items.Filter = item => true;
             DataGridHelpers.EnableButtons( btnGroup, btnApplyFilter, btnClearFilter, btnClearGroup );
         }
 
@@ -71,7 +68,7 @@ namespace FaPA.GUI.Design.Templates
 
             DataGridHelpers.DisableButtons( btnGroup, btnApplyFilter, btnClearFilter, btnClearGroup );
 
-            DataGridHelpers.ApplyGroup( _columns[cmbGroups.Text], GridItemSource );
+            DataGridHelpers.ApplyGroup( _columns[cmbGroups.Text], FattureGridControl.Items );
 
             DataGridHelpers.EnableButtons( btnGroup, btnApplyFilter, btnClearFilter, btnClearGroup );
         }
@@ -79,7 +76,7 @@ namespace FaPA.GUI.Design.Templates
         private void btnClearGr_Click( object sender, RoutedEventArgs e )
         {
             DataGridHelpers.DisableButtons( btnGroup, btnApplyFilter, btnClearFilter, btnClearGroup );
-            GridItemSource.GroupDescriptions.Clear();
+            FattureGridControl.Items.GroupDescriptions.Clear();
             DataGridHelpers.EnableButtons( btnGroup, btnApplyFilter, btnClearFilter, btnClearGroup );
         }
 

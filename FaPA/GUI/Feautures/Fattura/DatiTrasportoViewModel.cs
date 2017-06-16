@@ -6,7 +6,7 @@ using FaPA.Infrastructure;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
-    public class DatiTrasportoViewModel : EditWorkSpaceViewModel<DatiGeneraliType, DatiTrasportoType>
+    public class DatiTrasportoViewModel : CrudViewModel<DatiGeneraliType, DatiTrasportoType>
     {
         private DatiAnagraficiVettoreViewModel _datiAnagraficiViewModel;
         private DatiIndirizzoViewModel _datiIndirizzoViewModel;

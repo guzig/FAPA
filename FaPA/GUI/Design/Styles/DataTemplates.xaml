@@ -19,9 +19,7 @@
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type l:AnagraficaListViewModel}">
-        <t1:AnagraficaGrid GridItemSource="{Binding Path=DataContext.UserCollectionView,
-                                                    RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-                           IsSynchronizedWithCurrentItem="True"/>
+        <t1:AnagraficaGrid />
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type a:EditFatturaViewModel}">
@@ -34,9 +32,7 @@
 
     <DataTemplate DataType="{x:Type a:FatturaListViewModel}">
         <Border Style="{StaticResource MainBorderStyle}" Margin="5 5 5 5" Height="Auto">
-            <t1:FatturaGrid x:Name="FattureGrid" 
-                            GridItemSource="{Binding Path=DataContext.UserCollectionView, 
-                                                     RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+            <t1:FatturaGrid x:Name="FattureGrid" />
         </Border>
     </DataTemplate>
 
@@ -49,9 +45,7 @@
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type user:UserListViewModel}">
-        <t1:UsersGrid GridItemSource="{Binding Path=DataContext.UserCollectionView,
-                                                    RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-                     IsSynchronizedWithCurrentItem="True"/>
+        <t1:UsersGrid />
     </DataTemplate>
 
 

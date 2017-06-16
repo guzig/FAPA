@@ -6,7 +6,7 @@ using FaPA.Infrastructure.Utils;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
-    public class ScontoMaggiorazioneViewModel : BaseTabsViewModel<DettaglioLineeType, ScontoMaggiorazioneType[]>
+    public class ScontoMaggiorazioneViewModel : CrudListViewModel<DettaglioLineeType, ScontoMaggiorazioneType[]>
     {
         private bool _isDropDownOpen;
         public bool IsDropDownOpen
