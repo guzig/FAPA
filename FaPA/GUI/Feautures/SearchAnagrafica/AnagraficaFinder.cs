@@ -25,8 +25,6 @@ namespace FaPA.GUI.Feautures.SearchAnagrafica
         public IQueryCriteria Fax { get; set; }
         public IQueryCriteria RifAmministrazione { get; set; }
 
-        //public ImpegniFinanziariFinder ImpegniFinanziariFinder { get; set; }
-
         public AnagraficaFinder(Type rootType, string associationPath, JoinType joinType,
             Action<string> callBackOnCriteria) : base(rootType, joinType,callBackOnCriteria, associationPath)
         {
@@ -59,8 +57,6 @@ namespace FaPA.GUI.Feautures.SearchAnagrafica
             Fax = CreateSearchProperty( ( Core.Anagrafica f ) => f.Fax, "Fax" );
             RifAmministrazione = CreateSearchProperty( ( Core.Anagrafica f ) => f.RifAmministrazione, "Rif. Amm." );
 
-
-            //SetFetchingStrategies = detaCrit => detaCrit.SetFetchMode("CapitoloSpesa", FetchMode.Join);
         }
 
     }

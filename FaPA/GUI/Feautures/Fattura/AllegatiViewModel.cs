@@ -159,7 +159,7 @@ namespace FaPA.GUI.Feautures.Fattura
             return current?.Attachment != null && IsEditing;
         }
 
-        protected bool CanShowAttachExecuted()
+        private bool CanShowAttachExecuted()
         {
             var current = CurrentPoco as AllegatiType;
             return current?.Attachment != null ;

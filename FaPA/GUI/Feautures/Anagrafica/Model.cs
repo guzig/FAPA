@@ -6,7 +6,7 @@ using NHibernate;
 
 namespace FaPA.GUI.Feautures.Anagrafica
 {
-    public class Model: BaseCrudModel
+    public class Model: ModelBase
     {
         private EditAnagraficaViewModel _editViewModel;
         

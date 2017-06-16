@@ -15,36 +15,28 @@ namespace FaPA.GUI.Feautures.ShowXmlToTreeView
          InitializeComponent();
       }
 
-      private void cmdLoadXml_Click(object sender, RoutedEventArgs e)
-      {
-         try
-         {
-                //Use the Win32 OpenFileDialog to allow the user to pick a file ...
-                //Microsoft.Win32.OpenFileDialog ofd = new Microsoft.Win32.OpenFileDialog();
-                //ofd.DefaultExt = ".xml";
-                //ofd.Filter = "XML Documents (*.xml)|*.xml|All Files (*.*)|*.*";
-                //Nullable<bool> fUserPickedFile = ofd.ShowDialog(this);
+      //private void cmdLoadXml_Click(object sender, RoutedEventArgs e)
+      //{
+      //   try
+      //   {
+      //          //Create a new XDoc ...
+      //          XmlDocument doc = new XmlDocument();
+      //          //... and load the file that the user picked
+      //          doc.Load( "ofd.FileName");
+      //          //Use the XDP that has been created as one of the Window's resources ...
+      //          XmlDataProvider dp = (XmlDataProvider)this.FindResource("xmlDP");
+      //          //... and assign the XDoc to it, using the XDoc's root.
 
-                //if ( fUserPickedFile == true)
-                //{
-                   //Create a new XDoc ...
-                   XmlDocument doc = new XmlDocument();
-                   //... and load the file that the user picked
-                   doc.Load( "ofd.FileName");
-                   //Use the XDP that has been created as one of the Window's resources ...
-                   XmlDataProvider dp = (XmlDataProvider)this.FindResource("xmlDP");
-                //... and assign the XDoc to it, using the XDoc's root.
-
-                dp.Document = doc;
-                dp.XPath = "*";
+      //          dp.Document = doc;
+      //          dp.XPath = "*";
                 
-                //}
-         }
-         catch (Exception ex)
-         {
-            MessageBox.Show(ex.Message);
-         }
-      }
+      //          //}
+      //   }
+      //   catch (Exception ex)
+      //   {
+      //      MessageBox.Show(ex.Message);
+      //   }
+      //}
 
       //private void cmdChangeDisplayRootNode_Click(object sender, RoutedEventArgs e)
       //{

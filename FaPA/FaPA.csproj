@@ -589,8 +589,7 @@
     <Compile Include="Infrastructure\Helpers\NhProxyInspector.cs" />
     <Compile Include="Infrastructure\IRepository.cs" />
     <Compile Include="GUI\Controls\MyRecordNavigator\MyRecordNavigator.xaml.cs" />
-    <Compile Include="GUI\Controls\MyTabControl\BaseCrudModel.cs" />
-    <Compile Include="GUI\Controls\MyTabControl\CommandViewModel.cs" />
+    <Compile Include="GUI\Controls\MyTabControl\ModelBase.cs" />
     <Compile Include="GUI\Controls\MyTabControl\EditViewModel.cs" />
     <Compile Include="GUI\Controls\MyTabControl\IBasePresenter.cs" />
     <Compile Include="GUI\Controls\MyTabControl\IEditViewModel.cs" />
@@ -598,7 +597,6 @@
     <Compile Include="GUI\Controls\MyTabControl\MyTabControl.xaml.cs" />
     <Compile Include="GUI\Controls\MyTabControl\TabControlEx.cs" />
     <Compile Include="GUI\Controls\MyTabControl\ViewModelBase.cs" />
-    <Compile Include="GUI\Controls\MyTabControl\ViewModelEmpty.cs" />
     <Compile Include="GUI\Controls\MyTabControl\WorkspaceViewModel.cs" />
     <Compile Include="GUI\Design\Commands\DelegatingCommand.cs" />
     <Compile Include="GUI\Design\Converters\BooleanToVisibilityConverter.cs" />
@@ -723,7 +721,7 @@
     <Compile Include="Infrastructure\Helpers\BaseObservable.cs" />
     <Compile Include="Infrastructure\BootStrapper.cs" />
     <Compile Include="Infrastructure\Helpers\BasicSharedEngineProvider.cs" />
-    <Compile Include="GUI\Controls\MyTabControl\BaseCrudPresenter.cs" />
+    <Compile Include="GUI\Controls\MyTabControl\PresenterBase.cs" />
     <Compile Include="Infrastructure\Helpers\FinderConfirmSearchEventArgs.cs" />
     <Compile Include="Infrastructure\FlyFetch\BaseQueryPaginatorObject.cs" />
     <Compile Include="Infrastructure\FlyFetch\CollectionFactory.cs" />
@@ -748,7 +746,6 @@
     <Compile Include="Infrastructure\Helpers\EventPublisher.cs" />
     <Compile Include="Infrastructure\Helpers\Fact.cs" />
     <Compile Include="Infrastructure\IPresenter.cs" />
-    <Compile Include="Infrastructure\ModelBase.cs" />
     <Compile Include="Infrastructure\Helpers\NHibernateHelper.cs" />
     <Compile Include="Infrastructure\Helpers\GenericsObservable.cs" />
     <Compile Include="Infrastructure\Presenters.cs" />

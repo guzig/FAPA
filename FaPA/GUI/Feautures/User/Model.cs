@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading;
 using FaPA.Core;
 using FaPA.GUI.Controls.MyTabControl;
@@ -7,7 +8,7 @@ using NHibernate;
 
 namespace FaPA.GUI.Feautures.User
 {
-    class Model : BaseCrudModel
+    class Model : ModelBase
     {
         EditUserViewModel _editViewModel;
 
@@ -22,13 +23,14 @@ namespace FaPA.GUI.Feautures.User
             _editViewModel = new EditUserViewModel( basePresenter, UserEntities, UserCollectionView, session );
             _editViewModel.DisplayName = "Dettaglio utente";
 
-            var listViewViewModel = new UserListViewModel
+            if ( Workspaces != null && !Workspaces.Any( w => w is UserListViewModel ) )
             {
-                DisplayName = DisplayName,
-                UserEntitiesView = UserCollectionView
-            };
-
-            Workspaces.Add( listViewViewModel );
+                Workspaces.Add( new UserListViewModel
+                {
+                    DisplayName = DisplayName,
+                    UserEntitiesView = UserCollectionView
+                } );
+            }
 
             if ( UserEntities != null && UserEntities.Count > 0 )
             {

@@ -4,7 +4,7 @@ using FaPA.AppServices;
 using FaPA.Infrastructure.Helpers;
 using FaPA.Properties;
 
-namespace Emule.GUI.Features.BackUpRestore
+namespace FaPA.GUI.Feautures.BackUpRestore
 {
     public class Model : PropertyChangedBase
     {

@@ -7,7 +7,7 @@ using NHibernate;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
-    public class Model : BaseCrudModel
+    public class Model : ModelBase
 	{
         EditFatturaViewModel _editViewModel;
         public override WorkspaceViewModel EditViewModel

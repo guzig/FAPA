@@ -16,10 +16,10 @@ using NHibernate.Criterion;
 
 namespace FaPA.GUI.Controls.MyTabControl
 {
-    public abstract class BaseCrudPresenter<T, TView> : AbstractPresenter<BaseCrudModel, TView>,
+    public abstract class PresenterBase<T, TView> : AbstractPresenter<ModelBase, TView>,
         IBasePresenter, INotifyDataSourceHit where TView : Window, new() where T : BaseEntity
     {
-        public ListViewViewModel ListViewViewModel { get; private set; }
+        //public ListViewViewModel ListViewViewModel { get; private set; }
 
         public ObservableCollection<WorkspaceViewModel> Workspaces
         {
@@ -50,7 +50,7 @@ namespace FaPA.GUI.Controls.MyTabControl
             }
         }
 
-        protected BaseCrudPresenter()
+        protected PresenterBase()
         {
             RegisterEntityUpdatedEvent();
             RegisterEntityAddedNewEvent();
@@ -70,7 +70,7 @@ namespace FaPA.GUI.Controls.MyTabControl
 
         public abstract void CreateNewModel( QueryOver queryOver );
 
-        protected abstract BaseCrudModel CreateNewModel();
+        protected abstract ModelBase CreateNewModel();
 
         public abstract void CreateNewModel( int activePage );
         
@@ -81,8 +81,7 @@ namespace FaPA.GUI.Controls.MyTabControl
             IPageProvider<TDto, ObservableCollection<TDto>> pageProvider, 
             Action<ObservableCollection<TDto>> created) where TDto : new()
         {
-            CollectionFactory.Create( pageSize, pageProvider, 
-                pagesProvider, created  );
+            CollectionFactory.Create( pageSize, pageProvider, pagesProvider, created  );
         }
 
         public abstract void CreateNewModel( DetachedCriteria queryByExample );
@@ -307,8 +306,6 @@ namespace FaPA.GUI.Controls.MyTabControl
         {
             var entities = GetExeCriteria<T>( queryByExample );
 
-            //var entitiesdto = Mapper.Map<IEnumerable<T>, IEnumerable<TDto>>( entities );
-
             SetUpNewModel( 0, new ObservableCollection<T>( entities ) );
         }
 
@@ -316,11 +313,6 @@ namespace FaPA.GUI.Controls.MyTabControl
         {
             Model.UserEntities = new ObservableCollection<T>( entitiesdto );
             Model.UserCollectionView = CollectionViewSource.GetDefaultView( Model.UserEntities );
-            //var viewModel = Model.EditViewModel as EditViewModel<T>;
-
-            //if ( viewModel == null ) return;
-            //viewModel.SetUpCollectionView( Model.UserEntities, Model.UserCollectionView );
-
             Model.UserCollectionView.MoveCurrentToFirst();
         }
 

@@ -12,7 +12,7 @@ using NHibernate.Criterion;
 
 namespace FaPA.GUI.Feautures.Anagrafica
 {
-    public class Presenter: BaseCrudPresenter<Core.Anagrafica, View>
+    public class Presenter: PresenterBase<Core.Anagrafica, View>
     {
         private FinderConfirmSearchEventArgs _dataFiltered;
         private Action<Presenter> _onLoaded;
@@ -102,7 +102,7 @@ namespace FaPA.GUI.Feautures.Anagrafica
             IsBusy = false;
         }
 
-        protected override BaseCrudModel CreateNewModel()
+        protected override ModelBase CreateNewModel()
         {
             return new Model();
         }

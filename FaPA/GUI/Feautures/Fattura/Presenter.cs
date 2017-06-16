@@ -14,7 +14,7 @@ using NHibernate.Type;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
-    public class Presenter : BaseCrudPresenter<Core.Fattura, View>
+    public class Presenter : PresenterBase<Core.Fattura, View>
 	{
         private Action<Presenter> _onLoaded;
 
@@ -117,7 +117,7 @@ namespace FaPA.GUI.Feautures.Fattura
             CreateNewModel(pageSize, pageProvider, pageProvider, c => { SetUpNewModel( activeTab, c );  });
         }
 
-        protected override BaseCrudModel CreateNewModel()
+        protected override ModelBase CreateNewModel()
         {
             return new Model();
         }

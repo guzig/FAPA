@@ -16,7 +16,7 @@ using NHibernate.Criterion;
 
 namespace FaPA.GUI.Feautures.User
 {    
-    public class Presenter : BaseCrudPresenter<UserData, View>
+    public class Presenter : PresenterBase<UserData, View>
     {
         public Presenter()
         {
@@ -138,7 +138,7 @@ namespace FaPA.GUI.Feautures.User
 
         protected override QueryOver QueryCriteria { get; set; } = QueryOver.Of<UserData>().Where( u => u.UserName != "em" );
         
-        protected override BaseCrudModel CreateNewModel()
+        protected override ModelBase CreateNewModel()
         {
             return new Model();
         }

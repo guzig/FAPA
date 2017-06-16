@@ -57,11 +57,6 @@ namespace FaPA.Infrastructure.FlyFetch
 
                     CopyCollection(collection as ObservableCollection<T>, first, list);
 
-                    //for (var i = 0; i < list.Count; ++i)
-                    //{
-                    //    Mapper.Map(list[i], collection[first + i]);
-                    //}
-
                     FetchedCount += list.Count;
                 }
                 catch (Exception exc)

@@ -11,7 +11,7 @@ using NHibernate;
 
 namespace FaPA.GUI.Controls.MyTabControl
 {
-    public abstract class BaseCrudModel : PropertyChangedBase, IDisposable
+    public abstract class ModelBase : PropertyChangedBase, IDisposable
     {
         public abstract string DisplayName { get; }
         
@@ -36,7 +36,7 @@ namespace FaPA.GUI.Controls.MyTabControl
         #region Workspaces 
 
         /// <summary>
-        /// Workspace is a single context (eg. a Tab in a ControlTab) used to manipulate user collection
+        /// Workspace is a ViewModel used to manipulate user collection
         /// by default we have a Workspace to show entities list filter for editing or other manipulation
         /// and another workspace for the operation the CRUD operaration of a selected item...
         /// other workspace can be added as context for other operation on a current item selected
@@ -80,7 +80,7 @@ namespace FaPA.GUI.Controls.MyTabControl
 
 
         //ctor
-        protected BaseCrudModel()
+        protected ModelBase()
         {
             Workspaces = new ObservableCollection<WorkspaceViewModel>();
             Workspaces.CollectionChanged += OnWorkspacesChanged;

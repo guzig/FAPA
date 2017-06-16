@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using Caliburn.Micro;
 using FaPA.Infrastructure.Utils;
 using NHibernate.Criterion;
 using NHibernate.SqlCommand;
 
 namespace FaPA.Infrastructure.Finder
 {
-    public abstract class SearchProperty<T> : ISearchProperty, INotifyPropertyChanged, IDataErrorInfo
+    public abstract class SearchProperty<T> : PropertyChangedBase, ISearchProperty, INotifyPropertyChanged, IDataErrorInfo
     {
         //costruttore
         protected SearchProperty( ObjectFinder rootFinder, string propName )
@@ -120,7 +121,8 @@ namespace FaPA.Infrastructure.Finder
 
         #endregion
         
-        private const string NameSpacePrefix = "Emule.Core"; 
+        //todo: refactor
+        private const string NameSpacePrefix = "FaPA.Core"; 
         
         public abstract bool HasCriteria();
 

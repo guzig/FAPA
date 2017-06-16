@@ -42,14 +42,12 @@ namespace FaPA.Infrastructure.Finder
         public QueryOver QueryCriteria { protected get; set; }
 
         private readonly IDictionary<string, ObjectFinder> _associations = new Dictionary<string, ObjectFinder>();
-
         protected IDictionary<string, ObjectFinder> Associations
         {
             get { return _associations; }
         }
 
         private readonly JoinType _joinType = JoinType.InnerJoin;
-
         public JoinType JoinType
         {
             get { return _joinType; }
@@ -68,7 +66,6 @@ namespace FaPA.Infrastructure.Finder
         }
 
         private bool _isValid = true;
-
         public bool IsValid
         {
             get { return _isValid; }
@@ -83,7 +80,6 @@ namespace FaPA.Infrastructure.Finder
         }
 
         private BaseObservable _isValidCriteria = new Observable(true);
-
         public BaseObservable IsValidCriteria
         {
             get { return _isValidCriteria; }
@@ -99,8 +95,6 @@ namespace FaPA.Infrastructure.Finder
         private readonly string _associationPath;
 
         private readonly Action<string> _callBackOnCriteria;
-
-        public IList<string> BrokenRules = new List<string>();
 
         protected const string AliasPrefix = "_alias";
 
@@ -278,8 +272,6 @@ namespace FaPA.Infrastructure.Finder
 
         public void Validate()
         {
-            BrokenRules = new List<string>();
-
             if (SearchProperties.Values.Any(searchProperty => !string.IsNullOrWhiteSpace(searchProperty.Validate())))
             {
                 IsValid = false;
