@@ -316,7 +316,7 @@ namespace FaPA.GUI.Feautures.Fattura
             //EventPublisher.Publish(new FatturaUpdated {e = (Core.Fattura) CurrentDtoEntity}, this);
         }
 
-        protected override void PublishDeletedEntityEvent(BaseEntity dto)
+        public override void PublishDeletedEntityEvent(BaseEntity dto)
         {
             //EventPublisher.Publish(new FatturaDeleted {Dto = (FatturaDto) dto}, this);
         }

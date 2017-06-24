@@ -3,18 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:enums="clr-namespace:FaPA.Core.FaPa"
              xmlns:t="clr-namespace:FaPA.GUI.Design.Templates"
-             xmlns:system="clr-namespace:System;assembly=mscorlib"
-             xmlns:utils1="clr-namespace:FaPA.Infrastructure.Utils">
-
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <system:Double x:Key="adjMaxHeightRatio">0.4</system:Double>
-        </ResourceDictionary>
-    </UserControl.Resources>
-
-    <Grid Margin="2,2,2,2" x:Name="grdRoot">
+             xmlns:utils="clr-namespace:FaPA.Infrastructure.Utils">
+    
+    <Grid Margin="2,2,2,2">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <GroupBox Grid.Row="0" Header="Dati generali documento " Padding="4,4,4,4" Margin="4,4,4,4"
@@ -44,7 +39,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="45" />
                                 <RowDefinition Height="45" />
-                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="45" />
                                 <RowDefinition Height="45" />
                             </Grid.RowDefinitions>
 
@@ -53,14 +48,14 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
                             <StackPanel Grid.Row="0" Grid.Column="0" Margin="2,0,2,0">
                                 <TextBlock Text="TipoDocumento" />
 
                                 <ComboBox   Margin="2,0,2,0" HorizontalAlignment="Stretch" Tag="EnterAsTab" 
-                                                        ItemsSource="{Binding Source={utils1:Enumeration {x:Type enums:TipoDocumentoType}}, UpdateSourceTrigger=PropertyChanged}"  
+                                                        ItemsSource="{Binding Source={utils:Enumeration {x:Type enums:TipoDocumentoType}}, UpdateSourceTrigger=PropertyChanged}"  
                                                         DisplayMemberPath="Description" SelectedValuePath="Value" 
                                                         IsReadOnly="False"
                                                         SelectedValue="{Binding CurrentPoco.TipoDocumento, UpdateSourceTrigger=LostFocus}">
@@ -102,32 +97,18 @@
                                             IsTextSearchEnabled="True"
                                             TextSearch.TextPath="Value"
                                             SelectedValuePath="Value"
-						                    ItemsSource="{Binding Source={utils1:Enumeration {x:Type enums:Art73Type}}}"
+						                    ItemsSource="{Binding Source={utils:Enumeration {x:Type enums:Art73Type}}}"
                                             SelectedValue="{Binding CurrentPoco.Art73,  Mode=TwoWay, 
                                                                     UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                                             DisplayMemberPath="Value" />
                             </StackPanel>
 
-                            <ScrollViewer  Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="5"
-                                            MaxHeight="{Binding ElementName=grdRoot, Path=ActualHeight, 
-                                                                 Converter={StaticResource MaxHeightConverter}, 
-                                                                 ConverterParameter={StaticResource adjMaxHeightRatio}}">
-                                <StackPanel Margin="2,0,2,0">
-                                    <TextBlock Text="Causale" />
-                                    <TextBox TextWrapping="Wrap" AcceptsReturn="True" 
-                                             Height="Auto" HorizontalAlignment="Stretch">
-
-                                        <Binding Path="CurrentPoco.Causale" ValidatesOnExceptions="False"
-                                                     ValidatesOnDataErrors="False"
-                                                     NotifyOnValidationError="True"
-                                                     Converter="{StaticResource StringArrayConverter}">
-                                            </Binding>
-                                    
-                                    </TextBox>
-
-                                </StackPanel>
-                            </ScrollViewer>
-
+                            <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Margin="2,0,2,0">
+                                <TextBlock Text="Causale" />
+                                <TextBox   Text="{Binding CurrentPoco.Causale[0], UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" 
+                                           MaxLength="200"
+                                           HorizontalAlignment="Stretch" />
+                            </StackPanel>
 
                             <t:SaveCancelRemoveButtons Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Left"
                                                        Visibility="{Binding CurrentPoco, Converter={StaticResource NullToVisibiltyConverter}}"
@@ -171,7 +152,7 @@
 
                                 <ComboBox   Margin="2,0,2,0" 
                                             HorizontalAlignment="Stretch" Tag="EnterAsTab" 
-                                            ItemsSource="{Binding Source={utils1:Enumeration {x:Type enums:BolloVirtualeType}}, UpdateSourceTrigger=PropertyChanged}"  
+                                            ItemsSource="{Binding Source={utils:Enumeration {x:Type enums:BolloVirtualeType}}, UpdateSourceTrigger=PropertyChanged}"  
                                             DisplayMemberPath="Value" SelectedValuePath="Value" 
                                             IsReadOnly="False" IsEditable="True"
                                             SelectedValue="{Binding CurrentPoco.BolloVirtuale, UpdateSourceTrigger=LostFocus}">
@@ -292,7 +273,7 @@
                                               IsTextSearchEnabled="True"
                                               TextSearch.TextPath="Description"
                                               SelectedValuePath="Value"
-						                      ItemsSource="{Binding Source={utils1:Enumeration {x:Type enums:TipoCassaType}}}"
+						                      ItemsSource="{Binding Source={utils:Enumeration {x:Type enums:TipoCassaType}}}"
                                               SelectedValue="{Binding CurrentPoco.TipoCassa,  Mode=TwoWay, 
                                                                       UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                                               DisplayMemberPath="Description" />                                    
@@ -333,7 +314,7 @@
                                               IsTextSearchEnabled="True"
                                               TextSearch.TextPath="Description"
                                               SelectedValuePath="Value"
-						                      ItemsSource="{Binding Source={utils1:Enumeration {x:Type enums:NaturaType}}}"
+						                      ItemsSource="{Binding Source={utils:Enumeration {x:Type enums:NaturaType}}}"
                                               SelectedValue="{Binding CurrentPoco.Natura, Mode=TwoWay, 
                                                                       UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                                               DisplayMemberPath="Description" />
@@ -352,7 +333,7 @@
                 <TabItem Header="Sconto/Magg.ne" Style="{StaticResource SubTabItemStyle}"
                          PreviewMouseLeftButtonDown="UIElement_OnPreviewMouseLeftButtonDown"
                          DataContext="{Binding ScontoMaggiorazioneGeneraleView}">
-                    <Grid utils1:FocusAdvancement.AdvancesByEnterKey="True">
+                    <Grid utils:FocusAdvancement.AdvancesByEnterKey="True">
 
                         <Grid.Effect>
                             <DropShadowEffect Color="LightSteelBlue" Direction="280"/>
@@ -391,7 +372,7 @@
                                               IsTextSearchEnabled="True"
                                               TextSearch.TextPath="Value"
                                               SelectedValuePath="Value"
-						                      ItemsSource="{Binding Source={utils1:Enumeration {x:Type enums:TipoScontoMaggiorazioneType}}}"
+						                      ItemsSource="{Binding Source={utils:Enumeration {x:Type enums:TipoScontoMaggiorazioneType}}}"
                                               SelectedValue="{Binding CurrentPoco.Tipo,  Mode=TwoWay, 
                                                                       UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                                               DisplayMemberPath="Description" />

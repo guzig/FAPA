@@ -28,7 +28,7 @@ namespace FaPA.GUI.Feautures.Anagrafica
             //EventPublisher.Publish(new AnagraficaUpdated { Dto = (CentroDiCostoDto)CurrentDtoEntity }, this);
         }
 
-        protected override void PublishDeletedEntityEvent( BaseEntity dto )
+        public override void PublishDeletedEntityEvent( BaseEntity dto )
         {
             //EventPublisher.Publish(new AnagraficaDeleted { Dto = (CentroDiCostoDto)dto }, this);
         }

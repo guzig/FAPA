@@ -2,11 +2,10 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:t="clr-namespace:FaPA.GUI.Design.Templates"
-             xmlns:system="clr-namespace:System;assembly=mscorlib"
-             xmlns:utils1="clr-namespace:FaPA.Infrastructure.Utils">
+             xmlns:utils="clr-namespace:FaPA.Infrastructure.Utils">
 
 
-    <Grid utils1:FocusAdvancement.AdvancesByEnterKey="True">
+    <Grid utils:FocusAdvancement.AdvancesByEnterKey="True">
         <Grid.RowDefinitions >
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -56,12 +55,12 @@
 
                         <StackPanel Grid.Row="0" Grid.Column="2" Margin="2,0,2,0" Width="25">
                             <TextBlock Text="CIG" />
-                            <TextBox   Text="{Binding CurrentPoco.CodiceCig, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True, ValidatesOnNotifyDataErrors=True}" HorizontalAlignment="Stretch" />
+                            <TextBox   Text="{Binding CurrentPoco.CodiceCIG, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True, ValidatesOnNotifyDataErrors=True}" HorizontalAlignment="Stretch" />
                         </StackPanel>
 
                         <StackPanel Grid.Row="0" Grid.Column="3" Margin="2,0,2,0" Width="25">
                             <TextBlock Text="CUP" />
-                            <TextBox   Text="{Binding CurrentPoco.CodiceCup, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True, ValidatesOnNotifyDataErrors=True}" HorizontalAlignment="Stretch" />
+                            <TextBox   Text="{Binding CurrentPoco.CodiceCUP, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True, ValidatesOnNotifyDataErrors=True}" HorizontalAlignment="Stretch" />
                         </StackPanel>
 
                         <StackPanel Grid.Row="0" Grid.Column="4" Margin="2,0,2,0" MinWidth="25">
@@ -76,21 +75,11 @@
 
                         <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" Margin="2,0,2,0">
                             <TextBlock Text="Riferimento linea dettaglio fattura" />
-                            <TextBox
-                                ToolTip="Separare i numeri di linea dettaglio da una virgola. Lasciare vuoto se riferito a tutta la fattura"
-                                       HorizontalAlignment="Stretch">
-                                <TextBox.Text>
-                                    <Binding Path="CurrentPoco.RiferimentoNumeroLinea" Mode="TwoWay"
-                                             Converter="{StaticResource StringArrayConverter}" ValidatesOnDataErrors="True"
-                                             NotifyOnTargetUpdated="True" NotifyOnSourceUpdated="True" >
-                                        <Binding.ConverterParameter>
-                                            <x:Array Type="system:Char">
-                                                <system:Char >,</system:Char>
-                                            </x:Array>
-                                        </Binding.ConverterParameter>
-                                    </Binding>
-                                </TextBox.Text>
-                            </TextBox>
+                            <TextBox   Text="{Binding CurrentPoco.RiferimentoNumeroLinea, Mode=TwoWay, 
+                                                      Converter={StaticResource StringArrayConverter}, 
+                                                      ValidatesOnDataErrors=True, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                       ToolTip="Separare i numeri di linea dettaglio da una virgola. Lasciare vuoto se riferito a tutta la fattura"
+                                       HorizontalAlignment="Stretch"/>
                         </StackPanel>
 
                     </Grid>

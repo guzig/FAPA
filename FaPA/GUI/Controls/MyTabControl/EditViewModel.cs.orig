@@ -484,7 +484,7 @@ namespace FaPA.GUI.Controls.MyTabControl
             return true;
         }
 
-        protected abstract void PublishDeletedEntityEvent( BaseEntity dto );
+        public abstract void PublishDeletedEntityEvent( BaseEntity dto );
         
         #endregion
 

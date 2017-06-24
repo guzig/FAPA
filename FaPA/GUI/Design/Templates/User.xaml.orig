@@ -6,7 +6,7 @@
              xmlns:enums="clr-namespace:FaPA.Core"
                             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:controls="clr-namespace:FaPA.GUI.Controls"
-             xmlns:utils1="clr-namespace:FaPA.Infrastructure.Utils"
+             xmlns:utils="clr-namespace:FaPA.Infrastructure.Utils"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid DockPanel.Dock="Top" HorizontalAlignment="Stretch" Margin="0,15">
@@ -43,7 +43,7 @@
             		HorizontalAlignment="Left"
             		Width="Auto" />
 
-        <Button Grid.Row="1" Grid.Column="1" Content="Reset password"  Margin ="15,0,5,0" Width="Auto"
+        <Button Grid.Row="1" Grid.Column="1" Content="Reset password"  
                 Command="{Binding Path=Presenter.ResetPasswordCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
         </Button>
 
@@ -79,7 +79,6 @@
                                     HorizontalAlignment="Stretch"
                                     MinWidth="250"
             	                    Grid.Column="0" 
-                                    Grid.ColumnSpan="2"
             	                    Grid.Row="4" />
 
         <TextBlock Text="Autorizzazioni utente" 
@@ -89,8 +88,7 @@
                    Margin="3,0,3,0"
             	   Width="Auto" />
 
-        <ComboBox Grid.Column="0" Grid.Row="7" Tag="EnterAsTab" 
-                  Grid.ColumnSpan="2"
+        <ComboBox Grid.Column="0" Grid.Row="7" Tag="EnterAsTab"
                   Margin="3,0,3,0"
                   HorizontalAlignment="Stretch"
                   MinWidth="250"
@@ -98,7 +96,7 @@
                   IsTextSearchEnabled="True"
                   TextSearch.TextPath="Description"
                   SelectedValuePath="Value"
-                  ItemsSource="{Binding Source={utils1:Enumeration {x:Type enums:TipoUtenteEnums}}}"
+                  ItemsSource="{Binding Source={utils:Enumeration {x:Type enums:TipoUtenteEnums}}}"
                   SelectedValue="{Binding Path=CurrentEntity.Role, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,  ValidatesOnDataErrors=True}"
                   DisplayMemberPath="Description" />
 

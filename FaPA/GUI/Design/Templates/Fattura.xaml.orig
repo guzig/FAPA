@@ -5,7 +5,7 @@
              xmlns:templates="clr-namespace:FaPA.GUI.Design.Templates"
                             xmlns:enums="clr-namespace:FaPA.Core.FaPa"     
              xmlns:f="clr-namespace:FaPA.GUI.Feautures.Fattura"
-             xmlns:utils1="clr-namespace:FaPA.Infrastructure.Utils">
+             xmlns:utils="clr-namespace:FaPA.Infrastructure.Utils">
 
     <Border Margin="2,2,2,2" Padding="4,4,4,4" Style="{StaticResource MainBorderStyle}">
 
@@ -50,15 +50,8 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch">
-                    <TextBlock> 
-                    <Hyperlink FontSize="13"
-                               Command="{Binding ShowAnagraficaCommand}" 
-                               CommandParameter="Fornitore" 
-                               ToolTip="Apri la scheda del fornitore. (Tasto scelta rapida Ctrl F)">
-                        <Run Text="Fornitore" />
-                    </Hyperlink>
-                    </TextBlock>
-                    <ComboBox   Margin="2,2,2,0" HorizontalAlignment="Stretch" Tag="EnterAsTab" x:Name="Fornitore"
+                    <TextBlock Text="Fornitore" />
+                    <ComboBox   Margin="2,0,2,0" HorizontalAlignment="Stretch" Tag="EnterAsTab" x:Name="Fornitore"
                                 IsEditable="True"
                                 ItemsSource="{Binding  Path=Presenter.Fornitori, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
                                 SelectedItem="{Binding CurrentEntity.AnagraficaCedenteDB, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" 
@@ -90,15 +83,8 @@
             </StackPanel>
 
             <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" >
-                <TextBlock> 
-                    <Hyperlink FontSize="13"
-                               Command="{Binding ShowAnagraficaCommand}" 
-                               CommandParameter="Committente" 
-                               ToolTip="Apri la scheda del committente. (Tasto scelta rapida Ctrl O)">
-                        <Run Text="Committente" />
-                    </Hyperlink>
-                </TextBlock>
-                <ComboBox   Margin="0,2,2,0" HorizontalAlignment="Stretch" Tag="EnterAsTab" 
+                <TextBlock Text="Committente" />
+                <ComboBox   Margin="0,0,2,0" HorizontalAlignment="Stretch" Tag="EnterAsTab" 
                                 IsEditable="True"
                                 ItemsSource="{Binding  Path=Presenter.Committenti, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
                                 SelectedItem="{Binding CurrentEntity.AnagraficaCommittenteDB, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" 
@@ -120,7 +106,7 @@
                             TextSearch.TextPath="Description"
                             DisplayMemberPath="Description"
                             SelectedValuePath="Value"                          
-						    ItemsSource="{Binding Source={utils1:Enumeration {x:Type enums:RegimeFiscaleType}}}"
+						    ItemsSource="{Binding Source={utils:Enumeration {x:Type enums:RegimeFiscaleType}}}"
                             SelectedValue="{Binding CurrentEntity.RegimeFiscale,  Mode=TwoWay, 
                                                     UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}"/>
             </StackPanel>
@@ -153,7 +139,7 @@
                             TextSearch.TextPath="Description"
                             DisplayMemberPath="Description"
                             SelectedValuePath="Value"                          
-						    ItemsSource="{Binding Source={utils1:Enumeration {x:Type enums:FormatoTrasmissioneType}}}"
+						    ItemsSource="{Binding Source={utils:Enumeration {x:Type enums:FormatoTrasmissioneType}}}"
                             SelectedValue="{Binding CurrentEntity.FormatoTrasmissioneDB,  Mode=TwoWay, 
                                                     UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" />
             </StackPanel>
