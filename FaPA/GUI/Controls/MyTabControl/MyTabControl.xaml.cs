@@ -37,7 +37,7 @@ namespace FaPA.GUI.Controls.MyTabControl
             
             e.Handled = true;
             
-            MessageBox.Show(currentWorkSpace.LockMessage, "Scheda bloccata", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            Xceed.Wpf.Toolkit.MessageBox.Show(currentWorkSpace.LockMessage, "Scheda bloccata", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             
             //var ex = e.OriginalSource as FrameworkElement;
             //DependencyObject focusScope = FocusManager.GetFocusScope(this);

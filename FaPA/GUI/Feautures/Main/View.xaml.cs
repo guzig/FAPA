@@ -17,14 +17,14 @@ namespace FaPA.GUI.Feautures.Main
 
         private void RibbonApplicationMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            var ApplicationMenu = sender as RibbonApplicationMenuItem;
-            MessageBox.Show(ApplicationMenu.Header + " is clicked");
+            //var ApplicationMenu = sender as RibbonApplicationMenuItem;
+            //Xceed.Wpf.Toolkit.MessageBox.Show(ApplicationMenu.Header + " is clicked");
         }
 
         private void RibbonButton_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as RibbonButton;
-            MessageBox.Show(button.Content + " is clicked");
+            Xceed.Wpf.Toolkit.MessageBox.Show("PA.Ware snc ");
         }
 
         private void ApriAnagrafiche(object sender, RoutedEventArgs e)
