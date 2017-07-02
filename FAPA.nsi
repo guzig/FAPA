@@ -216,12 +216,12 @@ function .onInit
 	!insertmacro VerifyUserIsAdmin
 
 	 ReadRegStr $R0 HKLM \
-	  "Software\Microsoft\Windows\CurrentVersion\Uninstall\PA標ARE Energy Manager" \
+	  "Software\Microsoft\Windows\CurrentVersion\Uninstall\PA標ARE FePA" \
 	  "UninstallString"
 	  StrCmp $R0 "" done
 	 
 	  MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION \
-	  "PA標ARE Energy Manager is already installed. $\n$\nClick `OK` to remove the \
+	  "PA標ARE FePA is already installed. $\n$\nClick `OK` to remove the \
 	  previous version or `Cancel` to cancel this upgrade." \
 	  IDOK uninst
 	  Abort
@@ -248,10 +248,10 @@ section "install"
 	AccessControl::GrantOnFile $INSTDIR "(BU)" "FullAccess"
 	AccessControl::GrantOnFile "$SMPROGRAMS\${COMPANYNAME}\${APPNAME}" "(BU)" "FullAccess"
 
-	file "C:\EML\EnergyManager\NDP451-KB2858728-x86-x64-AllOS-ENU.exe"
+	file "C:\FAPAL\NDP451-KB2858728-x86-x64-AllOS-ENU.exe"
 	Call CheckAndDownloadDotNet45
 
-	#file "C:\EML\EnergyManager\logo.ico"
+	#file "C:\FAPAL\fpa.ico"
 
 	file "C:\FAPAL\FaPA\bin\Release\FaPA.EXE"
 	file "C:\FAPAL\FaPA\bin\Release\Caliburn.Micro.dll"
@@ -273,7 +273,7 @@ section "install"
 	
 	delete $INSTDIRNDP451-KB2858728-x86-x64-AllOS-ENU.exe
 
-	#file "logo.ico"
+	#file "fpa.ico"
 	
 	# Add any other files for the install directory (license files, app data, etc) here
  
@@ -282,14 +282,14 @@ section "install"
  
 	# Start Menu
 	createDirectory "$SMPROGRAMS\${COMPANYNAME}"
-	createShortCut "$SMPROGRAMS\${COMPANYNAME}\${APPNAME}.lnk" "$INSTDIR\EMG.exe" "" "$INSTDIR\logo.ico"
+	createShortCut "$SMPROGRAMS\${COMPANYNAME}\${APPNAME}.lnk" "$INSTDIR\EMG.exe" "" "$INSTDIR\fpa.ico"
 	 
 	# Registry information for add/remove programs
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${COMPANYNAME} ${APPNAME}" "DisplayName" "${COMPANYNAME} - ${APPNAME} - ${DESCRIPTION}"
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${COMPANYNAME} ${APPNAME}" "UninstallString" "$\"$INSTDIR\uninstall.exe$\""
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${COMPANYNAME} ${APPNAME}" "QuietUninstallString" "$\"$INSTDIR\uninstall.exe$\" /S"
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${COMPANYNAME} ${APPNAME}" "InstallLocation" "$\"$INSTDIR$\""
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${COMPANYNAME} ${APPNAME}" "DisplayIcon" "$\"$INSTDIR\logo.ico$\""
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${COMPANYNAME} ${APPNAME}" "DisplayIcon" "$\"$INSTDIR\fpa.ico$\""
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${COMPANYNAME} ${APPNAME}" "Publisher" "${COMPANYNAME}"
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${COMPANYNAME} ${APPNAME}" "HelpLink" "$\"${HELPURL}$\""
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${COMPANYNAME} ${APPNAME}" "URLUpdateInfo" "$\"${UPDATEURL}$\""
