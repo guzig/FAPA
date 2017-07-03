@@ -13,11 +13,11 @@ namespace FaPA.AppServices
             Settings.Default.ServerName.ToLower().Contains( "local" ) ? 
             System.Environment.MachineName : Settings.Default.ServerName;
 
-        private static readonly string DbSourcePath = ServerName + SqlServerInstanceName;
-        public static readonly string DataPath = Settings.Default.LocalPath + Settings.Default.DataPath;
-        public static readonly string BackUpPath = Settings.Default.LocalPath + Settings.Default.BackUpPath;
-        public static readonly string DbFullPath = DataPath + @"\FEPA.MDF";
-        public static readonly string DbLogFullPath = DataPath + @"\FEPA_Log.LOG";
+        private static readonly string DbSourcePath = Path.Combine(ServerName, SqlServerInstanceName);
+        public static readonly string DataPath = Path.Combine(Settings.Default.LocalPath, Settings.Default.DataPath);
+        public static readonly string BackUpPath = Path.Combine(Settings.Default.LocalPath, Settings.Default.BackUpPath);
+        public static readonly string DbFullPath = Path.Combine(DataPath, "FEPA.MDF");
+        public static readonly string DbLogFullPath = Path.Combine(DataPath, "FEPA_Log.LOG");
         //public static readonly string StreamFullPath = DataPath + @"\STREAMS";
 
 
