@@ -2,6 +2,14 @@ validazioen codice fiscale unico
 in dati riepilogo considerare campo natura in raggruppamento... natura puo' essere valorizzato in automatica ora va fatto manualmente
 
 
+imponibile - importo ritenuta in dettaglio
+dati riepilo solo totale
+
+se ritenuta no validare natura
+
+aggiungere modalità pagamento descrizione tipo
+
+
 
 
 

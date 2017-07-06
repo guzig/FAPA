@@ -369,7 +369,8 @@ namespace FaPA.Core
             }
             CessionarioCommittente.DatiAnagrafici.Anagrafica = anag;
 
-            CessionarioCommittente.DatiAnagrafici.CodiceFiscale = AnagraficaCommittenteDB.CodiceFiscale;
+            if ( !string.IsNullOrWhiteSpace(AnagraficaCommittenteDB.CodiceFiscale) )
+                CessionarioCommittente.DatiAnagrafici.CodiceFiscale = AnagraficaCommittenteDB.CodiceFiscale;
 
             CessionarioCommittente.DatiAnagrafici.IdFiscaleIVA = new IdFiscaleType()
             {
