@@ -391,8 +391,8 @@ namespace FaPA.Core
             var anag = new AnagraficaType
             {
                 Denominazione = AnagraficaCedenteDB.Denominazione,
-                Cognome = AnagraficaCedenteDB.Cognome,
-                Nome = AnagraficaCedenteDB.Nome
+                Cognome = string.IsNullOrWhiteSpace(AnagraficaCedenteDB.Cognome) ? null : AnagraficaCedenteDB.Cognome,
+                Nome = string.IsNullOrWhiteSpace(AnagraficaCedenteDB.Nome) ? null : AnagraficaCedenteDB.Nome,
             };
 
             CedenteFornitore.Sede = SyncSede(AnagraficaCedenteDB);

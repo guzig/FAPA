@@ -1,3 +1,4 @@
+using System;
 using FaPA.Core;
 using FaPA.DomainServices;
 using NHibernate;
@@ -86,33 +87,61 @@ namespace FaPA.Data.ValidationMaps
 
             if ( !isValid  ) return false;
 
-            if ( string.IsNullOrWhiteSpace( anag.CodiceFiscale ) || IsUnique( anag ) ) return true;
+            var codFiscOrPivaUniqueness = CodFiscOrPivaIsUnique( anag );
+            if ( codFiscOrPivaUniqueness == string.Empty ) return true;
 
-            const string error = "Questo codice fiscale esiste già";
-            context.AddInvalid<Anagrafica, string>( error, p => p.CodiceFiscale );
+            string error = $"{codFiscOrPivaUniqueness} già esistente in archivio";
+            if ( codFiscOrPivaUniqueness == "P.IVA")
+                context.AddInvalid<Anagrafica, string>( error, p => p.PIva );
+            else
+            {
+                context.AddInvalid<Anagrafica, string>(error, p => p.CodiceFiscale);
+            }
 
             return false;
         }
 
-        private static bool IsUnique( Anagrafica anag  )
+        private static string CodFiscOrPivaIsUnique( Anagrafica anag  )
         {
             object isLock = 0;
-            int result;
+            var result=0;
+            var token=string.Empty;
             lock ( isLock )
             {
                 using ( var tx = NHibernateStaticContainer.Session.BeginTransaction() )
                 {
-                    result = NHibernateStaticContainer.Session.QueryOver<Anagrafica>().
-                        Where( f => f.CodiceFiscale == anag.CodiceFiscale ).And( f => f.Id != anag.Id ).
-                        Select( Projections.Count<Anagrafica>( f => f.Id ) ).
-                        Cacheable().CacheMode( CacheMode.Normal ).
-                        FutureValue<int>().Value;
+                    if ( !string.IsNullOrWhiteSpace(anag.CodiceFiscale))
+                    {
+                        result = NHibernateStaticContainer.Session.QueryOver<Anagrafica>().
+                            Where( f => f.CodiceFiscale == anag.CodiceFiscale ).
+                            And( f => f.Id != anag.Id ).
+                            Select( Projections.Count<Anagrafica>( f => f.Id ) ).
+                            Cacheable().CacheMode( CacheMode.Normal ).
+                            FutureValue<int>().Value;
+                    }
+
+                    if ( result == 0 && !string.IsNullOrWhiteSpace(anag.PIva))
+                    {
+                        result = NHibernateStaticContainer.Session.QueryOver<Anagrafica>().
+                            Where(f => f.PIva == anag.PIva).
+                            And(f => f.Id != anag.Id).
+                            Select(Projections.Count<Anagrafica>(f => f.Id)).
+                            Cacheable().CacheMode(CacheMode.Normal).
+                            FutureValue<int>().Value;
+
+                        if ( result > 0 )
+                            token = "P.IVA";
+                    }
+                    else
+                    {
+                        token = "Codice fiscale";
+                    }
 
                     tx.Commit();
                 }
             }
 
-            return result == 0;
+            return token;
         }
 
     }

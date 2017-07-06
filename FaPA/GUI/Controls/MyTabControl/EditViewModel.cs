@@ -644,7 +644,8 @@ namespace FaPA.GUI.Controls.MyTabControl
 
             var id = currentItem.Id;
             object current = LoadEntity(id);
-
+            if ( current == null ) return;
+            
             ( ( IValidatable ) current).HandleValidationResults();
             ( ( BaseEntity ) current).IsValidating = true;
 
