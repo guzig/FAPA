@@ -221,9 +221,9 @@ namespace FaPaTets.DbSetUp
 
                 account.SetCredentials( username, "zagot" );
 
-                session1.Save(anagraficaCedente);
-                session1.Save(anagraficaCommittente);
-                session1.Save(committente);
+                //session1.Save(anagraficaCedente);
+                //session1.Save(anagraficaCommittente);
+                //session1.Save(committente);
                 session1.Save( account );
 
                 tx.Commit();

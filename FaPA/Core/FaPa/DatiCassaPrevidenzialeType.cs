@@ -26,7 +26,7 @@ namespace FaPA.Core.FaPa
 
         private NaturaType _naturaField;
 
-        private bool _naturaFieldSpecified;
+        private bool _naturaFieldSpecified=true;
 
         private string _riferimentoAmministrazioneField;
 
@@ -79,6 +79,8 @@ namespace FaPA.Core.FaPa
             set
             {
                 _imponibileCassaField = decimal.Parse( string.Format( "{0:0.00}", value ) );
+                if ( _imponibileCassaField > 0 )
+                    ImponibileCassaSpecified = true;
             }
         }
 
@@ -118,6 +120,9 @@ namespace FaPA.Core.FaPa
             {
                 if (value == _ritenutaField) return;
                 _ritenutaField = value;
+                if ( Ritenuta == RitenutaType.SI )
+                    NaturaSpecified = true;
+
             }
         }
 
