@@ -363,10 +363,10 @@ namespace FaPA.Core
             };
 
             CessionarioCommittente.Sede = SyncSede(AnagraficaCommittenteDB );
-            if ( CessionarioCommittente.DatiAnagrafici == null )
-            {
+            //if ( CessionarioCommittente.DatiAnagrafici == null )
+            //{
                 CessionarioCommittente.DatiAnagrafici = new DatiAnagraficiCessionarioType();
-            }
+            //}
             CessionarioCommittente.DatiAnagrafici.Anagrafica = anag;
 
             if ( !string.IsNullOrWhiteSpace(AnagraficaCommittenteDB.CodiceFiscale) )
