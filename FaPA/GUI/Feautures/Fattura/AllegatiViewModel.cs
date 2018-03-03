@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 using FaPA.Core.FaPa;
 using FaPA.GUI.Controls;
@@ -95,9 +96,16 @@ namespace FaPA.GUI.Feautures.Fattura
             var current = CurrentPoco as AllegatiType;
             if (current != null)
             {
-                current.Attachment = File.ReadAllBytes(FilePath);
-                current.FormatoAttachment = Path.GetExtension(FilePath);
-                current.NomeAttachment = Path.GetFileName(FilePath);
+                try
+                {
+                    current.Attachment = File.ReadAllBytes( FilePath );
+                    current.FormatoAttachment = Path.GetExtension( FilePath );
+                    current.NomeAttachment = Path.GetFileName( FilePath );
+                }catch( System.Exception e)
+                {
+                    const string caption = "Fattura PA: Errore nel caricamento del documento allegato";
+                    Xceed.Wpf.Toolkit.MessageBox.Show( e.Message, caption, MessageBoxButton.OK, MessageBoxImage.Hand );
+                }
             }
 
             IsEditing = true;
