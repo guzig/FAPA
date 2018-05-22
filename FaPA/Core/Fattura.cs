@@ -467,7 +467,6 @@ namespace FaPA.Core
             }
             DatiGeneraliDocumento.ImportoTotaleDocumento = decimal.Parse(string.Format("{0:0.00}", TotaleFatturaDB));
 
-
             SetTrasmittente();
             UpdateRiepilogoIva();
             CedenteFornitore.RiferimentoAmministrazione = RiferimentoAmmDB;
@@ -476,6 +475,9 @@ namespace FaPA.Core
         private void UpdateRiepilogoIva()
         {
             if ( DettaglioLinee == null || !DettaglioLinee.Any() ) return;
+
+            var sum = DettaglioLinee.Sum(i=>i.PrezzoTotale);
+            CassaPrevidenziale.ImportoContributoCassa = sum * (CassaPrevidenziale.AlCassa / 100 );
 
             var riepilogo = DettaglioLinee.GroupBy( k => new { A= k.AliquotaIVA, N= k.Natura}, g => g).
                 ToDictionary(k => k.Key, g => g.Sum(i=>i.PrezzoTotale));
