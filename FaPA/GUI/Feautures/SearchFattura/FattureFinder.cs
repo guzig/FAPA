@@ -35,8 +35,8 @@ namespace FaPA.GUI.Feautures.SearchFattura
         public IQueryCriteria PecDestinatarioDB { get; set; }
 
 
-        public FattureFinder(Type rootType, Action<string> callBackOnCriteria)
-            : base(rootType, callBackOnCriteria)
+        public FattureFinder(Action<string> callBackOnCriteria)
+            : base(typeof(Core.Fattura), callBackOnCriteria)
         {
 
             QueryCriteria = QueryOver.Of<Core.Fattura>().Fetch( f => f.AnagraficaCedenteDB ).Eager.

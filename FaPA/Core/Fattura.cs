@@ -497,6 +497,11 @@ namespace FaPA.Core
                 };
                 DatiBeniServizi.DatiRiepilogo[x++] = riepilogoAliquota;
             }
+
+            if(DatiBeniServizi.DatiRiepilogo.Any())
+            {
+                DatiBeniServizi.DatiRiepilogo.Last().ImponibileImporto += CassaPrevidenziale.ImportoContributoCassa;
+            }
         }
 
 

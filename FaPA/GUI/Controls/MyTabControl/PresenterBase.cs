@@ -226,8 +226,8 @@ namespace FaPA.GUI.Controls.MyTabControl
 
         protected virtual void SetUpNewModel( int activeTab, IList created )
         {
-            if ( Model == null )
-            {
+            //if ( Model == null )
+            //{
                 Model = CreateNewModel();
                 Model.UserEntities = created;
                 Model.UserCollectionView = CollectionViewSource.GetDefaultView( Model.UserEntities );
@@ -235,20 +235,20 @@ namespace FaPA.GUI.Controls.MyTabControl
                 SetActiveWorkSpace( activeTab );
                 Model.SelectedPageChanged += OnPageChanged;
                 IsBusy = false;
-            }
-            else
-            {
-                Model.UserEntities = created;
-                Model.UserCollectionView = CollectionViewSource.GetDefaultView( Model.UserEntities );
+            //}
+            //else
+            //{
+            //    Model.UserEntities = created;
+            //    Model.UserCollectionView = CollectionViewSource.GetDefaultView( Model.UserEntities );
                 
-                //var viewModel = Model.EditViewModel as EditViewModel<T>;
-                //if ( viewModel != null )
-                //    viewModel.SetUpCollectionView( Model.UserEntities, Model.UserCollectionView );
+            //    //var viewModel = Model.EditViewModel as EditViewModel<T>;
+            //    //if ( viewModel != null )
+            //    //    viewModel.SetUpCollectionView( Model.UserEntities, Model.UserCollectionView );
 
-                Model.UserCollectionView.MoveCurrentToFirst();
-                Model.UserCollectionView.Refresh();
-                IsBusy = false;
-            }
+            //    Model.UserCollectionView.MoveCurrentToFirst();
+            //    Model.UserCollectionView.Refresh();
+            //    IsBusy = false;
+            //}
         }
 
         protected virtual void OnConfirmResultFlyFetch<TE, TDto>( object sender, FinderConfirmSearchEventArgs data ) where

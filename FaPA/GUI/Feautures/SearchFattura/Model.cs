@@ -13,7 +13,7 @@ namespace FaPA.GUI.Feautures.SearchFattura
         {
             AllowSearch = new Observable(true);
 
-            FattureFinder = new FattureFinder(typeof(Core.Fattura), OnQueryCriteria);
+            FattureFinder = new FattureFinder(OnQueryCriteria);
             FattureFinder.IsValidCriteria.NotifyChangedAlsoTo(AllowSearch);
 
             ResultEntryCount = new GenericsObservable<int>(0);
