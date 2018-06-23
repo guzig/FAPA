@@ -8,7 +8,7 @@ syntax: glob
 #
 # Merging from the command prompt will add diff markers to the files if there
 # are conflicts (Merging from VS is not affected by the settings below, in VS
-# the diff markers are never inserted). Diff markers may cause the following 
+# the diff markers are never inserted). Diff markers may cause the following
 # file extensions to fail to load in VS. An alternative would be to treat
 # these files as binary and thus will always conflict and require user
 # intervention with every merge. To do so, just uncomment the entries below
@@ -37,9 +37,9 @@ syntax: glob
 
 ###############################################################################
 # diff behavior for common document formats
-# 
+#
 # Convert binary document formats to text before diffing them. This feature
-# is only available from the command line. Turn it on by uncommenting the 
+# is only available from the command line. Turn it on by uncommenting the
 # entries below.
 ###############################################################################
 #*.doc   diff=astextplain
@@ -72,7 +72,7 @@ syntax: glob
 *.nlb
 *.obj
 *.pch
-*.pdb    
+*.pdb
 *.plg
 *.[Pp]ublish.xml
 *.rdl.data
@@ -112,7 +112,7 @@ svnignore[.-]*
 [Bb]uild[Ll]og.*
 *.[Pp]ublish.xml
 TestResults\*
-glob:desktop.ini 
+glob:desktop.ini
 *.bak.*
 *.bak
 tmp/
@@ -121,3 +121,7 @@ output
 _svn/
 # packages/
 git/
+.vs/FaPA/v15/Server/sqlite3/db.lock
+.vs/FaPA/v15/Server/sqlite3/storage.ide
+.vs/FaPA/v15/Server/sqlite3/storage.ide-shm
+.vs/FaPA/v15/Server/sqlite3/storage.ide-wal

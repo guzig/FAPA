@@ -477,7 +477,10 @@ namespace FaPA.Core
             if ( DettaglioLinee == null || !DettaglioLinee.Any() ) return;
 
             var sum = DettaglioLinee.Sum(i=>i.PrezzoTotale);
-            CassaPrevidenziale.ImportoContributoCassa = sum * (CassaPrevidenziale.AlCassa / 100 );
+            if ( CassaPrevidenziale != null ){
+                CassaPrevidenziale.ImportoContributoCassa = sum * ( CassaPrevidenziale.AlCassa / 100 );
+            }
+            
 
             var riepilogo = DettaglioLinee.GroupBy( k => new { A= k.AliquotaIVA, N= k.Natura}, g => g).
                 ToDictionary(k => k.Key, g => g.Sum(i=>i.PrezzoTotale));
@@ -498,7 +501,7 @@ namespace FaPA.Core
                 DatiBeniServizi.DatiRiepilogo[x++] = riepilogoAliquota;
             }
 
-            if(DatiBeniServizi.DatiRiepilogo.Any())
+            if( CassaPrevidenziale != null && DatiBeniServizi.DatiRiepilogo.Any())
             {
                 DatiBeniServizi.DatiRiepilogo.Last().ImponibileImporto += CassaPrevidenziale.ImportoContributoCassa;
             }
