@@ -23,16 +23,20 @@
         <value>C:\PAWAREDATA</value>
       </setting>
       <setting name="BackUpPath" serializeAs="String">
-        <value>\FEPA\BACKUP</value>
+        <value>FEPA\BACKUP</value>
       </setting>
       <setting name="DataPath" serializeAs="String">
-        <value>\FEPA\DATA</value>
+        <value>FEPA\DATA</value>
       </setting>
       <setting name="SqlServerInstanceName" serializeAs="String">
-        <value>\PAWARE</value>
+        <value>PAWARE</value>
       </setting>
       <setting name="ServerName" serializeAs="String">
-        <value>local</value>
+<<<<<<< working copy
+        <value>T</value>
+=======
+        <value>PC-T</value>
+>>>>>>> merge rev
       </setting>
     </FaPA.Properties.Settings>
   </applicationSettings>
@@ -91,7 +95,7 @@
         <value />
       </setting>
       <setting name="TempPath" serializeAs="String">
-        <value>\FEPA\TEMP</value>
+        <value>FEPA\TEMP</value>
       </setting>
       <setting name="LastImportPath" serializeAs="String">
         <value />

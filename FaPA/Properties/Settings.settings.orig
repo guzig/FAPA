@@ -6,22 +6,26 @@
       <Value Profile="(Default)">C:\PAWAREDATA</Value>
     </Setting>
     <Setting Name="BackUpPath" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">\FEPA\BACKUP</Value>
+      <Value Profile="(Default)">FEPA\BACKUP</Value>
     </Setting>
     <Setting Name="DataPath" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">\FEPA\DATA</Value>
+      <Value Profile="(Default)">FEPA\DATA</Value>
     </Setting>
     <Setting Name="SqlServerInstanceName" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">\PAWARE</Value>
+      <Value Profile="(Default)">PAWARE</Value>
     </Setting>
     <Setting Name="ServerName" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">local</Value>
+<<<<<<< working copy
+      <Value Profile="(Default)">T</Value>
+=======
+      <Value Profile="(Default)">PC-T</Value>
+>>>>>>> merge rev
     </Setting>
     <Setting Name="LastBackUpPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="TempPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">\FEPA\TEMP</Value>
+      <Value Profile="(Default)">FEPA\TEMP</Value>
     </Setting>
     <Setting Name="LastImportPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

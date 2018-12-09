@@ -136,6 +136,9 @@ namespace FaPA.Core.FaPa
             }
         }
 
+        //[XmlIgnore]
+        //public bool DatiCassaPrevidenzialeSpecified { get; set; }
+
         public virtual ScontoMaggiorazioneType[] ScontoMaggiorazione
         {
             get

@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using FaPA.Core;
 using FaPA.Infrastructure.Helpers;
+using System.Collections.Generic;
 
 namespace FaPA.Infrastructure.Utils
 {
@@ -87,8 +88,14 @@ namespace FaPA.Infrastructure.Utils
             }
         }
 
-        public static void ApplyGroup( string propName, ICollectionView view )
+        public static void ApplyGroup( IDictionary<string, string> columsn, string propName, ICollectionView view )
         {
+            if ( string.IsNullOrWhiteSpace( propName ) || columsn == null || !columsn.ContainsKey( propName ) )
+            {
+                SystemSounds.Beep.Play();
+                return;
+            }
+
             var exist = view.GroupDescriptions.Cast<PropertyGroupDescription>().
                 Any( f => f.PropertyName == propName );
 
@@ -99,14 +106,18 @@ namespace FaPA.Infrastructure.Utils
             }
             ShowCursor.Show();
             NhProxyHelpers.UnproxiedCollection<BaseEntity>( view.SourceCollection.Cast<BaseEntity>() );
-            var propertyGroupDescription = new PropertyGroupDescription( propName );
+            var propertyGroupDescription = new PropertyGroupDescription( columsn[ propName ] );
             view.GroupDescriptions.Add( propertyGroupDescription );
         }
 
-        public static void ApplyFilter( string filterValue, ICollectionView gridItemSource, string filterProp )
+        public static void ApplyFilter( string filterValue, ICollectionView gridItemSource, 
+            IDictionary<string, string> columsn, string filterProp )
         {
-            if ( string.IsNullOrWhiteSpace( filterValue ) )
+            if ( string.IsNullOrWhiteSpace( filterProp ) || columsn == null || !columsn.ContainsKey( filterProp ) )
+            {
+                SystemSounds.Beep.Play();
                 return;
+            }
 
             ShowCursor.Show();
 
@@ -117,8 +128,9 @@ namespace FaPA.Infrastructure.Utils
             collectionView.Filter = item =>
             {
                 if ( item == null ) return false;
-                var propertyInfo = GetPropertyType( item, filterProp );
-                var propValue = GetPropertyValue( item, filterProp );
+                var propertyInfo = item.GetType().GetProperty( columsn[ filterProp ] );
+                if ( propertyInfo == null ) return false;
+                var propValue = propertyInfo.GetValue( item, null );
                 if ( propertyInfo.PropertyType == typeof( DateTime ) || propertyInfo.PropertyType == typeof( DateTime? ) )
                 {
                     return ( ( DateTime ) propValue ).ToShortDateString() == filterValue.Replace( ".", "/" );
@@ -131,7 +143,7 @@ namespace FaPA.Infrastructure.Utils
                 gridItemSource.Filter = item => true;
             }
         }
-
+        
         private static object GetPropertyValue( object obj, string propertyName )
         {
             var _propertyNames = propertyName.Split( '.' );
@@ -150,7 +162,6 @@ namespace FaPA.Infrastructure.Utils
 
             return obj;
         }
-
 
         private static PropertyInfo GetPropertyType( object obj, string propertyName )
         {
@@ -171,8 +182,6 @@ namespace FaPA.Infrastructure.Utils
 
             return propertyInfo;
         }
-
-
 
         public static void DisableButtons( Button btnGroupBy, Button btnFilterBy, Button btnClearFilters, Button btnClearGroup )
         {

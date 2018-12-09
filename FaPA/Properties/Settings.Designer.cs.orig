@@ -12,7 +12,7 @@ namespace FaPA.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.3.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -34,7 +34,7 @@ namespace FaPA.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("\\FEPA\\BACKUP")]
+        [global::System.Configuration.DefaultSettingValueAttribute("FEPA\\BACKUP")]
         public string BackUpPath {
             get {
                 return ((string)(this["BackUpPath"]));
@@ -43,7 +43,7 @@ namespace FaPA.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("\\FEPA\\DATA")]
+        [global::System.Configuration.DefaultSettingValueAttribute("FEPA\\DATA")]
         public string DataPath {
             get {
                 return ((string)(this["DataPath"]));
@@ -52,7 +52,7 @@ namespace FaPA.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("\\PAWARE")]
+        [global::System.Configuration.DefaultSettingValueAttribute("PAWARE")]
         public string SqlServerInstanceName {
             get {
                 return ((string)(this["SqlServerInstanceName"]));
@@ -61,7 +61,11 @@ namespace FaPA.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("local")]
+<<<<<<< working copy
+        [global::System.Configuration.DefaultSettingValueAttribute("T")]
+=======
+        [global::System.Configuration.DefaultSettingValueAttribute("PC-T")]
+>>>>>>> merge rev
         public string ServerName {
             get {
                 return ((string)(this["ServerName"]));
@@ -82,7 +86,7 @@ namespace FaPA.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("\\FEPA\\TEMP")]
+        [global::System.Configuration.DefaultSettingValueAttribute("FEPA\\TEMP")]
         public string TempPath {
             get {
                 return ((string)(this["TempPath"]));

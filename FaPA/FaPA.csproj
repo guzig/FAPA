@@ -898,9 +898,11 @@
     <Resource Include="GUI\Design\Styles\Images\Button-Ok-icon.png" />
     <EmbeddedResource Include="fatturaordinaria_v1.2.xsl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="fatturapa_v1.2.xsl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <Resource Include="fpa.ico" />
     <Content Include="nhibernate.cfg.xml">

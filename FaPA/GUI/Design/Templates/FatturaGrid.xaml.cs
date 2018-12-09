@@ -51,7 +51,7 @@ namespace FaPA.GUI.Design.Templates
         private void btnFilter_Click( object sender, RoutedEventArgs e )
         {
             DataGridHelpers.DisableButtons( btnGroup, btnApplyFilter, btnClearFilter, btnClearGroup );
-            DataGridHelpers.ApplyFilter( txtFilter.Text, FattureGridControl.Items, _columns[cmbProperty.Text] );
+            DataGridHelpers.ApplyGroup( _columns, cmbGroups.Text, FattureGridControl.Items );
             DataGridHelpers.EnableButtons( btnGroup, btnApplyFilter, btnClearFilter, btnClearGroup );
         }
 
@@ -68,7 +68,7 @@ namespace FaPA.GUI.Design.Templates
 
             DataGridHelpers.DisableButtons( btnGroup, btnApplyFilter, btnClearFilter, btnClearGroup );
 
-            DataGridHelpers.ApplyGroup( _columns[cmbGroups.Text], FattureGridControl.Items );
+            DataGridHelpers.ApplyGroup( _columns, cmbGroups.Text, FattureGridControl.Items );
 
             DataGridHelpers.EnableButtons( btnGroup, btnApplyFilter, btnClearFilter, btnClearGroup );
         }

@@ -467,7 +467,6 @@ namespace FaPA.Core
             }
             DatiGeneraliDocumento.ImportoTotaleDocumento = decimal.Parse(string.Format("{0:0.00}", TotaleFatturaDB));
 
-
             SetTrasmittente();
             UpdateRiepilogoIva();
             CedenteFornitore.RiferimentoAmministrazione = RiferimentoAmmDB;
@@ -476,6 +475,12 @@ namespace FaPA.Core
         private void UpdateRiepilogoIva()
         {
             if ( DettaglioLinee == null || !DettaglioLinee.Any() ) return;
+
+            var sum = DettaglioLinee.Sum(i=>i.PrezzoTotale);
+            if ( CassaPrevidenziale != null ){
+                CassaPrevidenziale.ImportoContributoCassa = sum * ( CassaPrevidenziale.AlCassa / 100 );
+            }
+            
 
             var riepilogo = DettaglioLinee.GroupBy( k => new { A= k.AliquotaIVA, N= k.Natura}, g => g).
                 ToDictionary(k => k.Key, g => g.Sum(i=>i.PrezzoTotale));
@@ -494,6 +499,11 @@ namespace FaPA.Core
                     ArrotondamentoSpecified = false
                 };
                 DatiBeniServizi.DatiRiepilogo[x++] = riepilogoAliquota;
+            }
+
+            if( CassaPrevidenziale != null && DatiBeniServizi.DatiRiepilogo.Any())
+            {
+                DatiBeniServizi.DatiRiepilogo.Last().ImponibileImporto += CassaPrevidenziale.ImportoContributoCassa;
             }
         }
 
