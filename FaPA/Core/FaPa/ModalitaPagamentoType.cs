@@ -70,6 +70,9 @@ namespace FaPA.Core.FaPa
         MP21,
 
         [Description( "Trattenuta su somme già riscosse" )]
-        MP22
+        MP22,
+
+        [Description( "PagoPA" )]
+        MP23
     }
 }

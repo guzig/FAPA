@@ -6,6 +6,10 @@ namespace FaPA.Core.FaPa
     public enum TipoRitenutaType
     {
         RT01,
-        RT02
+        RT02, 
+        RT03, 
+        RT04, 
+        RT05, 
+        RT06
     }
 }

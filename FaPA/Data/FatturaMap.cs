@@ -21,18 +21,22 @@ namespace FaPA.Data
             
             Property( x => x.ProgFile, x =>
             {
-                x.Generated( PropertyGeneration.Always );
-                x.Update( false );
-                x.Insert( false );
-                x.Unique( true  );
-                x.Column( c =>
-                {
-                    
-                    c.SqlType("int IDENTITY(1,1)");
-                    c.Index( "ProgFileIdx" );
-                    c.Length(5);
+                x.Column( c => {
                     c.NotNullable( true );
                 } );
+
+                //x.Generated( PropertyGeneration.Always );
+                //x.Update( false );
+                //x.Insert( false );
+                //x.Unique( true  );
+                //x.Column( c =>
+                //{
+
+                //    c.SqlType("int IDENTITY(1,1)");
+                //    c.Index( "ProgFileIdx" );
+                //    c.Length(5);
+                //    c.NotNullable( true );
+                //} );
             } );
 
             Property(x => x.DataCaricamentoDB, d =>

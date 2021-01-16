@@ -708,7 +708,7 @@ namespace FaPA.GUI.Controls.MyTabControl
         {
             if ( IsValidEntity() ) return null;
 
-            var errors = HibHelpers.Validator.Validate(CurrentEntity);
+            var errors = HibHelpers.Validator.Validate(CurrentEntity).ToList();
 
             var listError = new List<string> {"ELENCO ERRORI RILEVATI:"};
 

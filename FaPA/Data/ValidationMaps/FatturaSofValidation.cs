@@ -39,6 +39,12 @@ namespace FaPA.Data.ValidationMaps
                     }
                 }
 
+                if ( !IsUniqueProgFile( fattura ) ) {
+
+                    context.AddInvalid<Fattura, int>( "Progressivo invio non valido ", p => p.ProgFile );
+                    isValid = false;
+                }
+
                 if ( !isValid || IsUniqueFattura( fattura ) ) return isValid;
 
                 const string error = "Numero, data, e, fornitore, fattura non sono unici";
@@ -89,6 +95,28 @@ namespace FaPA.Data.ValidationMaps
                     //criteria.SetCacheMode(CacheMode.Normal);
                     //criteria.SetCacheable(true);
                     //var result = criteria.UniqueResult<int>() == 0;
+                    tx.Commit();
+                }
+            }
+
+            return result == 0;
+        }
+
+        private static bool IsUniqueProgFile( Fattura fatt ) {
+            
+            if ( fatt.ProgFile == 0 )
+                return false;
+
+            object isLock = 0;
+            int result;
+            lock ( isLock ) {
+                using ( var tx = NHibernateStaticContainer.Session.BeginTransaction() ) {
+                    result = NHibernateStaticContainer.Session.QueryOver<Fattura>().
+                        And( f => f.AnagraficaCedenteDB.Id == fatt.AnagraficaCedenteDB.Id ).
+                        And( f => f.ProgFile == fatt.ProgFile ).
+                        And( f => f.Id != fatt.Id ).
+                        Select( Projections.Count<Fattura>( f => f.Id ) ).Cacheable().CacheMode( CacheMode.Normal )
+                        .FutureValue<int>().Value;
                     tx.Commit();
                 }
             }

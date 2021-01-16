@@ -40,7 +40,7 @@ namespace FaPA.AppServices.CoreValidation
                 TryGetLengthErrors( nameof( dettaglio.IBAN ), dettaglio.IBAN, errors, 34 );
                 TryGetLengthErrors( nameof( dettaglio.ABI ), dettaglio.ABI, errors, 5 );
                 TryGetLengthErrors( nameof( dettaglio.CAB ), dettaglio.CAB, errors, 5 );
-                TryGetLengthErrors( nameof( dettaglio.BIC ), dettaglio.BIC, errors, 5 );
+                TryGetLengthErrors( nameof( dettaglio.BIC ), dettaglio.BIC, errors, 11,8 );
                 TryGetLengthErrors( nameof( dettaglio.CodicePagamento ), dettaglio.CodicePagamento, errors, 60 );
 
                 return errors;
