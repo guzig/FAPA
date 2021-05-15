@@ -116,7 +116,7 @@ namespace FaPA.Core.FaPa
             set
             {
                 _datiBolloField = value;
-                DatiBolloSpecified = DatiBollo.BolloVirtuale == BolloVirtualeType.SI;
+                DatiBolloSpecified = DatiBollo?.BolloVirtuale == BolloVirtualeType.SI;
             }
         }
 

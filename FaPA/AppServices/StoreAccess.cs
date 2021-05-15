@@ -23,8 +23,8 @@ namespace FaPA.AppServices
 
         public static readonly string FatturaPaXsdSchema = DataPath + @"\fatturapa_v1.2.xsd";
 
-        public const string FatturaPaXslPaSchema = "fatturapa_v1.2.xsl";
-        public const string FatturaPaXslOrdSchema = "fatturaordinaria_v1.2.xsl";
+        public const string FatturaPaXslPaSchema = "fatturapa_v1.2.1.xsl";
+        public const string FatturaPaXslOrdSchema = "fatturaordinaria_v1.2.1.xsl";
 
         public static readonly string FatturaPaXslPaSchemaPath = Path.Combine( DataPath, FatturaPaXslPaSchema );
         public static readonly string FatturaPaXslOrdSchemaPath = Path.Combine( DataPath, FatturaPaXslOrdSchema );

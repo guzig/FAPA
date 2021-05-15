@@ -23,6 +23,7 @@ namespace FaPA.Data
             {
                 x.Column( c => {
                     c.NotNullable( true );
+                    x.Unique( true );
                 } );
 
                 //x.Generated( PropertyGeneration.Always );
