@@ -23,7 +23,7 @@ namespace FaPA.Data
             {
                 x.Column( c => {
                     c.NotNullable( true );
-                    x.Unique( true );
+                    c.UniqueKey("progidukey");
                 } );
 
                 //x.Generated( PropertyGeneration.Always );
@@ -131,6 +131,17 @@ namespace FaPA.Data
                 });
             });
 
+            //Property(x => x.CodSoggettoSDI, d =>
+            //{
+            //    d.Column(c =>
+            //    {
+            //        c.Length(7);
+            //        c.Index("codsoggettosdi");
+            //        //c.UniqueKey("cig");
+            //        c.NotNullable(true);
+            //    });
+            //});
+
             Property( x => x.PecDestinatarioDB, d =>
             {
                 d.Column( c =>
@@ -146,6 +157,7 @@ namespace FaPA.Data
                 m.Fetch(FetchKind.Join);
                 m.Lazy(LazyRelation.Proxy);
                 m.UniqueKey( "numfattkey" );
+                m.UniqueKey("progidukey");
                 m.NotNullable(true);
             });
 

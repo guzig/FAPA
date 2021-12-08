@@ -19,6 +19,7 @@ namespace FaPA.GUI.Feautures.SearchAnagrafica
         public IQueryCriteria Provincia { get; set; }
         public IQueryCriteria Nazione { get; set; }
         public IQueryCriteria CodUfficioPa { get; set; }
+        public IQueryCriteria CodSoggettoSDI { get; set; }
         public IQueryCriteria Pec { get; set; }
         public IQueryCriteria Email { get; set; }
         public IQueryCriteria Tel { get; set; }
@@ -51,6 +52,7 @@ namespace FaPA.GUI.Feautures.SearchAnagrafica
             Provincia = CreateSearchProperty( ( Core.Anagrafica f ) => f.Provincia, "Provincia" );
             Nazione = CreateSearchProperty( ( Core.Anagrafica f ) => f.Nazione, "Nazione" );
             CodUfficioPa = CreateSearchProperty( ( Core.Anagrafica f ) => f.CodUfficioPa, "Cod. Uff. PA" );
+            CodSoggettoSDI = CreateSearchProperty((Core.Anagrafica f) => f.CodSoggettoSDI, "Cod. soggetto SDI");
             Pec = CreateSearchProperty( ( Core.Anagrafica f ) => f.Pec, "Pec" );
             Email = CreateSearchProperty( ( Core.Anagrafica f ) => f.Email, "Email" );
             Tel = CreateSearchProperty( ( Core.Anagrafica f ) => f.Tel, "Tel" );

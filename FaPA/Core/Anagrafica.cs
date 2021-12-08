@@ -20,6 +20,7 @@ namespace FaPA.Core
         public virtual string Provincia { get; set; }
         public virtual string Nazione { get; set; }
         public virtual string CodUfficioPa { get; set; }
+        public virtual string CodSoggettoSDI { get; set; }
         public virtual string Pec { get; set; }
         public virtual string Email { get; set; }
         public virtual string Tel { get; set; }

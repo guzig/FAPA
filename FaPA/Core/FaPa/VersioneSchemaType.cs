@@ -7,6 +7,8 @@ namespace FaPA.Core.FaPa
     public enum VersioneSchemaType
     {
         [XmlEnum( "FPA12" )]
-        Item11
+        Item11,
+        [XmlEnum("FPR12")]
+        Item12
     }
 }

@@ -105,7 +105,6 @@
                 </ContentControl>
             </DockPanel>
 
-
             <DockPanel  Width="Auto" HorizontalAlignment="Stretch"  Grid.Row="11" >
                 <ContentControl Content="{Binding Path=FatturaFinder.RiferimentoAmmDB, ElementName=Root,  Mode=TwoWay}"
                             Width="Auto"                                         

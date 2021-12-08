@@ -32,7 +32,8 @@ namespace FaPA.Data.ValidationMaps
             Define( f => f.Denominazione ).MaxLength( 80 );
             Define( f => f.Tel ).MinLength( 5 ).And.MaxLength( 12 );
             Define( f => f.Fax ).MinLength( 5 ).And.MaxLength( 12 );
-            Define( f => f.CodUfficioPa ).MinLength( 6 ).And.MaxLength( 6 );
+            Define( f => f.CodUfficioPa ).Satisfy(f => string.IsNullOrWhiteSpace(f) || f.Length == 6);
+            Define(f => f.CodSoggettoSDI).Satisfy(f => string.IsNullOrWhiteSpace(f) || f.Length == 7);
             Define( f => f.RifAmministrazione ).MaxLength( 80 );
         }
 

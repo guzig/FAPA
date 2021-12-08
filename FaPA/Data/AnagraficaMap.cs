@@ -74,9 +74,17 @@ namespace FaPA.Data
             {
                 d.Column( c =>
                 {
-                    c.Length( 7 );
+                    c.Length( 6 );
                 } );
             } );
+
+            Property(x => x.CodSoggettoSDI, d =>
+            {
+                d.Column(c =>
+                {
+                    c.Length(7);
+                });
+            });
 
             Property( x => x.Email, d =>
             {

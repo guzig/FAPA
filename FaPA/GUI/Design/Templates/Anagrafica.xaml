@@ -135,8 +135,14 @@
             </StackPanel>
 
             <StackPanel Margin="2,0,2,0" MinWidth="80">
-                <TextBlock Text="Uff. PA" />
+                <TextBlock Text="Cod. SDI Uff. PA" />
                 <TextBox   Text="{Binding CurrentEntity.CodUfficioPa, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True}" MaxLength="6" 
+                           HorizontalAlignment="Stretch" />
+            </StackPanel>
+
+            <StackPanel Margin="2,0,2,0" MinWidth="80">
+                <TextBlock Text="Cod. SDI Soggetto" />
+                <TextBox   Text="{Binding CurrentEntity.CodSoggettoSDI, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True}" MaxLength="7" 
                            HorizontalAlignment="Stretch" />
             </StackPanel>
         </StackPanel>

@@ -35,6 +35,8 @@ namespace FaPA.Core
 
         public virtual string CodUfficioDB { get; set; }
 
+        //public virtual string CodSoggettoSDI { get; set; }
+
         public virtual DateTime DataFatturaDB { get; set; }
 
         public virtual decimal TotaleFatturaDB { get; set; }
@@ -415,18 +417,27 @@ namespace FaPA.Core
                 CedenteFornitore.RiferimentoAmministrazione = RiferimentoAmmDB;
         }
 
-        private void SetTrasmittente()
-        {          
+        private void SetTrasmittente() {          
+
             FatturaElettronicaHeader.DatiTrasmissione = new DatiTrasmissioneType
             {
-                CodiceDestinatario = CodUfficioDB,
+
                 FormatoTrasmissione = FormatoTrasmissioneDB,
                 ProgressivoInvio = ProgFile.ToString("00000")
             };
 
             if ( FormatoTrasmissioneDB == FormatoTrasmissioneType.FPR12 )
             {
-                FatturaElettronicaHeader.DatiTrasmissione.PECDestinatario = PecDestinatarioDB;
+                FatturaElettronicaHeader.DatiTrasmissione.CodiceDestinatario = AnagraficaCommittenteDB.CodSoggettoSDI;
+                
+                if (FatturaElettronicaHeader.DatiTrasmissione.CodiceDestinatario== "0000000")
+                {
+                    FatturaElettronicaHeader.DatiTrasmissione.PECDestinatario = PecDestinatarioDB;
+                }
+            }
+            else{
+                FatturaElettronicaHeader.DatiTrasmissione.CodiceDestinatario = AnagraficaCommittenteDB.CodUfficioPa;
+                FatturaElettronicaHeader.DatiTrasmissione.CodiceDestinatario = CodUfficioDB;
             }
        
             if ( AnagraficaCedenteDB != null )

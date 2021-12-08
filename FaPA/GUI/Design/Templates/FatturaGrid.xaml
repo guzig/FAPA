@@ -120,6 +120,12 @@
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
 
+                    <DataGridTextColumn Header="Cod. SDI" Width="Auto">
+                        <DataGridTextColumn.Binding>
+                            <Binding Path="AnagraficaCommittenteDB.CodSoggettoSDI"/>
+                        </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+
                     <DataGridTextColumn Header="Cig" Width="Auto">
                         <DataGridTextColumn.Binding>
                             <Binding Path="CigDB"/>

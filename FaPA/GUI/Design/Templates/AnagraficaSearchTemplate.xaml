@@ -76,7 +76,14 @@
                 <ContentControl Content="{Binding AnagraficaFinder.CodUfficioPa, ElementName=Root, Mode=TwoWay}"
                                 Width="Auto" IsEnabled="{Binding AllowEditing.Value}">
                 </ContentControl>
-            </DockPanel>            
+            </DockPanel>         
+            
+            <DockPanel  Width="Auto" HorizontalAlignment="Stretch"  Grid.Row="10" >
+                <ContentControl Content="{Binding Path=AnagraficaFinder.CodSoggettoSDI, ElementName=Root,  Mode=TwoWay}"
+                            Width="Auto"                                         
+                            IsEnabled="{Binding AllowEditing.Value}">
+                </ContentControl>
+            </DockPanel>                 
 
             <DockPanel  Grid.Row="7"  Width="Auto" HorizontalAlignment="Stretch" >
                 <ContentControl Content="{Binding AnagraficaFinder.Comune, ElementName=Root, Mode=TwoWay}"
