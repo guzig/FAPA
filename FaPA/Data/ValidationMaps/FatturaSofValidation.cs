@@ -60,6 +60,7 @@ namespace FaPA.Data.ValidationMaps
             Define( l => l.PecDestinatarioDB ).IsEmail();
             Define( l => l.CigDB ).MaxLength(15).WithMessage( "Lunghezza massima 15 caratteri" );
             Define( l => l.CupDB ).MaxLength( 15 ).WithMessage( "Lunghezza massima 15 caratteri" );
+            //todo: SDI si aspetta un codice destinatario di 7 caratteri per una fattura elettronica B2B o uno di 6 caratteri per una fattura elettronica PA
             Define(l => l.CodUfficioDB).NotNullableAndNotEmpty().WithMessage("Specificare un codice ufficio PA");
             Define(l => l.NumeroFatturaDB).NotNullableAndNotEmpty().WithMessage("Specificare un numero fattura");
             Define(f => f.AnagraficaCedenteDB).NotNullable().WithMessage("Specificare un fornitore");

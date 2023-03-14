@@ -13,6 +13,7 @@ using FaPA.Core;
 using FaPA.Infrastructure;
 using FaPA.Infrastructure.Utils;
 using FaPA.Properties;
+using FaPA.Infrastructure.Helpers;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
@@ -381,12 +382,43 @@ namespace FaPA.GUI.Feautures.Fattura
             }
         }
 
+        private ICommand _generatePDFXmlStreamCommand;
+        public ICommand GeneratePDFXmlStreamCommand
+        {
+            get
+            {
+                if (_generatePDFXmlStreamCommand != null)
+                    return _generatePDFXmlStreamCommand;
+                _generatePDFXmlStreamCommand = new RelayCommand(c => ValidateAndFlushPDF(CurrentEntity), x => !IsInEditing);
+                return _generatePDFXmlStreamCommand;
+            }
+        }
+
         private void ValidateAndFlushXml(Core.Fattura fattura)
         {
             string error = null;
             var folderPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
             var path = GetOutPath( folderPath );
             FlushXml( fattura, path, out error );
+        }
+
+        private void ValidateAndFlushPDF(Core.Fattura fattura){
+
+
+            var internalErrors = fattura.Validate();
+            var DomainResultFatturaPA = fattura.ValidateByXsdFatturaPA();
+            if(!internalErrors.Success || !string.IsNullOrWhiteSpace(DomainResultFatturaPA)) {
+                var error = "Fattura non validata: " + Environment.NewLine + string.Join("; ", DomainResultFatturaPA);
+                MessageBox.Show(error, "File con errori di validazione", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+
+
+            var folderPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            var path = GetOutPath(folderPath, "pdf");
+            var xmlDoc = CurrentEntity.GetXmlDocFatturaPA();
+            var pdf = FatturaHelpers.TransformXMLToPDF(xmlDoc.InnerXml);
+            File.WriteAllBytes(path,pdf);
+            Process.Start(path);
         }
 
         private ICommand _showXmlIntoTreeViewCommand;
@@ -503,11 +535,11 @@ namespace FaPA.GUI.Feautures.Fattura
             return true;
         }
 
-        private string GetOutPath( string folderPath)
+        private string GetOutPath( string folderPath, string extension="xml")
         {
             var nomeFile = CurrentEntity.FatturaPa.FatturaElettronicaHeader.DatiTrasmissione.IdTrasmittente.IdPaese +
                            CurrentEntity.AnagraficaCedenteDB.PIva + "_" +
-                           CurrentEntity.FatturaPa.FatturaElettronicaHeader.DatiTrasmissione.ProgressivoInvio + ".xml";
+                           CurrentEntity.FatturaPa.FatturaElettronicaHeader.DatiTrasmissione.ProgressivoInvio + "."+ extension;
             var outPath = Path.Combine(folderPath, nomeFile);
             return outPath;
         }

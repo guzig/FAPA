@@ -94,6 +94,9 @@
     <Reference Include="NHibernate.Validator.Specific">
       <HintPath>..\packages\NHV\NHibernate.Validator.Specific.dll</HintPath>
     </Reference>
+    <Reference Include="NReco.PdfGenerator, Version=1.2.1.0, Culture=neutral, PublicKeyToken=231663d50a41b451, processorArchitecture=MSIL">
+      <HintPath>..\packages\NReco.PdfGenerator.1.2.1\lib\net45\NReco.PdfGenerator.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
@@ -113,6 +116,7 @@
       <HintPath>..\packages\Rx-PlatformServices.2.2.5\lib\net45\System.Reactive.PlatformServices.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Controls.Ribbon" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -587,6 +591,7 @@
     <Compile Include="GUI\Feautures\User\Model.cs" />
     <Compile Include="GUI\Feautures\User\Presenter.cs" />
     <Compile Include="GUI\Feautures\User\View.xaml.cs" />
+    <Compile Include="Infrastructure\Helpers\FatturaHelpers.cs" />
     <Compile Include="Infrastructure\Utils\NumberOnlyBehaviour.cs" />
     <Compile Include="Infrastructure\Utils\DataGridHelpers.cs" />
     <Compile Include="Infrastructure\Utils\ReflectionHelpers.cs" />

@@ -144,7 +144,15 @@
                 <Image Source="\GUI\Design\Styles\Images\Send File-48.png" Width="25" />
             </Button>
 
-        </DockPanel>
+            <Button Command="{Binding GeneratePDFXmlStreamCommand}"
+                Margin="2,0,0,0"
+                ToolTip="Generazione file (PDF) fattura PA sul desktop " 
+                IsEnabled="{Binding Path=IsInEditing, Converter={StaticResource InverseBooleanConverter}}">
+
+                <Image Source="\GUI\Design\Styles\Images\print.png" Width="25" />
+            </Button>
+
+            </DockPanel>
             
         <DockPanel Margin="10,2,0,0" HorizontalAlignment="Stretch" MaxWidth="600"  Height="Auto" MaxHeight="300">
 

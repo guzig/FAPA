@@ -130,7 +130,7 @@ namespace FaPA.Data
                     c.NotNullable(true);
                 });
             });
-
+            //todo:l SDI si aspetta un codice destinatario di 7 caratteri per una fattura elettronica B2B o uno di 6 caratteri per una fattura elettronica PA
             //Property(x => x.CodSoggettoSDI, d =>
             //{
             //    d.Column(c =>
