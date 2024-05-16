@@ -502,11 +502,12 @@ namespace FaPA.Core
             {
                 var riepilogoAliquota = new DatiRiepilogoType
                 {
+                    RiferimentoNormativo= FormatoTrasmissioneDB == FormatoTrasmissioneType.FPA12 ? "Operazione soggetta a split payment" : "",
                     AliquotaIVA = item.Key.A,
                     Natura = item.Key.N,
                     ImponibileImporto = item.Value,
                     Imposta = item.Value * ( item.Key.A / constnt ),
-                    EsigibilitaIVA = EsigibilitaIVAType.N,
+                    EsigibilitaIVA = FormatoTrasmissioneDB == FormatoTrasmissioneType.FPA12 ? EsigibilitaIVAType.S : EsigibilitaIVAType.N,
                     ArrotondamentoSpecified = false
                 };
                 DatiBeniServizi.DatiRiepilogo[x++] = riepilogoAliquota;
