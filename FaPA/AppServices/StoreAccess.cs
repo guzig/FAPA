@@ -59,7 +59,7 @@ namespace FaPA.AppServices
                 if ( _password != null )
                     return _password;
 
-                _password = "t";
+                _password = "scintillaat20!";
 
                 return _password;
             }
@@ -69,7 +69,7 @@ namespace FaPA.AppServices
         {
             get
             {
-                return "t";
+                return "empwr";
             }
         }
 

@@ -15,7 +15,7 @@
       <Value Profile="(Default)">PAWARE</Value>
     </Setting>
     <Setting Name="ServerName" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">DESKTOP-SPP0Q82</Value>
+      <Value Profile="(Default)">hp2</Value>
     </Setting>
     <Setting Name="LastBackUpPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

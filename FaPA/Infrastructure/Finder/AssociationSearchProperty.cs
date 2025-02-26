@@ -5,6 +5,7 @@ using FaPA.DomainServices;
 using FaPA.Infrastructure.Helpers;
 using NHibernate;
 using NHibernate.Criterion;
+using NHibernate.Transform;
 
 namespace FaPA.Infrastructure.Finder
 {
@@ -40,7 +41,7 @@ namespace FaPA.Infrastructure.Finder
                 return SourceList;                
             }
 
-            set { SourceList = value; }
+            set => SourceList = value;
         }
 
         protected virtual ObservableCollection<T> GetSourceList()
@@ -51,7 +52,9 @@ namespace FaPA.Infrastructure.Finder
 
             using ( var tx = Session.BeginTransaction() )
             {
-                collection = Session.CreateCriteria( typeof ( T ) ).List<T>();
+                collection = Session.CreateCriteria( typeof ( T ) )
+                    .SetResultTransformer(Transformers.DistinctRootEntity)
+					.List<T>();
 
                 tx.Commit();
             }
