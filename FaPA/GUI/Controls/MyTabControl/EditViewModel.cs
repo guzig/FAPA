@@ -12,6 +12,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using FaPA.Core;
 using FaPA.Data;
+using FaPA.DomainServices.Helpers;
 using FaPA.Infrastructure;
 using FaPA.Infrastructure.Helpers;
 using FaPA.Infrastructure.Utils;

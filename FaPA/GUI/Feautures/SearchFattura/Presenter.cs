@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using Caliburn.Micro;
+using FaPA.DomainServices.Helpers;
 using FaPA.Infrastructure;
 using FaPA.Infrastructure.FlyFetch;
 using FaPA.Infrastructure.Helpers;

@@ -11,6 +11,7 @@ using System.Windows.Threading;
 using FaPA.Core;
 using FaPA.Infrastructure.Helpers;
 using System.Collections.Generic;
+using FaPA.DomainServices.Helpers;
 
 namespace FaPA.Infrastructure.Utils
 {

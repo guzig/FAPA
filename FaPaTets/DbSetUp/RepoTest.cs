@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using FaPA.Core;
+using FaPA.DomainServices.Helpers;
 using FaPA.Infrastructure.Helpers;
 using NHibernate;
 using NHibernate.Tool.hbm2ddl;

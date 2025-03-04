@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using FaPA.DomainServices;
+using FaPA.DomainServices.Helpers;
 using FaPA.Infrastructure.Helpers;
 using NHibernate;
 using NHibernate.Criterion;

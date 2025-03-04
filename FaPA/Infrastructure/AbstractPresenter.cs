@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using Caliburn.Micro;
 using FaPA.Core;
 using FaPA.Data;
+using FaPA.DomainServices.Helpers;
 using FaPA.Infrastructure.Helpers;
 using NHibernate;
 using NHibernate.Criterion;

@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Windows.Input;
 using FaPA.Core.FaPa;
+using FaPA.DomainServices.Helpers;
 using FaPA.GUI.Controls;
 using FaPA.Infrastructure;
 using FaPA.Infrastructure.Helpers;

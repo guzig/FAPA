@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using FaPA.DomainServices;
 using FaPA.GUI.Design.Commands;
 using FaPA.Infrastructure.Helpers;
 using FaPA.Infrastructure.Utils;

@@ -1,5 +1,6 @@
 ﻿using FaPA.AppServices.CoreValidation;
 using FaPA.Core;
+using FaPA.DomainServices;
 using FaPA.Infrastructure;
 using NUnit.Framework;
 

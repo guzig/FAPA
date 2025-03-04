@@ -1,4 +1,5 @@
 ﻿using FaPA.Core;
+using FaPA.DomainServices.Helpers;
 using FaPA.Infrastructure.Helpers;
 
 namespace FaPA.Data

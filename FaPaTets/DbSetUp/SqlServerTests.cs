@@ -6,6 +6,7 @@ using System.Linq;
 using FaPA.AppServices;
 using FaPA.Core;
 using FaPA.Data;
+using FaPA.DomainServices.Helpers;
 using FaPA.Infrastructure.Helpers;
 using NHibernate;
 using NHibernate.Cfg;

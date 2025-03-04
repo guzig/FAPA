@@ -11,6 +11,7 @@ using FaPA.GUI.Controls.MyTabControl;
 using FaPA.Infrastructure;
 using Remotion.Linq.Collections;
 using FaPA.Core;
+using FaPA.DomainServices.Helpers;
 using FaPA.Infrastructure.Helpers;
 using NHibernate.Proxy.DynamicProxy;
 using NHibernate.Util;

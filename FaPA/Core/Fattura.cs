@@ -9,6 +9,7 @@ using System.Xml.Linq;
 using System.Xml.Schema;
 using FaPA.AppServices;
 using FaPA.AppServices.CoreValidation;
+using FaPA.DomainServices.Helpers;
 using FaPA.Infrastructure.Helpers;
 
 namespace FaPA.Core

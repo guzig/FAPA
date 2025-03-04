@@ -4,6 +4,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Markup;
 using FaPA.AppServices;
+using FaPA.DomainServices;
 using FaPA.DomainServices.AuthenticationServices;
 using FaPA.Infrastructure;
 using FaPA.Infrastructure.Utils;

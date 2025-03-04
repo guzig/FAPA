@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FaPA.Core;
 using FaPA.Core.FaPa;
+using FaPA.DomainServices.Helpers;
 using FaPA.Infrastructure.Helpers;
 
 namespace FaPA.AppServices.CoreValidation

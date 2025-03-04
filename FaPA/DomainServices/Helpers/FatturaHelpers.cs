@@ -1,9 +1,9 @@
-﻿namespace FaPA.Infrastructure.Helpers{
+﻿using System.Xml.Linq;
+using System.Xml.Xsl;
 
-    using System.Xml.Xsl;
-    using System.Xml.Linq;
+namespace FaPA.DomainServices.Helpers{
 
-    public static class FatturaHelpers{
+	public static class FatturaHelpers{
 
         private static XslCompiledTransform _transformerV11;
         private static XslCompiledTransform TransformerV11
