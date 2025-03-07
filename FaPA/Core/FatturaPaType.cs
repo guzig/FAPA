@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Data;
+using System.Data.Common;
 using FaPA.AppServices.CoreValidation;
 using FaPA.Core.FaPa;
 using NHibernate;
+using NHibernate.Engine;
 using NHibernate.Proxy.DynamicProxy;
 using NHibernate.SqlTypes;
 using NHibernate.UserTypes;
@@ -11,9 +13,10 @@ namespace FaPA.Core
 {
     public class FatturaPaType : IUserType
     {
-        public object NullSafeGet(IDataReader rs, string[] names, object owner)
+
+		public object NullSafeGet(DbDataReader rs, string[] names, ISessionImplementor session, object owner)
         {
-            var obj = NHibernateUtil.String.NullSafeGet(rs, names[0]);
+            var obj = NHibernateUtil.String.NullSafeGet(rs, names[0], session);
 
             if (obj == null) return null;
 
@@ -30,8 +33,8 @@ namespace FaPA.Core
 
             return SerializerHelpers.XmlToObject( xmlContent );
         }
-        
-        public void NullSafeSet(IDbCommand cmd, object value, int index)
+
+        public void NullSafeSet(DbCommand cmd, object value, int index, ISessionImplementor session)
         {
             if (value == null)
             {
@@ -101,6 +104,8 @@ namespace FaPA.Core
         {
             return x.GetHashCode();
         }
+
+
     }
 }
 
