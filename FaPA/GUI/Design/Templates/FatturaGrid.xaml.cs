@@ -2,8 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using FaPA.DomainServices.Helpers;
-using FaPA.Infrastructure.Helpers;
+using FaPA.Infrastructure;
 using FaPA.Infrastructure.Utils;
 
 namespace FaPA.GUI.Design.Templates

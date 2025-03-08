@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Caliburn.Micro;
-using FaPA.Infrastructure.Helpers;
+using FaPA.Infrastructure.Utils;
 using NHibernate.Criterion;
 
 namespace FaPA.GUI.Feautures.SearchAnagrafica
@@ -24,9 +24,9 @@ namespace FaPA.GUI.Feautures.SearchAnagrafica
             SelectedItemsCount = new Observable(0);
             SelectedItemsCount.NotifyChangedAlsoTo(AllowConfirmResult);
 
-            AnagraficaFinder = new AnagraficaFinder(typeof(Core.Anagrafica));
+            AnagraficaFinder = new AnagraficaFinder(typeof(WAFEL.Core.Anagrafica));
 
-            Core.Anagrafica root=null;
+            WAFEL.Core.Anagrafica root=null;
             AnagraficaFinder.QueryCriteria = QueryOver.Of( () => root );
 
             AnagraficaFinder.IsValidCriteria.NotifyChangedAlsoTo(AllowSearch);
@@ -49,8 +49,8 @@ namespace FaPA.GUI.Feautures.SearchAnagrafica
             }
         }
 
-        private ObservableCollection<Core.Anagrafica> _anagrafiche;
-        public ObservableCollection<Core.Anagrafica> Anagrafiche
+        private ObservableCollection<WAFEL.Core.Anagrafica> _anagrafiche;
+        public ObservableCollection<WAFEL.Core.Anagrafica> Anagrafiche
         {
             get { return _anagrafiche; }
             set {

@@ -34,14 +34,14 @@ namespace FaPA.GUI.Feautures.Anagrafica
 
         }
 
-        private ObservableCollection<Core.Anagrafica> _userEntities;
+        private ObservableCollection<WAFEL.Core.Anagrafica> _userEntities;
 
         public override IList UserEntities
         {
             get { return _userEntities; }
             set
             {
-                _userEntities = (ObservableCollection<Core.Anagrafica>)value;
+                _userEntities = (ObservableCollection<WAFEL.Core.Anagrafica>)value;
                 NotifyOfPropertyChange(() => UserEntities);
             }
         }

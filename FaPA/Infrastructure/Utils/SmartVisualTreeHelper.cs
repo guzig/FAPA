@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Media;
 
-namespace FaPA.Infrastructure.Helpers
+namespace FaPA.Infrastructure.Utils
 {
     public class SmartVisualTreeHelper
     {

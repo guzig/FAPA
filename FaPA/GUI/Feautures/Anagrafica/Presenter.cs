@@ -6,18 +6,17 @@ using System.Windows.Data;
 using System.Windows.Input;
 using FaPA.GUI.Controls.MyTabControl;
 using FaPA.Infrastructure;
-using FaPA.Infrastructure.Helpers;
 using FaPA.Infrastructure.Utils;
 using NHibernate.Criterion;
 
 namespace FaPA.GUI.Feautures.Anagrafica
 {
-    public class Presenter: PresenterBase<Core.Anagrafica, View>
+    public class Presenter: PresenterBase<WAFEL.Core.Anagrafica, View>
     {
         private FinderConfirmSearchEventArgs _dataFiltered;
         private Action<Presenter> _onLoaded;
 
-        protected override QueryOver QueryCriteria { get; set; } = QueryOver.Of<Core.Anagrafica>();
+        protected override QueryOver QueryCriteria { get; set; } = QueryOver.Of<WAFEL.Core.Anagrafica>();
 
         public GenericsObservable<bool> AllowEditing { get; set; }
 
@@ -51,19 +50,19 @@ namespace FaPA.GUI.Feautures.Anagrafica
 
         public override void CreateNewModel(DetachedCriteria queryByExample)
         {
-            var entities = GetExeCriteria<Core.Anagrafica>(queryByExample);
+            var entities = GetExeCriteria<WAFEL.Core.Anagrafica>(queryByExample);
             SetUpModel(entities);
         }
 
         private void CreateNewModel(IList searchResult)
         {
 
-            var entitiesdto = new ObservableCollection<Core.Anagrafica>( 
-                searchResult.Cast<Core.Anagrafica>().ToList() );
+            var entitiesdto = new ObservableCollection<WAFEL.Core.Anagrafica>( 
+                searchResult.Cast<WAFEL.Core.Anagrafica>().ToList() );
 
             if (IsIncrementalSearch())
             {
-                foreach (var userEntity in Model.UserEntities.Cast<Core.Anagrafica>()
+                foreach (var userEntity in Model.UserEntities.Cast<WAFEL.Core.Anagrafica>()
                     .Where(userEntity => !entitiesdto.Contains(userEntity)))
                 {
                     entitiesdto.Add(userEntity);
@@ -79,7 +78,7 @@ namespace FaPA.GUI.Feautures.Anagrafica
 
         public void CreateNewModel( int activeTab, long id )
         {
-            QueryCriteria = QueryOver.Of<Core.Anagrafica>().Where( a=>a.Id == id );
+            QueryCriteria = QueryOver.Of<WAFEL.Core.Anagrafica>().Where( a=>a.Id == id );
             CreateNewModel( activeTab );
             SetActiveWorkSpace( 1 );
         }
@@ -87,9 +86,9 @@ namespace FaPA.GUI.Feautures.Anagrafica
         public override void CreateNewModel(int activeTab)
         {
             IsBusy = true;
-            var entities = GetExeCriteria<Core.Anagrafica>(QueryCriteria);
-            var entitiesdto = entities == null ? new ObservableCollection<Core.Anagrafica>()
-                : new ObservableCollection<Core.Anagrafica>(entities);
+            var entities = GetExeCriteria<WAFEL.Core.Anagrafica>(QueryCriteria);
+            var entitiesdto = entities == null ? new ObservableCollection<WAFEL.Core.Anagrafica>()
+                : new ObservableCollection<WAFEL.Core.Anagrafica>(entities);
             SetUpNewModel( 0, entitiesdto);
             IsBusy = false;
         }

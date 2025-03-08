@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using Caliburn.Micro;
-using FaPA.AppServices;
-using FaPA.Infrastructure.Helpers;
+using FaPA.Infrastructure;
+using FaPA.Infrastructure.Utils;
 using FaPA.Properties;
 
 namespace FaPA.GUI.Feautures.BackUpRestore

@@ -1,20 +1,18 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows.Input;
-using FaPA.DomainServices.Utils;
 using FaPA.GUI.Controls.MyTabControl;
 using FaPA.Infrastructure;
 using FaPA.Infrastructure.Utils;
 using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.Type;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Input;
+using WAFEL.Core.CORE.DomainServices.Utils;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
-    public class Presenter : PresenterBase<Core.Fattura, View>
+    public class Presenter : PresenterBase<WAFEL.Core.CORE.Fattura, View>
 	{
         private Action<Presenter> _onLoaded;
 
@@ -28,14 +26,14 @@ namespace FaPA.GUI.Feautures.Fattura
 
         #region props
 
-        protected override QueryOver QueryCriteria { get; set; } = QueryOver.Of<Core.Fattura>().
+        protected override QueryOver QueryCriteria { get; set; } = QueryOver.Of<WAFEL.Core.CORE.Fattura>().
             Fetch( f => f.AnagraficaCedenteDB ).Eager.
             Fetch( f => f.AnagraficaCommittenteDB ).Eager.
             OrderBy( f => f.DataCaricamentoDB ).Asc;
 
 
-        private IList<Core.Anagrafica> _fornitori;
-        public IList<Core.Anagrafica> Fornitori
+        private IList<WAFEL.Core.Anagrafica> _fornitori;
+        public IList<WAFEL.Core.Anagrafica> Fornitori
         {
             get { return _fornitori; }
             set
@@ -45,8 +43,8 @@ namespace FaPA.GUI.Feautures.Fattura
             }
         }
 
-        private IList<Core.Anagrafica> _committenti;
-        public IList<Core.Anagrafica> Committenti
+        private IList<WAFEL.Core.Anagrafica> _committenti;
+        public IList<WAFEL.Core.Anagrafica> Committenti
         {
             get { return _committenti; }
             set
@@ -79,7 +77,7 @@ namespace FaPA.GUI.Feautures.Fattura
 
             //var _comuni = new ReferenceDataFactory( typeof( Comune ) ).ReferenceCollection ;
 
-            var anagrafiche = new ReferenceDataFactory().GetReferenceCollection<Core.Anagrafica>(); 
+            var anagrafiche = new ReferenceDataFactory().GetReferenceCollection<WAFEL.Core.Anagrafica>(); 
 
             Fornitori = anagrafiche.OrderBy(f=>f.Denominazione + f.Cognome + f.Nome ).ToList();
 
@@ -168,7 +166,7 @@ namespace FaPA.GUI.Feautures.Fattura
             var presenter = Presenters.CreateInstance( "SearchFattura", null ) as SearchFattura.Presenter;
             if ( presenter == null )
                 throw new Exception();
-            presenter.ConfirmResult += OnConfirmResultFlyFetch<Core.Fattura, Core.Fattura>;
+            presenter.ConfirmResult += OnConfirmResultFlyFetch<WAFEL.Core.CORE.Fattura, WAFEL.Core.CORE.Fattura>;
             presenter.ShowDialog();
         }
 
@@ -185,8 +183,8 @@ namespace FaPA.GUI.Feautures.Fattura
 
         //    using ( var tx = Session.BeginTransaction() )
         //    {
-        //        fattura = Session.QueryOver<Core.Fattura>().Where( f => f.Id == currentEntity.Id ).
-        //            SingleOrDefault<Core.Fattura>();
+        //        fattura = Session.QueryOver<WAFEL.CORE.Fattura>().Where( f => f.Id == currentEntity.Id ).
+        //            SingleOrDefault<WAFEL.CORE.Fattura>();
 
         //        tx.Commit();
         //    }
@@ -258,7 +256,7 @@ namespace FaPA.GUI.Feautures.Fattura
 
         private QueryOver GetFattureByLastYearCriteria()
         {
-            var maxYear = Session.QueryOver<Core.Fattura>()
+            var maxYear = Session.QueryOver<WAFEL.Core.CORE.Fattura>()
                 .Select(
                     Projections.Max(Projections.SqlGroupProjection("YEAR(DataFatturaDB) As [Year]", "YEAR(DataFatturaDB)",
                         new[] {"YEAR"}, new IType[] {NHibernateUtil.Int32}))).Cacheable().SingleOrDefault<Int32>();
@@ -270,12 +268,12 @@ namespace FaPA.GUI.Feautures.Fattura
                 var maxDate = new DateTime(maxYear, 12, 31);
                 var minDate = new DateTime(maxYear, 01, 01);
 
-                detachedCriteria = QueryOver.Of<Core.Fattura>().
+                detachedCriteria = QueryOver.Of<WAFEL.Core.CORE.Fattura>().
                     Fetch(f => f.AnagraficaCedenteDB).Eager.Fetch(f => f.AnagraficaCommittenteDB).Eager.
                     Where(f => f.DataFatturaDB >= minDate).And(f => f.DataFatturaDB <= maxDate);
             }
             else
-                detachedCriteria = QueryOver.Of<Core.Fattura>().
+                detachedCriteria = QueryOver.Of<WAFEL.Core.CORE.Fattura>().
                     Fetch(f => f.AnagraficaCedenteDB).Eager.Fetch(f => f.AnagraficaCommittenteDB).Eager;
             return detachedCriteria;
         }

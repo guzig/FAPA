@@ -1,15 +1,16 @@
 ﻿using System.ComponentModel;
-using FaPA.Core;
-using FaPA.Core.FaPa;
+using WAFEL.Core;
+using WAFEL.Core.CORE.DomainServices.Helpers;
 using FaPA.GUI.Controls;
 using FaPA.Infrastructure;
+using WAFEL.Core.FaPa;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
-    public class DatiTerzoIntermediarioViewModel : CrudViewModel<Core.Fattura, TerzoIntermediarioSoggettoEmittenteType>
+    public class DatiTerzoIntermediarioViewModel : CrudViewModel<WAFEL.Core.CORE.Fattura, TerzoIntermediarioSoggettoEmittenteType>
     {
         //ctor
-        public DatiTerzoIntermediarioViewModel( IRepository repository, Core.Fattura instance ) :
+        public DatiTerzoIntermediarioViewModel( IRepository repository, WAFEL.Core.CORE.Fattura instance ) :
             base( repository, instance, f => f.TerzoIntermediarioOSoggettoEmittente, "Terzo emittente", false )
         {
             IsCloseable = false;

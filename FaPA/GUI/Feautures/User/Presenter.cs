@@ -5,14 +5,14 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
-using FaPA.Core;
-using FaPA.DomainServices.Utils;
+using WAFEL.Core;
 using FaPA.GUI.Controls.MyTabControl;
 using FaPA.GUI.Design.Events;
 using FaPA.GUI.Feautures.LogIn;
-using FaPA.Infrastructure.Helpers;
 using FaPA.Infrastructure.Utils;
 using NHibernate.Criterion;
+using WAFEL.Core.CORE.DomainServices.Utils;
+using WAFEL.CORE.DomainServices.Utils;
 
 namespace FaPA.GUI.Feautures.User
 {    
@@ -118,9 +118,9 @@ namespace FaPA.GUI.Feautures.User
         public override void CreateNewModel(int activeTab)
         {
             IsBusy = true;
-            var entities = GetExeCriteria<Core.UserData>( QueryCriteria );
-            var entitiesdto = entities == null ? new ObservableCollection<Core.UserData>()
-                : new ObservableCollection<Core.UserData>( entities );
+            var entities = GetExeCriteria<UserData>( QueryCriteria );
+            var entitiesdto = entities == null ? new ObservableCollection<UserData>()
+                : new ObservableCollection<UserData>( entities );
             SetUpNewModel( 0, entitiesdto );
             IsBusy = false;
         }

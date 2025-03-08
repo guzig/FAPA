@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
-namespace FaPA.Infrastructure.Helpers
+namespace FaPA.Infrastructure.Utils
 {
     public class Observable : BaseObservable
     {

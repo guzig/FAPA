@@ -1,14 +1,15 @@
-using FaPA.Core.FaPa;
+using WAFEL.Core.CORE.DomainServices.Helpers;
 using FaPA.GUI.Controls;
 using FaPA.Infrastructure;
+using WAFEL.Core.FaPa;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
-    public class TrasmittenteTabViewModel : CrudViewModel<Core.Fattura, DatiTrasmissioneType>
+    public class TrasmittenteTabViewModel : CrudViewModel<WAFEL.Core.CORE.Fattura, DatiTrasmissioneType>
     {
 
         //ctor
-        public TrasmittenteTabViewModel( IRepository repository, Core.Fattura instance ) :
+        public TrasmittenteTabViewModel( IRepository repository, WAFEL.Core.CORE.Fattura instance ) :
             base( repository, instance, f => f.DatiTrasmissione, "Trasmittente", false )
         {
             IsCloseable = false;

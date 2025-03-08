@@ -8,17 +8,15 @@ using System.Windows.Input;
 using FaPA.GUI.Controls.MyTabControl;
 using NHibernate;
 using System.Linq;
-using FaPA.AppServices.CoreValidation;
-using FaPA.Core;
-using FaPA.DomainServices.Helpers;
 using FaPA.Infrastructure;
 using FaPA.Infrastructure.Utils;
 using FaPA.Properties;
-using FaPA.Infrastructure.Helpers;
+using WAFEL.Core.CORE.AppServices.CoreValidation;
+using WAFEL.Core;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
-    public class EditFatturaViewModel : EditViewModel<Core.Fattura>
+    public class EditFatturaViewModel : EditViewModel<WAFEL.Core.CORE.Fattura>
     {
         private const string XsdValidationErrorIcon = @"/GUI/Design\Styles\Images\1366144159_error.png";
         private const string XsdValidationPassedIcon = @"/GUI/Design\Styles\Images\Button-Ok-icon.png";
@@ -158,12 +156,12 @@ namespace FaPA.GUI.Feautures.Fattura
 
         public override string EditTemplateName => "FatturaTemplate";
 
-        protected override Core.Fattura CreateInstance()
+        protected override WAFEL.Core.CORE.Fattura CreateInstance()
         {
-            var entity = Activator.CreateInstance<Core.Fattura>();
+            var entity = Activator.CreateInstance<WAFEL.Core.CORE.Fattura>();
             entity.DataFatturaDB = DateTime.Now.Date;
             entity.Init();
-            return ( Core.Fattura ) ObjectExplorer.DeepProxiedCopyOfType<FaPA.Core.BaseEntity>( entity );
+            return ( WAFEL.Core.CORE.Fattura ) ObjectExplorer.DeepProxiedCopyOfType<BaseEntity>( entity );
         }
 
         public override void CreateNewEntity()
@@ -177,7 +175,7 @@ namespace FaPA.GUI.Feautures.Fattura
                 var ana2 = copy.AnagraficaCommittenteDB;
                 copy.AnagraficaCedenteDB = null;
                 copy.AnagraficaCommittenteDB = null;
-                CurrentEntity = ( Core.Fattura ) ObjectExplorer.DeepProxiedCopyOfType<FaPA.Core.BaseEntity>( copy );
+                CurrentEntity = ( WAFEL.Core.CORE.Fattura ) ObjectExplorer.DeepProxiedCopyOfType<BaseEntity>( copy );
                 CurrentEntity.AnagraficaCedenteDB = ana1;
                 CurrentEntity.AnagraficaCommittenteDB = ana2;
             }
@@ -211,7 +209,7 @@ namespace FaPA.GUI.Feautures.Fattura
 
         #endregion
 
-        private void InitFatturaTabs(Core.Fattura fattura )
+        private void InitFatturaTabs(WAFEL.Core.CORE.Fattura fattura )
         {
             var tabCurrent = BasePresenter.GetActiveWorkSpace();
 
@@ -272,7 +270,7 @@ namespace FaPA.GUI.Feautures.Fattura
 
         }
 
-        private void OnCurrentFatturaChanged(Core.Fattura currententity)
+        private void OnCurrentFatturaChanged(WAFEL.Core.CORE.Fattura currententity)
         {
             InitFatturaTabs(CurrentEntity);
         }
@@ -315,7 +313,7 @@ namespace FaPA.GUI.Feautures.Fattura
 
         public override void PublishUpdateEntityEvent(BaseEntity dto)
         {
-            //EventPublisher.Publish(new FatturaUpdated {e = (Core.Fattura) CurrentDtoEntity}, this);
+            //EventPublisher.Publish(new FatturaUpdated {e = (WAFEL.CORE.Fattura) CurrentDtoEntity}, this);
         }
 
         protected override void PublishDeletedEntityEvent(BaseEntity dto)
@@ -395,7 +393,7 @@ namespace FaPA.GUI.Feautures.Fattura
             }
         }
 
-        private void ValidateAndFlushXml(Core.Fattura fattura)
+        private void ValidateAndFlushXml(WAFEL.Core.CORE.Fattura fattura)
         {
             string error = null;
             var folderPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
@@ -403,7 +401,7 @@ namespace FaPA.GUI.Feautures.Fattura
             FlushXml( fattura, path, out error );
         }
 
-        private void ValidateAndFlushPDF(Core.Fattura fattura){
+        private void ValidateAndFlushPDF(WAFEL.Core.CORE.Fattura fattura){
 
 
             var internalErrors = fattura.Validate();
@@ -499,7 +497,7 @@ namespace FaPA.GUI.Feautures.Fattura
             IsCopyMode = false;
         }
 
-        private bool FlushXml(Core.Fattura fattura, string path, out string error)
+        private bool FlushXml(WAFEL.Core.CORE.Fattura fattura, string path, out string error)
         {
             ShowCursor.Show();
             if ( ValidateAndCreateXmlStream(fattura, path, out error))
@@ -516,7 +514,7 @@ namespace FaPA.GUI.Feautures.Fattura
             }
         }
 
-        private bool ValidateAndCreateXmlStream(Core.Fattura fattura, string outPath, out string error)
+        private bool ValidateAndCreateXmlStream(WAFEL.Core.CORE.Fattura fattura, string outPath, out string error)
         {
             error = null;
 

@@ -1,11 +1,10 @@
-using System.Linq;
-using System.Windows.Input;
-using FaPA.Core.FaPa;
-using FaPA.DomainServices.Helpers;
 using FaPA.GUI.Controls;
 using FaPA.Infrastructure;
-using FaPA.Infrastructure.Helpers;
 using FaPA.Infrastructure.Utils;
+using System.Linq;
+using System.Windows.Input;
+using WAFEL.Core.FaPa;
+using WAFEL.Core.CORE.DomainServices.Helpers;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
@@ -85,7 +84,7 @@ namespace FaPA.GUI.Feautures.Fattura
             var root = Repository.Read();
             var current = CurrentPoco?.Unproxy();
             if ( current == null ) return null;
-            var list = ( ( Core.Fattura ) root ).DatiBeniServizi.DettaglioLinee;
+            var list = ( ( WAFEL.Core.CORE.Fattura ) root ).DatiBeniServizi.DettaglioLinee;
             if (list == null || !list.Any())
                 return null;
             return list.FirstOrDefault(r => r.Unproxy() == current);

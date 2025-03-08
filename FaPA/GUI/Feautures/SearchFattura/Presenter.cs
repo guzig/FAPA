@@ -9,10 +9,8 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using Caliburn.Micro;
-using FaPA.DomainServices.Helpers;
 using FaPA.Infrastructure;
 using FaPA.Infrastructure.FlyFetch;
-using FaPA.Infrastructure.Helpers;
 using FaPA.Infrastructure.Utils;
 using Action = System.Action;
 
@@ -116,7 +114,7 @@ namespace FaPA.GUI.Feautures.SearchFattura
             }
             else
             {
-                IList result = View.FattureGridSearch.SelectedItems.OfType<Core.Fattura>().ToList();
+                IList result = View.FattureGridSearch.SelectedItems.OfType<WAFEL.Core.CORE.Fattura>().ToList();
                 OnConfirmResult(new FinderConfirmSearchEventArgs(result,null, true, Model.AllowedGridProperties));
             }
             Model.IsBusy.Value = false;
@@ -165,7 +163,7 @@ namespace FaPA.GUI.Feautures.SearchFattura
         {
             Model.FattureFinder.ClearSearchParamValues();
             Model.Fatture = CollectionViewSource.GetDefaultView( 
-                new ObservableCollection<Core.Fattura>( new List<Core.Fattura>() ) );
+                new ObservableCollection<WAFEL.Core.CORE.Fattura>( new List<WAFEL.Core.CORE.Fattura>() ) );
         }
 
         public Fact CanConfirmAllResult

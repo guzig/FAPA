@@ -115,7 +115,7 @@ namespace FaPA.GUI.Feautures.SearchFattura
             }
             else
             {
-                IList result = View.FattureGridSearch.SelectedItems.OfType<Core.Fattura>().ToList();
+                IList result = View.FattureGridSearch.SelectedItems.OfType<WAFEL.CORE.Fattura>().ToList();
                 OnConfirmResult(new FinderConfirmSearchEventArgs(result,null, true, Model.AllowedGridProperties));
             }
             Model.IsBusy.Value = false;
@@ -164,7 +164,7 @@ namespace FaPA.GUI.Feautures.SearchFattura
         {
             Model.FattureFinder.ClearSearchParamValues();
             Model.Fatture = CollectionViewSource.GetDefaultView( 
-                new ObservableCollection<Core.Fattura>( new List<Core.Fattura>() ) );
+                new ObservableCollection<WAFEL.CORE.Fattura>( new List<WAFEL.CORE.Fattura>() ) );
         }
 
         public Fact CanConfirmAllResult

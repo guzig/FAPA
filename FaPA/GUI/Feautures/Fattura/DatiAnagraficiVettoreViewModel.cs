@@ -1,7 +1,7 @@
-using System.ComponentModel;
-using FaPA.Core.FaPa;
 using FaPA.GUI.Controls;
 using FaPA.Infrastructure;
+using System.ComponentModel;
+using WAFEL.Core.FaPa;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
@@ -16,7 +16,7 @@ namespace FaPA.GUI.Feautures.Fattura
         public override DatiTrasportoType ReadInstance()
         {
            var root = Repository.Read();
-           return ( ( Core.Fattura ) root ).DatiTrasporto;
+           return ( ( WAFEL.Core.CORE.Fattura ) root ).DatiTrasporto;
         }
 
         protected override object CreateInstance()

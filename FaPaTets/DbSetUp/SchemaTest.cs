@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
-using FaPA.AppServices;
 using FaPA.Data;
 using FaPA.DomainServices.Helpers;
+using FaPA.Infrastructure;
 using FaPA.Infrastructure.Helpers;
 using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;

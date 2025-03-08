@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Caliburn.Micro;
-using FaPA.Infrastructure.Helpers;
+using FaPA.Infrastructure.Utils;
 
 namespace FaPA.GUI.Feautures.SearchFattura
 {
@@ -39,9 +39,9 @@ namespace FaPA.GUI.Feautures.SearchFattura
             }
         }
 
-        private ObservableCollection<Core.Fattura> _pagedCollection;
+        private ObservableCollection<WAFEL.Core.CORE.Fattura> _pagedCollection;
 
-        public ObservableCollection<Core.Fattura> PagedCollection
+        public ObservableCollection<WAFEL.Core.CORE.Fattura> PagedCollection
         {
             get { return _pagedCollection; }
             set { _pagedCollection = value; NotifyOfPropertyChange(() => PagedCollection); }

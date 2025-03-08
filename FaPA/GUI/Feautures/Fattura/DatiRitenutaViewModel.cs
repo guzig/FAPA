@@ -1,6 +1,6 @@
-using FaPA.Core.FaPa;
 using FaPA.GUI.Controls;
 using FaPA.Infrastructure;
+using WAFEL.Core.FaPa;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
@@ -14,7 +14,7 @@ namespace FaPA.GUI.Feautures.Fattura
         public override DatiGeneraliDocumentoType ReadInstance()
         {
             var root = Repository.Read();
-            return ( ( Core.Fattura ) root ).DatiGeneraliDocumento;
+            return ( ( WAFEL.Core.CORE.Fattura ) root ).DatiGeneraliDocumento;
         }
         
         //protected override void OnRequestClose()

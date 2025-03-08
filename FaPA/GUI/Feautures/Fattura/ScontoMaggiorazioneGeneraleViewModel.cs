@@ -1,6 +1,7 @@
-using FaPA.Core.FaPa;
+using WAFEL.Core.CORE.DomainServices.Helpers;
 using FaPA.GUI.Controls;
 using FaPA.Infrastructure;
+using WAFEL.Core.FaPa;
 
 namespace FaPA.GUI.Feautures.Fattura
 {

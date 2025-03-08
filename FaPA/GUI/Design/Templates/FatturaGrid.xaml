@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:myRecordNavigator="clr-namespace:FaPA.GUI.Controls.MyRecordNavigator"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" MaxHeight="600"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+        MaxHeight="600"
         mc:Ignorable="d">
     <Grid >
         
@@ -51,13 +53,13 @@
                         VirtualizingStackPanel.IsVirtualizing="True"
                         VirtualizingStackPanel.VirtualizationMode="Standard">
 
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseDoubleClick">
-                        <i:InvokeCommandAction 
+                <b:Interaction.Triggers>
+                    <b:EventTrigger EventName="MouseDoubleClick">
+                        <b:InvokeCommandAction 
                                     Command="{Binding Presenter.EntityChoosenCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
                                     CommandParameter="{Binding ElementName=FattureGridControl}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
+                    </b:EventTrigger>
+                </b:Interaction.Triggers>
                 
                 <DataGrid.GroupStyle>
                     <GroupStyle ContainerStyle="{StaticResource GroupHeaderStyle}">

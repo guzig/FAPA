@@ -14,7 +14,7 @@ namespace FaPA.Infrastructure.Utils
 
         public WindowBase()
         {
-            IObservable<SizeChangedEventArgs> ObservableSizeChanges = Observable.
+            IObservable<SizeChangedEventArgs> ObservableSizeChanges = System.Reactive.Linq.Observable.
                 FromEventPattern<SizeChangedEventArgs>(this, "SizeChanged").
                 Select(x => x.EventArgs).
                 Throttle(TimeSpan.FromMilliseconds(50));

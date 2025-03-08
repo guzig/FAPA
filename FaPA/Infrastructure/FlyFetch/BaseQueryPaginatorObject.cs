@@ -7,7 +7,8 @@ using System.Windows;
 using Caliburn.Micro;
 using NHibernate;
 using NHibernate.Criterion;
-using FaPA.DomainServices.Utils;
+using WAFEL.CORE.DomainServices.Utils;
+
 
 namespace FaPA.Infrastructure.FlyFetch
 {

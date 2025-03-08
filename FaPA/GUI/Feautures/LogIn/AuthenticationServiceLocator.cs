@@ -1,6 +1,7 @@
 using System.Threading;
-using FaPA.Core;
-using FaPA.DomainServices.AuthenticationServices;
+using WAFEL.Core;
+using WAFEL.CORE.DomainServices.AuthenticationServices;
+using WAFEL.DomainServices.AuthenticationServices;
 
 namespace FaPA.GUI.Feautures.LogIn
 {

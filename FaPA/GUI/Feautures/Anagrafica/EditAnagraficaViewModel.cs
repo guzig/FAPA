@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.ComponentModel;
-using FaPA.Core;
 using FaPA.GUI.Controls.MyTabControl;
 using NHibernate;
+using WAFEL.Core;
 
 namespace FaPA.GUI.Feautures.Anagrafica
 {
-    public class EditAnagraficaViewModel : EditViewModel<Core.Anagrafica>
+    public class EditAnagraficaViewModel : EditViewModel<WAFEL.Core.Anagrafica>
     {
         public EditAnagraficaViewModel( IBasePresenter baseCrudPresenter, IList userEntities,
             ICollectionView userCollectionView, ISession session ) : base( baseCrudPresenter, userEntities, userCollectionView )

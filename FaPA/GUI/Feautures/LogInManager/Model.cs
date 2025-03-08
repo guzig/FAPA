@@ -1,9 +1,9 @@
+using Caliburn.Micro;
+using FaPA.Annotations;
 using System;
 using System.Text;
 using System.Windows.Input;
-using Caliburn.Micro;
-using FaPA.Annotations;
-using FaPA.DomainServices.AuthenticationServices;
+using WAFEL.DomainServices.AuthenticationServices;
 
 namespace FaPA.GUI.Feautures.LogInManager
 {

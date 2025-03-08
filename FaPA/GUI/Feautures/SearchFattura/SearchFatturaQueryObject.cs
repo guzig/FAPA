@@ -4,8 +4,8 @@ using FaPA.Infrastructure.FlyFetch;
 namespace FaPA.GUI.Feautures.SearchFattura
 {
 
-    public class SearchFatturaQueryObject : BaseQueryPaginatorObject<Core.Fattura,Core.Fattura>, ICountProvider, 
-        IPageProvider<Core.Fattura, ObservableCollection<Core.Fattura>>
+    public class SearchFatturaQueryObject : BaseQueryPaginatorObject<WAFEL.Core.CORE.Fattura, WAFEL.Core.CORE.Fattura>, ICountProvider, 
+        IPageProvider<WAFEL.Core.CORE.Fattura, ObservableCollection<WAFEL.Core.CORE.Fattura>>
         
     {
 

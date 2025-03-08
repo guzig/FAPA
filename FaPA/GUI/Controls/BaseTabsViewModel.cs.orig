@@ -10,7 +10,7 @@ using FaPA.AppServices.CoreValidation;
 using FaPA.GUI.Controls.MyTabControl;
 using FaPA.Infrastructure;
 using Remotion.Linq.Collections;
-using FaPA.Core;
+using WAFEL.CORE.Core;
 using FaPA.Infrastructure.Helpers;
 using NHibernate.Criterion;
 using NHibernate.Proxy.DynamicProxy;

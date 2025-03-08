@@ -1,3 +1,8 @@
+using FaPA.GUI.Controls.MyTabControl;
+using FaPA.Infrastructure;
+using NHibernate.Proxy.DynamicProxy;
+using NHibernate.Util;
+using Remotion.Linq.Collections;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,15 +12,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Windows;
 using System.Windows.Data;
-using FaPA.AppServices.CoreValidation;
-using FaPA.GUI.Controls.MyTabControl;
-using FaPA.Infrastructure;
-using Remotion.Linq.Collections;
-using FaPA.Core;
-using FaPA.DomainServices.Helpers;
-using FaPA.Infrastructure.Helpers;
-using NHibernate.Proxy.DynamicProxy;
-using NHibernate.Util;
+using WAFEL.Core.CORE.AppServices.CoreValidation;
+using WAFEL.Core;
+using WAFEL.Core.CORE.DomainServices.Helpers;
 
 namespace FaPA.GUI.Controls
 {
@@ -322,7 +321,7 @@ namespace FaPA.GUI.Controls
             var newInstance = CreateInstance();
                 
 
-            var proxy = ObjectExplorer.DeepProxiedCopyOfType<FaPA.Core.BaseEntity>( newInstance );
+            var proxy = ObjectExplorer.DeepProxiedCopyOfType<BaseEntity>( newInstance );
             _userAddedNewPocos.Add( proxy );
             HookChanged( ( INotifyPropertyChanged) proxy );
             aray[aray.Length - 1] = proxy;

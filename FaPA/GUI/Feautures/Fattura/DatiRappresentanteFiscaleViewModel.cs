@@ -1,16 +1,17 @@
 using System.ComponentModel;
-using FaPA.Core.FaPa;
+using WAFEL.Core.CORE.DomainServices.Helpers;
 using FaPA.GUI.Controls;
 using FaPA.Infrastructure;
+using WAFEL.Core.FaPa;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
 
-    public class DatiRappresentanteFiscaleViewModel : CrudViewModel<Core.Fattura, RappresentanteFiscaleType>
+    public class DatiRappresentanteFiscaleViewModel : CrudViewModel<WAFEL.Core.CORE.Fattura, RappresentanteFiscaleType>
     {
 
         //ctor
-        public DatiRappresentanteFiscaleViewModel( IRepository repository, Core.Fattura instance ) :
+        public DatiRappresentanteFiscaleViewModel( IRepository repository, WAFEL.Core.CORE.Fattura instance ) :
             base( repository, instance, f => f.RappresentanteFiscale, "Rapp.Fiscale", false )
         {
             IsCloseable = false;

@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel;
 
-namespace FaPA.Infrastructure.Helpers
+namespace FaPA.Infrastructure.Utils
 {
     public abstract class BaseObservable: INotifyPropertyChanged
     {

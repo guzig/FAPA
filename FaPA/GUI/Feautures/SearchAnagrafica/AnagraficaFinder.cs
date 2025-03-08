@@ -39,25 +39,25 @@ namespace FaPA.GUI.Feautures.SearchAnagrafica
 
         private void Init()
         {
-            AnagraficaId = CreateSearchProperty( (Core.Anagrafica f ) => f.Id, "Id");
-            Denominazione = CreateSearchProperty( (Core.Anagrafica f) => f.Denominazione, "Rag.Sociale");
-            Cognome = CreateSearchProperty( (Core.Anagrafica f) => f.Cognome, "Cognome");
-            CodiceFiscale = CreateSearchProperty( ( Core.Anagrafica f ) => f.CodiceFiscale, "CodiceFiscale" );
-            PIva = CreateSearchProperty( ( Core.Anagrafica f ) => f.PIva, "P. IVA" );
-            Nome = CreateSearchProperty( (Core.Anagrafica f) => f.Nome, "Nome");
-            Indirizzo = CreateSearchProperty( ( Core.Anagrafica f ) => f.Indirizzo, "Indirizzo" );
-            Civico = CreateSearchProperty( ( Core.Anagrafica f ) => f.Civico, "Civico" );
-            Cap = CreateSearchProperty( ( Core.Anagrafica f ) => f.Cap, "Cap" );
-            Comune = CreateSearchProperty( ( Core.Anagrafica f ) => f.Comune, "Comune" );
-            Provincia = CreateSearchProperty( ( Core.Anagrafica f ) => f.Provincia, "Provincia" );
-            Nazione = CreateSearchProperty( ( Core.Anagrafica f ) => f.Nazione, "Nazione" );
-            CodUfficioPa = CreateSearchProperty( ( Core.Anagrafica f ) => f.CodUfficioPa, "Cod. Uff. PA" );
-            CodSoggettoSDI = CreateSearchProperty((Core.Anagrafica f) => f.CodSoggettoSDI, "Cod. soggetto SDI");
-            Pec = CreateSearchProperty( ( Core.Anagrafica f ) => f.Pec, "Pec" );
-            Email = CreateSearchProperty( ( Core.Anagrafica f ) => f.Email, "Email" );
-            Tel = CreateSearchProperty( ( Core.Anagrafica f ) => f.Tel, "Tel" );
-            Fax = CreateSearchProperty( ( Core.Anagrafica f ) => f.Fax, "Fax" );
-            RifAmministrazione = CreateSearchProperty( ( Core.Anagrafica f ) => f.RifAmministrazione, "Rif. Amm." );
+            AnagraficaId = CreateSearchProperty( (WAFEL.Core.Anagrafica f ) => f.Id, "Id");
+            Denominazione = CreateSearchProperty( (WAFEL.Core.Anagrafica f) => f.Denominazione, "Rag.Sociale");
+            Cognome = CreateSearchProperty( (WAFEL.Core.Anagrafica f) => f.Cognome, "Cognome");
+            CodiceFiscale = CreateSearchProperty( ( WAFEL.Core.Anagrafica f ) => f.CodiceFiscale, "CodiceFiscale" );
+            PIva = CreateSearchProperty( ( WAFEL.Core.Anagrafica f ) => f.PIva, "P. IVA" );
+            Nome = CreateSearchProperty( (WAFEL.Core.Anagrafica f) => f.Nome, "Nome");
+            Indirizzo = CreateSearchProperty( ( WAFEL.Core.Anagrafica f ) => f.Indirizzo, "Indirizzo" );
+            Civico = CreateSearchProperty( (WAFEL.Core.Anagrafica f ) => f.Civico, "Civico" );
+            Cap = CreateSearchProperty( (WAFEL.Core.Anagrafica f ) => f.Cap, "Cap" );
+            Comune = CreateSearchProperty( (WAFEL.Core.Anagrafica f ) => f.Comune, "Comune" );
+            Provincia = CreateSearchProperty( (WAFEL.Core.Anagrafica f ) => f.Provincia, "Provincia" );
+            Nazione = CreateSearchProperty( (WAFEL.Core.Anagrafica f ) => f.Nazione, "Nazione" );
+            CodUfficioPa = CreateSearchProperty( (WAFEL.Core.Anagrafica f ) => f.CodUfficioPa, "Cod. Uff. PA" );
+            CodSoggettoSDI = CreateSearchProperty((WAFEL.Core.Anagrafica f) => f.CodSoggettoSDI, "Cod. soggetto SDI");
+            Pec = CreateSearchProperty( (WAFEL.Core.Anagrafica f ) => f.Pec, "Pec" );
+            Email = CreateSearchProperty( (WAFEL.Core.Anagrafica f ) => f.Email, "Email" );
+            Tel = CreateSearchProperty( (WAFEL.Core.Anagrafica f ) => f.Tel, "Tel" );
+            Fax = CreateSearchProperty( (WAFEL.Core.Anagrafica f ) => f.Fax, "Fax" );
+            RifAmministrazione = CreateSearchProperty( (WAFEL.Core.Anagrafica f ) => f.RifAmministrazione, "Rif. Amm." );
 
         }
 

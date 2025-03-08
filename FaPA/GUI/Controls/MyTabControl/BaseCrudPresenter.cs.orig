@@ -6,8 +6,8 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
-using FaPA.Core;
-using FaPA.DomainServices.Utils;
+using WAFEL.CORE.Core;
+
 using FaPA.GUI.Utils;
 using FaPA.Infrastructure;
 using FaPA.Infrastructure.FlyFetch;

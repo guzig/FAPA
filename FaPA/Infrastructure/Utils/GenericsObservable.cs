@@ -1,6 +1,6 @@
 using System.ComponentModel;
 
-namespace FaPA.Infrastructure.Helpers
+namespace FaPA.Infrastructure.Utils
 {
     public class GenericsObservable<T> : INotifyPropertyChanged
 	{

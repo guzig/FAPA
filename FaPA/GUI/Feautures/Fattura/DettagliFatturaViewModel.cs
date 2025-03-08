@@ -1,15 +1,16 @@
 using System;
 using System.ComponentModel;
 using System.Windows.Data;
-using FaPA.Core;
-using FaPA.Core.FaPa;
+using WAFEL.Core;
+using WAFEL.Core.CORE.DomainServices.Helpers;
 using FaPA.GUI.Controls;
 using FaPA.GUI.Controls.MyTabControl;
 using FaPA.Infrastructure;
+using WAFEL.Core.FaPa;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
-    public class DettagliFatturaViewModel : CrudListViewModel<Core.Fattura, DettaglioLineeType[]>
+    public class DettagliFatturaViewModel : CrudListViewModel<WAFEL.Core.CORE.Fattura, DettaglioLineeType[]>
     {
         private bool _isOnInit;
 
@@ -36,7 +37,7 @@ namespace FaPA.GUI.Feautures.Fattura
             }
         }
 
-        public DettagliFatturaViewModel( IRepository repository, Core.Fattura instance ) :
+        public DettagliFatturaViewModel( IRepository repository, WAFEL.Core.CORE.Fattura instance ) :
             base( f => f.DettaglioLinee, repository, instance, "", false )
         {}
 

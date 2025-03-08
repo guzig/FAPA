@@ -36,10 +36,10 @@ namespace FaPA.GUI.Feautures.SearchFattura
 
 
         public FattureFinder(Action<string> callBackOnCriteria)
-            : base(typeof(Core.Fattura), callBackOnCriteria)
+            : base(typeof(WAFEL.Core.CORE.Fattura), callBackOnCriteria)
         {
 
-            QueryCriteria = QueryOver.Of<Core.Fattura>().Fetch( f => f.AnagraficaCedenteDB ).Eager.
+            QueryCriteria = QueryOver.Of<WAFEL.Core.CORE.Fattura>().Fetch( f => f.AnagraficaCedenteDB ).Eager.
                 Fetch( f => f.AnagraficaCommittenteDB ).Eager.
                 OrderBy( f => f.DataFatturaDB ).Asc;
             
@@ -48,29 +48,29 @@ namespace FaPA.GUI.Feautures.SearchFattura
 
         private void SetUpFinderProps()
         {
-            FatturaId = CreateSearchProperty( ( Core.Fattura f ) => f.Id, "Id" );
+            FatturaId = CreateSearchProperty( (WAFEL.Core.CORE.Fattura f ) => f.Id, "Id" );
 
-            NumFattura = CreateSearchProperty( ( Core.Fattura f ) => f.NumeroFatturaDB, "Numero" );
+            NumFattura = CreateSearchProperty( (WAFEL.Core.CORE.Fattura f ) => f.NumeroFatturaDB, "Numero" );
 
-            DataFattura = CreateSearchProperty( ( Core.Fattura f ) => f.DataFatturaDB, "Data" );
+            DataFattura = CreateSearchProperty( ( WAFEL.Core.CORE.Fattura f ) => f.DataFatturaDB, "Data" );
 
-            DataCaricamento = CreateSearchProperty( ( Core.Fattura f ) => f.DataCaricamentoDB, "Data caricamento" );
+            DataCaricamento = CreateSearchProperty( ( WAFEL.Core.CORE.Fattura f ) => f.DataCaricamentoDB, "Data caricamento" );
 
-            Committente = CreateSearchProperty( ( Core.Fattura f ) => f.AnagraficaCommittenteDB, typeof( CommittenteSearchProperty ),
-                ( Core.Fattura f ) => f.AnagraficaCommittenteDB.Denom, "Committente" );
+            Committente = CreateSearchProperty( ( WAFEL.Core.CORE.Fattura f ) => f.AnagraficaCommittenteDB, typeof( CommittenteSearchProperty ),
+                ( WAFEL.Core.CORE.Fattura f ) => f.AnagraficaCommittenteDB.Denom, "Committente" );
 
-            Fornitore = CreateSearchProperty( ( Core.Fattura f ) => f.AnagraficaCedenteDB, typeof( FornitoreSearchProperty ),
-                ( Core.Fattura f ) => f.AnagraficaCedenteDB.Denom, "Fornitore" );
+            Fornitore = CreateSearchProperty( ( WAFEL.Core.CORE.Fattura f ) => f.AnagraficaCedenteDB, typeof( FornitoreSearchProperty ),
+                ( WAFEL.Core.CORE.Fattura f ) => f.AnagraficaCedenteDB.Denom, "Fornitore" );
 
-            TotaleFattura = CreateSearchProperty( ( Core.Fattura f ) => f.TotaleFatturaDB, "Totale fattura" );
+            TotaleFattura = CreateSearchProperty( ( WAFEL.Core.CORE.Fattura f ) => f.TotaleFatturaDB, "Totale fattura" );
 
-            CigDB = CreateSearchProperty( ( Core.Fattura f ) => f.CigDB, "CIG" );
-            CupDB = CreateSearchProperty( ( Core.Fattura f ) => f.CupDB, "CUP" );
-            CodUfficioDB = CreateSearchProperty( ( Core.Fattura f ) => f.CodUfficioDB, "Cod. Ufficio" );
-            PecDestinatarioDB = CreateSearchProperty( ( Core.Fattura f ) => f.PecDestinatarioDB, "PEC destin." );
-            ProgFile = CreateSearchProperty( ( Core.Fattura f ) => f.ProgFile, "Progr. invio" );
-            FormatoTrasmissioneDB = CreateSearchProperty( ( Core.Fattura f ) => f.FormatoTrasmissioneDB, "Formato" );
-            RiferimentoAmmDB = CreateSearchProperty( ( Core.Fattura f ) => f.RiferimentoAmmDB, "Rif. Amm." );
+            CigDB = CreateSearchProperty( ( WAFEL.Core.CORE.Fattura f ) => f.CigDB, "CIG" );
+            CupDB = CreateSearchProperty( ( WAFEL.Core.CORE.Fattura f ) => f.CupDB, "CUP" );
+            CodUfficioDB = CreateSearchProperty( ( WAFEL.Core.CORE.Fattura f ) => f.CodUfficioDB, "Cod. Ufficio" );
+            PecDestinatarioDB = CreateSearchProperty( ( WAFEL.Core.CORE.Fattura f ) => f.PecDestinatarioDB, "PEC destin." );
+            ProgFile = CreateSearchProperty( ( WAFEL.Core.CORE.Fattura f ) => f.ProgFile, "Progr. invio" );
+            FormatoTrasmissioneDB = CreateSearchProperty( ( WAFEL.Core.CORE.Fattura f ) => f.FormatoTrasmissioneDB, "Formato" );
+            RiferimentoAmmDB = CreateSearchProperty( ( WAFEL.Core.CORE.Fattura f ) => f.RiferimentoAmmDB, "Rif. Amm." );
 
             //StatoFattura = CreateSearchProperty( ( Core.Fattura f ) => f.StatoFattura, "Stato fattura" );
         }

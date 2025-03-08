@@ -1,14 +1,14 @@
-using System.ComponentModel;
-using FaPA.Core.FaPa;
 using FaPA.GUI.Controls;
 using FaPA.Infrastructure;
+using System.ComponentModel;
+using WAFEL.Core.FaPa;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
-    public class DatiPagamentoTabViewModel : CrudListViewModel<Core.Fattura, DatiPagamentoType[]>
+    public class DatiPagamentoTabViewModel : CrudListViewModel<WAFEL.Core.CORE.Fattura, DatiPagamentoType[]>
     {
         //ctor
-        public DatiPagamentoTabViewModel(IRepository repository, Core.Fattura instance) :
+        public DatiPagamentoTabViewModel(IRepository repository, WAFEL.Core.CORE.Fattura instance) :
             base(f => f.DatiPagamento, repository, instance, "Pagamenti", false)
         {}
 

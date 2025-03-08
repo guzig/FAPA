@@ -1,5 +1,6 @@
 using System;
 using FaPA.Core.FaPa;
+using FaPA.Infrastructure;
 using NUnit.Framework;
 
 namespace FaPaTets.FatturaPa.FatturaPa_11
@@ -8,7 +9,7 @@ namespace FaPaTets.FatturaPa.FatturaPa_11
 
     public class ValidationSchemaTestsV11
     {
-        private readonly string _schema = FaPA.AppServices.StoreAccess.DataPath + @"\fatturapa_v1.2.xsd";
+        private readonly string _schema = StoreAccess.DataPath + @"\fatturapa_v1.2.xsd";
         //TestsPaths.TestDataRootPath + @"\XSD-Fattura\XSD_Schemas\XSD_Schema_v11\fatturapa_v1.2.xsd";
 
         [Test]

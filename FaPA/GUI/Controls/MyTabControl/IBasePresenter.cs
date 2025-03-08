@@ -1,5 +1,5 @@
 using System.Collections.ObjectModel;
-using FaPA.Core;
+using WAFEL.Core;
 using NHibernate.Criterion;
 
 namespace FaPA.GUI.Controls.MyTabControl

@@ -11,15 +11,15 @@ namespace FaPA.Infrastructure.FlyFetch
         static readonly AssemblyBuilder AssemblyBuilder;
         static readonly ModuleBuilder ModuleBuilder;
         static readonly Dictionary<Type, Type> Cache = new Dictionary<Type, Type>();
-        static ProxyFactory()
-        {
-            var name = new AssemblyName("pageable_proxies");
-            AssemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(name, AssemblyBuilderAccess.RunAndSave);
-            ModuleBuilder = AssemblyBuilder.DefineDynamicModule("main","pageable_proxies.dll");
-           
-        }
 
-        public static T CreateProxy<T>(IPageHit hitChecker)
+		static ProxyFactory()
+		{
+			var name = new AssemblyName("pageable_proxies");
+			AssemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(name, AssemblyBuilderAccess.Run);
+			ModuleBuilder = AssemblyBuilder.DefineDynamicModule("main");
+		}
+
+		public static T CreateProxy<T>(IPageHit hitChecker)
         {
             return (T) Activator.CreateInstance(CreateProxyType(typeof(T)), hitChecker);
         }

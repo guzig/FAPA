@@ -1,10 +1,13 @@
 using System;
 using System.Threading;
 using System.Windows.Input;
-using FaPA.DomainServices.AuthenticationServices;
-using FaPA.DomainServices.Utils;
+
+
 using FaPA.Infrastructure;
 using FaPA.Infrastructure.Utils;
+using WAFEL.DomainServices.AuthenticationServices;
+using WAFEL.Core.CORE.DomainServices.Utils;
+using WAFEL.CORE.DomainServices.Utils;
 
 namespace FaPA.GUI.Feautures.LogInManager
 {

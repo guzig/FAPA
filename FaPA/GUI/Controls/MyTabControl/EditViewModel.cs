@@ -10,14 +10,12 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
-using FaPA.Core;
-using FaPA.Data;
-using FaPA.DomainServices.Helpers;
 using FaPA.Infrastructure;
-using FaPA.Infrastructure.Helpers;
 using FaPA.Infrastructure.Utils;
 using NHibernate;
 using NHibernate.Criterion;
+using WAFEL.Core;
+using WAFEL.Core.CORE.DomainServices.Helpers;
 using Action = System.Action;
 
 namespace FaPA.GUI.Controls.MyTabControl

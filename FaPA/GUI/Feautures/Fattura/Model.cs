@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.ObjectModel;
 using System.Linq;
 using FaPA.GUI.Controls.MyTabControl;
-using FaPA.Infrastructure.Helpers;
+using FaPA.Infrastructure.Utils;
 using NHibernate;
 
 namespace FaPA.GUI.Feautures.Fattura
@@ -28,10 +28,10 @@ namespace FaPA.GUI.Feautures.Fattura
             //...so the trick we use is an in-memory cache to simulate property-level for binding UI purpose validation 
             //and to reduce round-trips to Db
 
-            _editViewModel.AddEntityLevelPropValidation( ( Core.Fattura f ) => f.DataFatturaDB )
-                .AddEntityLevelPropValidation((Core.Fattura f) => f.TotaleFatturaDB)
-                .AddEntityLevelPropValidation((Core.Fattura f) => f.NumeroFatturaDB)
-                .AddEntityLevelPropValidation((Core.Fattura f) => f.AnagraficaCedenteDB);
+            _editViewModel.AddEntityLevelPropValidation( ( WAFEL.Core.CORE.Fattura f ) => f.DataFatturaDB )
+                .AddEntityLevelPropValidation((WAFEL.Core.CORE.Fattura f) => f.TotaleFatturaDB)
+                .AddEntityLevelPropValidation((WAFEL.Core.CORE.Fattura f) => f.NumeroFatturaDB)
+                .AddEntityLevelPropValidation((WAFEL.Core.CORE.Fattura f) => f.AnagraficaCedenteDB);
 
             if (Workspaces != null && !Workspaces.Any( w => w is FatturaListViewModel ) )
             {
@@ -54,13 +54,13 @@ namespace FaPA.GUI.Feautures.Fattura
         
 		public GenericsObservable<bool> AllowEditing { get; set; }
 
-        private ObservableCollection<Core.Fattura> _userEntities;
+        private ObservableCollection<WAFEL.Core.CORE.Fattura> _userEntities;
         public override IList UserEntities
         {
             get { return _userEntities; }
             set
             {
-                _userEntities = ( ObservableCollection<Core.Fattura> )value;
+                _userEntities = ( ObservableCollection<WAFEL.Core.CORE.Fattura> )value;
                 NotifyOfPropertyChange(() => UserEntities);
             }
         }

@@ -1,6 +1,7 @@
-using FaPA.Core.FaPa;
+using WAFEL.Core.CORE.DomainServices.Helpers;
 using FaPA.GUI.Controls;
 using FaPA.Infrastructure;
+using WAFEL.Core.FaPa;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
@@ -26,7 +27,7 @@ namespace FaPA.GUI.Feautures.Fattura
         public override DatiBeniServiziType ReadInstance()
         {
             var root = Repository.Read();
-            return ( ( Core.Fattura )root ).DatiBeniServizi;
+            return ( ( WAFEL.Core.CORE.Fattura )root ).DatiBeniServizi;
         }
 
     }

@@ -5,7 +5,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Data;
 using FaPA.Infrastructure;
-using FaPA.Infrastructure.Helpers;
 using FaPA.Infrastructure.Utils;
 
 namespace FaPA.GUI.Feautures.SearchAnagrafica
@@ -14,7 +13,7 @@ namespace FaPA.GUI.Feautures.SearchAnagrafica
     {
         private readonly BackgroundWorker _queryBackgroundWorker;
 
-        private IList<Core.Anagrafica> _anagrafiche;
+        private IList<WAFEL.Core.Anagrafica> _anagrafiche;
         private bool _isSelectedAll;
 
         public Presenter()
@@ -113,7 +112,7 @@ namespace FaPA.GUI.Feautures.SearchAnagrafica
             }
             else
             {
-                IList result = View.AnagraficaGridSearch.SelectedItems.OfType<Core.Anagrafica>().ToList();
+                IList result = View.AnagraficaGridSearch.SelectedItems.OfType<WAFEL.Core.Anagrafica>().ToList();
                 OnConfirmResult( new FinderConfirmSearchEventArgs( result, null, true, Model.AllowedGridProperties ) );
             }
             Model.IsBusy.Value = false;
@@ -154,8 +153,8 @@ namespace FaPA.GUI.Feautures.SearchAnagrafica
         public void OnClearSearch()
         {
             Model.AnagraficaFinder.ClearSearchParamValues();
-            Model.AnagraficheView=CollectionViewSource.GetDefaultView( new ObservableCollection<Core.Anagrafica>(
-                new List<Core.Anagrafica>() ) ) ;
+            Model.AnagraficheView=CollectionViewSource.GetDefaultView( new ObservableCollection<WAFEL.Core.Anagrafica>(
+                new List<WAFEL.Core.Anagrafica>() ) ) ;
         }
 
         #endregion
@@ -163,9 +162,9 @@ namespace FaPA.GUI.Feautures.SearchAnagrafica
         private void CompleteQuery()
         {
             if ( _anagrafiche == null )
-                _anagrafiche = new Core.Anagrafica[] { };
+                _anagrafiche = new WAFEL.Core.Anagrafica[] { };
 
-            Model.AnagraficheView = CollectionViewSource.GetDefaultView( new ObservableCollection<Core.Anagrafica>(
+            Model.AnagraficheView = CollectionViewSource.GetDefaultView( new ObservableCollection<WAFEL.Core.Anagrafica>(
                 _anagrafiche ) );
 
             Model.AllowSearch.Value = true;
@@ -178,7 +177,7 @@ namespace FaPA.GUI.Feautures.SearchAnagrafica
         {
             if (!Model.AnagraficaFinder.CreateDetachedQuery()) return;
 
-            _anagrafiche = GetExeCriteriaAsReadOnly<Core.Anagrafica>( Model.AnagraficaFinder.DetachedQueryCriteria );
+            _anagrafiche = GetExeCriteriaAsReadOnly<WAFEL.Core.Anagrafica>( Model.AnagraficaFinder.DetachedQueryCriteria );
 
             Session.Clear();
 

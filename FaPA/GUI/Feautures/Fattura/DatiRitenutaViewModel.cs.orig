@@ -1,4 +1,4 @@
-using FaPA.Core.FaPa;
+using WAFEL.CORE.DomainServices.Helpers;
 using FaPA.GUI.Controls;
 using FaPA.Infrastructure;
 

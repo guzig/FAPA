@@ -9,14 +9,14 @@ using FaPA.GUI.Controls.MyTabControl;
 using NHibernate;
 using System.Linq;
 using FaPA.AppServices.CoreValidation;
-using FaPA.Core;
+using WAFEL.CORE.Core;
 using FaPA.Infrastructure;
 using FaPA.Infrastructure.Utils;
 using FaPA.Properties;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
-    public class EditFatturaViewModel : EditViewModel<Core.Fattura>
+    public class EditFatturaViewModel : EditViewModel<WAFEL.CORE.Fattura>
     {
         private const string XsdValidationErrorIcon = @"/GUI/Design\Styles\Images\1366144159_error.png";
         private const string XsdValidationPassedIcon = @"/GUI/Design\Styles\Images\Button-Ok-icon.png";
@@ -158,7 +158,7 @@ namespace FaPA.GUI.Feautures.Fattura
 
         protected override Core.Fattura CreateInstance()
         {
-            var entity = Activator.CreateInstance<Core.Fattura>();
+            var entity = Activator.CreateInstance<WAFEL.CORE.Fattura>();
             entity.DataFatturaDB = DateTime.Now.Date;
             entity.Init();
             return ( Core.Fattura ) ObjectExplorer.DeepProxiedCopyOfType<FaPA.Core.BaseEntity>( entity );
@@ -209,7 +209,7 @@ namespace FaPA.GUI.Feautures.Fattura
 
         #endregion
 
-        private void InitFatturaTabs(Core.Fattura fattura )
+        private void InitFatturaTabs(WAFEL.CORE.Fattura fattura )
         {
             var tabCurrent = BasePresenter.GetActiveWorkSpace();
 
@@ -270,7 +270,7 @@ namespace FaPA.GUI.Feautures.Fattura
 
         }
 
-        private void OnCurrentFatturaChanged(Core.Fattura currententity)
+        private void OnCurrentFatturaChanged(WAFEL.CORE.Fattura currententity)
         {
             InitFatturaTabs(CurrentEntity);
         }
@@ -313,7 +313,7 @@ namespace FaPA.GUI.Feautures.Fattura
 
         public override void PublishUpdateEntityEvent(BaseEntity dto)
         {
-            //EventPublisher.Publish(new FatturaUpdated {e = (Core.Fattura) CurrentDtoEntity}, this);
+            //EventPublisher.Publish(new FatturaUpdated {e = (WAFEL.CORE.Fattura) CurrentDtoEntity}, this);
         }
 
         public override void PublishDeletedEntityEvent(BaseEntity dto)
@@ -381,7 +381,7 @@ namespace FaPA.GUI.Feautures.Fattura
             }
         }
 
-        private void ValidateAndFlushXml(Core.Fattura fattura)
+        private void ValidateAndFlushXml(WAFEL.CORE.Fattura fattura)
         {
             string error = null;
             var folderPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
@@ -466,7 +466,7 @@ namespace FaPA.GUI.Feautures.Fattura
             IsCopyMode = false;
         }
 
-        private bool FlushXml(Core.Fattura fattura, string path, out string error)
+        private bool FlushXml(WAFEL.CORE.Fattura fattura, string path, out string error)
         {
             ShowCursor.Show();
             if ( ValidateAndCreateXmlStream(fattura, path, out error))
@@ -483,7 +483,7 @@ namespace FaPA.GUI.Feautures.Fattura
             }
         }
 
-        private bool ValidateAndCreateXmlStream(Core.Fattura fattura, string outPath, out string error)
+        private bool ValidateAndCreateXmlStream(WAFEL.CORE.Fattura fattura, string outPath, out string error)
         {
             error = null;
 

@@ -1,11 +1,10 @@
 ﻿using System.Collections;
 using System.ComponentModel;
-using FaPA.Core;
 using FaPA.GUI.Controls.MyTabControl;
 using FaPA.GUI.Design.Events;
-using FaPA.Infrastructure.Helpers;
 using FaPA.Infrastructure.Utils;
 using NHibernate;
+using WAFEL.Core;
 
 namespace FaPA.GUI.Feautures.User
 {  

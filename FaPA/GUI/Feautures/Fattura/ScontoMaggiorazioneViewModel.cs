@@ -1,8 +1,9 @@
 ﻿using System.Windows.Input;
-using FaPA.Core.FaPa;
+using WAFEL.Core.CORE.DomainServices.Helpers;
 using FaPA.GUI.Controls;
 using FaPA.Infrastructure;
 using FaPA.Infrastructure.Utils;
+using WAFEL.Core.FaPa;
 
 namespace FaPA.GUI.Feautures.Fattura
 {

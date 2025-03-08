@@ -6,7 +6,6 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Windows;
 using Caliburn.Micro;
-using FaPA.Infrastructure.Helpers;
 using FaPA.Infrastructure.Utils;
 using NHibernate;
 using NHibernate.Criterion;

@@ -2,7 +2,9 @@ using System;
 using System.Threading;
 using System.Windows.Input;
 using Caliburn.Micro;
-using FaPA.DomainServices.AuthenticationServices;
+using WAFEL.CORE.DomainServices.AuthenticationServices;
+using WAFEL.DomainServices.AuthenticationServices;
+
 
 namespace FaPA.GUI.Feautures.LogIn
 {

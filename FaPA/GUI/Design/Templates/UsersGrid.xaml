@@ -6,6 +6,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:myRecordNavigator="clr-namespace:FaPA.GUI.Controls.MyRecordNavigator"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid HorizontalAlignment="Stretch">
@@ -50,11 +51,11 @@
                         VirtualizingStackPanel.IsVirtualizing="True"
                         VirtualizingStackPanel.VirtualizationMode="Standard">
 
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseDoubleClick">
-                        <i:InvokeCommandAction Command="{Binding Presenter.EntityChoosenCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
+                <!--<b:Interaction.Triggers>
+                    <EventTrigger EventName="MouseDoubleClick">
+                        <b:InvokeCommandAction Command="{Binding Presenter.EntityChoosenCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+                    </EventTrigger>
+                </b:Interaction.Triggers>-->
 
                 <DataGrid.Columns >
 

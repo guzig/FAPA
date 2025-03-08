@@ -1,5 +1,5 @@
 ﻿using System.Xml.Xsl;
-using FaPA.AppServices;
+using FaPA.Infrastructure;
 using NUnit.Framework;
 
 namespace FaPaTets.Misc

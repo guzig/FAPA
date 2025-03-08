@@ -1,4 +1,4 @@
-﻿using FaPA.Core;
+﻿using WAFEL.Core;
 
 namespace FaPA.GUI.Design.Events
 {

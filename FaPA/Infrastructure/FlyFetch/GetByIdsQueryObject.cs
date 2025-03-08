@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using FaPA.DomainServices.Utils;
+
 using NHibernate;
 using NHibernate.Criterion;
+using WAFEL.Core.CORE.DomainServices.Utils;
+using WAFEL.CORE.DomainServices.Utils;
 
 namespace FaPA.Infrastructure.FlyFetch
 {

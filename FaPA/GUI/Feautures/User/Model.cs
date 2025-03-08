@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
-using FaPA.Core;
+using WAFEL.Core;
 using FaPA.GUI.Controls.MyTabControl;
 using NHibernate;
 

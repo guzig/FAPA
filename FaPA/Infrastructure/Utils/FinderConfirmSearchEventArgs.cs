@@ -2,7 +2,7 @@
 using System.Collections;
 using NHibernate.Criterion;
 
-namespace FaPA.Infrastructure.Helpers
+namespace FaPA.Infrastructure.Utils
 {
     public class FinderConfirmSearchEventArgs : EventArgs
     {

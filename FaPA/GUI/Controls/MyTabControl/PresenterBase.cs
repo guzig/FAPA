@@ -6,13 +6,13 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
-using FaPA.Core;
-using FaPA.DomainServices.Utils;
+using WAFEL.Core;
+
 using FaPA.Infrastructure;
 using FaPA.Infrastructure.FlyFetch;
-using FaPA.Infrastructure.Helpers;
 using FaPA.Infrastructure.Utils;
 using NHibernate.Criterion;
+using WAFEL.Core.CORE.DomainServices.Utils;
 
 namespace FaPA.GUI.Controls.MyTabControl
 {

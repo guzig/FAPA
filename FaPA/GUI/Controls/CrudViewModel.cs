@@ -3,11 +3,11 @@ using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Windows;
 using System.Windows.Input;
-using FaPA.AppServices.CoreValidation;
-using FaPA.Core;
+using WAFEL.Core;
 using FaPA.GUI.Controls.MyTabControl;
 using FaPA.Infrastructure;
 using FaPA.Infrastructure.Utils;
+using WAFEL.Core.CORE.AppServices.CoreValidation;
 using Action = System.Action;
 
 namespace FaPA.GUI.Controls
@@ -173,7 +173,7 @@ namespace FaPA.GUI.Controls
 
             ( ( IValidatable ) userProperty ).Validate();
 
-            CurrentPoco = ObjectExplorer.DeepProxiedCopyOfType<FaPA.Core.BaseEntity>( userProperty ); 
+            CurrentPoco = ObjectExplorer.DeepProxiedCopyOfType<BaseEntity>( userProperty ); 
 
             HookChanged( ( INotifyPropertyChanged) CurrentPoco );
 

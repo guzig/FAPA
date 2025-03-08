@@ -1,13 +1,13 @@
+using FaPA.GUI.Controls;
+using FaPA.Infrastructure;
+using FaPA.Infrastructure.Utils;
+using Microsoft.Win32;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using FaPA.Core.FaPa;
-using FaPA.GUI.Controls;
-using FaPA.Infrastructure;
-using FaPA.Infrastructure.Utils;
-using Microsoft.Win32;
+using WAFEL.Core.FaPa;
 
 namespace FaPA.GUI.Feautures.Fattura
 {
@@ -158,7 +158,7 @@ namespace FaPA.GUI.Feautures.Fattura
         public override FatturaElettronicaBodyType ReadInstance()
         {
             var root = Repository.Read();
-            return ( ( Core.Fattura ) root ).FatturaElettronicaBody;
+            return ( ( WAFEL.Core.CORE.Fattura ) root ).FatturaElettronicaBody;
         }
 
         protected override bool CanSaveExecuted()
