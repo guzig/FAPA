@@ -11,7 +11,7 @@ using System.Linq;
 using FaPA.Infrastructure;
 using FaPA.Infrastructure.Utils;
 using FaPA.Properties;
-using WAFEL.Core.CORE.AppServices.CoreValidation;
+using WAFEL.AppServices.CoreValidation;
 using WAFEL.Core;
 
 namespace FaPA.GUI.Feautures.Fattura

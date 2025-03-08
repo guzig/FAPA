@@ -12,7 +12,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Windows;
 using System.Windows.Data;
-using WAFEL.Core.CORE.AppServices.CoreValidation;
+using WAFEL.AppServices.CoreValidation;
 using WAFEL.Core;
 using WAFEL.Core.CORE.DomainServices.Helpers;
 

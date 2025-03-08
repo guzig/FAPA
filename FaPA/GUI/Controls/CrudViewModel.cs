@@ -7,7 +7,7 @@ using WAFEL.Core;
 using FaPA.GUI.Controls.MyTabControl;
 using FaPA.Infrastructure;
 using FaPA.Infrastructure.Utils;
-using WAFEL.Core.CORE.AppServices.CoreValidation;
+using WAFEL.AppServices.CoreValidation;
 using Action = System.Action;
 
 namespace FaPA.GUI.Controls

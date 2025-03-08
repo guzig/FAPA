@@ -7,6 +7,7 @@ using Caliburn.Micro;
 using FaPA.Infrastructure.Utils;
 using NHibernate.Criterion;
 using NHibernate.SqlCommand;
+using WAFEL.Core;
 
 namespace FaPA.Infrastructure.Finder
 {
@@ -88,7 +89,7 @@ namespace FaPA.Infrastructure.Finder
 
                 var propType =typeof(T);
                 
-                _isUsertType = propType.FullName.StartsWith(NameSpacePrefix) && propType.BaseType != null && propType.BaseType != typeof (Enum);
+                _isUsertType = propType.FullName.StartsWith(DefC.NameSpacePrefix) && propType.BaseType != null && propType.BaseType != typeof (Enum);
 
                 return (bool) _isUsertType;
             }
@@ -121,9 +122,7 @@ namespace FaPA.Infrastructure.Finder
 
         #endregion
         
-        //todo: refactor
-        private const string NameSpacePrefix = "FaPA.Core"; 
-        
+       
         public abstract bool HasCriteria();
 
         public abstract void ClearSearchParamValue();
